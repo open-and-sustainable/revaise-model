@@ -1,0 +1,498 @@
+id: https://<your-username>.github.io/revaise-model/schema
+name: revaise
+prefixes:
+  linkml: https://w3id.org/linkml/
+  revaise: https://<your-username>.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+  - linkml:types
+
+# -------------------------
+# ENUMS
+# -------------------------
+enums:
+  StageType:
+    permissible_values:
+      registration: {}
+      search: {}
+      deduplication: {}
+      screening_title_abstract: {}
+      screening_fulltext: {}
+      data_extraction: {}
+      risk_of_bias: {}
+      synthesis_meta_analysis: {}
+      synthesis_narrative: {}
+      reporting_prisma: {}
+      reproducibility_pack: {}
+  ArtifactKind:
+    permissible_values:
+      search_query: {}
+      search_log: {}
+      records_raw: {}
+      records_deduped: {}
+      screening_decisions: {}
+      inclusion_list: {}
+      exclusion_list: {}
+      fulltexts: {}
+      extraction_table: {}
+      rob_table: {}
+      meta_analysis_table: {}
+      forest_plot: {}
+      prisma_flow: {}
+      code_archive: {}
+      environment_lock: {}
+      model_card: {}
+  DatasetKind:
+    permissible_values:
+      bibliographic_db: {}
+      local_index: {}
+      fulltext_corpus: {}
+      annotation_set: {}
+      gold_labels: {}
+      calibration_set: {}
+  SynthesisType:
+    permissible_values:
+      meta_analysis: {}
+      narrative: {}
+  MetricKind:
+    permissible_values:
+      precision: {}
+      recall: {}
+      f1: {}
+      accuracy: {}
+      auroc: {}
+      kappa: {}
+      krippendorff_alpha: {}
+  RoleKind:
+    permissible_values:
+      generator: {}
+      classifier: {}
+      ranker: {}
+      deduper: {}
+      extractor: {}
+      summarizer: {}
+      evidence_locator: {}
+      critic: {}
+      orchestrator: {}
+
+# -------------------------
+# CLASSES
+# -------------------------
+classes:
+  Review:
+    description: "Top-level container for a systematic review run with AI support."
+    slots:
+      - id
+      - title
+      - protocol
+      - stages
+      - artifacts
+      - software_env
+      - contributors
+      - created_at
+      - updated_at
+    slot_usage:
+      protocol: { range: Protocol }
+      stages:
+        range: StageExecution
+        multivalued: true
+      artifacts:
+        range: Artifact
+        multivalued: true
+      software_env: { range: SoftwareEnv }
+      contributors:
+        range: Agent
+        multivalued: true
+
+  Protocol:
+    description: "Registration and scoping details."
+    slots:
+      - registry
+      - registration_id
+      - registration_url
+      - research_question
+      - eligibility_criteria
+      - picos
+      - start_date
+
+  StageExecution:
+    description: "One concrete stage of the review, including AI use and outputs."
+    slots:
+      - stage_type
+      - label
+      - description
+      - started_at
+      - ended_at
+      - inputs
+      - datasets
+      - ai_uses
+      - human_in_loop
+      - decisions
+      - outputs
+      - metrics
+      - cost
+
+    slot_usage:
+      stage_type: { range: StageType }
+      inputs:
+        range: ArtifactRef
+        multivalued: true
+      datasets:
+        range: DatasetRef
+        multivalued: true
+      ai_uses:
+        range: AIUse
+        multivalued: true
+      human_in_loop:
+        range: HumanLoop
+      decisions:
+        range: Decision
+        multivalued: true
+      outputs:
+        range: Output
+        multivalued: true
+      metrics:
+        range: Metric
+        multivalued: true
+
+  AIUse:
+    description: "How an AI model was used in this stage."
+    slots:
+      - role
+      - task
+      - provider
+      - model_name
+      - model_version
+      - model_card
+      - parameters
+      - prompt
+      - tools_used
+      - tool_calls
+      - fine_tuned
+      - training_data
+      - evaluation
+      - safety_notes
+      - seed
+      - context_window
+
+    slot_usage:
+      role: { range: RoleKind }
+      parameters: { range: ModelParameters }
+      prompt: { range: Prompt }
+      tools_used:
+        range: ToolRef
+        multivalued: true
+      tool_calls:
+        range: ToolCall
+        multivalued: true
+      training_data:
+        range: DatasetRef
+      evaluation:
+        range: Metric
+        multivalued: true
+
+  Prompt:
+    description: "Prompting details."
+    slots:
+      - system
+      - template
+      - variables
+      - rendered
+      - fewshot_ids
+
+  ModelParameters:
+    description: "Common generation/classification parameters."
+    slots:
+      - temperature
+      - top_p
+      - max_tokens
+      - frequency_penalty
+      - presence_penalty
+      - stop
+
+  ToolRef:
+    slots:
+      - name
+      - version
+      - uri
+
+  ToolCall:
+    slots:
+      - tool_name
+      - arguments_json
+      - outputs_json
+      - started_at
+      - ended_at
+
+  DatasetRef:
+    description: "External dataset or snapshot used in a stage."
+    slots:
+      - kind
+      - name
+      - uri
+      - snapshot_hash
+      - license
+      - notes
+    slot_usage:
+      kind: { range: DatasetKind }
+
+  HumanLoop:
+    description: "How humans supervised or corrected the AI."
+    slots:
+      - policy
+      - reviewers
+      - adjudication_rules
+
+    slot_usage:
+      reviewers:
+        range: Agent
+        multivalued: true
+
+  Decision:
+    description: "Atomic decision record (e.g., include/exclude rationale)."
+    slots:
+      - item_id
+      - action
+      - rationale
+      - agent
+      - timestamp
+      - overridden_by
+
+    slot_usage:
+      agent: { range: Agent }
+
+  Output:
+    description: "Typed outputs produced by the stage."
+    slots:
+      - kind
+      - artifacts
+      - prisma      # for reporting_prisma stages
+      - synthesis   # for synthesis stages
+    slot_usage:
+      kind: { range: StageType }
+      artifacts:
+        range: ArtifactRef
+        multivalued: true
+      prisma: { range: PRISMAFlow }
+      synthesis: { range: Synthesis }
+
+  PRISMAFlow:
+    description: "PRISMA 2020 flow counts."
+    slots:
+      - records_identified
+      - duplicates_removed
+      - records_screened
+      - records_excluded
+      - reports_sought
+      - reports_not_retrieved
+      - reports_assessed
+      - studies_included
+      - notes
+
+  Synthesis:
+    description: "Synthesis result payload."
+    slots:
+      - synthesis_type
+      - effect_model
+      - effect_size
+      - ci_low
+      - ci_high
+      - heterogeneity_i2
+      - tau2
+      - k_studies
+      - subgroup_notes
+      - narrative_summary
+
+    slot_usage:
+      synthesis_type: { range: SynthesisType }
+
+  Metric:
+    description: "Evaluation metric (per stage or per model)."
+    slots:
+      - name
+      - kind
+      - value
+      - split
+      - threshold
+    slot_usage:
+      kind: { range: MetricKind }
+
+  Artifact:
+    description: "Physical/virtual artifact stored somewhere."
+    slots:
+      - kind
+      - uri
+      - format
+      - checksum
+      - created_at
+    slot_usage:
+      kind: { range: ArtifactKind }
+
+  ArtifactRef:
+    description: "Reference to an artifact in this or another revaise bundle."
+    slots:
+      - uri
+      - checksum
+      - label
+
+  SoftwareEnv:
+    description: "Reproducible environment specification."
+    slots:
+      - os
+      - containers
+      - lockfiles
+      - hardware
+    slot_usage:
+      containers:
+        range: ArtifactRef
+        multivalued: true
+      lockfiles:
+        range: ArtifactRef
+        multivalued: true
+
+  Agent:
+    description: "Person or org."
+    slots:
+      - name
+      - orcid
+      - email
+      - role
+
+# -------------------------
+# SLOTS
+# -------------------------
+slots:
+  id: { identifier: true, range: string }
+  title: { range: string }
+  protocol: {}
+  stages: {}
+  artifacts: {}
+  software_env: {}
+  contributors: {}
+  created_at: { range: datetime }
+  updated_at: { range: datetime }
+
+  # Protocol
+  registry: { range: string }
+  registration_id: { range: string }
+  registration_url: { range: uri }
+  research_question: { range: string }
+  eligibility_criteria: { range: string }
+  picos: { range: string }
+  start_date: { range: date }
+
+  # StageExecution
+  stage_type: {}
+  label: { range: string }
+  description: { range: string }
+  started_at: { range: datetime }
+  ended_at: { range: datetime }
+  inputs: {}
+  datasets: {}
+  ai_uses: {}
+  human_in_loop: {}
+  decisions: {}
+  outputs: {}
+  metrics: {}
+  cost: { range: float }
+
+  # AIUse
+  role: {}
+  task: { range: string }
+  provider: { range: string }
+  model_name: { range: string }
+  model_version: { range: string }
+  model_card: { range: uri }
+  parameters: {}
+  prompt: {}
+  tools_used: {}
+  tool_calls: {}
+  fine_tuned: { range: boolean }
+  training_data: {}
+  evaluation: {}
+  safety_notes: { range: string }
+  seed: { range: integer }
+  context_window: { range: integer }
+
+  # Prompt
+  system: { range: string }
+  template: { range: string }
+  variables: { range: string }     # JSON string or key=value list
+  rendered: { range: string }
+  fewshot_ids: { range: string }
+
+  # ToolRef / ToolCall
+  name: { range: string }
+  version: { range: string }
+  uri: { range: uri }
+  tool_name: { range: string }
+  arguments_json: { range: string }
+  outputs_json: { range: string }
+
+  # DatasetRef
+  kind: {}
+  snapshot_hash: { range: string }
+  license: { range: string }
+  notes: { range: string }
+
+  # HumanLoop
+  policy: { range: string }
+  reviewers: {}
+  adjudication_rules: { range: string }
+
+  # Decision
+  item_id: { range: string }
+  action: { range: string }        # e.g., include/exclude/extract/fix
+  rationale: { range: string }
+  agent: {}
+  timestamp: { range: datetime }
+  overridden_by: { range: string }
+
+  # Output
+  artifacts: {}
+  prisma: {}
+  synthesis: {}
+
+  # PRISMA
+  records_identified: { range: integer }
+  duplicates_removed: { range: integer }
+  records_screened: { range: integer }
+  records_excluded: { range: integer }
+  reports_sought: { range: integer }
+  reports_not_retrieved: { range: integer }
+  reports_assessed: { range: integer }
+  studies_included: { range: integer }
+
+  # Synthesis
+  synthesis_type: {}
+  effect_model: { range: string }  # fixed/random
+  effect_size: { range: float }
+  ci_low: { range: float }
+  ci_high: { range: float }
+  heterogeneity_i2: { range: float }
+  tau2: { range: float }
+  k_studies: { range: integer }
+  subgroup_notes: { range: string }
+  narrative_summary: { range: string }
+
+  # Metric
+  kind: {}
+  value: { range: float }
+  split: { range: string }         # train/val/test/holdout
+  threshold: { range: float }
+
+  # Artifact
+  format: { range: string }
+  checksum: { range: string }
+  created_at: { range: datetime }
+
+  # SoftwareEnv
+  os: { range: string }
+  containers: {}
+  lockfiles: {}
+  hardware: { range: string }
+
+  # Agent
+  orcid: { range: string }
+  email: { range: string }
+  role: { range: string }
