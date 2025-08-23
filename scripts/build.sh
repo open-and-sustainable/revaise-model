@@ -8,8 +8,8 @@ VER="${1:-dev}"
 rm -rf "$OUT"
 mkdir -p "$OUT/schema/$VER" "$OUT/schema/latest"
 
-linkml-convert --schema "$SCHEMA" --target jsonschema > "$OUT/schema/$VER/revaise.schema.json"
-linkml-convert --schema "$SCHEMA" --target context     > "$OUT/schema/$VER/context.jsonld"
+gen-json-schema "$SCHEMA" > "$OUT/schema/$VER/revaise.schema.json"
+gen-jsonld-context "$SCHEMA" > "$OUT/schema/$VER/context.jsonld"
 gen-doc --schema "$SCHEMA" --output "$OUT/docs/$VER"
 
 cp "$SCHEMA" "$OUT/schema/$VER/revaise.yaml"
