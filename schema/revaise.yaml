@@ -377,7 +377,7 @@ slots:
   cost: {range: float}
 
   # AIUse
-  role: {}
+  role: {range: string}
   task: {range: string}
   model_id: {range: string}
   provider_id: {range: string}
@@ -393,7 +393,6 @@ slots:
 
   # Prompt
   prompt_id: {range: string}
-  role: {}
   template: {range: string}
   variables: {range: string}
   rendered: {range: string}
@@ -413,8 +412,12 @@ slots:
   tool_name: {range: string}
   arguments_json: {range: string}
   outputs_json: {range: string}
-  started_at: {range: datetime}
-  ended_at: {range: datetime}
+
+  # Provider / Model
+  url: {range: uri}
+  terms_of_use: {range: string}
+  card_uri: {range: uri}
+  modality: {range: string}
 
   # DatasetRef
   kind: {}
@@ -436,8 +439,6 @@ slots:
   overridden_by: {range: string}
 
   # Output
-  kind: {}
-  artifacts: {}
   prisma: {}
   synthesis: {}
 
@@ -450,7 +451,6 @@ slots:
   reports_not_retrieved: {range: integer}
   reports_assessed: {range: integer}
   studies_included: {range: integer}
-  notes: {range: string}
 
   # Synthesis
   synthesis_type: {}
@@ -465,8 +465,6 @@ slots:
   narrative_summary: {range: string}
 
   # Metric
-  name: {range: string}
-  kind: {}
   value: {range: float}
   split: {range: string}
   threshold: {range: float}
@@ -484,4 +482,3 @@ slots:
   # Agent
   orcid: {range: string}
   email: {range: string}
-  role: {range: string}
