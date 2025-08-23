@@ -10,7 +10,7 @@ mkdir -p "$OUT/schema/$VER" "$OUT/schema/latest"
 
 gen-json-schema "$SCHEMA" > "$OUT/schema/$VER/revaise.schema.json"
 gen-jsonld-context "$SCHEMA" > "$OUT/schema/$VER/context.jsonld"
-gen-doc --schema "$SCHEMA" --output "$OUT/docs/$VER"
+gen-doc "$SCHEMA" --directory "$OUT/docs/$VER"
 
 cp "$SCHEMA" "$OUT/schema/$VER/revaise.yaml"
 
