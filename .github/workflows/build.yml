@@ -21,7 +21,7 @@ jobs:
       - name: Install LinkML toolchain
         run: |
           python -m pip install --upgrade pip
-          pip install linkml linkml-runtime linkml-renderers jsonschema jq
+          pip install linkml linkml-runtime linkml-renderer jsonschema jq
       - name: Determine version
         id: v
         run: |
