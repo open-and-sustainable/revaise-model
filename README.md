@@ -1,4 +1,4 @@
-<p align="center">
+<p style="background-color:white; display:inline-block;" align="center">
   <img src="images/logo_full.png" alt="RevAIse logo" width="200" />
 </p>
 
