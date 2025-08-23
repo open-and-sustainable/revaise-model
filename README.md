@@ -4,8 +4,6 @@
 
 # RevAIse — Review AI Standard for Exchange
 
-**Author:** Riccardo Boero – [ribo@nilu.no](mailto:ribo@nilu.no)
-
 RevAIse is an open standard for describing, sharing, and reproducing AI-supported systematic reviews, organized by stages.
 
 ## Documentation
@@ -20,3 +18,4 @@ Example data instances can be found in the [`examples/`](examples/) directory.
 ## License
 
 This project is released under the [Creative Commons Zero v1.0 Universal](LICENSE) license.
+**Author:** Riccardo Boero – [ribo@nilu.no](mailto:ribo@nilu.no)
