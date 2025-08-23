@@ -15,84 +15,144 @@ enums:
   StageType:
     description: "Logical stages of a systematic review (typical flow)."
     permissible_values:
-      scoping: {}
-      registration: {}
-      search: {}
-      deduplication: {}
-      screening_title_abstract: {}
-      screening_fulltext: {}
-      data_extraction: {}
-      risk_of_bias: {}
-      synthesis_meta_analysis: {}
-      synthesis_narrative: {}
-      reporting_prisma: {}
-      reproducibility_pack: {}
+      scoping:
+        description: "Initial scoping to refine the review question."
+      registration:
+        description: "Registering the review protocol."
+      search:
+        description: "Executing literature search strategies."
+      deduplication:
+        description: "Removing duplicate records."
+      screening_title_abstract:
+        description: "Screening titles and abstracts."
+      screening_fulltext:
+        description: "Full-text screening of records."
+      data_extraction:
+        description: "Extracting data from included studies."
+      risk_of_bias:
+        description: "Assessing risk of bias."
+      synthesis_meta_analysis:
+        description: "Performing quantitative synthesis."
+      synthesis_narrative:
+        description: "Performing narrative synthesis."
+      reporting_prisma:
+        description: "Preparing PRISMA report."
+      reproducibility_pack:
+        description: "Compiling reproducibility package."
 
   ArtifactKind:
     permissible_values:
-      search_query: {}
-      search_log: {}
-      records_raw: {}
-      records_deduped: {}
-      screening_decisions: {}
-      inclusion_list: {}
-      exclusion_list: {}
-      fulltexts: {}
-      extraction_table: {}
-      rob_table: {}
-      meta_analysis_table: {}
-      forest_plot: {}
-      prisma_flow: {}
-      code_archive: {}
-      environment_lock: {}
-      model_card: {}
-      other: {}
+      search_query:
+        description: "Search query strings used in databases."
+      search_log:
+        description: "Logs of search executions."
+      records_raw:
+        description: "Raw record exports from databases."
+      records_deduped:
+        description: "Records after deduplication."
+      screening_decisions:
+        description: "Decisions from screening stages."
+      inclusion_list:
+        description: "List of included studies."
+      exclusion_list:
+        description: "List of excluded studies."
+      fulltexts:
+        description: "Full-text documents retrieved."
+      extraction_table:
+        description: "Structured data extraction table."
+      rob_table:
+        description: "Risk of bias assessment table."
+      meta_analysis_table:
+        description: "Table summarizing meta-analysis results."
+      forest_plot:
+        description: "Forest plot graphic."
+      prisma_flow:
+        description: "PRISMA flow diagram."
+      code_archive:
+        description: "Archive of code used."
+      environment_lock:
+        description: "Environment lockfiles or manifests."
+      model_card:
+        description: "AI model card or documentation."
+      other:
+        description: "Other artifact type."
 
   DatasetKind:
     permissible_values:
-      bibliographic_db: {}
-      local_index: {}
-      fulltext_corpus: {}
-      annotation_set: {}
-      gold_labels: {}
-      calibration_set: {}
-      other: {}
+      bibliographic_db:
+        description: "Online bibliographic database."
+      local_index:
+        description: "Local index built from sources."
+      fulltext_corpus:
+        description: "Corpus of full-text documents."
+      annotation_set:
+        description: "Set of human or machine annotations."
+      gold_labels:
+        description: "Gold standard labels for evaluation."
+      calibration_set:
+        description: "Dataset used for calibration."
+      other:
+        description: "Other dataset kind."
 
   SynthesisType:
     permissible_values:
-      meta_analysis: {}
-      narrative: {}
+      meta_analysis:
+        description: "Quantitative synthesis."
+      narrative:
+        description: "Narrative synthesis."
 
   MetricKind:
     permissible_values:
-      precision: {}
-      recall: {}
-      f1: {}
-      accuracy: {}
-      auroc: {}
-      kappa: {}
-      krippendorff_alpha: {}
-      mpe: {}
-      rmse: {}
+      precision:
+        description: "Proportion of retrieved items that are relevant."
+      recall:
+        description: "Proportion of relevant items retrieved."
+      f1:
+        description: "Harmonic mean of precision and recall."
+      accuracy:
+        description: "Overall correctness rate."
+      auroc:
+        description: "Area under the ROC curve."
+      kappa:
+        description: "Cohen's kappa agreement statistic."
+      krippendorff_alpha:
+        description: "Krippendorff's alpha reliability measure."
+      mpe:
+        description: "Mean percent error."
+      rmse:
+        description: "Root mean squared error."
 
   RoleKind:
     permissible_values:
-      generator: {}
-      classifier: {}
-      ranker: {}
-      deduper: {}
-      extractor: {}
-      summarizer: {}
-      evidence_locator: {}
-      critic: {}
-      orchestrator: {}
+      generator:
+        description: "Generates text or data."
+      classifier:
+        description: "Classifies items into categories."
+      ranker:
+        description: "Ranks items by relevance."
+      deduper:
+        description: "Removes duplicate records."
+      extractor:
+        description: "Extracts structured data."
+      summarizer:
+        description: "Summarizes content."
+      evidence_locator:
+        description: "Finds supporting evidence."
+      critic:
+        description: "Reviews outputs for quality."
+      orchestrator:
+        description: "Coordinates other components."
 
   PromptRole:
     permissible_values:
-      system: {}
-      user: {}
-      assistant: {}
-      fewshot: {}
+      system:
+        description: "System-level instructions."
+      user:
+        description: "User-provided input."
+      assistant:
+        description: "Assistant-generated text."
+      fewshot:
+        description: "Few-shot example content."
 
 # =========================
 # CLASSES (modular)
@@ -250,14 +310,16 @@ classes:
     slots: [temperature, top_p, max_tokens, frequency_penalty, presence_penalty, stop]
 
   ToolRef:
-    slots: [name, version, uri]
+    description: "Reference to a tool available for use."
+    slots: [name, version, resource_uri]
 
   ToolCall:
+    description: "Record of a tool invocation within a stage."
     slots: [tool_name, arguments_json, outputs_json, started_at, ended_at]
 
   DatasetRef:
     description: "External dataset reference."
-    slots: [kind, name, uri, snapshot_hash, license, notes]
+    slots: [kind, name, resource_uri, snapshot_hash, license, notes]
     slot_usage:
       kind: { range: DatasetKind }
 
@@ -311,13 +373,13 @@ classes:
 
   Artifact:
     description: "Artifact stored in the review (files, datasets, code)."
-    slots: [kind, uri, format, checksum, created_at]
+    slots: [kind, resource_uri, format, checksum, created_at]
     slot_usage:
       kind: { range: ArtifactKind }
 
   ArtifactRef:
     description: "Reference to an artifact in this or another RevAIse bundle."
-    slots: [uri, checksum, label]
+    slots: [resource_uri, checksum, label]
 
   SoftwareEnv:
     description: "Reproducible environment description."
@@ -338,147 +400,147 @@ classes:
 # SLOTS
 # =========================
 slots:
-  # Review
-  id: {identifier: true, range: string}
-  title: {range: string}
-  protocol: {}
-  providers: {}
-  models: {}
-  prompts: {}
-  stages: {}
-  artifacts: {}
-  software_env: {}
-  contributors: {}
-  created_at: {range: datetime}
-  updated_at: {range: datetime}
+    # Review
+    id: {identifier: true, range: string, description: "Unique identifier for the review."}
+    title: {range: string, description: "Title of the systematic review."}
+    protocol: {description: "Protocol information for the review."}
+    providers: {description: "Registered AI providers used in the review."}
+    models: {description: "AI models associated with the review."}
+    prompts: {description: "Prompts defined for reuse."}
+    stages: {description: "Stages executed in the review."}
+    artifacts: {description: "Artifacts produced or used in the review."}
+    software_env: {description: "Reproducible software environment."}
+    contributors: {description: "Contributors involved in the review."}
+    created_at: {range: datetime, description: "Creation timestamp."}
+    updated_at: {range: datetime, description: "Last update timestamp."}
 
-  # Protocol
-  registry: {range: string}
-  registration_id: {range: string}
-  registration_url: {range: uri}
-  research_question: {range: string}
-  eligibility_criteria: {range: string}
-  picos: {range: string}
-  start_date: {range: date}
+    # Protocol
+    registry: {range: string, description: "Registry where the protocol is recorded."}
+    registration_id: {range: string, description: "Identifier assigned by the registry."}
+    registration_url: {range: uri, description: "URL to the registry entry."}
+    research_question: {range: string, description: "Primary research question."}
+    eligibility_criteria: {range: string, description: "Inclusion and exclusion criteria."}
+    picos: {range: string, description: "Population, Intervention, Comparison, Outcomes, Study design details."}
+    start_date: {range: date, description: "Review start date."}
 
-  # StageExecution
-  stage_type: {}
-  label: {range: string}
-  description: {range: string}
-  started_at: {range: datetime}
-  ended_at: {range: datetime}
-  inputs: {}
-  datasets: {}
-  ai_uses: {}
-  human_in_loop: {}
-  decisions: {}
-  outputs: {}
-  metrics: {}
-  cost: {range: float}
+    # StageExecution
+    stage_type: {description: "Type of stage executed."}
+    label: {range: string, description: "Human-readable label for the stage."}
+    description: {range: string, description: "Detailed description of the stage."}
+    started_at: {range: datetime, description: "Start time of the stage."}
+    ended_at: {range: datetime, description: "End time of the stage."}
+    inputs: {description: "Artifacts serving as inputs."}
+    datasets: {description: "Datasets referenced in the stage."}
+    ai_uses: {description: "AI uses within this stage."}
+    human_in_loop: {description: "Human oversight details."}
+    decisions: {description: "Decisions made during the stage."}
+    outputs: {description: "Outputs produced by the stage."}
+    metrics: {description: "Metrics collected for evaluation."}
+    cost: {range: float, description: "Estimated cost of the stage."}
 
-  # AIUse
-  role: {range: string}
-  task: {range: string}
-  model_id: {range: string}
-  provider_id: {range: string}
-  prompt_ids: {}
-  parameters: {}
-  tools_used: {}
-  tool_calls: {}
-  training_data: {}
-  evaluation: {}
-  safety_notes: {range: string}
-  seed: {range: integer}
-  context_window: {range: integer}
+    # AIUse
+    role: {range: string, description: "Functional role of the AI model."}
+    task: {range: string, description: "Task performed by the AI."}
+    model_id: {range: string, description: "Identifier of the model used."}
+    provider_id: {range: string, description: "Identifier of the model provider."}
+    prompt_ids: {description: "Prompts referenced by this use."}
+    parameters: {description: "Model parameters applied."}
+    tools_used: {description: "Tools available to the model."}
+    tool_calls: {description: "Tool invocations performed."}
+    training_data: {description: "Datasets used for training or fine-tuning."}
+    evaluation: {description: "Evaluation metrics for this use."}
+    safety_notes: {range: string, description: "Safety considerations."}
+    seed: {range: integer, description: "Random seed for reproducibility."}
+    context_window: {range: integer, description: "Maximum context window size."}
 
-  # Prompt
-  prompt_id: {range: string}
-  template: {range: string}
-  variables: {range: string}
-  rendered: {range: string}
+    # Prompt
+    prompt_id: {range: string, description: "Identifier for the prompt."}
+    template: {range: string, description: "Template text of the prompt."}
+    variables: {range: string, description: "Variables interpolated into the prompt."}
+    rendered: {range: string, description: "Rendered prompt text."}
 
-  # ModelParameters
-  temperature: {range: float}
-  top_p: {range: float}
-  max_tokens: {range: integer}
-  frequency_penalty: {range: float}
-  presence_penalty: {range: float}
-  stop: {range: string}
+    # ModelParameters
+    temperature: {range: float, description: "Sampling temperature."}
+    top_p: {range: float, description: "Top-p nucleus sampling value."}
+    max_tokens: {range: integer, description: "Maximum number of tokens to generate."}
+    frequency_penalty: {range: float, description: "Frequency penalty parameter."}
+    presence_penalty: {range: float, description: "Presence penalty parameter."}
+    stop: {range: string, description: "Stop sequences for generation."}
 
-  # ToolRef / ToolCall
-  name: {range: string}
-  version: {range: string}
-  uri: {range: uri}
-  tool_name: {range: string}
-  arguments_json: {range: string}
-  outputs_json: {range: string}
+    # ToolRef / ToolCall
+    name: {range: string, description: "Name of the tool."}
+    version: {range: string, description: "Version of the tool."}
+    resource_uri: {range: uri, description: "Canonical URI locating the tool or resource."}
+    tool_name: {range: string, description: "Name of the invoked tool."}
+    arguments_json: {range: string, description: "JSON-encoded call arguments."}
+    outputs_json: {range: string, description: "JSON-encoded tool outputs."}
 
-  # Provider / Model
-  url: {range: uri}
-  terms_of_use: {range: string}
-  card_uri: {range: uri}
-  modality: {range: string}
+    # Provider / Model
+    url: {range: uri, description: "Homepage or endpoint for the provider or model."}
+    terms_of_use: {range: string, description: "Terms of service or use."}
+    card_uri: {range: uri, description: "URI to the model card."}
+    modality: {range: string, description: "Input/output modality."}
 
-  # DatasetRef
-  kind: {}
-  snapshot_hash: {range: string}
-  license: {range: string}
-  notes: {range: string}
+    # DatasetRef
+    kind: {description: "Kind of dataset referenced."}
+    snapshot_hash: {range: string, description: "Checksum of the dataset snapshot."}
+    license: {range: string, description: "License governing the dataset."}
+    notes: {range: string, description: "Additional notes about the dataset."}
 
-  # HumanLoop
-  policy: {range: string}
-  reviewers: {}
-  adjudication_rules: {range: string}
+    # HumanLoop
+    policy: {range: string, description: "Policy guiding human oversight."}
+    reviewers: {description: "Agents serving as reviewers."}
+    adjudication_rules: {range: string, description: "Rules for adjudicating disagreements."}
 
-  # Decision
-  item_id: {range: string}
-  action: {range: string}
-  rationale: {range: string}
-  agent: {}
-  timestamp: {range: datetime}
-  overridden_by: {range: string}
+    # Decision
+    item_id: {range: string, description: "Identifier of the item decided upon."}
+    action: {range: string, description: "Decision action taken."}
+    rationale: {range: string, description: "Justification for the decision."}
+    agent: {description: "Agent responsible for the decision."}
+    timestamp: {range: datetime, description: "Time the decision was made."}
+    overridden_by: {range: string, description: "Identifier of any overriding decision."}
 
-  # Output
-  prisma: {}
-  synthesis: {}
+    # Output
+    prisma: {description: "PRISMA flow information."}
+    synthesis: {description: "Synthesis results."}
 
-  # PRISMA
-  records_identified: {range: integer}
-  duplicates_removed: {range: integer}
-  records_screened: {range: integer}
-  records_excluded: {range: integer}
-  reports_sought: {range: integer}
-  reports_not_retrieved: {range: integer}
-  reports_assessed: {range: integer}
-  studies_included: {range: integer}
+    # PRISMA
+    records_identified: {range: integer, description: "Records identified through searching."}
+    duplicates_removed: {range: integer, description: "Duplicate records removed."}
+    records_screened: {range: integer, description: "Records screened."}
+    records_excluded: {range: integer, description: "Records excluded after screening."}
+    reports_sought: {range: integer, description: "Reports sought for retrieval."}
+    reports_not_retrieved: {range: integer, description: "Reports not retrieved."}
+    reports_assessed: {range: integer, description: "Reports assessed for eligibility."}
+    studies_included: {range: integer, description: "Studies included in synthesis."}
 
-  # Synthesis
-  synthesis_type: {}
-  effect_model: {range: string}
-  effect_size: {range: float}
-  ci_low: {range: float}
-  ci_high: {range: float}
-  heterogeneity_i2: {range: float}
-  tau2: {range: float}
-  k_studies: {range: integer}
-  subgroup_notes: {range: string}
-  narrative_summary: {range: string}
+    # Synthesis
+    synthesis_type: {description: "Type of synthesis performed."}
+    effect_model: {range: string, description: "Statistical model used."}
+    effect_size: {range: float, description: "Estimated effect size."}
+    ci_low: {range: float, description: "Lower bound of confidence interval."}
+    ci_high: {range: float, description: "Upper bound of confidence interval."}
+    heterogeneity_i2: {range: float, description: "I² heterogeneity statistic."}
+    tau2: {range: float, description: "Between-study variance."}
+    k_studies: {range: integer, description: "Number of studies included."}
+    subgroup_notes: {range: string, description: "Notes on subgroup analyses."}
+    narrative_summary: {range: string, description: "Narrative summary of findings."}
 
-  # Metric
-  value: {range: float}
-  split: {range: string}
-  threshold: {range: float}
+    # Metric
+    value: {range: float, description: "Metric value."}
+    split: {range: string, description: "Dataset split the metric applies to."}
+    threshold: {range: float, description: "Threshold applied for evaluation."}
 
-  # Artifact
-  format: {range: string}
-  checksum: {range: string}
+    # Artifact
+    format: {range: string, description: "File format or serialization."}
+    checksum: {range: string, description: "Checksum of the artifact."}
 
-  # SoftwareEnv
-  os: {range: string}
-  containers: {}
-  lockfiles: {}
-  hardware: {range: string}
+    # SoftwareEnv
+    os: {range: string, description: "Operating system description."}
+    containers: {description: "Container images used."}
+    lockfiles: {description: "Environment lockfiles."}
+    hardware: {range: string, description: "Hardware specifications."}
 
-  # Agent
-  orcid: {range: string}
-  email: {range: string}
+    # Agent
+    orcid: {range: string, description: "ORCID identifier for the agent."}
+    email: {range: string, description: "Contact email for the agent."}
