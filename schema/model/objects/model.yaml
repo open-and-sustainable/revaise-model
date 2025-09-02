@@ -1,0 +1,20 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/model
+name: revaise_model_obj
+description: "AI model definition."
+imports:
+  - linkml:types
+  - ./slots
+classes:
+  Model:
+    description: "An AI model with unique identity, connected to a provider."
+    slots:
+      - model_id
+      - name
+      - version
+      - provider_id
+      - card_uri
+      - modality
+      - license
+    slot_usage:
+      model_id: { identifier: true }
+      provider_id: { range: string }

@@ -1,0 +1,45 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/stage_execution
+name: revaise_stage_execution
+description: "Execution of a review stage."
+imports:
+  - linkml:types
+  - ./slots
+  - ./enums
+classes:
+  StageExecution:
+    description: "Execution of a specific stage of the review, including AI use and outputs."
+    slots:
+      - stage_type
+      - label
+      - description
+      - started_at
+      - ended_at
+      - inputs
+      - datasets
+      - ai_uses
+      - human_in_loop
+      - decisions
+      - outputs
+      - metrics
+      - cost
+    slot_usage:
+      stage_type: { range: StageType }
+      inputs:
+        range: ArtifactRef
+        multivalued: true
+      datasets:
+        range: DatasetRef
+        multivalued: true
+      ai_uses:
+        range: AIUse
+        multivalued: true
+      human_in_loop: { range: HumanLoop }
+      decisions:
+        range: Decision
+        multivalued: true
+      outputs:
+        range: Output
+        multivalued: true
+      metrics:
+        range: Metric
+        multivalued: true

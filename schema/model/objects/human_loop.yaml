@@ -1,0 +1,17 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/human_loop
+name: revaise_human_loop
+description: "Human oversight details."
+imports:
+  - linkml:types
+  - ./slots
+classes:
+  HumanLoop:
+    description: "Human-in-the-loop setup for oversight and adjudication."
+    slots:
+      - policy
+      - reviewers
+      - adjudication_rules
+    slot_usage:
+      reviewers:
+        range: Agent
+        multivalued: true

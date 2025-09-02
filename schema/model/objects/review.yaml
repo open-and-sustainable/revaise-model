@@ -1,0 +1,43 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/review
+name: revaise_review
+description: "Review container object."
+imports:
+  - linkml:types
+  - ./slots
+classes:
+  Review:
+    description: "Top-level container of a systematic review, including registries for providers, models, prompts, and executed stages."
+    slots:
+      - id
+      - title
+      - protocol
+      - providers
+      - models
+      - prompts
+      - stages
+      - artifacts
+      - software_env
+      - contributors
+      - created_at
+      - updated_at
+    slot_usage:
+      protocol: { range: Protocol }
+      providers:
+        range: Provider
+        multivalued: true
+      models:
+        range: Model
+        multivalued: true
+      prompts:
+        range: Prompt
+        multivalued: true
+      stages:
+        range: StageExecution
+        multivalued: true
+      artifacts:
+        range: Artifact
+        multivalued: true
+      software_env: { range: SoftwareEnv }
+      contributors:
+        range: Agent
+        multivalued: true

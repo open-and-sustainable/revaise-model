@@ -1,0 +1,22 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/output
+name: revaise_output
+description: "Stage output object."
+imports:
+  - linkml:types
+  - ./slots
+  - ./enums
+classes:
+  Output:
+    description: "Typed outputs of a stage."
+    slots:
+      - kind
+      - artifacts
+      - prisma
+      - synthesis
+    slot_usage:
+      kind: { range: StageType }
+      artifacts:
+        range: ArtifactRef
+        multivalued: true
+      prisma: { range: PRISMAFlow }
+      synthesis: { range: Synthesis }

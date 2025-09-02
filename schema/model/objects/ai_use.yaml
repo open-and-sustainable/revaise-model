@@ -1,0 +1,68 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/ai_use
+name: revaise_ai_use
+description: "AI use and related parameter classes."
+imports:
+  - linkml:types
+  - ./slots
+  - ./enums
+classes:
+  AIUse:
+    description: "Concrete use of AI within a stage: model, prompts, parameters, evaluation."
+    slots:
+      - role
+      - task
+      - model_id
+      - provider_id
+      - prompt_ids
+      - parameters
+      - tools_used
+      - tool_calls
+      - training_data
+      - evaluation
+      - safety_notes
+      - seed
+      - context_window
+    slot_usage:
+      role: { range: RoleKind }
+      model_id: { range: string }
+      provider_id: { range: string }
+      prompt_ids:
+        range: string
+        multivalued: true
+      parameters: { range: ModelParameters }
+      tools_used:
+        range: ToolRef
+        multivalued: true
+      tool_calls:
+        range: ToolCall
+        multivalued: true
+      training_data: { range: DatasetRef }
+      evaluation:
+        range: Metric
+        multivalued: true
+
+  ModelParameters:
+    description: "Generation or inference parameters."
+    slots:
+      - temperature
+      - top_p
+      - max_tokens
+      - frequency_penalty
+      - presence_penalty
+      - stop
+
+  ToolRef:
+    description: "Reference to a tool available for use."
+    slots:
+      - name
+      - version
+      - resource_uri
+
+  ToolCall:
+    description: "Record of a tool invocation within a stage."
+    slots:
+      - tool_name
+      - arguments_json
+      - outputs_json
+      - started_at
+      - ended_at

@@ -1,0 +1,14 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/agent
+name: revaise_agent
+description: "Agent performing actions."
+imports:
+  - linkml:types
+  - ./slots
+classes:
+  Agent:
+    description: "Person or organization."
+    slots:
+      - name
+      - orcid
+      - email
+      - role
