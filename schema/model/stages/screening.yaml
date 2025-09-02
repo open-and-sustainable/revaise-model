@@ -1,0 +1,9 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/stages/screening
+name: screening_stage
+description: "Schema for screening stage of the review workflow."
+imports:
+  - ../core
+classes:
+  ScreeningStage:
+    is_a: StageExecution
+    description: "Screening of titles and abstracts."

@@ -1,32 +1,26 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-SCHEMA="schema/revaise.yaml"
+PROFILES_DIR="schema/model/profiles"
 OUT="site"
 VER="${1:-dev}"
 
 rm -rf "$OUT"
 mkdir -p "$OUT/schema/$VER" "$OUT/schema/latest"
 
-gen-json-schema "$SCHEMA" > "$OUT/schema/$VER/revaise.schema.json"
-gen-jsonld-context "$SCHEMA" > "$OUT/schema/$VER/context.jsonld"
-gen-doc "$SCHEMA" --directory "$OUT/docs/$VER"
+index="{}"
+for schema in "$PROFILES_DIR"/*.yaml; do
+  name=$(basename "$schema" .yaml)
+  mkdir -p "$OUT/schema/$VER/$name" "$OUT/docs/$VER/$name" "$OUT/schema/latest/$name"
+  gen-json-schema "$schema" > "$OUT/schema/$VER/$name/${name}.schema.json"
+  gen-jsonld-context "$schema" > "$OUT/schema/$VER/$name/context.jsonld"
+  gen-doc "$schema" --directory "$OUT/docs/$VER/$name"
+  cp "$schema" "$OUT/schema/$VER/$name/${name}.yaml"
+  cp "$OUT/schema/$VER/$name/"{${name}.yaml,${name}.schema.json,context.jsonld} "$OUT/schema/latest/$name/"
+  index=$(echo "$index" | jq --arg n "$name" --arg v "$VER" '. + {($n): {yaml:("/schema/"+$v+"/"+$n+"/"+$n+".yaml"), jsonschema:("/schema/"+$v+"/"+$n+"/"+$n+".schema.json"), context:("/schema/"+$v+"/"+$n+"/context.jsonld"), docs:("/docs/"+$v+"/"+$n+"/")}}')
+done
 
-cp "$SCHEMA" "$OUT/schema/$VER/revaise.yaml"
-
-if [[ "$VER" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-  jq -n --arg v "$VER" \
-    '{version:$v,
-      files:{
-        yaml:"/schema/\($v)/revaise.yaml",
-        jsonschema:"/schema/\($v)/revaise.schema.json",
-        context:"/schema/\($v)/context.jsonld",
-        docs:"/docs/\($v)/"
-      }}' > "$OUT/schema/latest/index.json"
-  for f in revaise.yaml revaise.schema.json context.jsonld; do
-    cp "$OUT/schema/$VER/$f" "$OUT/schema/latest/$f"
-  done
-fi
+echo "$index" > "$OUT/schema/latest/index.json"
 
 cat > "$OUT/index.html" <<EOF
 <!doctype html><meta charset="utf-8">

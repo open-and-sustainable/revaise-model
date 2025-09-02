@@ -1,0 +1,9 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/stages/search
+name: search_stage
+description: "Schema for search stage of the review workflow."
+imports:
+  - ../core
+classes:
+  SearchStage:
+    is_a: StageExecution
+    description: "Executing literature search strategies."

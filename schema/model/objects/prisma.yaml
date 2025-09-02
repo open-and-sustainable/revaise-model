@@ -1,0 +1,19 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/prisma
+name: revaise_prisma
+description: "PRISMA flow counts."
+imports:
+  - linkml:types
+  - ./slots
+classes:
+  PRISMAFlow:
+    description: "PRISMA flow counts."
+    slots:
+      - records_identified
+      - duplicates_removed
+      - records_screened
+      - records_excluded
+      - reports_sought
+      - reports_not_retrieved
+      - reports_assessed
+      - studies_included
+      - notes

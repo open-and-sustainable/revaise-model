@@ -1,0 +1,37 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/artifact
+name: revaise_artifact
+description: "Artifact and dataset references."
+imports:
+  - linkml:types
+  - ./slots
+  - ./enums
+classes:
+  Artifact:
+    description: "Artifact stored in the review (files, datasets, code)."
+    slots:
+      - kind
+      - resource_uri
+      - format
+      - checksum
+      - created_at
+    slot_usage:
+      kind: { range: ArtifactKind }
+
+  ArtifactRef:
+    description: "Reference to an artifact in this or another RevAIse bundle."
+    slots:
+      - resource_uri
+      - checksum
+      - label
+
+  DatasetRef:
+    description: "External dataset reference."
+    slots:
+      - kind
+      - name
+      - resource_uri
+      - snapshot_hash
+      - license
+      - notes
+    slot_usage:
+      kind: { range: DatasetKind }

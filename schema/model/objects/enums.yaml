@@ -1,0 +1,152 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/enums
+name: revaise_enums
+description: "Reusable enumerations for the RevAIse model."
+prefixes:
+  linkml: https://w3id.org/linkml/
+  revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+  - linkml:types
+
+enums:
+  StageType:
+    description: "Logical stages of a systematic review (typical flow)."
+    permissible_values:
+      scoping:
+        description: "Initial scoping to refine the review question."
+      registration:
+        description: "Registering the review protocol."
+      search:
+        description: "Executing literature search strategies."
+      deduplication:
+        description: "Removing duplicate records."
+      screening_title_abstract:
+        description: "Screening titles and abstracts."
+      screening_fulltext:
+        description: "Full-text screening of records."
+      data_extraction:
+        description: "Extracting data from included studies."
+      risk_of_bias:
+        description: "Assessing risk of bias."
+      synthesis_meta_analysis:
+        description: "Performing quantitative synthesis."
+      synthesis_narrative:
+        description: "Performing narrative synthesis."
+      reporting_prisma:
+        description: "Preparing PRISMA report."
+      reproducibility_pack:
+        description: "Compiling reproducibility package."
+
+  ArtifactKind:
+    permissible_values:
+      search_query:
+        description: "Search query strings used in databases."
+      search_log:
+        description: "Logs of search executions."
+      records_raw:
+        description: "Raw record exports from databases."
+      records_deduped:
+        description: "Records after deduplication."
+      screening_decisions:
+        description: "Decisions from screening stages."
+      inclusion_list:
+        description: "List of included studies."
+      exclusion_list:
+        description: "List of excluded studies."
+      fulltexts:
+        description: "Full-text documents retrieved."
+      extraction_table:
+        description: "Structured data extraction table."
+      rob_table:
+        description: "Risk of bias assessment table."
+      meta_analysis_table:
+        description: "Table summarizing meta-analysis results."
+      forest_plot:
+        description: "Forest plot graphic."
+      prisma_flow:
+        description: "PRISMA flow diagram."
+      code_archive:
+        description: "Archive of code used."
+      environment_lock:
+        description: "Environment lockfiles or manifests."
+      model_card:
+        description: "AI model card or documentation."
+      other:
+        description: "Other artifact type."
+
+  DatasetKind:
+    permissible_values:
+      bibliographic_db:
+        description: "Online bibliographic database."
+      local_index:
+        description: "Local index built from sources."
+      fulltext_corpus:
+        description: "Corpus of full-text documents."
+      annotation_set:
+        description: "Set of human or machine annotations."
+      gold_labels:
+        description: "Gold standard labels for evaluation."
+      calibration_set:
+        description: "Dataset used for calibration."
+      other:
+        description: "Other dataset kind."
+
+  SynthesisType:
+    permissible_values:
+      meta_analysis:
+        description: "Quantitative synthesis."
+      narrative:
+        description: "Narrative synthesis."
+
+  MetricKind:
+    permissible_values:
+      precision:
+        description: "Proportion of retrieved items that are relevant."
+      recall:
+        description: "Proportion of relevant items retrieved."
+      f1:
+        description: "Harmonic mean of precision and recall."
+      accuracy:
+        description: "Overall correctness rate."
+      auroc:
+        description: "Area under the ROC curve."
+      kappa:
+        description: "Cohen's kappa agreement statistic."
+      krippendorff_alpha:
+        description: "Krippendorff's alpha reliability measure."
+      mpe:
+        description: "Mean percent error."
+      rmse:
+        description: "Root mean squared error."
+
+  RoleKind:
+    permissible_values:
+      generator:
+        description: "Generates text or data."
+      classifier:
+        description: "Classifies items into categories."
+      ranker:
+        description: "Ranks items by relevance."
+      deduper:
+        description: "Removes duplicate records."
+      extractor:
+        description: "Extracts structured data."
+      summarizer:
+        description: "Summarizes content."
+      evidence_locator:
+        description: "Finds supporting evidence."
+      critic:
+        description: "Reviews outputs for quality."
+      orchestrator:
+        description: "Coordinates other components."
+
+  PromptRole:
+    permissible_values:
+      system:
+        description: "System-level instructions."
+      user:
+        description: "User-provided input."
+      assistant:
+        description: "Assistant-generated text."
+      fewshot:
+        description: "Few-shot example content."

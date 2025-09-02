@@ -1,0 +1,18 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/metric
+name: revaise_metric
+description: "Evaluation metric."
+imports:
+  - linkml:types
+  - ./slots
+  - ./enums
+classes:
+  Metric:
+    description: "Evaluation metric."
+    slots:
+      - name
+      - kind
+      - value
+      - split
+      - threshold
+    slot_usage:
+      kind: { range: MetricKind }

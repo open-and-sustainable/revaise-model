@@ -1,0 +1,23 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/synthesis
+name: revaise_synthesis
+description: "Synthesis results."
+imports:
+  - linkml:types
+  - ./slots
+  - ./enums
+classes:
+  Synthesis:
+    description: "Meta-analysis or narrative synthesis output."
+    slots:
+      - synthesis_type
+      - effect_model
+      - effect_size
+      - ci_low
+      - ci_high
+      - heterogeneity_i2
+      - tau2
+      - k_studies
+      - subgroup_notes
+      - narrative_summary
+    slot_usage:
+      synthesis_type: { range: SynthesisType }

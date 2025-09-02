@@ -1,0 +1,9 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/core
+name: revaise_core
+description: "Core reusable definitions for the RevAIse model."
+prefixes:
+  linkml: https://w3id.org/linkml/
+  revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+  - ./objects/base

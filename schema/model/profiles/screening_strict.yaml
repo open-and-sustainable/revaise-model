@@ -1,0 +1,10 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/profiles/screening_strict
+name: screening_strict
+description: "Strict validation profile for screening stage."
+prefixes:
+  linkml: https://w3id.org/linkml/
+  revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+  - ../core
+  - ../stages/screening
