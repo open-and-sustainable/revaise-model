@@ -7,7 +7,6 @@ prefixes:
 default_prefix: revaise
 imports:
     - linkml:types
-    - ./slots
     - ./author
 
 classes:
@@ -25,12 +24,12 @@ classes:
             - volume
             - issue
             - pages
-            - language
+            - publication_language
             - publication_type
             - keywords
             - full_text_url
-            - created_at
-            - updated_at
+            - record_created_at
+            - record_updated_at
         slot_usage:
             record_id:
                 identifier: true
@@ -67,7 +66,7 @@ classes:
             pages:
                 range: string
                 description: "Page range"
-            language:
+            publication_language:
                 range: string
                 description: "Language of publication"
             publication_type:
@@ -80,10 +79,10 @@ classes:
             full_text_url:
                 range: uri
                 description: "URL to full text"
-            created_at:
+            record_created_at:
                 range: datetime
                 description: "When this record was created"
-            updated_at:
+            record_updated_at:
                 range: datetime
                 description: "Last update timestamp"
 
@@ -95,7 +94,7 @@ classes:
             - collection_description
             - records
             - record_count
-            - created_at
+            - collection_created_at
         slot_usage:
             collection_id:
                 identifier: true
@@ -115,12 +114,22 @@ classes:
             record_count:
                 range: integer
                 description: "Number of records in this collection"
-            created_at:
+            collection_created_at:
                 range: datetime
                 description: "When this collection was created"
 
 slots:
     record_id:
+        range: string
+    title:
+        range: string
+    abstract:
+        range: string
+    authors:
+        range: Author
+    publication_year:
+        range: integer
+    doi:
         range: string
     pmid:
         range: string
@@ -134,12 +143,16 @@ slots:
         range: string
     pages:
         range: string
-    language:
+    publication_language:
         range: string
     keywords:
         range: string
     full_text_url:
         range: uri
+    record_created_at:
+        range: datetime
+    record_updated_at:
+        range: datetime
     collection_id:
         range: string
     collection_name:
@@ -150,3 +163,5 @@ slots:
         range: LiteratureRecord
     record_count:
         range: integer
+    collection_created_at:
+        range: datetime

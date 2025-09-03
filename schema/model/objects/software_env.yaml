@@ -2,20 +2,38 @@ id: https://open-and-sustainable.github.io/revaise-model/schema/objects/software
 name: revaise_software_env
 description: "Software environment description."
 imports:
-  - linkml:types
-  - ./slots
+    - linkml:types
+    - ./stage_output
 classes:
-  SoftwareEnv:
-    description: "Reproducible environment description."
-    slots:
-      - os
-      - containers
-      - lockfiles
-      - hardware
-    slot_usage:
-      containers:
-        range: ArtifactRef
-        multivalued: true
-      lockfiles:
-        range: ArtifactRef
-        multivalued: true
+    SoftwareEnv:
+        description: "Software environment configuration."
+        slots:
+            - os
+            - python_version
+            - r_version
+            - containers
+            - lockfiles
+        slot_usage:
+            containers:
+                range: StageOutputRef
+                multivalued: true
+            lockfiles:
+                range: StageOutputRef
+                multivalued: true
+
+slots:
+    os:
+        range: string
+        description: "Operating system description"
+    python_version:
+        range: string
+        description: "Python version"
+    r_version:
+        range: string
+        description: "R version"
+    containers:
+        range: StageOutputRef
+        description: "Container images used"
+    lockfiles:
+        range: StageOutputRef
+        description: "Environment lockfiles"

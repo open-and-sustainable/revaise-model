@@ -2,16 +2,38 @@ id: https://open-and-sustainable.github.io/revaise-model/schema/objects/protocol
 name: revaise_protocol
 description: "Protocol details for the review."
 imports:
-  - linkml:types
-  - ./slots
+    - linkml:types
 classes:
-  Protocol:
-    description: "Scoping and registration details of the review."
-    slots:
-      - registry
-      - registration_id
-      - registration_url
-      - research_question
-      - eligibility_criteria
-      - picos
-      - start_date
+    Protocol:
+        description: "Scoping and registration details of the review."
+        slots:
+            - registry
+            - registration_id
+            - registration_url
+            - research_question
+            - eligibility_criteria
+            - picos
+            - protocol_start_date
+
+slots:
+    registry:
+        range: string
+        description: "Registry where the protocol is recorded"
+    registration_id:
+        range: string
+        description: "Identifier assigned by the registry"
+    registration_url:
+        range: uri
+        description: "URL to the registry entry"
+    research_question:
+        range: string
+        description: "Primary research question"
+    eligibility_criteria:
+        range: string
+        description: "Inclusion and exclusion criteria"
+    picos:
+        range: string
+        description: "Population, Intervention, Comparison, Outcomes, Study design details"
+    protocol_start_date:
+        range: date
+        description: "Protocol registration date"

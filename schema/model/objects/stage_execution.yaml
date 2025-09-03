@@ -7,17 +7,16 @@ prefixes:
 default_prefix: revaise
 imports:
     - linkml:types
-    - ./slots
     - ./enums
-    - ./artifact
+    - ./stage_output
 
 classes:
     StageExecution:
         description: "Base class for executing a specific stage of the review. Stages should extend this with their specific needs."
         slots:
             - stage_type
-            - label
-            - description
+            - stage_label
+            - stage_description
             - started_at
             - ended_at
             - inputs
@@ -28,10 +27,10 @@ classes:
                 range: StageType
                 required: true
                 description: "Type of stage being executed"
-            label:
+            stage_label:
                 range: string
                 description: "Human-readable label for this stage execution"
-            description:
+            stage_description:
                 range: string
                 description: "Description of what was done in this stage"
             started_at:
@@ -41,13 +40,40 @@ classes:
                 range: datetime
                 description: "When this stage ended"
             inputs:
-                range: Artifact
+                range: StageOutput
                 multivalued: true
                 description: "Input artifacts for this stage"
             outputs:
-                range: Artifact
+                range: StageOutput
                 multivalued: true
                 description: "Output artifacts produced by this stage"
             cost:
                 range: float
-                description: "Estimated cost of executing this stage"
+                minimum_value: 0
+                description: "Estimated cost of this stage"
+
+slots:
+    stage_type:
+        range: string
+        description: "Type of stage executed"
+    stage_label:
+        range: string
+        description: "Human-readable label"
+    stage_description:
+        range: string
+        description: "Detailed description"
+    started_at:
+        range: datetime
+        description: "Start time"
+    ended_at:
+        range: datetime
+        description: "End time"
+    inputs:
+        range: StageOutput
+        description: "Input artifacts"
+    outputs:
+        range: StageOutput
+        description: "Output artifacts"
+    cost:
+        range: float
+        description: "Estimated cost"

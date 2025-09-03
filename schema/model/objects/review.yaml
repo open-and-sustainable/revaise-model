@@ -7,34 +7,32 @@ prefixes:
 default_prefix: revaise
 imports:
     - linkml:types
-    - ./slots
     - ./enums
     - ./author
 
 classes:
     Review:
-        tree_root: true
         description: "Root container for a systematic review. This is the primary object that contains all review data, stages, literature records, and artifacts. Every RevAIse document should have a Review as its top-level object."
         slots:
             # Core identification
             - review_id
-            - title
+            - review_title
             - review_type
-            - abstract
-            - keywords
+            - review_abstract
+            - review_keywords
 
             # Protocol and registration
             - protocol
 
             # Authors
-            - authors
+            - review_authors
             - corresponding_author
 
             # Review metadata
             - review_status
             - version
-            - language
-            - country
+            - review_language
+            - review_country
 
             # Dates
             - start_date
@@ -51,7 +49,7 @@ classes:
             # Review components
             - stages
             - literature_records
-            - artifacts
+            - stage_outputs
 
             # Environment
             - software_env
@@ -61,24 +59,24 @@ classes:
                 identifier: true
                 required: true
                 description: "Unique identifier for this review"
-            title:
+            review_title:
                 required: true
                 description: "Title of the systematic review"
             review_type:
                 range: ReviewType
                 required: true
                 description: "Type of review being conducted"
-            abstract:
+            review_abstract:
                 range: string
                 description: "Abstract or summary of the review"
-            keywords:
+            review_keywords:
                 range: string
                 multivalued: true
-                description: "Keywords describing the review"
+                description: "Keywords or tags for the review"
             protocol:
                 range: Protocol
                 description: "Review protocol with registration details"
-            authors:
+            review_authors:
                 range: Author
                 multivalued: true
                 required: true
@@ -94,10 +92,10 @@ classes:
             version:
                 range: string
                 description: "Version of the review"
-            language:
+            review_language:
                 range: string
                 description: "Primary language of the review"
-            country:
+            review_country:
                 range: string
                 description: "Country where review is conducted"
             start_date:
@@ -133,10 +131,10 @@ classes:
                 range: LiteratureRecord
                 multivalued: true
                 description: "Literature records managed in this review"
-            artifacts:
-                range: Artifact
+            stage_outputs:
+                range: StageOutput
                 multivalued: true
-                description: "Artifacts produced by the review"
+                description: "Outputs and logs produced by the review stages"
             software_env:
                 range: SoftwareEnv
                 description: "Software environment for reproducibility"
@@ -162,26 +160,58 @@ classes:
 slots:
     review_id:
         range: string
+    review_title:
+        range: string
     review_type:
         range: ReviewType
+    review_abstract:
+        range: string
+    review_keywords:
+        range: string
+        multivalued: true
+    protocol:
+        range: Protocol
+    review_authors:
+        range: Author
+        multivalued: true
     corresponding_author:
         range: Author
     review_status:
         range: ReviewStatus
+    version:
+        range: string
+    review_language:
+        range: string
+    review_country:
+        range: string
     start_date:
         range: date
     completion_date:
         range: date
     last_updated:
         range: datetime
+    created_at:
+        range: datetime
+    updated_at:
+        range: datetime
     funding_sources:
         range: FundingSource
+        multivalued: true
     conflicts_of_interest:
         range: string
     ethical_approval:
         range: string
+    stages:
+        range: StageExecution
+        multivalued: true
     literature_records:
         range: LiteratureRecord
+        multivalued: true
+    stage_outputs:
+        range: StageOutput
+        multivalued: true
+    software_env:
+        range: SoftwareEnv
     funder_name:
         range: string
     grant_number:

@@ -8,7 +8,6 @@ default_prefix: revaise
 imports:
     # Fundamental shared definitions
     - ./objects/enums
-    - ./objects/slots
 
     # Core objects that define a review
     - ./objects/author
@@ -19,8 +18,8 @@ imports:
     # Stage execution is core - all stages inherit from it
     - ./objects/stage_execution
 
-    # Artifacts are core because they're produced at every stage
-    - ./objects/artifact
+    # Stage outputs are core because they're produced at every stage
+    - ./objects/stage_output
 
     # Software environment for reproducibility
     - ./objects/software_env

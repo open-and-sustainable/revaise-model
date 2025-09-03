@@ -1,0 +1,1201 @@
+{
+    "$defs": {
+        "Affiliation": {
+            "additionalProperties": false,
+            "description": "Institutional affiliation",
+            "properties": {
+                "address": {
+                    "description": "Street address",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "city": {
+                    "description": "City",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "country": {
+                    "description": "Country",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "department": {
+                    "description": "Department or division",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "institution_name": {
+                    "description": "Name of the institution",
+                    "type": "string"
+                },
+                "ror_id": {
+                    "description": "Research Organization Registry identifier",
+                    "pattern": "^https://ror.org/0[a-z0-9]{8}$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "institution_name"
+            ],
+            "title": "Affiliation",
+            "type": "object"
+        },
+        "Author": {
+            "additionalProperties": false,
+            "description": "Author of a review or publication",
+            "properties": {
+                "affiliations": {
+                    "description": "Institutional affiliations",
+                    "items": {
+                        "$ref": "#/$defs/Affiliation"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "email": {
+                    "description": "Contact email address",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "family_name": {
+                    "description": "Family/last name",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "given_name": {
+                    "description": "Given/first name(s)",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "name": {
+                    "description": "Full name of the author",
+                    "type": "string"
+                },
+                "orcid": {
+                    "description": "ORCID identifier",
+                    "pattern": "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[\\dX]$",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "name"
+            ],
+            "title": "Author",
+            "type": "object"
+        },
+        "Database": {
+            "additionalProperties": false,
+            "description": "Information about a database used for searching",
+            "properties": {
+                "access_date": {
+                    "description": "Date when the database was accessed",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "database_name": {
+                    "description": "Name of the database (e.g., PubMed, Scopus, Web of Science)",
+                    "type": "string"
+                },
+                "database_notes": {
+                    "description": "Additional notes about database access or limitations",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "database_url": {
+                    "description": "URL to access the database",
+                    "type": "string"
+                },
+                "database_version": {
+                    "description": "Version or release of the database",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "database_name",
+                "database_url"
+            ],
+            "title": "Database",
+            "type": "object"
+        },
+        "DatasetKind": {
+            "description": "",
+            "enum": [
+                "bibliographic_db",
+                "local_index",
+                "fulltext_corpus",
+                "annotation_set",
+                "gold_labels",
+                "calibration_set",
+                "other"
+            ],
+            "title": "DatasetKind",
+            "type": "string"
+        },
+        "DatasetRef": {
+            "additionalProperties": false,
+            "description": "External dataset reference.",
+            "properties": {
+                "dataset_name": {
+                    "description": "Name of the dataset",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "kind": {
+                    "$ref": "#/$defs/DatasetKind",
+                    "description": "Kind or type of stage output"
+                },
+                "license": {
+                    "description": "License governing the dataset",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "notes": {
+                    "description": "Additional notes",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "resource_uri": {
+                    "description": "URI locating the resource",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "snapshot_hash": {
+                    "description": "Checksum of the dataset snapshot",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "title": "DatasetRef",
+            "type": "object"
+        },
+        "FundingSource": {
+            "additionalProperties": false,
+            "description": "Source of funding for the review",
+            "properties": {
+                "funder_id": {
+                    "description": "Funder identifier (e.g., Crossref Funder ID)",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "funder_name": {
+                    "description": "Name of the funding organization",
+                    "type": "string"
+                },
+                "grant_number": {
+                    "description": "Grant or award number",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "funder_name"
+            ],
+            "title": "FundingSource",
+            "type": "object"
+        },
+        "LiteratureRecord": {
+            "additionalProperties": false,
+            "description": "A literature record representing a publication that persists across review stages.",
+            "properties": {
+                "abstract": {
+                    "description": "Abstract of the publication",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "authors": {
+                    "description": "Authors of the publication",
+                    "items": {
+                        "$ref": "#/$defs/Author"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "doi": {
+                    "description": "Digital Object Identifier",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "full_text_url": {
+                    "description": "URL to full text",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "issue": {
+                    "description": "Issue number",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "journal": {
+                    "description": "Journal name",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "keywords": {
+                    "description": "Keywords",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "pages": {
+                    "description": "Page range",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "pmid": {
+                    "description": "PubMed identifier",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "publication_language": {
+                    "description": "Language of publication",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "publication_type": {
+                    "description": "Type of publication",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "publication_year": {
+                    "description": "Year of publication",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "record_created_at": {
+                    "description": "When this record was created",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "record_id": {
+                    "description": "Unique identifier for this literature record",
+                    "type": "string"
+                },
+                "record_updated_at": {
+                    "description": "Last update timestamp",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "title": {
+                    "description": "Title of the publication",
+                    "type": "string"
+                },
+                "volume": {
+                    "description": "Volume number",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "record_id",
+                "title"
+            ],
+            "title": "LiteratureRecord",
+            "type": "object"
+        },
+        "LiteratureRecordCollection": {
+            "additionalProperties": false,
+            "description": "A collection of literature records",
+            "properties": {
+                "collection_created_at": {
+                    "description": "When this collection was created",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "collection_description": {
+                    "description": "Description of this collection",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "collection_id": {
+                    "description": "Unique identifier for this collection",
+                    "type": "string"
+                },
+                "collection_name": {
+                    "description": "Name of the collection",
+                    "type": "string"
+                },
+                "record_count": {
+                    "description": "Number of records in this collection",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                },
+                "records": {
+                    "description": "Literature records in this collection",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "collection_id",
+                "collection_name"
+            ],
+            "title": "LiteratureRecordCollection",
+            "type": "object"
+        },
+        "Protocol": {
+            "additionalProperties": false,
+            "description": "Scoping and registration details of the review.",
+            "properties": {
+                "eligibility_criteria": {
+                    "description": "Inclusion and exclusion criteria",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "picos": {
+                    "description": "Population, Intervention, Comparison, Outcomes, Study design details",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "protocol_start_date": {
+                    "description": "Protocol registration date",
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "registration_id": {
+                    "description": "Identifier assigned by the registry",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "registration_url": {
+                    "description": "URL to the registry entry",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "registry": {
+                    "description": "Registry where the protocol is recorded",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "research_question": {
+                    "description": "Primary research question",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "title": "Protocol",
+            "type": "object"
+        },
+        "Review": {
+            "additionalProperties": false,
+            "description": "Root container for a systematic review. This is the primary object that contains all review data, stages, literature records, and artifacts. Every RevAIse document should have a Review as its top-level object.",
+            "properties": {
+                "completion_date": {
+                    "description": "Date review completed",
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "conflicts_of_interest": {
+                    "description": "Declaration of conflicts of interest",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "corresponding_author": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Author"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Corresponding author for the review"
+                },
+                "created_at": {
+                    "description": "When this review record was created",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "ethical_approval": {
+                    "description": "Ethical approval information if applicable",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "funding_sources": {
+                    "description": "Sources of funding for the review",
+                    "items": {
+                        "$ref": "#/$defs/FundingSource"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "last_updated": {
+                    "description": "Last update to the review",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "literature_records": {
+                    "description": "Literature records managed in this review",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "protocol": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/Protocol"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Review protocol with registration details"
+                },
+                "review_abstract": {
+                    "description": "Abstract or summary of the review",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "review_authors": {
+                    "description": "Review authors",
+                    "items": {
+                        "$ref": "#/$defs/Author"
+                    },
+                    "minItems": 1,
+                    "type": "array"
+                },
+                "review_country": {
+                    "description": "Country where review is conducted",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "review_id": {
+                    "description": "Unique identifier for this review",
+                    "type": "string"
+                },
+                "review_keywords": {
+                    "description": "Keywords or tags for the review",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "review_language": {
+                    "description": "Primary language of the review",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "review_status": {
+                    "$ref": "#/$defs/ReviewStatus",
+                    "description": "Current status of the review"
+                },
+                "review_title": {
+                    "description": "Title of the systematic review",
+                    "type": "string"
+                },
+                "review_type": {
+                    "$ref": "#/$defs/ReviewType",
+                    "description": "Type of review being conducted"
+                },
+                "software_env": {
+                    "anyOf": [
+                        {
+                            "$ref": "#/$defs/SoftwareEnv"
+                        },
+                        {
+                            "type": "null"
+                        }
+                    ],
+                    "description": "Software environment for reproducibility"
+                },
+                "stage_outputs": {
+                    "description": "Outputs and logs produced by the review stages",
+                    "items": {
+                        "$ref": "#/$defs/StageOutput"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "stages": {
+                    "description": "Stages executed in this review",
+                    "items": {
+                        "$ref": "#/$defs/StageExecution"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "start_date": {
+                    "description": "Date review started",
+                    "format": "date",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "updated_at": {
+                    "description": "When this review record was last updated",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "version": {
+                    "description": "Version of the review",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "review_id",
+                "review_title",
+                "review_type",
+                "review_authors",
+                "review_status"
+            ],
+            "title": "Review",
+            "type": "object"
+        },
+        "ReviewStatus": {
+            "description": "Status of the review",
+            "enum": [
+                "PROTOCOL",
+                "IN_PROGRESS",
+                "COMPLETED",
+                "PUBLISHED",
+                "UPDATED",
+                "WITHDRAWN"
+            ],
+            "title": "ReviewStatus",
+            "type": "string"
+        },
+        "ReviewType": {
+            "description": "Types of reviews",
+            "enum": [
+                "SYSTEMATIC_REVIEW",
+                "META_ANALYSIS",
+                "SCOPING_REVIEW",
+                "RAPID_REVIEW",
+                "UMBRELLA_REVIEW",
+                "NARRATIVE_REVIEW",
+                "LIVING_REVIEW",
+                "MIXED_METHODS",
+                "REALIST_REVIEW"
+            ],
+            "title": "ReviewType",
+            "type": "string"
+        },
+        "ScreeningStage": {
+            "additionalProperties": false,
+            "description": "Screening of titles and abstracts.",
+            "properties": {
+                "cost": {
+                    "description": "Estimated cost of this stage",
+                    "minimum": 0,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "ended_at": {
+                    "description": "When this stage ended",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "inputs": {
+                    "description": "Input artifacts for this stage",
+                    "items": {
+                        "$ref": "#/$defs/StageOutput"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "outputs": {
+                    "description": "Output artifacts produced by this stage",
+                    "items": {
+                        "$ref": "#/$defs/StageOutput"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "stage_description": {
+                    "description": "Description of what was done in this stage",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "stage_label": {
+                    "description": "Human-readable label for this stage execution",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "stage_type": {
+                    "$ref": "#/$defs/StageType",
+                    "description": "Type of stage being executed"
+                },
+                "started_at": {
+                    "description": "When this stage started",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "stage_type"
+            ],
+            "title": "ScreeningStage",
+            "type": "object"
+        },
+        "SearchQuery": {
+            "additionalProperties": false,
+            "description": "Search query executed against a database",
+            "properties": {
+                "database_name": {
+                    "description": "Name of the database where query was executed",
+                    "type": "string"
+                },
+                "query_date": {
+                    "description": "Date and time when the query was executed",
+                    "format": "date-time",
+                    "type": "string"
+                },
+                "query_filters": {
+                    "description": "Filters applied (e.g., date range, language, study type)",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "query_id": {
+                    "description": "Unique identifier for the search query",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "query_notes": {
+                    "description": "Additional notes about the query or its execution",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "query_string": {
+                    "description": "The actual search query string or expression",
+                    "type": "string"
+                },
+                "result_collection_id": {
+                    "description": "Reference to the LiteratureRecordCollection containing results",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "results_count": {
+                    "description": "Number of results returned by the query",
+                    "type": [
+                        "integer",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "query_id",
+                "database_name",
+                "query_string",
+                "query_date"
+            ],
+            "title": "SearchQuery",
+            "type": "object"
+        },
+        "SearchStage": {
+            "additionalProperties": false,
+            "description": "Executing literature search strategies.",
+            "properties": {
+                "cost": {
+                    "description": "Estimated cost of this stage",
+                    "minimum": 0,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "databases": {
+                    "description": "Databases used for literature search",
+                    "items": {
+                        "$ref": "#/$defs/Database"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "ended_at": {
+                    "description": "When this stage ended",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "inputs": {
+                    "description": "Input artifacts for this stage",
+                    "items": {
+                        "$ref": "#/$defs/StageOutput"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "outputs": {
+                    "description": "Output artifacts produced by this stage",
+                    "items": {
+                        "$ref": "#/$defs/StageOutput"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "result_collections": {
+                    "description": "Collections of literature records resulting from searches",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "search_queries": {
+                    "description": "Search queries executed",
+                    "items": {
+                        "type": "string"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "stage_description": {
+                    "description": "Description of what was done in this stage",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "stage_label": {
+                    "description": "Human-readable label for this stage execution",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "stage_type": {
+                    "$ref": "#/$defs/StageType",
+                    "description": "Type of stage being executed"
+                },
+                "started_at": {
+                    "description": "When this stage started",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "stage_type"
+            ],
+            "title": "SearchStage",
+            "type": "object"
+        },
+        "SoftwareEnv": {
+            "additionalProperties": false,
+            "description": "Software environment configuration.",
+            "properties": {
+                "containers": {
+                    "description": "Container images used",
+                    "items": {
+                        "$ref": "#/$defs/StageOutputRef"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "lockfiles": {
+                    "description": "Environment lockfiles",
+                    "items": {
+                        "$ref": "#/$defs/StageOutputRef"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "os": {
+                    "description": "Operating system description",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "python_version": {
+                    "description": "Python version",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "r_version": {
+                    "description": "R version",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "title": "SoftwareEnv",
+            "type": "object"
+        },
+        "StageExecution": {
+            "additionalProperties": false,
+            "description": "Base class for executing a specific stage of the review. Stages should extend this with their specific needs.",
+            "properties": {
+                "cost": {
+                    "description": "Estimated cost of this stage",
+                    "minimum": 0,
+                    "type": [
+                        "number",
+                        "null"
+                    ]
+                },
+                "ended_at": {
+                    "description": "When this stage ended",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "inputs": {
+                    "description": "Input artifacts for this stage",
+                    "items": {
+                        "$ref": "#/$defs/StageOutput"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "outputs": {
+                    "description": "Output artifacts produced by this stage",
+                    "items": {
+                        "$ref": "#/$defs/StageOutput"
+                    },
+                    "type": [
+                        "array",
+                        "null"
+                    ]
+                },
+                "stage_description": {
+                    "description": "Description of what was done in this stage",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "stage_label": {
+                    "description": "Human-readable label for this stage execution",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "stage_type": {
+                    "$ref": "#/$defs/StageType",
+                    "description": "Type of stage being executed"
+                },
+                "started_at": {
+                    "description": "When this stage started",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "required": [
+                "stage_type"
+            ],
+            "title": "StageExecution",
+            "type": "object"
+        },
+        "StageOutput": {
+            "additionalProperties": false,
+            "description": "Output file or log produced by a review stage (results, logs, code, visualizations).",
+            "properties": {
+                "checksum": {
+                    "description": "Checksum of the output file",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "format": {
+                    "description": "File format or MIME type",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "kind": {
+                    "$ref": "#/$defs/StageOutputKind",
+                    "description": "Kind or type of stage output"
+                },
+                "output_created_at": {
+                    "description": "Creation timestamp",
+                    "format": "date-time",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "resource_uri": {
+                    "description": "URI locating the resource",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "title": "StageOutput",
+            "type": "object"
+        },
+        "StageOutputKind": {
+            "description": "",
+            "enum": [
+                "search_query",
+                "search_log",
+                "records_raw",
+                "records_deduped",
+                "screening_decisions",
+                "inclusion_list",
+                "exclusion_list",
+                "fulltexts",
+                "extraction_table",
+                "rob_table",
+                "meta_analysis_table",
+                "forest_plot",
+                "prisma_flow",
+                "code_archive",
+                "environment_lock",
+                "model_card",
+                "other"
+            ],
+            "title": "StageOutputKind",
+            "type": "string"
+        },
+        "StageOutputRef": {
+            "additionalProperties": false,
+            "description": "Reference to a stage output in this or another RevAIse bundle.",
+            "properties": {
+                "checksum": {
+                    "description": "Checksum of the output file",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "output_label": {
+                    "description": "Human-readable label",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                },
+                "resource_uri": {
+                    "description": "URI locating the resource",
+                    "type": [
+                        "string",
+                        "null"
+                    ]
+                }
+            },
+            "title": "StageOutputRef",
+            "type": "object"
+        },
+        "StageType": {
+            "description": "Logical stages of a systematic review (typical flow).",
+            "enum": [
+                "scoping",
+                "registration",
+                "search",
+                "deduplication",
+                "screening_title_abstract",
+                "screening_fulltext",
+                "data_extraction",
+                "risk_of_bias",
+                "synthesis_meta_analysis",
+                "synthesis_narrative",
+                "reporting_prisma",
+                "reproducibility_pack"
+            ],
+            "title": "StageType",
+            "type": "string"
+        }
+    },
+    "$id": "https://open-and-sustainable.github.io/revaise-model/schema",
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "additionalProperties": true,
+    "metamodel_version": "1.7.0",
+    "title": "revaise",
+    "type": "object",
+    "version": null
+}
+

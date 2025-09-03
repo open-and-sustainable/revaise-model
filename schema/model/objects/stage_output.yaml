@@ -1,0 +1,68 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/stage_output
+name: revaise_stage_output
+description: "Stage outputs, logs, and dataset references produced during review stages."
+imports:
+    - linkml:types
+    - ./enums
+classes:
+    StageOutput:
+        description: "Output file or log produced by a review stage (results, logs, code, visualizations)."
+        slots:
+            - kind
+            - resource_uri
+            - format
+            - checksum
+            - output_created_at
+        slot_usage:
+            kind: { range: StageOutputKind }
+
+    StageOutputRef:
+        description: "Reference to a stage output in this or another RevAIse bundle."
+        slots:
+            - resource_uri
+            - checksum
+            - output_label
+
+    DatasetRef:
+        description: "External dataset reference."
+        slots:
+            - kind
+            - dataset_name
+            - resource_uri
+            - snapshot_hash
+            - license
+            - notes
+        slot_usage:
+            kind: { range: DatasetKind }
+
+slots:
+    kind:
+        range: string
+        description: "Kind or type of stage output"
+    resource_uri:
+        range: uri
+        description: "URI locating the resource"
+    format:
+        range: string
+        description: "File format or MIME type"
+    checksum:
+        range: string
+        description: "Checksum of the output file"
+    output_created_at:
+        range: datetime
+        description: "Creation timestamp"
+    output_label:
+        range: string
+        description: "Human-readable label"
+    dataset_name:
+        range: string
+        description: "Name of the dataset"
+    snapshot_hash:
+        range: string
+        description: "Checksum of the dataset snapshot"
+    license:
+        range: string
+        description: "License governing the dataset"
+    notes:
+        range: string
+        description: "Additional notes"
