@@ -1,9 +1,134 @@
 id: https://open-and-sustainable.github.io/revaise-model/schema/stages/search
 name: search_stage
 description: "Schema for search stage of the review workflow."
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
 imports:
-  - ../core
+    - linkml:types
+    - ../core
+    - ../objects/slots
+    - ../objects/literature_record
 classes:
-  SearchStage:
-    is_a: StageExecution
-    description: "Executing literature search strategies."
+    SearchStage:
+        is_a: StageExecution
+        description: "Executing literature search strategies."
+        slots:
+            - databases
+            - search_queries
+            - result_collections
+        slot_usage:
+            databases:
+                range: Database
+                multivalued: true
+                description: "Databases used for literature search"
+            search_queries:
+                range: SearchQuery
+                multivalued: true
+                description: "Search queries executed"
+            result_collections:
+                range: LiteratureRecordCollection
+                multivalued: true
+                description: "Collections of literature records resulting from searches"
+
+    Database:
+        description: "Information about a database used for searching"
+        slots:
+            - database_name
+            - database_url
+            - access_date
+            - database_version
+            - database_notes
+        slot_usage:
+            database_name:
+                range: string
+                required: true
+                description: "Name of the database (e.g., PubMed, Scopus, Web of Science)"
+            database_url:
+                range: uri
+                required: true
+                description: "URL to access the database"
+            access_date:
+                range: datetime
+                description: "Date when the database was accessed"
+            database_version:
+                range: string
+                description: "Version or release of the database"
+            database_notes:
+                range: string
+                description: "Additional notes about database access or limitations"
+
+    SearchQuery:
+        description: "Search query executed against a database"
+        slots:
+            - query_id
+            - database_name
+            - query_string
+            - query_date
+            - query_filters
+            - result_collection_id
+            - results_count
+            - query_notes
+        slot_usage:
+            query_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the search query"
+            database_name:
+                range: string
+                required: true
+                description: "Name of the database where query was executed"
+            query_string:
+                range: string
+                required: true
+                description: "The actual search query string or expression"
+            query_date:
+                range: datetime
+                required: true
+                description: "Date and time when the query was executed"
+            query_filters:
+                range: string
+                multivalued: true
+                description: "Filters applied (e.g., date range, language, study type)"
+            result_collection_id:
+                range: string
+                description: "Reference to the LiteratureRecordCollection containing results"
+            results_count:
+                range: integer
+                description: "Number of results returned by the query"
+            query_notes:
+                range: string
+                description: "Additional notes about the query or its execution"
+
+slots:
+    database_name:
+        range: string
+    database_url:
+        range: uri
+    access_date:
+        range: datetime
+    database_version:
+        range: string
+    database_notes:
+        range: string
+    query_id:
+        range: string
+    query_string:
+        range: string
+    query_date:
+        range: datetime
+    query_filters:
+        range: string
+    result_collection_id:
+        range: string
+    results_count:
+        range: integer
+    query_notes:
+        range: string
+    databases:
+        range: Database
+    search_queries:
+        range: SearchQuery
+    result_collections:
+        range: LiteratureRecordCollection

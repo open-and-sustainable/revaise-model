@@ -2,11 +2,15 @@ id: https://open-and-sustainable.github.io/revaise-model/schema
 name: revaise
 description: "RevAIse — open standard for describing, sharing, and reproducing AI-supported systematic reviews, organized by stages."
 prefixes:
-  linkml: https://w3id.org/linkml/
-  revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
 default_prefix: revaise
+
 imports:
-  - model/core
-  - model/stages/search
-  - model/stages/screening
-  - model/stages/data_extraction
+    - model/core
+    - model/stages/search
+    - model/stages/screening
+    - model/stages/data_extraction
+
+# The Review class is the required root object for all RevAIse documents
+tree_root: Review

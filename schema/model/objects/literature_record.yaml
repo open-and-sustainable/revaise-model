@@ -1,0 +1,152 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/literature_record
+name: revaise_literature_record
+description: "Shared literature and manuscript records that persist across review stages."
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - linkml:types
+    - ./slots
+    - ./author
+
+classes:
+    LiteratureRecord:
+        description: "A literature record representing a publication that persists across review stages."
+        slots:
+            - record_id
+            - title
+            - authors
+            - publication_year
+            - abstract
+            - doi
+            - pmid
+            - journal
+            - volume
+            - issue
+            - pages
+            - language
+            - publication_type
+            - keywords
+            - full_text_url
+            - created_at
+            - updated_at
+        slot_usage:
+            record_id:
+                identifier: true
+                required: true
+                description: "Unique identifier for this literature record"
+            title:
+                required: true
+                description: "Title of the publication"
+            authors:
+                multivalued: true
+                range: Author
+                description: "Authors of the publication"
+            publication_year:
+                range: integer
+                description: "Year of publication"
+            abstract:
+                range: string
+                description: "Abstract of the publication"
+            doi:
+                range: string
+                description: "Digital Object Identifier"
+            pmid:
+                range: string
+                description: "PubMed identifier"
+            journal:
+                range: string
+                description: "Journal name"
+            volume:
+                range: string
+                description: "Volume number"
+            issue:
+                range: string
+                description: "Issue number"
+            pages:
+                range: string
+                description: "Page range"
+            language:
+                range: string
+                description: "Language of publication"
+            publication_type:
+                range: string
+                description: "Type of publication"
+            keywords:
+                multivalued: true
+                range: string
+                description: "Keywords"
+            full_text_url:
+                range: uri
+                description: "URL to full text"
+            created_at:
+                range: datetime
+                description: "When this record was created"
+            updated_at:
+                range: datetime
+                description: "Last update timestamp"
+
+    LiteratureRecordCollection:
+        description: "A collection of literature records"
+        slots:
+            - collection_id
+            - collection_name
+            - collection_description
+            - records
+            - record_count
+            - created_at
+        slot_usage:
+            collection_id:
+                identifier: true
+                required: true
+                description: "Unique identifier for this collection"
+            collection_name:
+                range: string
+                required: true
+                description: "Name of the collection"
+            collection_description:
+                range: string
+                description: "Description of this collection"
+            records:
+                multivalued: true
+                range: LiteratureRecord
+                description: "Literature records in this collection"
+            record_count:
+                range: integer
+                description: "Number of records in this collection"
+            created_at:
+                range: datetime
+                description: "When this collection was created"
+
+slots:
+    record_id:
+        range: string
+    pmid:
+        range: string
+    publication_type:
+        range: string
+    journal:
+        range: string
+    volume:
+        range: string
+    issue:
+        range: string
+    pages:
+        range: string
+    language:
+        range: string
+    keywords:
+        range: string
+    full_text_url:
+        range: uri
+    collection_id:
+        range: string
+    collection_name:
+        range: string
+    collection_description:
+        range: string
+    records:
+        range: LiteratureRecord
+    record_count:
+        range: integer

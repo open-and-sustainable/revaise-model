@@ -1,9 +1,26 @@
 id: https://open-and-sustainable.github.io/revaise-model/schema/core
 name: revaise_core
-description: "Core reusable definitions for the RevAIse model."
+description: "Core definitions for the RevAIse model. Only includes essential objects needed across all reviews."
 prefixes:
-  linkml: https://w3id.org/linkml/
-  revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
 default_prefix: revaise
 imports:
-  - ./objects/base
+    # Fundamental shared definitions
+    - ./objects/enums
+    - ./objects/slots
+
+    # Core objects that define a review
+    - ./objects/author
+    - ./objects/review
+    - ./objects/protocol
+    - ./objects/literature_record
+
+    # Stage execution is core - all stages inherit from it
+    - ./objects/stage_execution
+
+    # Artifacts are core because they're produced at every stage
+    - ./objects/artifact
+
+    # Software environment for reproducibility
+    - ./objects/software_env

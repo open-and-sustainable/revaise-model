@@ -1,45 +1,53 @@
 id: https://open-and-sustainable.github.io/revaise-model/schema/objects/stage_execution
 name: revaise_stage_execution
-description: "Execution of a review stage."
+description: "Base class for stage execution."
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
 imports:
-  - linkml:types
-  - ./slots
-  - ./enums
+    - linkml:types
+    - ./slots
+    - ./enums
+    - ./artifact
+
 classes:
-  StageExecution:
-    description: "Execution of a specific stage of the review, including AI use and outputs."
-    slots:
-      - stage_type
-      - label
-      - description
-      - started_at
-      - ended_at
-      - inputs
-      - datasets
-      - ai_uses
-      - human_in_loop
-      - decisions
-      - outputs
-      - metrics
-      - cost
-    slot_usage:
-      stage_type: { range: StageType }
-      inputs:
-        range: ArtifactRef
-        multivalued: true
-      datasets:
-        range: DatasetRef
-        multivalued: true
-      ai_uses:
-        range: AIUse
-        multivalued: true
-      human_in_loop: { range: HumanLoop }
-      decisions:
-        range: Decision
-        multivalued: true
-      outputs:
-        range: Output
-        multivalued: true
-      metrics:
-        range: Metric
-        multivalued: true
+    StageExecution:
+        description: "Base class for executing a specific stage of the review. Stages should extend this with their specific needs."
+        slots:
+            - stage_type
+            - label
+            - description
+            - started_at
+            - ended_at
+            - inputs
+            - outputs
+            - cost
+        slot_usage:
+            stage_type:
+                range: StageType
+                required: true
+                description: "Type of stage being executed"
+            label:
+                range: string
+                description: "Human-readable label for this stage execution"
+            description:
+                range: string
+                description: "Description of what was done in this stage"
+            started_at:
+                range: datetime
+                description: "When this stage started"
+            ended_at:
+                range: datetime
+                description: "When this stage ended"
+            inputs:
+                range: Artifact
+                multivalued: true
+                description: "Input artifacts for this stage"
+            outputs:
+                range: Artifact
+                multivalued: true
+                description: "Output artifacts produced by this stage"
+            cost:
+                range: float
+                description: "Estimated cost of executing this stage"

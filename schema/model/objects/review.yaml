@@ -1,43 +1,229 @@
 id: https://open-and-sustainable.github.io/revaise-model/schema/objects/review
 name: revaise_review
-description: "Review container object."
+description: "Core review object with essential metadata and characteristics."
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
 imports:
-  - linkml:types
-  - ./slots
+    - linkml:types
+    - ./slots
+    - ./enums
+    - ./author
+
 classes:
-  Review:
-    description: "Top-level container of a systematic review, including registries for providers, models, prompts, and executed stages."
-    slots:
-      - id
-      - title
-      - protocol
-      - providers
-      - models
-      - prompts
-      - stages
-      - artifacts
-      - software_env
-      - contributors
-      - created_at
-      - updated_at
-    slot_usage:
-      protocol: { range: Protocol }
-      providers:
-        range: Provider
-        multivalued: true
-      models:
-        range: Model
-        multivalued: true
-      prompts:
-        range: Prompt
-        multivalued: true
-      stages:
-        range: StageExecution
-        multivalued: true
-      artifacts:
-        range: Artifact
-        multivalued: true
-      software_env: { range: SoftwareEnv }
-      contributors:
-        range: Agent
-        multivalued: true
+    Review:
+        tree_root: true
+        description: "Root container for a systematic review. This is the primary object that contains all review data, stages, literature records, and artifacts. Every RevAIse document should have a Review as its top-level object."
+        slots:
+            # Core identification
+            - review_id
+            - title
+            - review_type
+            - abstract
+            - keywords
+
+            # Protocol and registration
+            - protocol
+
+            # Authors
+            - authors
+            - corresponding_author
+
+            # Review metadata
+            - review_status
+            - version
+            - language
+            - country
+
+            # Dates
+            - start_date
+            - completion_date
+            - last_updated
+            - created_at
+            - updated_at
+
+            # Funding and ethics
+            - funding_sources
+            - conflicts_of_interest
+            - ethical_approval
+
+            # Review components
+            - stages
+            - literature_records
+            - artifacts
+
+            # Environment
+            - software_env
+
+        slot_usage:
+            review_id:
+                identifier: true
+                required: true
+                description: "Unique identifier for this review"
+            title:
+                required: true
+                description: "Title of the systematic review"
+            review_type:
+                range: ReviewType
+                required: true
+                description: "Type of review being conducted"
+            abstract:
+                range: string
+                description: "Abstract or summary of the review"
+            keywords:
+                range: string
+                multivalued: true
+                description: "Keywords describing the review"
+            protocol:
+                range: Protocol
+                description: "Review protocol with registration details"
+            authors:
+                range: Author
+                multivalued: true
+                required: true
+                minimum_cardinality: 1
+                description: "Review authors"
+            corresponding_author:
+                range: Author
+                description: "Corresponding author for the review"
+            review_status:
+                range: ReviewStatus
+                required: true
+                description: "Current status of the review"
+            version:
+                range: string
+                description: "Version of the review"
+            language:
+                range: string
+                description: "Primary language of the review"
+            country:
+                range: string
+                description: "Country where review is conducted"
+            start_date:
+                range: date
+                description: "Date review started"
+            completion_date:
+                range: date
+                description: "Date review completed"
+            last_updated:
+                range: datetime
+                description: "Last update to the review"
+            created_at:
+                range: datetime
+                description: "When this review record was created"
+            updated_at:
+                range: datetime
+                description: "When this review record was last updated"
+            funding_sources:
+                range: FundingSource
+                multivalued: true
+                description: "Sources of funding for the review"
+            conflicts_of_interest:
+                range: string
+                description: "Declaration of conflicts of interest"
+            ethical_approval:
+                range: string
+                description: "Ethical approval information if applicable"
+            stages:
+                range: StageExecution
+                multivalued: true
+                description: "Stages executed in this review"
+            literature_records:
+                range: LiteratureRecord
+                multivalued: true
+                description: "Literature records managed in this review"
+            artifacts:
+                range: Artifact
+                multivalued: true
+                description: "Artifacts produced by the review"
+            software_env:
+                range: SoftwareEnv
+                description: "Software environment for reproducibility"
+
+    FundingSource:
+        description: "Source of funding for the review"
+        slots:
+            - funder_name
+            - grant_number
+            - funder_id
+        slot_usage:
+            funder_name:
+                range: string
+                required: true
+                description: "Name of the funding organization"
+            grant_number:
+                range: string
+                description: "Grant or award number"
+            funder_id:
+                range: string
+                description: "Funder identifier (e.g., Crossref Funder ID)"
+
+slots:
+    review_id:
+        range: string
+    review_type:
+        range: ReviewType
+    corresponding_author:
+        range: Author
+    review_status:
+        range: ReviewStatus
+    start_date:
+        range: date
+    completion_date:
+        range: date
+    last_updated:
+        range: datetime
+    funding_sources:
+        range: FundingSource
+    conflicts_of_interest:
+        range: string
+    ethical_approval:
+        range: string
+    literature_records:
+        range: LiteratureRecord
+    funder_name:
+        range: string
+    grant_number:
+        range: string
+    funder_id:
+        range: string
+
+enums:
+    ReviewType:
+        description: "Types of reviews"
+        permissible_values:
+            SYSTEMATIC_REVIEW:
+                description: "Systematic review"
+            META_ANALYSIS:
+                description: "Meta-analysis"
+            SCOPING_REVIEW:
+                description: "Scoping review"
+            RAPID_REVIEW:
+                description: "Rapid review"
+            UMBRELLA_REVIEW:
+                description: "Umbrella review"
+            NARRATIVE_REVIEW:
+                description: "Narrative review"
+            LIVING_REVIEW:
+                description: "Living systematic review"
+            MIXED_METHODS:
+                description: "Mixed methods review"
+            REALIST_REVIEW:
+                description: "Realist review"
+
+    ReviewStatus:
+        description: "Status of the review"
+        permissible_values:
+            PROTOCOL:
+                description: "Protocol stage"
+            IN_PROGRESS:
+                description: "Review in progress"
+            COMPLETED:
+                description: "Review completed"
+            PUBLISHED:
+                description: "Review published"
+            UPDATED:
+                description: "Review updated"
+            WITHDRAWN:
+                description: "Review withdrawn"

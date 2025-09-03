@@ -1,0 +1,184 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/profiles/search_comprehensive
+name: search_comprehensive
+description: "Comprehensive validation profile for search stage with full documentation requirements."
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - ../core
+    - ../stages/search
+    - ../objects/literature_record
+
+# Comprehensive profile requires all search documentation for reproducibility
+classes:
+    SearchStage:
+        slot_usage:
+            databases:
+                required: true
+                minimum_cardinality: 1
+                description: "Complete list of all databases searched"
+            search_queries:
+                required: true
+                minimum_cardinality: 1
+                description: "All search queries must be documented"
+            result_collections:
+                required: true
+                minimum_cardinality: 1
+                description: "Collections of search results must be captured"
+            stage_type:
+                required: true
+            started_at:
+                required: true
+            ended_at:
+                required: true
+            outputs:
+                required: true
+                minimum_cardinality: 1
+
+    Database:
+        slot_usage:
+            database_name:
+                required: true
+                pattern: "^[A-Za-z0-9][A-Za-z0-9\\s\\-_]+$"
+                description: "Standardized database name"
+            database_url:
+                required: true
+                description: "Official database URL"
+            access_date:
+                required: true
+                description: "Must document when database was accessed"
+            database_version:
+                recommended: true
+                description: "Database version for reproducibility"
+            database_notes:
+                recommended: true
+                description: "Any access restrictions or special configurations"
+
+    SearchQuery:
+        slot_usage:
+            query_id:
+                required: true
+                pattern: "^[A-Za-z0-9_\\-]+$"
+                description: "Unique identifier following naming convention"
+            database_name:
+                required: true
+                description: "Must match a database name in databases list"
+            query_string:
+                required: true
+                min_length: 3
+                description: "Complete search query for reproduction"
+            query_date:
+                required: true
+                description: "Exact timestamp of query execution"
+            query_filters:
+                recommended: true
+                description: "All applied filters must be documented"
+            result_collection_id:
+                required: true
+                description: "Must reference a valid collection"
+            results_count:
+                required: true
+                minimum_value: 0
+                description: "Total number of results returned"
+            query_notes:
+                recommended: true
+                description: "Any deviations from planned search strategy"
+
+    LiteratureRecordCollection:
+        slot_usage:
+            collection_id:
+                required: true
+                pattern: "^[A-Za-z0-9_\\-]+$"
+                description: "Unique collection identifier"
+            collection_name:
+                required: true
+                min_length: 1
+                description: "Descriptive name for the collection"
+            collection_description:
+                recommended: true
+                description: "Description of collection contents and purpose"
+            records:
+                required: true
+                description: "Literature records in this collection"
+            record_count:
+                required: true
+                minimum_value: 0
+                description: "Number of records in collection"
+            created_at:
+                required: true
+                description: "Collection creation timestamp"
+
+    LiteratureRecord:
+        slot_usage:
+            record_id:
+                required: true
+                pattern: "^[A-Za-z0-9_\\-]+$"
+            title:
+                required: true
+                min_length: 1
+            authors:
+                recommended: true
+                minimum_cardinality: 1
+                description: "At least first author should be recorded"
+            publication_year:
+                recommended: true
+                minimum_value: 1900
+                maximum_value: 2100
+            abstract:
+                recommended: true
+                description: "Abstract text for screening"
+            doi:
+                recommended: true
+                pattern: "^10\\.\\d{4,}/.+$"
+                description: "Valid DOI format when available"
+
+# Additional validation rules
+validation:
+    rules:
+        - description: "Each search query must reference an existing database"
+          sparql: |
+              PREFIX revaise: <https://open-and-sustainable.github.io/revaise-model/schema/>
+              SELECT ?query ?db_name WHERE {
+                  ?query a revaise:SearchQuery ;
+                         revaise:database_name ?db_name .
+                  FILTER NOT EXISTS {
+                      ?database a revaise:Database ;
+                                revaise:database_name ?db_name .
+                  }
+              }
+
+        - description: "Each search query must reference an existing collection"
+          sparql: |
+              PREFIX revaise: <https://open-and-sustainable.github.io/revaise-model/schema/>
+              SELECT ?query ?collection_id WHERE {
+                  ?query a revaise:SearchQuery ;
+                         revaise:result_collection_id ?collection_id .
+                  FILTER NOT EXISTS {
+                      ?collection a revaise:LiteratureRecordCollection ;
+                                  revaise:collection_id ?collection_id .
+                  }
+              }
+
+        - description: "Search stage must have at least one output artifact"
+          sparql: |
+              PREFIX revaise: <https://open-and-sustainable.github.io/revaise-model/schema/>
+              SELECT ?stage WHERE {
+                  ?stage a revaise:SearchStage .
+                  FILTER NOT EXISTS {
+                      ?stage revaise:outputs ?output .
+                  }
+              }
+
+        - description: "Results count should match collection record count"
+          sparql: |
+              PREFIX revaise: <https://open-and-sustainable.github.io/revaise-model/schema/>
+              SELECT ?query ?results_count ?record_count WHERE {
+                  ?query a revaise:SearchQuery ;
+                         revaise:results_count ?results_count ;
+                         revaise:result_collection_id ?collection_id .
+                  ?collection a revaise:LiteratureRecordCollection ;
+                              revaise:collection_id ?collection_id ;
+                              revaise:record_count ?record_count .
+                  FILTER (?results_count != ?record_count)
+              }

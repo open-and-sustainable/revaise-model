@@ -1,0 +1,99 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/author
+name: revaise_author
+description: "Common author representation for reviews and literature records."
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - linkml:types
+
+classes:
+    Author:
+        description: "Author of a review or publication"
+        slots:
+            - name
+            - given_name
+            - family_name
+            - orcid
+            - email
+            - affiliations
+        slot_usage:
+            name:
+                range: string
+                required: true
+                description: "Full name of the author"
+            given_name:
+                range: string
+                description: "Given/first name(s)"
+            family_name:
+                range: string
+                description: "Family/last name"
+            orcid:
+                range: string
+                pattern: "^\\d{4}-\\d{4}-\\d{4}-\\d{3}[\\dX]$"
+                description: "ORCID identifier"
+            email:
+                range: string
+                description: "Contact email address"
+            affiliations:
+                range: Affiliation
+                multivalued: true
+                description: "Institutional affiliations"
+
+    Affiliation:
+        description: "Institutional affiliation"
+        slots:
+            - institution_name
+            - department
+            - address
+            - city
+            - country
+            - ror_id
+        slot_usage:
+            institution_name:
+                range: string
+                required: true
+                description: "Name of the institution"
+            department:
+                range: string
+                description: "Department or division"
+            address:
+                range: string
+                description: "Street address"
+            city:
+                range: string
+                description: "City"
+            country:
+                range: string
+                description: "Country"
+            ror_id:
+                range: string
+                pattern: "^https://ror.org/0[a-z0-9]{8}$"
+                description: "Research Organization Registry identifier"
+
+slots:
+    name:
+        range: string
+    given_name:
+        range: string
+    family_name:
+        range: string
+    orcid:
+        range: string
+    email:
+        range: string
+    affiliations:
+        range: Affiliation
+    institution_name:
+        range: string
+    department:
+        range: string
+    address:
+        range: string
+    city:
+        range: string
+    country:
+        range: string
+    ror_id:
+        range: string

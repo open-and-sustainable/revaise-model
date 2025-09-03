@@ -1,9 +1,0 @@
-id: https://open-and-sustainable.github.io/revaise-model/schema/stages/data_extraction
-name: data_extraction_stage
-description: "Schema for data extraction stage of the review workflow."
-imports:
-  - ../core
-classes:
-  DataExtractionStage:
-    is_a: StageExecution
-    description: "Extracting data from included studies."

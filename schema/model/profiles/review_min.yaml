@@ -1,0 +1,45 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/profiles/review_min
+name: review_min
+description: "Minimal review profile with only essential required fields."
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - ../core
+
+# Minimal review profile with only essential requirements
+classes:
+    Review:
+        slot_usage:
+            review_id:
+                required: true
+                description: "Unique identifier for the review"
+            title:
+                required: true
+                description: "Title of the review"
+            review_type:
+                required: true
+                description: "Type of review"
+            authors:
+                required: true
+                minimum_cardinality: 1
+                description: "At least one author required"
+            review_status:
+                required: true
+                description: "Current status"
+            created_at:
+                required: true
+                description: "Creation timestamp"
+
+    Author:
+        slot_usage:
+            name:
+                required: true
+                description: "Author name"
+
+    Protocol:
+        slot_usage:
+            research_question:
+                required: true
+                description: "Research question"
