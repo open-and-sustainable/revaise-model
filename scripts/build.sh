@@ -10,11 +10,33 @@ rm -rf "$OUT"
 mkdir -p "$OUT/schema/$VER" "$OUT/schema/latest" "$OUT/docs/$VER"
 
 # Build the main revaise schema
-echo "Building RevAIse schema..."
+echo "Building main RevAIse schema..."
 gen-json-schema "$SCHEMA_DIR/revaise.yaml" > "$OUT/schema/$VER/revaise.schema.json"
 gen-jsonld-context "$SCHEMA_DIR/revaise.yaml" > "$OUT/schema/$VER/context.jsonld"
-gen-doc "$SCHEMA_DIR/revaise.yaml" --directory "$OUT/docs/$VER"
+gen-doc "$SCHEMA_DIR/revaise.yaml" --directory "$OUT/docs/$VER/main"
 cp "$SCHEMA_DIR/revaise.yaml" "$OUT/schema/$VER/revaise.yaml"
+
+# Build documentation for core components
+echo "Building documentation for core components..."
+mkdir -p "$OUT/docs/$VER/objects" "$OUT/docs/$VER/stages"
+
+# Generate docs for each object schema
+for schema_file in "$SCHEMA_DIR/model/objects"/*.yaml; do
+  if [ -f "$schema_file" ]; then
+    basename=$(basename "$schema_file" .yaml)
+    echo "  - Processing object: $basename"
+    gen-doc "$schema_file" --directory "$OUT/docs/$VER/objects/$basename" 2>/dev/null || echo "    (skipped $basename)"
+  fi
+done
+
+# Generate docs for each stage schema
+for schema_file in "$SCHEMA_DIR/model/stages"/*.yaml; do
+  if [ -f "$schema_file" ]; then
+    basename=$(basename "$schema_file" .yaml)
+    echo "  - Processing stage: $basename"
+    gen-doc "$schema_file" --directory "$OUT/docs/$VER/stages/$basename" 2>/dev/null || echo "    (skipped $basename)"
+  fi
+done
 
 # Copy to latest
 cp "$OUT/schema/$VER/revaise.schema.json" "$OUT/schema/latest/"
@@ -47,7 +69,7 @@ cat > "$OUT/index.html" <<EOF
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-            max-width: 800px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 2rem;
             line-height: 1.6;
@@ -63,6 +85,7 @@ cat > "$OUT/index.html" <<EOF
         }
         h1 { color: #333; }
         h2 { color: #555; margin-top: 2rem; }
+        h3 { color: #666; margin-top: 1.5rem; }
         ul { list-style-type: none; padding: 0; }
         li { margin: 0.5rem 0; }
         a {
@@ -80,6 +103,18 @@ cat > "$OUT/index.html" <<EOF
             background-color: #f8f9fa;
             padding: 1rem;
             border-radius: 5px;
+            margin: 1rem 0;
+        }
+        .doc-section {
+            margin: 2rem 0;
+            padding: 1rem;
+            border-left: 3px solid #0066cc;
+            background-color: #f8f9fa;
+        }
+        .columns {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
             margin: 1rem 0;
         }
     </style>
@@ -100,18 +135,54 @@ cat > "$OUT/index.html" <<EOF
         <li>📄 <a href="${BASE_URL}/schema/latest/revaise.yaml">YAML Schema</a> - LinkML source schema</li>
         <li>🔧 <a href="${BASE_URL}/schema/latest/revaise.schema.json">JSON Schema</a> - For validation</li>
         <li>🔗 <a href="${BASE_URL}/schema/latest/context.jsonld">JSON-LD Context</a> - For linked data</li>
-        <li>📚 <a href="${BASE_URL}/docs/${VER}/">Documentation</a> - Complete reference</li>
+        <li>📚 <a href="${BASE_URL}/docs/${VER}/main/">Complete Documentation</a> - Full reference</li>
         <li>🔍 <a href="${BASE_URL}/schema/latest/index.json">Programmatic Index</a> - For tool integration</li>
     </ul>
 
+    <h2>Documentation</h2>
+
+    <div class="doc-section">
+        <h3>Main Schema</h3>
+        <ul>
+            <li>📖 <a href="${BASE_URL}/docs/${VER}/main/Review.md">Review Class</a> - Root container for systematic reviews</li>
+            <li>📖 <a href="${BASE_URL}/docs/${VER}/main/index.md">Full Schema Documentation</a></li>
+        </ul>
+    </div>
+
+    <div class="doc-section">
+        <h3>Core Objects</h3>
+        <div class="columns">
+            <ul>
+                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/review/">Review</a></li>
+                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/author/">Author</a></li>
+                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/protocol/">Protocol</a></li>
+                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/literature_record/">Literature Record</a></li>
+            </ul>
+            <ul>
+                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/stage_execution/">Stage Execution</a></li>
+                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/stage_output/">Stage Output</a></li>
+                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/software_env/">Software Environment</a></li>
+                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/enums/">Enumerations</a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="doc-section">
+        <h3>Review Stages</h3>
+        <ul>
+            <li>🔄 <a href="${BASE_URL}/docs/${VER}/stages/search/">Search Stage</a> - Literature search documentation</li>
+            <li>🔄 <a href="${BASE_URL}/docs/${VER}/stages/screening/">Screening Stage</a> - Title/abstract and full-text screening</li>
+        </ul>
+    </div>
+
     <h2>Quick Links</h2>
     <ul>
-        <li>📖 <a href="${BASE_URL}/docs/${VER}/Review.md">Review Class Documentation</a></li>
-        <li>📖 <a href="${BASE_URL}/docs/${VER}/SearchStage.md">Search Stage Documentation</a></li>
-        <li>📖 <a href="${BASE_URL}/docs/${VER}/ScreeningStage.md">Screening Stage Documentation</a></li>
-        <li>📖 <a href="${BASE_URL}/docs/${VER}/StageExecution.md">Stage Execution Documentation</a></li>
-        <li>📖 <a href="${BASE_URL}/docs/${VER}/LiteratureRecord.md">Literature Record Documentation</a></li>
-        <li>📖 <a href="${BASE_URL}/docs/${VER}/Author.md">Author Documentation</a></li>
+        <li>📖 <a href="${BASE_URL}/docs/${VER}/main/Review.md">Review Class Documentation</a></li>
+        <li>📖 <a href="${BASE_URL}/docs/${VER}/main/SearchStage.md">Search Stage Documentation</a></li>
+        <li>📖 <a href="${BASE_URL}/docs/${VER}/main/ScreeningStage.md">Screening Stage Documentation</a></li>
+        <li>📖 <a href="${BASE_URL}/docs/${VER}/main/StageExecution.md">Stage Execution Documentation</a></li>
+        <li>📖 <a href="${BASE_URL}/docs/${VER}/main/LiteratureRecord.md">Literature Record Documentation</a></li>
+        <li>📖 <a href="${BASE_URL}/docs/${VER}/main/Author.md">Author Documentation</a></li>
     </ul>
 
     <h2>Available Versions</h2>
@@ -166,3 +237,8 @@ EOF
 echo "Build complete!"
 echo "Files generated in $OUT/"
 echo "Site will be available at: https://open-and-sustainable.github.io/revaise-model/"
+echo ""
+echo "Documentation generated for:"
+echo "  - Main schema: $OUT/docs/$VER/main/"
+echo "  - Objects: $OUT/docs/$VER/objects/*"
+echo "  - Stages: $OUT/docs/$VER/stages/*"
