@@ -1,96 +1,120 @@
-<p style="background-color:white; display:inline-block;" align="center">
-  <img src="images/logo_full.png" alt="RevAIse logo" width="200" />
-</p>
+# RevAIse Data Model
 
-# RevAIse — Review AI Standard for Exchange
+> A community-driven standard for transparent, reproducible AI-assisted systematic literature reviews
 
-RevAIse is an open standard for describing, sharing, and reproducing systematic reviews, organized by stages.
+[![Build & Deploy](https://github.com/open-and-sustainable/revaise-model/actions/workflows/build.yml/badge.svg)](https://github.com/open-and-sustainable/revaise-model/actions/workflows/build.yml)
+[![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://open-and-sustainable.github.io/revaise-model/)
 
-## Documentation
+## Why RevAIse?
 
-Full documentation is available at the [RevAIse GitHub Pages site](https://open-and-sustainable.github.io/revaise-model/).
-It includes a reference for the data model and guidance on using the schema in your projects.
+The integration of AI into systematic literature reviews promises to accelerate research synthesis, but it also introduces critical challenges:
 
-## Schema Structure
+- **Reproducibility Crisis**: How can we ensure AI-assisted reviews can be independently verified and replicated?
+- **Transparency Gap**: What prompts, models, and decision criteria were actually used?
+- **Method Fragmentation**: Every team uses different tools, formats, and workflows, making collaboration difficult
+- **Trust Deficit**: Without standardized documentation, how can readers assess the quality and reliability of AI-assisted reviews?
 
-The schema follows a hierarchical structure with `Review` as the root object:
+**RevAIse addresses these challenges by providing a comprehensive, open standard for documenting every aspect of AI-assisted systematic reviews.**
 
-### Top-level Schema
-- [`schema/revaise.yaml`](schema/revaise.yaml) - Entry point defining `Review` as the required root object
+## What is RevAIse?
 
-### Core Components
-- [`schema/model/core.yaml`](schema/model/core.yaml) - Core definitions imported by all schemas:
-  - **Author** - Shared author representation for reviews and publications
-  - **Review** - Root container for all review data
-  - **Protocol** - Review protocol and registration
-  - **LiteratureRecord** - Publications tracked across stages
-  - **StageExecution** - Base class for review stages
-  - **Artifact** - Files and outputs from stages
-  - **SoftwareEnv** - Environment for reproducibility
+RevAIse is a structured data model that captures:
 
-### Objects
-[`schema/model/objects/`](schema/model/objects/) contains the building blocks:
-- [`review.yaml`](schema/model/objects/review.yaml) - The main Review object with metadata
-- [`author.yaml`](schema/model/objects/author.yaml) - Author and affiliation information
-- [`literature_record.yaml`](schema/model/objects/literature_record.yaml) - Literature records and collections
-- [`protocol.yaml`](schema/model/objects/protocol.yaml) - Protocol registration details
-- [`stage_execution.yaml`](schema/model/objects/stage_execution.yaml) - Base stage execution
-- [`artifact.yaml`](schema/model/objects/artifact.yaml) - Artifact definitions
-- [`software_env.yaml`](schema/model/objects/software_env.yaml) - Software environment
-- [`enums.yaml`](schema/model/objects/enums.yaml) - Enumerations (StageType, ArtifactKind, etc.)
-- [`slots.yaml`](schema/model/objects/slots.yaml) - Common slot definitions
+- 📋 **Complete Review Metadata** - From protocol registration to final synthesis
+- 🤖 **AI Usage Documentation** - Models, prompts, parameters, and decisions
+- 🔍 **Search Strategies** - Queries, databases, and result collections
+- 📊 **Screening & Extraction** - Criteria, decisions, and human-in-the-loop processes
+- 🔄 **Full Reproducibility** - Software environments, data versions, and computational steps
 
-### Stages
-[`schema/model/stages/`](schema/model/stages/) contains stage-specific schemas:
-- [`search.yaml`](schema/model/stages/search.yaml) - Literature search stage with databases and queries
-- [`screening.yaml`](schema/model/stages/screening.yaml) - Title/abstract and full-text screening
-- [`data_extraction.yaml`](schema/model/stages/data_extraction.yaml) - Data extraction from included studies
+## Who Benefits?
 
-### Validation Profiles
-[`schema/model/profiles/`](schema/model/profiles/) provides validation profiles:
-- [`review_full.yaml`](schema/model/profiles/review_full.yaml) - Complete review with all requirements
-- [`review_min.yaml`](schema/model/profiles/review_min.yaml) - Minimal review requirements
-- [`search_comprehensive.yaml`](schema/model/profiles/search_comprehensive.yaml) - Comprehensive search documentation
-- [`search_min.yaml`](schema/model/profiles/search_min.yaml) - Minimal search requirements
+### Researchers
+- Document your AI-assisted review process comprehensively
+- Share reproducible research artifacts with the community
+- Build on existing reviews with full transparency
 
-## Data Model Overview
+### Journal Editors & Peer Reviewers
+- Assess the methodological rigor of AI-assisted reviews
+- Verify compliance with reporting standards (PRISMA, etc.)
+- Ensure reproducibility requirements are met
 
-Every RevAIse document must have a `Review` object at its root, containing:
+### Tool Developers
+- Build interoperable tools that speak a common language
+- Import/export review data across platforms
+- Contribute to an open ecosystem
 
-```yaml
-Review:
-  review_id: "SR-2024-001"
-  title: "Your systematic review title"
-  review_type: "SYSTEMATIC_REVIEW"
-  authors:
-    - name: "Author Name"
-      orcid: "0000-0000-0000-0000"
-  review_status: "IN_PROGRESS"
-  protocol:
-    registry: "PROSPERO"
-    registration_id: "CRD42024123456"
-  stages:
-    - stage_type: "search"
-      # Stage-specific data
-  literature_records:
-    # Shared literature records
+### Research Institutions
+- Establish best practices for AI-assisted evidence synthesis
+- Ensure research outputs meet transparency standards
+- Build institutional knowledge bases
+
+## Key Features
+
+✅ **Open Standard** - Community-governed, MIT licensed, and freely available  
+✅ **Technology Agnostic** - Works with any AI model or review tool  
+✅ **FAIR Principles** - Findable, Accessible, Interoperable, and Reusable data  
+✅ **Multiple Formats** - JSON, YAML, RDF, and more  
+✅ **Extensible** - Adapt to your specific domain needs  
+✅ **Version Controlled** - Track changes in your review methodology  
+
+## Quick Start
+
+### For Researchers
+Start documenting your AI-assisted review using the RevAIse schema:
+
+1. **Browse the Schema**: [Documentation](https://open-and-sustainable.github.io/revaise-model/)
+2. **Download Templates**: [JSON Schema](https://open-and-sustainable.github.io/revaise-model/schema/latest/revaise.schema.json)
+3. **Validate Your Data**: Use standard JSON Schema validators
+
+### For Developers
+Integrate RevAIse into your tools:
+
+```json
+{
+  "schema": "https://open-and-sustainable.github.io/revaise-model/schema/latest/revaise.schema.json",
+  "context": "https://open-and-sustainable.github.io/revaise-model/schema/latest/context.jsonld",
+  "docs": "https://open-and-sustainable.github.io/revaise-model/docs/latest/"
+}
 ```
 
-## Examples
+## Get Involved
 
-Example data instances can be found in the [`examples/`](examples/) directory.
+RevAIse is a community effort. We welcome contributions from researchers, developers, librarians, and anyone interested in improving the transparency and reproducibility of AI-assisted research.
 
-## Building Documentation
+- **📖 Read the Documentation**: [open-and-sustainable.github.io/revaise-model](https://open-and-sustainable.github.io/revaise-model/)
+- **💬 Join the Discussion**: [GitHub Discussions](https://github.com/open-and-sustainable/revaise-model/discussions)
+- **🐛 Report Issues**: [GitHub Issues](https://github.com/open-and-sustainable/revaise-model/issues)
+- **🤝 Contribute**: See our [Contributing Guide](CONTRIBUTING.md)
 
-To build the documentation site:
+## Vision
 
-```bash
-bash scripts/build.sh
-```
+We envision a future where:
 
-This generates JSON schemas, JSON-LD contexts, and HTML documentation for each profile.
+- Every AI-assisted systematic review is fully transparent and reproducible
+- Researchers can seamlessly build upon each other's work
+- AI tools enhance rather than obscure the review process
+- The scientific community has complete confidence in AI-assisted evidence synthesis
+
+**Join us in making this vision a reality.**
 
 ## License
 
-This project is released under the [Creative Commons Zero v1.0 Universal](LICENSE) license.
-**Author:** Riccardo Boero – [ribo@nilu.no](mailto:ribo@nilu.no)
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Citation
+
+If you use RevAIse in your research, please cite:
+
+```bibtex
+@software{revaise2024,
+  title = {RevAIse: A Data Model for AI-Assisted Systematic Literature Reviews},
+  year = {2024},
+  url = {https://github.com/open-and-sustainable/revaise-model}
+}
+```
+
+---
+
+<p align="center">
+  <strong>Building trust in AI-assisted research through radical transparency</strong>
+</p>

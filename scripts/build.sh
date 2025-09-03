@@ -52,6 +52,15 @@ cat > "$OUT/index.html" <<EOF
             padding: 2rem;
             line-height: 1.6;
         }
+        .header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        .logo {
+            max-width: 300px;
+            height: auto;
+            margin-bottom: 1rem;
+        }
         h1 { color: #333; }
         h2 { color: #555; margin-top: 2rem; }
         ul { list-style-type: none; padding: 0; }
@@ -76,8 +85,11 @@ cat > "$OUT/index.html" <<EOF
     </style>
 </head>
 <body>
-    <h1>RevAIse Data Model</h1>
-    <p>A LinkML schema for AI-assisted systematic literature reviews.</p>
+    <div class="header">
+        <img src="https://raw.githubusercontent.com/open-and-sustainable/revaise-model/main/images/logo_full.png" alt="RevAIse Logo" class="logo">
+        <h1>RevAIse Data Model</h1>
+        <p>A LinkML schema for AI-assisted systematic literature reviews.</p>
+    </div>
 
     <div class="version-info">
         <strong>Version:</strong> ${VER}
