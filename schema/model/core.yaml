@@ -15,6 +15,9 @@ imports:
     - ./objects/protocol
     - ./objects/literature_record
 
+    # Registration templates for protocol registration
+    - ./objects/registration_template
+
     # Stage execution is core - all stages inherit from it
     - ./objects/stage_execution
 

@@ -1,0 +1,285 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/registration_template
+name: revaise_registration_template
+description: "Registration template definitions for systematic reviews."
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - linkml:types
+
+classes:
+    RegistrationTemplate:
+        description: "A template used for registering systematic reviews, defining required and optional fields."
+        slots:
+            # Template identification
+            - template_id
+            - template_name
+            - template_version
+            - template_uri
+            - template_doi
+
+            # Template metadata
+            - template_provider
+            - template_type
+            - template_description
+            - template_language
+
+            # Template structure
+            - required_fields
+            - optional_fields
+            - field_definitions
+            - validation_rules
+
+            # Usage metadata
+            - created_date
+            - last_updated
+            - deprecation_date
+            - successor_template_id
+
+        slot_usage:
+            template_id:
+                identifier: true
+                required: true
+                description: "Unique identifier for this template"
+            template_name:
+                range: string
+                required: true
+                description: "Human-readable name of the template"
+            template_version:
+                range: string
+                required: true
+                description: "Version of the template"
+            template_uri:
+                range: uri
+                required: true
+                description: "URI where the template can be accessed"
+            template_doi:
+                range: string
+                description: "DOI of the template publication, if available (e.g., for PRISMA-P)"
+            template_provider:
+                range: string
+                required: true
+                description: "Organization or registry providing the template"
+            template_type:
+                range: TemplateType
+                required: true
+                description: "Type of registration template"
+            template_description:
+                range: string
+                description: "Description of the template and its purpose"
+            template_language:
+                range: string
+                default: "en"
+                description: "Language of the template"
+            required_fields:
+                range: TemplateField
+                multivalued: true
+                description: "Fields required by this template"
+            optional_fields:
+                range: TemplateField
+                multivalued: true
+                description: "Optional fields in this template"
+            field_definitions:
+                range: string
+                description: "JSON Schema or other formal definition of fields"
+            validation_rules:
+                range: string
+                multivalued: true
+                description: "Validation rules for the template"
+            created_date:
+                range: date
+                description: "Date the template was created"
+            last_updated:
+                range: datetime
+                description: "Date the template was last updated"
+            deprecation_date:
+                range: date
+                description: "Date when this template will be or was deprecated"
+            successor_template_id:
+                range: string
+                description: "ID of the template that supersedes this one"
+
+    TemplateField:
+        description: "A field within a registration template."
+        slots:
+            - field_id
+            - field_name
+            - field_label
+            - field_description
+            - field_type
+            - field_format
+            - field_constraints
+            - field_help_text
+            - field_example
+            - field_section
+            - field_order
+            - is_repeatable
+            - conditional_on
+
+        slot_usage:
+            field_id:
+                identifier: true
+                required: true
+                description: "Unique identifier for this field within the template"
+            field_name:
+                range: string
+                required: true
+                description: "Technical name of the field"
+            field_label:
+                range: string
+                required: true
+                description: "Human-readable label for the field"
+            field_description:
+                range: string
+                description: "Description of what should be entered in this field"
+            field_type:
+                range: FieldType
+                required: true
+                description: "Data type of the field"
+            field_format:
+                range: string
+                description: "Expected format for the field value"
+            field_constraints:
+                range: string
+                multivalued: true
+                description: "Constraints on the field value"
+            field_help_text:
+                range: string
+                description: "Help text to guide users"
+            field_example:
+                range: string
+                description: "Example value for this field"
+            field_section:
+                range: string
+                description: "Section of the template this field belongs to"
+            field_order:
+                range: integer
+                description: "Display order of the field"
+            is_repeatable:
+                range: boolean
+                default: false
+                description: "Whether this field can have multiple values"
+            conditional_on:
+                range: string
+                description: "Field ID that this field depends on"
+
+slots:
+    # Template slots
+    template_id:
+        range: string
+    template_name:
+        range: string
+    template_version:
+        range: string
+    template_uri:
+        range: uri
+    template_doi:
+        range: string
+    template_provider:
+        range: string
+    template_type:
+        range: TemplateType
+    template_description:
+        range: string
+    template_language:
+        range: string
+    required_fields:
+        range: TemplateField
+        multivalued: true
+    optional_fields:
+        range: TemplateField
+        multivalued: true
+    field_definitions:
+        range: string
+    validation_rules:
+        range: string
+        multivalued: true
+    created_date:
+        range: date
+    last_updated:
+        range: datetime
+    deprecation_date:
+        range: date
+    successor_template_id:
+        range: string
+
+    # Field slots
+    field_id:
+        range: string
+    field_name:
+        range: string
+    field_label:
+        range: string
+    field_description:
+        range: string
+    field_type:
+        range: FieldType
+    field_format:
+        range: string
+    field_constraints:
+        range: string
+        multivalued: true
+    field_help_text:
+        range: string
+    field_example:
+        range: string
+    field_section:
+        range: string
+    field_order:
+        range: integer
+    is_repeatable:
+        range: boolean
+    conditional_on:
+        range: string
+
+enums:
+    TemplateType:
+        description: "Types of registration templates"
+        permissible_values:
+            PROSPERO:
+                description: "PROSPERO registration template"
+            OSF_PREREG:
+                description: "OSF Preregistration template"
+            OSF_PREREG_PLUS:
+                description: "OSF Preregistration Plus template"
+            ASPREDICTED:
+                description: "AsPredicted template"
+            CLINICAL_TRIALS:
+                description: "ClinicalTrials.gov template"
+            PRISMA_P:
+                description: "PRISMA-P protocol template"
+            COCHRANE:
+                description: "Cochrane protocol template"
+            CAMPBELL:
+                description: "Campbell Collaboration template"
+            CUSTOM:
+                description: "Custom institutional template"
+
+    FieldType:
+        description: "Data types for template fields"
+        permissible_values:
+            TEXT:
+                description: "Free text field"
+            TEXT_AREA:
+                description: "Multi-line text field"
+            NUMBER:
+                description: "Numeric field"
+            DATE:
+                description: "Date field"
+            DATETIME:
+                description: "Date and time field"
+            BOOLEAN:
+                description: "Yes/No field"
+            SELECT:
+                description: "Single selection from options"
+            MULTI_SELECT:
+                description: "Multiple selection from options"
+            URL:
+                description: "URL field"
+            EMAIL:
+                description: "Email address field"
+            FILE:
+                description: "File upload field"
+            STRUCTURED:
+                description: "Structured data field (JSON/YAML)"

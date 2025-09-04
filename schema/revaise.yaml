@@ -8,6 +8,7 @@ default_prefix: revaise
 
 imports:
     - model/core
+    - model/stages/registration
     - model/stages/search
     - model/stages/screening
 # The Review class is the required root object for all RevAIse documents

@@ -1,0 +1,505 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/stages/registration
+name: revaise_registration
+description: "Registration stage for systematic reviews, supporting both pre-registration and registration with comprehensive versioning and amendment tracking."
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - linkml:types
+    - ../objects/stage_execution
+    - ../objects/author
+
+classes:
+    RegistrationStage:
+        description: "Stage for managing review registrations and pre-registrations, focusing on referencing external registry entries rather than hosting registration content."
+        is_a: StageExecution
+        slots:
+            - registrations
+            - current_registration_version
+            - registration_policy
+        slot_usage:
+            registrations:
+                range: Registration
+                multivalued: true
+                minimum_cardinality: 1
+                description: "All registrations associated with this review"
+            current_registration_version:
+                range: string
+                description: "Identifier of the currently active registration version"
+            registration_policy:
+                range: RegistrationPolicy
+                description: "Policy rules for registration management"
+
+    Registration:
+        description: "A registration entry referencing an external registry, with full versioning support."
+        slots:
+            # Core registry reference
+            - registration_id
+            - registry_name
+            - registry_entry_url
+            - registration_type
+
+            # Versioning
+            - versions
+            - initial_version_id
+            - current_version_id
+
+            # Metadata
+            - registration_status
+            - created_at
+            - last_modified
+
+        slot_usage:
+            registration_id:
+                identifier: true
+                required: true
+                description: "Unique identifier for this registration within the review"
+            registry_name:
+                required: true
+                description: "Name of the registry (e.g., PROSPERO, OSF, ClinicalTrials.gov)"
+            registry_entry_url:
+                range: uri
+                required: true
+                description: "URL to the registration entry in the external registry"
+            registration_type:
+                range: RegistrationType
+                required: true
+                description: "Type of registration (pre-registration or registration)"
+            versions:
+                range: RegistrationVersion
+                multivalued: true
+                minimum_cardinality: 1
+                description: "All versions of this registration"
+            initial_version_id:
+                range: string
+                required: true
+                description: "ID of the initial registration version"
+            current_version_id:
+                range: string
+                required: true
+                description: "ID of the currently active version"
+            registration_status:
+                range: RegistrationStatus
+                required: true
+                description: "Current status of the registration"
+            created_at:
+                range: datetime
+                description: "When this registration record was created"
+            last_modified:
+                range: datetime
+                description: "When this registration was last modified"
+
+    RegistrationVersion:
+        description: "An immutable version of a registration, capturing the exact state at a point in time."
+        slots:
+            # Version identification
+            - version_id
+            - version_number
+            - version_label
+
+            # Registry references
+            - registry_version_id
+            - registry_submission_date
+            - registry_acceptance_date
+            - registration_doi
+
+            # Content references
+            - content_uri
+            - content_hash
+            - content_hash_algorithm
+            - registered_text
+
+            # Template and protocol
+            - template_ref
+            - template_version
+            - template_doi
+            - protocol_snapshot_hash
+
+            # Versioning metadata
+            - version_date
+            - version_author
+            - version_reason
+            - is_major_revision
+
+            # Amendments
+            - amendments
+
+        slot_usage:
+            version_id:
+                identifier: true
+                required: true
+                description: "Unique identifier for this version"
+            version_number:
+                range: string
+                required: true
+                description: "Semantic version number (e.g., 1.0.0, 1.1.0)"
+            version_label:
+                range: string
+                description: "Human-readable label for this version"
+            registry_version_id:
+                range: string
+                description: "Version identifier in the external registry"
+            registry_submission_date:
+                range: datetime
+                required: true
+                description: "When this version was submitted to the registry"
+            registry_acceptance_date:
+                range: datetime
+                description: "When this version was accepted by the registry"
+            registration_doi:
+                range: string
+                description: "DOI if this version has been published"
+            content_uri:
+                range: uri
+                required: true
+                description: "URI to the immutable content of this version"
+            content_hash:
+                range: string
+                required: true
+                description: "Cryptographic hash of the registration content"
+            content_hash_algorithm:
+                range: HashAlgorithm
+                required: true
+                description: "Algorithm used to generate the content hash"
+            registered_text:
+                range: string
+                description: "Optional full text as submitted to the registry"
+            template_ref:
+                range: uri
+                description: "URI/ID of the registration template used"
+            template_version:
+                range: string
+                description: "Version of the template used"
+            template_doi:
+                range: string
+                description: "DOI of the registration template used, if available"
+            protocol_snapshot_hash:
+                range: string
+                description: "Hash of the exact protocol registered"
+            version_date:
+                range: datetime
+                required: true
+                description: "When this version was created"
+            version_author:
+                range: Author
+                description: "Author who created this version"
+            version_reason:
+                range: string
+                description: "Reason for creating this version"
+            is_major_revision:
+                range: boolean
+                default: false
+                description: "Whether this is a major revision"
+            amendments:
+                range: Amendment
+                multivalued: true
+                description: "Amendments made in this version"
+
+    Amendment:
+        description: "A documented change or clarification to a registration."
+        slots:
+            - amendment_id
+            - amendment_date
+            - amendment_type
+            - amendment_reason
+            - amendment_description
+            - affected_sections
+            - affected_version_ids
+            - diff_uri
+            - amendment_author
+            - approval_status
+            - approval_date
+            - approver
+
+        slot_usage:
+            amendment_id:
+                identifier: true
+                required: true
+                description: "Unique identifier for this amendment"
+            amendment_date:
+                range: datetime
+                required: true
+                description: "Date of the amendment"
+            amendment_type:
+                range: AmendmentType
+                required: true
+                description: "Type of amendment"
+            amendment_reason:
+                range: string
+                required: true
+                description: "Human-readable reason for the amendment"
+            amendment_description:
+                range: string
+                required: true
+                description: "Detailed description of what was changed"
+            affected_sections:
+                range: string
+                multivalued: true
+                description: "Sections of the protocol affected by this amendment"
+            affected_version_ids:
+                range: string
+                multivalued: true
+                description: "IDs of versions affected by this amendment"
+            diff_uri:
+                range: uri
+                description: "URI to an external diff showing the changes"
+            amendment_author:
+                range: Author
+                description: "Author who made the amendment"
+            approval_status:
+                range: ApprovalStatus
+                description: "Approval status of the amendment"
+            approval_date:
+                range: datetime
+                description: "Date the amendment was approved"
+            approver:
+                range: string
+                description: "Person or entity who approved the amendment"
+
+    RegistrationPolicy:
+        description: "Policy rules for registration management, can be customized by profiles."
+        slots:
+            - require_doi
+            - require_content_hash
+            - allowed_change_types
+            - require_amendment_approval
+            - max_days_between_versions
+            - require_template
+            - allowed_templates
+            - hash_algorithms
+
+        slot_usage:
+            require_doi:
+                range: boolean
+                default: false
+                description: "Whether DOIs are required for registration versions"
+            require_content_hash:
+                range: boolean
+                default: true
+                description: "Whether content hashes are required for verification"
+            allowed_change_types:
+                range: AmendmentType
+                multivalued: true
+                description: "Types of amendments allowed"
+            require_amendment_approval:
+                range: boolean
+                default: false
+                description: "Whether amendments require formal approval"
+            max_days_between_versions:
+                range: integer
+                description: "Maximum days allowed between version updates"
+            require_template:
+                range: boolean
+                default: false
+                description: "Whether a template must be used"
+            allowed_templates:
+                range: uri
+                multivalued: true
+                description: "URIs of allowed registration templates"
+            hash_algorithms:
+                range: HashAlgorithm
+                multivalued: true
+                description: "Allowed hash algorithms for content verification"
+
+slots:
+    # Registration slots
+    registrations:
+        range: Registration
+        multivalued: true
+    current_registration_version:
+        range: string
+    registration_policy:
+        range: RegistrationPolicy
+    registration_id:
+        range: string
+    registry_name:
+        range: string
+    registry_entry_url:
+        range: uri
+    registration_type:
+        range: RegistrationType
+    versions:
+        range: RegistrationVersion
+        multivalued: true
+    initial_version_id:
+        range: string
+    current_version_id:
+        range: string
+    registration_status:
+        range: RegistrationStatus
+
+    # Version slots
+    version_id:
+        range: string
+    version_number:
+        range: string
+    version_label:
+        range: string
+    registry_version_id:
+        range: string
+    registry_submission_date:
+        range: datetime
+    registry_acceptance_date:
+        range: datetime
+    registration_doi:
+        range: string
+    content_uri:
+        range: uri
+    content_hash:
+        range: string
+    content_hash_algorithm:
+        range: HashAlgorithm
+    registered_text:
+        range: string
+    template_ref:
+        range: uri
+    template_version:
+        range: string
+    template_doi:
+        range: string
+    protocol_snapshot_hash:
+        range: string
+    version_date:
+        range: datetime
+    version_author:
+        range: Author
+    version_reason:
+        range: string
+    is_major_revision:
+        range: boolean
+    amendments:
+        range: Amendment
+        multivalued: true
+
+    # Amendment slots
+    amendment_id:
+        range: string
+    amendment_date:
+        range: datetime
+    amendment_type:
+        range: AmendmentType
+    amendment_reason:
+        range: string
+    amendment_description:
+        range: string
+    affected_sections:
+        range: string
+        multivalued: true
+    affected_version_ids:
+        range: string
+        multivalued: true
+    diff_uri:
+        range: uri
+    amendment_author:
+        range: Author
+    approval_status:
+        range: ApprovalStatus
+    approval_date:
+        range: datetime
+    approver:
+        range: string
+
+    # Policy slots
+    require_doi:
+        range: boolean
+    require_content_hash:
+        range: boolean
+    allowed_change_types:
+        range: AmendmentType
+        multivalued: true
+    require_amendment_approval:
+        range: boolean
+    max_days_between_versions:
+        range: integer
+    require_template:
+        range: boolean
+    allowed_templates:
+        range: uri
+        multivalued: true
+    hash_algorithms:
+        range: HashAlgorithm
+        multivalued: true
+    created_at:
+        range: datetime
+    last_modified:
+        range: datetime
+
+enums:
+    RegistrationType:
+        description: "Type of registration"
+        permissible_values:
+            PRE_REGISTRATION:
+                description: "Pre-registration before data collection"
+            REGISTRATION:
+                description: "Standard registration"
+            REGISTERED_REPORT:
+                description: "Registered report for journal"
+            PROTOCOL_REGISTRATION:
+                description: "Protocol-only registration"
+
+    RegistrationStatus:
+        description: "Status of a registration"
+        permissible_values:
+            DRAFT:
+                description: "Registration is in draft"
+            SUBMITTED:
+                description: "Submitted to registry"
+            UNDER_REVIEW:
+                description: "Under review by registry"
+            REGISTERED:
+                description: "Actively registered"
+            AMENDED:
+                description: "Registration has been amended"
+            WITHDRAWN:
+                description: "Registration withdrawn"
+            SUPERSEDED:
+                description: "Superseded by a newer registration"
+
+    AmendmentType:
+        description: "Types of amendments to a registration"
+        permissible_values:
+            CLARIFICATION:
+                description: "Clarification of existing content"
+            CORRECTION:
+                description: "Correction of errors"
+            PROTOCOL_CHANGE:
+                description: "Change to the protocol"
+            SCOPE_CHANGE:
+                description: "Change in review scope"
+            METHODOLOGY_CHANGE:
+                description: "Change in methodology"
+            TIMELINE_CHANGE:
+                description: "Change in timeline"
+            TEAM_CHANGE:
+                description: "Change in review team"
+            ADMINISTRATIVE:
+                description: "Administrative update"
+
+    HashAlgorithm:
+        description: "Cryptographic hash algorithms"
+        permissible_values:
+            SHA256:
+                description: "SHA-256 hash"
+            SHA512:
+                description: "SHA-512 hash"
+            SHA3_256:
+                description: "SHA3-256 hash"
+            SHA3_512:
+                description: "SHA3-512 hash"
+            BLAKE2B:
+                description: "BLAKE2b hash"
+            BLAKE3:
+                description: "BLAKE3 hash"
+
+    ApprovalStatus:
+        description: "Approval status for amendments"
+        permissible_values:
+            PENDING:
+                description: "Pending approval"
+            APPROVED:
+                description: "Approved"
+            REJECTED:
+                description: "Rejected"
+            NOT_REQUIRED:
+                description: "Approval not required"
