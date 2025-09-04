@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use RevAIse in your research, please cite it as below."
+title: "RevAIse: A Data Model for AI-Assisted Systematic Literature Reviews"
+abstract: "A community-driven standard for transparent, reproducible AI-assisted systematic literature reviews. RevAIse provides a comprehensive, open standard for documenting every aspect of AI-assisted systematic reviews, ensuring reproducibility, transparency, and interoperability."
+type: software
+authors:
+  - given-names: Riccardo
+    family-names: Boero
+    email: ribo@nilu.no
+keywords:
+  - systematic-reviews
+  - AI-assisted-research
+  - reproducibility
+  - transparency
+  - data-model
+  - LinkML
+  - FAIR-data
+  - evidence-synthesis
+  - research-methods
+  - open-science
+license: CC0-1.0
+repository-code: "https://github.com/open-and-sustainable/revaise-model"
+url: "https://open-and-sustainable.github.io/revaise-model/"
+doi:
+version:
+date-released: 2025-01-01

@@ -50,7 +50,7 @@ RevAIse is a structured data model that captures:
 
 ## Key Features
 
-✅ **Open Standard** - Community-governed, MIT licensed, and freely available  
+✅ **Open Standard** - Community-governed, CC0 licensed (public domain), and freely available  
 ✅ **Technology Agnostic** - Works with any AI model or review tool  
 ✅ **FAIR Principles** - Findable, Accessible, Interoperable, and Reusable data  
 ✅ **Multiple Formats** - JSON, YAML, RDF, and more  
@@ -99,16 +99,17 @@ We envision a future where:
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under CC0 1.0 Universal (Public Domain) - see the [LICENSE](LICENSE) file for details.
 
 ## Citation
 
 If you use RevAIse in your research, please cite:
 
 ```bibtex
-@software{revaise2024,
+@software{revaise2025,
   title = {RevAIse: A Data Model for AI-Assisted Systematic Literature Reviews},
-  year = {2024},
+  author = {Boero, Riccardo},
+  year = {2025},
   url = {https://github.com/open-and-sustainable/revaise-model}
 }
 ```
