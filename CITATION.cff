@@ -22,5 +22,4 @@ license: CC0-1.0
 repository-code: "https://github.com/open-and-sustainable/revaise-model"
 url: "https://open-and-sustainable.github.io/revaise-model/"
 doi:
-version:
-date-released: 2025-01-01
+version: 0.0.2
