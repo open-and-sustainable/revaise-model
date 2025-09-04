@@ -4,6 +4,7 @@
 
 [![Build & Deploy](https://github.com/open-and-sustainable/revaise-model/actions/workflows/build.yml/badge.svg)](https://github.com/open-and-sustainable/revaise-model/actions/workflows/build.yml)
 [![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://open-and-sustainable.github.io/revaise-model/)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17054435.svg)](https://doi.org/10.5281/zenodo.17054435)
 
 ## Why RevAIse?
 
@@ -50,12 +51,12 @@ RevAIse is a structured data model that captures:
 
 ## Key Features
 
-✅ **Open Standard** - Community-governed, CC0 licensed (public domain), and freely available  
-✅ **Technology Agnostic** - Works with any AI model or review tool  
-✅ **FAIR Principles** - Findable, Accessible, Interoperable, and Reusable data  
-✅ **Multiple Formats** - JSON, YAML, RDF, and more  
-✅ **Extensible** - Adapt to your specific domain needs  
-✅ **Version Controlled** - Track changes in your review methodology  
+✅ **Open Standard** - Community-governed, CC0 licensed (public domain), and freely available
+✅ **Technology Agnostic** - Works with any AI model or review tool
+✅ **FAIR Principles** - Findable, Accessible, Interoperable, and Reusable data
+✅ **Multiple Formats** - JSON, YAML, RDF, and more
+✅ **Extensible** - Adapt to your specific domain needs
+✅ **Version Controlled** - Track changes in your review methodology
 
 ## Quick Start
 
