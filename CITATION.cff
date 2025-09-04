@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use RevAIse in your research, please cite it as below."
+message: "Please check technical documentation at https://open-and-sustainable.github.io/revaise-model/"
 title: "RevAIse: A Data Model for AI-Assisted Systematic Literature Reviews"
 abstract: "A community-driven standard for transparent, reproducible AI-assisted systematic literature reviews. RevAIse provides a comprehensive, open standard for documenting every aspect of AI-assisted systematic reviews, ensuring reproducibility, transparency, and interoperability."
 type: software
@@ -7,6 +7,8 @@ authors:
   - given-names: Riccardo
     family-names: Boero
     email: ribo@nilu.no
+    orcid: 'https://orcid.org/0000-0002-7468-9096'
+    affiliation: NILU
 keywords:
   - systematic-reviews
   - AI-assisted-research
@@ -21,5 +23,9 @@ keywords:
 license: CC0-1.0
 repository-code: "https://github.com/open-and-sustainable/revaise-model"
 url: "https://open-and-sustainable.github.io/revaise-model/"
-doi:
+doi: 10.5281/zenodo.17054435
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.17054435
+    description: This DOI represents all software versions.
 version: 0.0.2
