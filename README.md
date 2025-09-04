@@ -111,7 +111,8 @@ If you use RevAIse in your research, please cite:
   title = {RevAIse: A Data Model for AI-Assisted Systematic Literature Reviews},
   author = {Boero, Riccardo},
   year = {2025},
-  url = {https://github.com/open-and-sustainable/revaise-model}
+  url = {https://github.com/open-and-sustainable/revaise-model},
+  doi = {10.5281/zenodo.17054435}
 }
 ```
 
