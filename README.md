@@ -1,6 +1,6 @@
 # RevAIse Data Model
 
-> A community-driven standard for transparent, reproducible AI-assisted systematic literature reviews
+> An Open Science standard for transparent, reproducible AI-assisted systematic literature reviews
 
 [![Build & Deploy](https://github.com/open-and-sustainable/revaise-model/actions/workflows/build.yml/badge.svg)](https://github.com/open-and-sustainable/revaise-model/actions/workflows/build.yml)
 [![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://open-and-sustainable.github.io/revaise-model/)

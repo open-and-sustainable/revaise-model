@@ -135,7 +135,7 @@ cat > "$OUT/index.html" <<EOF
         <li>📄 <a href="${BASE_URL}/schema/latest/revaise.yaml">YAML Schema</a> - LinkML source schema</li>
         <li>🔧 <a href="${BASE_URL}/schema/latest/revaise.schema.json">JSON Schema</a> - For validation</li>
         <li>🔗 <a href="${BASE_URL}/schema/latest/context.jsonld">JSON-LD Context</a> - For linked data</li>
-        <li>📚 <a href="${BASE_URL}/docs/${VER}/main/">Complete Documentation</a> - Full reference</li>
+        <li>📚 <a href="${BASE_URL}/docs/${VER}/main/index.md">Complete Documentation</a> - Full reference</li>
         <li>🔍 <a href="${BASE_URL}/schema/latest/index.json">Programmatic Index</a> - For tool integration</li>
     </ul>
 
@@ -153,16 +153,17 @@ cat > "$OUT/index.html" <<EOF
         <h3>Core Objects</h3>
         <div class="columns">
             <ul>
-                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/review/">Review</a></li>
-                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/author/">Author</a></li>
-                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/protocol/">Protocol</a></li>
-                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/literature_record/">Literature Record</a></li>
+                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/review/index.md">Review</a></li>
+                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/author/index.md">Author</a></li>
+                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/protocol/index.md">Protocol</a></li>
+                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/literature_record/index.md">Literature Record</a></li>
             </ul>
             <ul>
-                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/stage_execution/">Stage Execution</a></li>
-                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/stage_output/">Stage Output</a></li>
-                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/software_env/">Software Environment</a></li>
-                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/enums/">Enumerations</a></li>
+                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/stage_execution/index.md">Stage Execution</a></li>
+                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/stage_output/index.md">Stage Output</a></li>
+                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/software_env/index.md">Software Environment</a></li>
+                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/registration_template/index.md">Registration Template</a></li>
+                <li>📦 <a href="${BASE_URL}/docs/${VER}/objects/enums/index.md">Enumerations</a></li>
             </ul>
         </div>
     </div>
@@ -170,18 +171,21 @@ cat > "$OUT/index.html" <<EOF
     <div class="doc-section">
         <h3>Review Stages</h3>
         <ul>
-            <li>🔄 <a href="${BASE_URL}/docs/${VER}/stages/search/">Search Stage</a> - Literature search documentation</li>
-            <li>🔄 <a href="${BASE_URL}/docs/${VER}/stages/screening/">Screening Stage</a> - Title/abstract and full-text screening</li>
+            <li>🔄 <a href="${BASE_URL}/docs/${VER}/stages/registration/index.md">Registration Stage</a> - Protocol registration and pre-registration</li>
+            <li>🔄 <a href="${BASE_URL}/docs/${VER}/stages/search/index.md">Search Stage</a> - Literature search documentation</li>
+            <li>🔄 <a href="${BASE_URL}/docs/${VER}/stages/screening/index.md">Screening Stage</a> - Title/abstract and full-text screening</li>
         </ul>
     </div>
 
     <h2>Quick Links</h2>
     <ul>
         <li>📖 <a href="${BASE_URL}/docs/${VER}/main/Review.md">Review Class Documentation</a></li>
+        <li>📖 <a href="${BASE_URL}/docs/${VER}/main/RegistrationStage.md">Registration Stage Documentation</a></li>
         <li>📖 <a href="${BASE_URL}/docs/${VER}/main/SearchStage.md">Search Stage Documentation</a></li>
         <li>📖 <a href="${BASE_URL}/docs/${VER}/main/ScreeningStage.md">Screening Stage Documentation</a></li>
         <li>📖 <a href="${BASE_URL}/docs/${VER}/main/StageExecution.md">Stage Execution Documentation</a></li>
         <li>📖 <a href="${BASE_URL}/docs/${VER}/main/LiteratureRecord.md">Literature Record Documentation</a></li>
+        <li>📖 <a href="${BASE_URL}/docs/${VER}/main/RegistrationTemplate.md">Registration Template Documentation</a></li>
         <li>📖 <a href="${BASE_URL}/docs/${VER}/main/Author.md">Author Documentation</a></li>
     </ul>
 
