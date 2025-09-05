@@ -82,10 +82,10 @@ Integrate RevAIse into your tools:
 
 RevAIse is a community effort. We welcome contributions from researchers, developers, librarians, and anyone interested in improving the transparency and reproducibility of AI-assisted research.
 
-- **📖 Read the Documentation**: [open-and-sustainable.github.io/revaise-model](https://open-and-sustainable.github.io/revaise-model/)
-- **💬 Join the Discussion**: [GitHub Discussions](https://github.com/open-and-sustainable/revaise-model/discussions)
-- **🐛 Report Issues**: [GitHub Issues](https://github.com/open-and-sustainable/revaise-model/issues)
-- **🤝 Contribute**: See our [Contributing Guide](CONTRIBUTING.md)
+- **Read the Documentation**: [open-and-sustainable.github.io/revaise-model](https://open-and-sustainable.github.io/revaise-model/)
+- **Join the Discussion**: [GitHub Discussions](https://github.com/open-and-sustainable/revaise-model/discussions)
+- **Report Issues**: [GitHub Issues](https://github.com/open-and-sustainable/revaise-model/issues)
+- **Contribute**: See our [Contributing Guide](CONTRIBUTING.md)
 
 ## Vision
 
