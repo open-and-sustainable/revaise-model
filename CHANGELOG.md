@@ -2,10 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
-## [0.1.0] - unrelased
+## [0.1.0] - 2025-09-05
 
 ### Added
-- Implementation of registration phase functionality
+- Added the registration phase to the schema
+
+### Changed
+- Updated the documentation generation to include the registration stage
+
+### Fixed
+- Resolved slot naming conflicts
+- Fixed all the LinkML compatibility issues (default → ifabsent)
 
 
 ## [0.0.2] - 2025-09-04
