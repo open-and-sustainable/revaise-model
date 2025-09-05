@@ -33,7 +33,7 @@ classes:
 
             # Usage metadata
             - created_date
-            - last_updated
+            - template_last_updated
             - deprecation_date
             - successor_template_id
 
@@ -70,7 +70,6 @@ classes:
                 description: "Description of the template and its purpose"
             template_language:
                 range: string
-                default: "en"
                 description: "Language of the template"
             required_fields:
                 range: TemplateField
@@ -158,7 +157,6 @@ classes:
                 description: "Display order of the field"
             is_repeatable:
                 range: boolean
-                default: false
                 description: "Whether this field can have multiple values"
             conditional_on:
                 range: string
@@ -184,6 +182,7 @@ slots:
         range: string
     template_language:
         range: string
+        ifabsent: "en"
     required_fields:
         range: TemplateField
         multivalued: true
@@ -197,7 +196,7 @@ slots:
         multivalued: true
     created_date:
         range: date
-    last_updated:
+    template_last_updated:
         range: datetime
     deprecation_date:
         range: date
@@ -230,6 +229,7 @@ slots:
         range: integer
     is_repeatable:
         range: boolean
+        ifabsent: false
     conditional_on:
         range: string
 

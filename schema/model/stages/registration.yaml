@@ -35,7 +35,7 @@ classes:
         description: "A registration entry referencing an external registry, with full versioning support."
         slots:
             # Core registry reference
-            - registration_id
+            - stage_registration_id
             - registry_name
             - registry_entry_url
             - registration_type
@@ -47,11 +47,11 @@ classes:
 
             # Metadata
             - registration_status
-            - created_at
-            - last_modified
+            - registration_created_at
+            - registration_last_modified
 
         slot_usage:
-            registration_id:
+            stage_registration_id:
                 identifier: true
                 required: true
                 description: "Unique identifier for this registration within the review"
@@ -83,10 +83,10 @@ classes:
                 range: RegistrationStatus
                 required: true
                 description: "Current status of the registration"
-            created_at:
+            registration_created_at:
                 range: datetime
                 description: "When this registration record was created"
-            last_modified:
+            registration_last_modified:
                 range: datetime
                 description: "When this registration was last modified"
 
@@ -112,8 +112,8 @@ classes:
 
             # Template and protocol
             - template_ref
-            - template_version
-            - template_doi
+            - registration_template_version
+            - registration_template_doi
             - protocol_snapshot_hash
 
             # Versioning metadata
@@ -167,11 +167,11 @@ classes:
                 description: "Optional full text as submitted to the registry"
             template_ref:
                 range: uri
-                description: "URI/ID of the registration template used"
-            template_version:
+                description: "Reference to the template used"
+            registration_template_version:
                 range: string
                 description: "Version of the template used"
-            template_doi:
+            registration_template_doi:
                 range: string
                 description: "DOI of the registration template used, if available"
             protocol_snapshot_hash:
@@ -189,7 +189,6 @@ classes:
                 description: "Reason for creating this version"
             is_major_revision:
                 range: boolean
-                default: false
                 description: "Whether this is a major revision"
             amendments:
                 range: Amendment
@@ -272,11 +271,9 @@ classes:
         slot_usage:
             require_doi:
                 range: boolean
-                default: false
                 description: "Whether DOIs are required for registration versions"
             require_content_hash:
                 range: boolean
-                default: true
                 description: "Whether content hashes are required for verification"
             allowed_change_types:
                 range: AmendmentType
@@ -284,14 +281,12 @@ classes:
                 description: "Types of amendments allowed"
             require_amendment_approval:
                 range: boolean
-                default: false
                 description: "Whether amendments require formal approval"
             max_days_between_versions:
                 range: integer
                 description: "Maximum days allowed between version updates"
             require_template:
                 range: boolean
-                default: false
                 description: "Whether a template must be used"
             allowed_templates:
                 range: uri
@@ -302,8 +297,9 @@ classes:
                 multivalued: true
                 description: "Allowed hash algorithms for content verification"
 
+# Slot definitions for individual properties
 slots:
-    # Registration slots
+    # Stage-level slots
     registrations:
         range: Registration
         multivalued: true
@@ -311,7 +307,7 @@ slots:
         range: string
     registration_policy:
         range: RegistrationPolicy
-    registration_id:
+    stage_registration_id:
         range: string
     registry_name:
         range: string
@@ -354,9 +350,9 @@ slots:
         range: string
     template_ref:
         range: uri
-    template_version:
+    registration_template_version:
         range: string
-    template_doi:
+    registration_template_doi:
         range: string
     protocol_snapshot_hash:
         range: string
@@ -368,6 +364,7 @@ slots:
         range: string
     is_major_revision:
         range: boolean
+        ifabsent: false
     amendments:
         range: Amendment
         multivalued: true
@@ -403,26 +400,30 @@ slots:
     # Policy slots
     require_doi:
         range: boolean
+        ifabsent: false
     require_content_hash:
         range: boolean
+        ifabsent: true
     allowed_change_types:
         range: AmendmentType
         multivalued: true
     require_amendment_approval:
         range: boolean
+        ifabsent: false
     max_days_between_versions:
         range: integer
     require_template:
         range: boolean
+        ifabsent: false
     allowed_templates:
         range: uri
         multivalued: true
     hash_algorithms:
         range: HashAlgorithm
         multivalued: true
-    created_at:
+    registration_created_at:
         range: datetime
-    last_modified:
+    registration_last_modified:
         range: datetime
 
 enums:

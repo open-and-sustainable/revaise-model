@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.1.0] - unrelased
+
+### Added
+- Implementation of registration phase functionality
+
+
 ## [0.0.2] - 2025-09-04
 
 ### Added
