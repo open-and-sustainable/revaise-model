@@ -64,7 +64,7 @@ RevAIse is a structured data model that captures:
 Start documenting your AI-assisted review using the RevAIse schema:
 
 1. **Browse the Schema**: [Documentation](https://revaise-model.readthedocs.io/)
-2. **Download Templates**: [JSON Schema](https://github.com/open-and-sustainable/revaise-model/releases/latest)
+2. **Download Templates**: [JSON Schema - Stable](https://revaise-model.readthedocs.io/en/stable/api/revaise.schema.json)
 3. **Validate Your Data**: Use standard JSON Schema validators
 
 ### For Developers
