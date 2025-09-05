@@ -1,0 +1,139 @@
+site_name: RevAIse Data Model
+site_url: https://revaise-model.readthedocs.io
+site_description: A LinkML schema for AI-assisted systematic literature reviews
+site_author: RevAIse Contributors
+
+repo_url: https://github.com/open-and-sustainable/revaise-model
+repo_name: open-and-sustainable/revaise-model
+edit_uri: edit/main/docs/
+
+# Theme configuration
+theme:
+  name: material
+  custom_dir: docs/overrides
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: blue
+      accent: indigo
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: blue
+      accent: indigo
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - content.code.copy
+    - content.code.annotate
+    - navigation.instant
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.top
+    - search.suggest
+    - search.highlight
+    - search.share
+    - toc.follow
+  icon:
+    repo: fontawesome/brands/github
+
+# Navigation
+nav:
+  - Home: index.md
+  - Schema:
+    - Overview: schema/index.md
+    - Main Schema: schema/main/
+    - Objects:
+      - Author: schema/objects/author/
+      - Enums: schema/objects/enums/
+      - Literature Record: schema/objects/literature_record/
+      - Protocol: schema/objects/protocol/
+      - Registration Template: schema/objects/registration_template/
+      - Review: schema/objects/review/
+      - Software Environment: schema/objects/software_env/
+      - Stage Execution: schema/objects/stage_execution/
+      - Stage Output: schema/objects/stage_output/
+    - Stages:
+      - Registration: schema/stages/registration/
+      - Search: schema/stages/search/
+      - Screening: schema/stages/screening/
+  - API:
+    - JSON Schema: api/revaise.schema.json
+    - JSON-LD Context: api/context.jsonld
+  - About:
+    - License: https://github.com/open-and-sustainable/revaise-model/blob/main/LICENSE
+    - Changelog: https://github.com/open-and-sustainable/revaise-model/blob/main/CHANGELOG.md
+    - Citation: https://github.com/open-and-sustainable/revaise-model/blob/main/CITATION.cff
+
+# Plugins
+plugins:
+  - search:
+      lang: en
+  - tags
+
+# Markdown extensions
+markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+      toc_depth: 3
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
+  - pymdownx.tilde
+  - tables
+
+# Extra configuration
+extra:
+  # Version selector configuration - ReadTheDocs handles this automatically
+  version:
+    provider: mike
+    default: stable
+  # Social links
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/open-and-sustainable/revaise-model
+      name: GitHub Repository
+  # Generator notice
+  generator: false
+
+# CSS and JavaScript customization
+extra_css:
+  - stylesheets/extra.css
+
+# Copyright
+copyright: Copyright &copy; 2024 RevAIse Contributors - CC0 1.0 Universal

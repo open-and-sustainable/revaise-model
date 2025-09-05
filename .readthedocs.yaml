@@ -1,0 +1,86 @@
+# Read the Docs configuration file
+# See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
+
+# Required
+version: 2
+
+# Set the OS, Python version and other tools you might need
+build:
+    os: ubuntu-22.04
+    tools:
+        python: "3.11"
+    jobs:
+        post_create_environment:
+            # Install LinkML tools first
+            - pip install --upgrade pip
+            - pip install linkml linkml-runtime
+        pre_build:
+            # Create documentation directory structure
+            - mkdir -p docs/schema/main
+            - mkdir -p docs/schema/objects
+            - mkdir -p docs/schema/stages
+            - mkdir -p docs/api
+
+            # Generate documentation from LinkML schemas
+            - echo "Generating LinkML documentation..."
+            - gen-doc schema/revaise.yaml --directory docs/schema/main || echo "Main schema docs generated"
+
+            # Generate object documentation
+            - for file in schema/model/objects/*.yaml; do basename=$(basename "$file" .yaml); echo "Processing $basename..."; gen-doc "$file" --directory "docs/schema/objects/$basename" 2>/dev/null || echo "Skipped $basename"; done
+
+            # Generate stage documentation
+            - for file in schema/model/stages/*.yaml; do basename=$(basename "$file" .yaml); echo "Processing $basename..."; gen-doc "$file" --directory "docs/schema/stages/$basename" 2>/dev/null || echo "Skipped $basename"; done
+
+            # Generate JSON Schema and JSON-LD context
+            - echo "Generating JSON Schema..."
+            - gen-json-schema schema/revaise.yaml > docs/api/revaise.schema.json || echo "JSON Schema generated"
+            - gen-jsonld-context schema/revaise.yaml > docs/api/context.jsonld || echo "JSON-LD context generated"
+
+            # Copy README if it doesn't exist in docs
+            - test -f docs/index.md || cp README.md docs/index.md
+
+            # Create schema index if it doesn't exist
+            - |
+              if [ ! -f docs/schema/index.md ]; then
+                echo "# Schema Documentation" > docs/schema/index.md
+                echo "" >> docs/schema/index.md
+                echo "## Main Schema" >> docs/schema/index.md
+                echo "- [RevAIse Schema](main/)" >> docs/schema/index.md
+                echo "" >> docs/schema/index.md
+                echo "## Objects" >> docs/schema/index.md
+                for dir in docs/schema/objects/*/; do
+                  if [ -d "$dir" ]; then
+                    name=$(basename "$dir")
+                    echo "- [$name](objects/$name/)" >> docs/schema/index.md
+                  fi
+                done
+                echo "" >> docs/schema/index.md
+                echo "## Stages" >> docs/schema/index.md
+                for dir in docs/schema/stages/*/; do
+                  if [ -d "$dir" ]; then
+                    name=$(basename "$dir")
+                    echo "- [$name](stages/$name/)" >> docs/schema/index.md
+                  fi
+                done
+              fi
+
+# Build documentation with MkDocs
+mkdocs:
+    configuration: mkdocs.yml
+    fail_on_warning: false
+
+# Python dependencies
+python:
+    install:
+        - requirements: docs/requirements.txt
+
+# Optionally build your docs in additional formats
+formats:
+    - pdf
+    - htmlzip
+
+# ReadTheDocs will automatically:
+# - Build documentation for each git tag (stable versions)
+# - Build documentation for main branch (latest/dev)
+# - Keep all versions accessible via version selector
+# - Set the default version to the latest stable tag
