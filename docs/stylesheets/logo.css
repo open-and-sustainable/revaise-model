@@ -1,31 +1,27 @@
 /* Custom logo sizing for RevAIse documentation */
 
-/* Make the logo in the header smaller */
-/* Since logo_full.png contains text, we need more width */
+/* Make the favicon in the header small and icon-sized */
 .md-header__button.md-logo img,
 .md-header__button.md-logo svg {
-    height: 2rem !important; /* Slightly larger to keep text readable */
-    width: auto !important;
-    max-width: 150px !important; /* Prevent logo from being too wide */
+    height: 1.2rem !important; /* Small icon size */
+    width: 1.2rem !important; /* Square aspect for favicon */
     object-fit: contain !important;
 }
 
-/* Logo in navigation drawer (mobile) */
+/* Favicon in navigation drawer (mobile) */
 .md-nav__title .md-nav__button.md-logo img,
 .md-nav__title .md-nav__button.md-logo svg {
-    height: 2.5rem !important;
-    width: auto !important;
-    max-width: 180px !important;
+    height: 1.5rem !important;
+    width: 1.5rem !important;
     object-fit: contain !important;
 }
 
-/* Ensure logo doesn't get too large on high DPI screens */
+/* Ensure favicon stays small on high DPI screens */
 @media screen and (min-resolution: 2dppx) {
     .md-header__button.md-logo img,
     .md-header__button.md-logo svg {
-        height: 2rem !important;
-        width: auto !important;
-        max-width: 150px !important;
+        height: 1.2rem !important;
+        width: 1.2rem !important;
     }
 }
 
