@@ -21,11 +21,11 @@ The integration of AI into systematic literature reviews promises to accelerate 
 
 RevAIse is a structured data model that captures:
 
-- 📋 **Complete Review Metadata** - From protocol registration to final synthesis
-- 🤖 **AI Usage Documentation** - Models, prompts, parameters, and decisions
-- 🔍 **Search Strategies** - Queries, databases, and result collections
-- 📊 **Screening & Extraction** - Criteria, decisions, and human-in-the-loop processes
-- 🔄 **Full Reproducibility** - Software environments, data versions, and computational steps
+- **Complete Review Metadata** - From protocol registration to final synthesis
+- **AI Usage Documentation** - Models, prompts, parameters, and decisions
+- **Search Strategies** - Queries, databases, and result collections
+- **Screening & Extraction** - Criteria, decisions, and human-in-the-loop processes
+- **Full Reproducibility** - Software environments, data versions, and computational steps
 
 ## Who Benefits?
 
@@ -51,12 +51,12 @@ RevAIse is a structured data model that captures:
 
 ## Key Features
 
-✅ **Open Standard** - Community-governed, CC0 licensed (public domain), and freely available
-✅ **Technology Agnostic** - Works with any AI model or review tool
-✅ **FAIR Principles** - Findable, Accessible, Interoperable, and Reusable data
-✅ **Multiple Formats** - JSON, YAML, RDF, and more
-✅ **Extensible** - Adapt to your specific domain needs
-✅ **Version Controlled** - Track changes in your review methodology
+- **Open Standard** - Community-governed, CC0 licensed (public domain), and freely available
+- **Technology Agnostic** - Works with any AI model or review tool
+- **FAIR Principles** - Findable, Accessible, Interoperable, and Reusable data
+- **Multiple Formats** - JSON, YAML, RDF, and more
+- **Extensible** - Adapt to your specific domain needs
+- **Version Controlled** - Track changes in your review methodology
 
 ## Quick Start
 
