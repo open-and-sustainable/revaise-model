@@ -23,8 +23,7 @@ build:
             - mkdir -p docs/assets
 
             # Copy logo to docs/assets for MkDocs
-            - cp images/logo.png docs/assets/logo.png || echo "Logo not found, skipping"
-            - cp images/logo_full.png docs/assets/logo_full.png || echo "Full logo not found, skipping"
+            - cp images/logo_full.png docs/assets/logo_full.png || echo "Logo not found, skipping"
 
             # Generate documentation from LinkML schemas
             - echo "Generating LinkML documentation..."

@@ -1,11 +1,10 @@
 <div align="center">
-  <!-- Use logo.png for icon-only or logo_full.png for logo with text -->
   <img src="assets/logo_full.png" alt="RevAIse Logo" style="width: 300px; max-width: 80%; height: auto;">
-  
-  # RevAIse Data Model Documentation
-  
-  **An open standard for describing, sharing, and reproducing AI-assisted systematic literature reviews**
 </div>
+
+# RevAIse Data Model Documentation
+
+**An open standard for describing, sharing, and reproducing AI-assisted systematic literature reviews**
 
 ---
 

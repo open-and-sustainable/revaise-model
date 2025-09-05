@@ -41,8 +41,8 @@ theme:
         - toc.follow
     icon:
         repo: fontawesome/brands/github
-    logo: assets/logo.png
-    favicon: assets/logo.png
+    logo: assets/logo_full.png
+    favicon: assets/logo_full.png
 
 # Navigation
 nav:

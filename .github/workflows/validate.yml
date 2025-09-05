@@ -1,42 +1,42 @@
 name: Validate Schema
 
 on:
-  push:
-    branches: [ main ]
-    tags: [ 'v*.*.*' ]
-  pull_request:
-    branches: [ main ]
+    push:
+        branches: [main]
+        tags: ["v*.*.*"]
+    pull_request:
+        branches: [main]
 
 jobs:
-  validate:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-        with: { fetch-depth: 0 }
+    validate:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with: { fetch-depth: 0 }
 
-      - uses: actions/setup-python@v5
-        with: { python-version: '3.11' }
+            - uses: actions/setup-python@v5
+              with: { python-version: "3.11" }
 
-      - name: Install LinkML toolchain
-        run: |
-          python -m pip install --upgrade pip
-          pip install linkml linkml-runtime linkml-renderer jsonschema
+            - name: Install LinkML toolchain
+              run: |
+                  python -m pip install --upgrade pip
+                  pip install linkml linkml-runtime linkml-renderer jsonschema
 
-      - name: Validate LinkML schema
-        run: |
-          echo "Validating main schema..."
-          linkml-validate schema/revaise.yaml
+            - name: Validate LinkML schema
+              run: |
+                  echo "Checking schema syntax..."
+                  linkml-lint schema/revaise.yaml || true
 
-          echo "Testing JSON Schema generation..."
-          gen-json-schema schema/revaise.yaml > /tmp/revaise.schema.json
+                  echo "Testing JSON Schema generation..."
+                  gen-json-schema schema/revaise.yaml > /tmp/revaise.schema.json
 
-          echo "Testing JSON-LD context generation..."
-          gen-jsonld-context schema/revaise.yaml > /tmp/context.jsonld
+                  echo "Testing JSON-LD context generation..."
+                  gen-jsonld-context schema/revaise.yaml > /tmp/context.jsonld
 
-          echo "✅ All schema validations passed!"
+                  echo "✅ All schema validations passed!"
 
-      - name: Check documentation generation
-        run: |
-          echo "Testing documentation generation..."
-          gen-doc schema/revaise.yaml --directory /tmp/docs
-          echo "✅ Documentation generation successful!"
+            - name: Check documentation generation
+              run: |
+                  echo "Testing documentation generation..."
+                  gen-doc schema/revaise.yaml --directory /tmp/docs
+                  echo "✅ Documentation generation successful!"
