@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "Please check technical documentation at https://open-and-sustainable.github.io/revaise-model/"
+message: "Please check technical documentation at https://revaise-model.readthedocs.io/"
 title: "RevAIse: A Data Model for AI-Assisted Systematic Literature Reviews"
 abstract: "An Open Science standard for transparent, reproducible AI-assisted systematic literature reviews. RevAIse provides a comprehensive, open standard for documenting every aspect of AI-assisted systematic reviews, ensuring reproducibility, transparency, and interoperability."
 type: software
@@ -22,7 +22,7 @@ keywords:
   - open-science
 license: CC0-1.0
 repository-code: "https://github.com/open-and-sustainable/revaise-model"
-url: "https://open-and-sustainable.github.io/revaise-model/"
+url: "https://revaise-model.readthedocs.io/"
 doi: 10.5281/zenodo.17054435
 identifiers:
   - type: doi

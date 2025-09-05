@@ -1,0 +1,35 @@
+/* Custom logo sizing for RevAIse documentation */
+
+/* Make the logo in the header smaller */
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+    height: 1.5rem !important;  /* Reduced from default 24px */
+    width: auto !important;
+}
+
+/* Logo in navigation drawer (mobile) */
+.md-nav__title .md-nav__button.md-logo img,
+.md-nav__title .md-nav__button.md-logo svg {
+    height: 2rem !important;
+    width: auto !important;
+}
+
+/* Ensure logo doesn't get too large on high DPI screens */
+@media screen and (min-resolution: 2dppx) {
+    .md-header__button.md-logo img,
+    .md-header__button.md-logo svg {
+        height: 1.5rem !important;
+        width: auto !important;
+    }
+}
+
+/* Add some padding around the logo for better spacing */
+.md-header__button.md-logo {
+    padding: 0.2rem;
+}
+
+/* Optional: Add a subtle hover effect */
+.md-header__button.md-logo:hover img {
+    opacity: 0.8;
+    transition: opacity 0.25s;
+}

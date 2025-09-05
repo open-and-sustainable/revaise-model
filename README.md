@@ -2,8 +2,8 @@
 
 > An Open Science standard for transparent, reproducible AI-assisted systematic literature reviews
 
-[![Build & Deploy](https://github.com/open-and-sustainable/revaise-model/actions/workflows/build.yml/badge.svg)](https://github.com/open-and-sustainable/revaise-model/actions/workflows/build.yml)
-[![Documentation](https://img.shields.io/badge/docs-latest-blue)](https://open-and-sustainable.github.io/revaise-model/)
+[![Validate Schema](https://github.com/open-and-sustainable/revaise-model/actions/workflows/validate.yml/badge.svg)](https://github.com/open-and-sustainable/revaise-model/actions/workflows/validate.yml)
+[![Documentation](https://readthedocs.org/projects/revaise-model/badge/?version=latest)](https://revaise-model.readthedocs.io/en/latest/?badge=latest)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17054435.svg)](https://doi.org/10.5281/zenodo.17054435)
 
 ## Why RevAIse?
@@ -63,8 +63,8 @@ RevAIse is a structured data model that captures:
 ### For Researchers
 Start documenting your AI-assisted review using the RevAIse schema:
 
-1. **Browse the Schema**: [Documentation](https://open-and-sustainable.github.io/revaise-model/)
-2. **Download Templates**: [JSON Schema](https://open-and-sustainable.github.io/revaise-model/schema/latest/revaise.schema.json)
+1. **Browse the Schema**: [Documentation](https://revaise-model.readthedocs.io/)
+2. **Download Templates**: [JSON Schema](https://github.com/open-and-sustainable/revaise-model/releases/latest)
 3. **Validate Your Data**: Use standard JSON Schema validators
 
 ### For Developers
@@ -72,9 +72,9 @@ Integrate RevAIse into your tools:
 
 ```json
 {
-  "schema": "https://open-and-sustainable.github.io/revaise-model/schema/latest/revaise.schema.json",
-  "context": "https://open-and-sustainable.github.io/revaise-model/schema/latest/context.jsonld",
-  "docs": "https://open-and-sustainable.github.io/revaise-model/docs/latest/"
+  "schema": "https://github.com/open-and-sustainable/revaise-model/blob/main/schema/revaise.yaml",
+  "context": "https://github.com/open-and-sustainable/revaise-model/blob/main/schema/",
+  "docs": "https://revaise-model.readthedocs.io/"
 }
 ```
 
@@ -82,7 +82,7 @@ Integrate RevAIse into your tools:
 
 RevAIse is a community effort. We welcome contributions from researchers, developers, librarians, and anyone interested in improving the transparency and reproducibility of AI-assisted research.
 
-- **Read the Documentation**: [open-and-sustainable.github.io/revaise-model](https://open-and-sustainable.github.io/revaise-model/)
+- **Read the Documentation**: [revaise-model.readthedocs.io](https://revaise-model.readthedocs.io/)
 - **Join the Discussion**: [GitHub Discussions](https://github.com/open-and-sustainable/revaise-model/discussions)
 - **Report Issues**: [GitHub Issues](https://github.com/open-and-sustainable/revaise-model/issues)
 - **Contribute**: See our [Contributing Guide](CONTRIBUTING.md)

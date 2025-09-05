@@ -41,6 +41,8 @@ theme:
         - toc.follow
     icon:
         repo: fontawesome/brands/github
+    logo: assets/logo.png
+    favicon: assets/logo.png
 
 # Navigation
 nav:
@@ -133,6 +135,7 @@ extra:
 # CSS and JavaScript customization
 extra_css:
     - stylesheets/extra.css
+    - stylesheets/logo.css
 
 # Copyright
 copyright: Copyright &copy; 2024 RevAIse Contributors - CC0 1.0 Universal
