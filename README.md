@@ -91,12 +91,11 @@ RevAIse is a community effort. We welcome contributions from researchers, develo
 
 We envision a future where:
 
+- AI is the only viable way to keep pace with the vast and ever-growing body of scientific publications, beyond what human readers and reviewers alone can process
 - Every AI-assisted systematic review is fully transparent and reproducible
 - Researchers can seamlessly build upon each other's work
 - AI tools enhance rather than obscure the review process
 - The scientific community has complete confidence in AI-assisted evidence synthesis
-
-**Join us in making this vision a reality.**
 
 ## License
 
