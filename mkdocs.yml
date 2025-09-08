@@ -67,10 +67,9 @@ nav:
     - API:
           - JSON Schema: api/revaise.schema.json
           - JSON-LD Context: api/context.jsonld
-    - About:
-          - License: https://github.com/open-and-sustainable/revaise-model/blob/main/LICENSE
-          - Changelog: https://github.com/open-and-sustainable/revaise-model/blob/main/CHANGELOG.md
-          - Citation: https://github.com/open-and-sustainable/revaise-model/blob/main/CITATION.cff
+    - License: https://github.com/open-and-sustainable/revaise-model/blob/main/LICENSE
+    - Changelog: https://github.com/open-and-sustainable/revaise-model/blob/main/CHANGELOG.md
+    - Citation: https://github.com/open-and-sustainable/revaise-model/blob/main/CITATION.cff
 
 # Plugins
 plugins:
