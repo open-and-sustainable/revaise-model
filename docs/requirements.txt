@@ -19,3 +19,4 @@ linkml-runtime>=1.9.0
 # Additional utilities
 mike>=2.0.0  # For versioning support
 mkdocs-git-revision-date-localized-plugin>=1.2.0
+mkdocs-macros-plugin>=1.0.0  # For template variables and macros

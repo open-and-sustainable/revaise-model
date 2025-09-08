@@ -32,7 +32,11 @@ The RevAIse schema is available in multiple formats:
 ### Current Version
 
 !!! info "Version Information"
-    You are viewing documentation for: **{{ config.extra.version }}**
+    You are viewing documentation for: **{{ version | default("latest") }}**
+    
+    {% if version_description %}
+    *{{ version_description }}*
+    {% endif %}
     
     ReadTheDocs automatically maintains documentation for all tagged releases. Use the version selector at the bottom of the page to switch between versions.
 

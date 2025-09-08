@@ -77,6 +77,13 @@ plugins:
     - search:
           lang: en
     - tags
+    - macros:
+          module_name: docs/hooks/readthedocs_version
+          include_dir: docs/includes
+
+# Hooks for custom functionality (alternative to macros plugin)
+# hooks:
+#     - docs/hooks/readthedocs_version.py
 
 # Markdown extensions
 markdown_extensions:
@@ -120,10 +127,8 @@ markdown_extensions:
 
 # Extra configuration
 extra:
-    # Version selector configuration - ReadTheDocs handles this automatically
-    version:
-        provider: mike
-        default: stable
+    # Version information - populated by ReadTheDocs hook
+    version: "latest" # Default value, overridden by hook
     # Social links
     social:
         - icon: fontawesome/brands/github
@@ -138,4 +143,4 @@ extra_css:
     - stylesheets/logo.css
 
 # Copyright
-copyright: Copyright &copy; 2024 RevAIse Contributors - CC0 1.0 Universal
+copyright: Copyright &copy; 2025 RevAIse Contributors - CC0 1.0 Universal
