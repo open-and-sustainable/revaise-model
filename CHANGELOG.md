@@ -23,6 +23,7 @@ All notable changes to this project will be documented in this file.
 ### Fixed
 - MkDocs configuration to remove unnecessary emoji extension
 - ReadTheDocs version display using environment variables
+- Filled in description field for each field in the schema
 
 
 ## [0.1.0] - 2025-09-05
