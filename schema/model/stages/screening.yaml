@@ -1,9 +1,1253 @@
 id: https://open-and-sustainable.github.io/revaise-model/schema/stages/screening
 name: screening_stage
-description: "Schema for screening stage of the review workflow."
+description: "Schema for screening stage of the review workflow, including deduplication, title/abstract screening, and full-text screening."
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
 imports:
+    - linkml:types
     - ../core
+    - ../objects/literature_record
+    - ../objects/author
+
 classes:
     ScreeningStage:
         is_a: StageExecution
-        description: "Screening of titles and abstracts."
+        description: "Execution of the screening stage, including deduplication and multiple screening rounds."
+        slots:
+            - deduplication_process
+            - screening_rounds
+            - screening_criteria
+            - screening_protocol
+            - overall_statistics
+        slot_usage:
+            deduplication_process:
+                range: DeduplicationProcess
+                description: "Process for identifying and removing duplicate records"
+            screening_rounds:
+                range: ScreeningRound
+                multivalued: true
+                minimum_cardinality: 1
+                description: "Different rounds of screening (e.g., title/abstract, full-text)"
+            screening_criteria:
+                range: ScreeningCriteria
+                required: true
+                description: "Inclusion and exclusion criteria for screening"
+            screening_protocol:
+                range: ScreeningProtocol
+                description: "Protocol defining the screening process"
+            overall_statistics:
+                range: ScreeningStatistics
+                description: "Overall statistics for the entire screening stage"
+
+    DeduplicationProcess:
+        description: "Process for identifying and removing duplicate records"
+        slots:
+            - dedup_id
+            - input_record_count
+            - unique_record_count
+            - duplicate_count
+            - dedup_method
+            - dedup_tools
+            - dedup_criteria
+            - duplicate_groups
+            - dedup_started_at
+            - dedup_completed_at
+            - dedup_performed_by
+            - dedup_notes
+        slot_usage:
+            dedup_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the deduplication process"
+            input_record_count:
+                range: integer
+                required: true
+                description: "Total number of records before deduplication"
+            unique_record_count:
+                range: integer
+                required: true
+                description: "Number of unique records after deduplication"
+            duplicate_count:
+                range: integer
+                required: true
+                description: "Number of duplicate records identified"
+            dedup_method:
+                range: DeduplicationMethod
+                required: true
+                description: "Method used for deduplication"
+            dedup_tools:
+                range: ExternalTool
+                multivalued: true
+                description: "External tools used for deduplication"
+            dedup_criteria:
+                range: string
+                multivalued: true
+                description: "Criteria used to identify duplicates (e.g., DOI, title similarity)"
+            duplicate_groups:
+                range: DuplicateGroup
+                multivalued: true
+                description: "Groups of identified duplicate records"
+            dedup_started_at:
+                range: datetime
+                description: "When deduplication started"
+            dedup_completed_at:
+                range: datetime
+                description: "When deduplication completed"
+            dedup_performed_by:
+                range: Author
+                multivalued: true
+                description: "Who performed the deduplication"
+            dedup_notes:
+                range: string
+                description: "Additional notes about the deduplication process"
+
+    DuplicateGroup:
+        description: "Group of records identified as duplicates"
+        slots:
+            - group_id
+            - master_record_id
+            - duplicate_record_ids
+            - similarity_score
+            - match_fields
+            - resolution_method
+        slot_usage:
+            group_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the duplicate group"
+            master_record_id:
+                range: string
+                required: true
+                description: "ID of the record kept as the master"
+            duplicate_record_ids:
+                range: string
+                multivalued: true
+                required: true
+                description: "IDs of records identified as duplicates"
+            similarity_score:
+                range: float
+                description: "Similarity score between duplicates (0-1)"
+            match_fields:
+                range: string
+                multivalued: true
+                description: "Fields that matched between duplicates"
+            duplicate_resolution:
+                range: string
+                description: "How the duplicate was resolved"
+
+    ScreeningRound:
+        description: "A specific round of screening (e.g., title/abstract or full-text)"
+        slots:
+            - round_id
+            - round_type
+            - round_number
+            - round_label
+            - input_records
+            - screening_decisions
+            - conflict_resolutions
+            - excluded_record_ids
+            - included_record_ids
+            - round_started_at
+            - round_completed_at
+            - reviewers
+            - screening_tools
+            - ai_assistance
+            - round_statistics
+            - round_notes
+        slot_usage:
+            round_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the screening round"
+            round_type:
+                range: ScreeningRoundType
+                required: true
+                description: "Type of screening round"
+            round_number:
+                range: integer
+                required: true
+                description: "Sequential number of the round"
+            round_label:
+                range: string
+                description: "Human-readable label for the round"
+            input_records:
+                range: LiteratureRecordCollection
+                required: true
+                description: "Records to be screened in this round"
+            screening_decisions:
+                range: ScreeningDecision
+                multivalued: true
+                description: "Individual screening decisions made"
+            conflict_resolutions:
+                range: ConflictResolution
+                multivalued: true
+                description: "Resolutions of conflicts between reviewers"
+            excluded_record_ids:
+                range: string
+                multivalued: true
+                description: "IDs of records excluded in this round"
+            included_record_ids:
+                range: string
+                multivalued: true
+                description: "IDs of records included/passed to next round"
+            round_started_at:
+                range: datetime
+                description: "When this round started"
+            round_completed_at:
+                range: datetime
+                description: "When this round completed"
+            reviewers:
+                range: Reviewer
+                multivalued: true
+                minimum_cardinality: 1
+                description: "Reviewers involved in this round"
+            screening_tools:
+                range: ExternalTool
+                multivalued: true
+                description: "Tools used for screening in this round"
+            ai_assistance:
+                range: AIScreeningAssistance
+                description: "AI assistance used in this round"
+            round_statistics:
+                range: RoundStatistics
+                description: "Statistics for this screening round"
+            round_notes:
+                range: string
+                description: "Additional notes about this round"
+
+    ScreeningDecision:
+        description: "Individual screening decision by a reviewer"
+        slots:
+            - decision_id
+            - record_id
+            - reviewer_id
+            - decision
+            - exclusion_reasons
+            - inclusion_confidence
+            - decision_timestamp
+            - time_spent_seconds
+            - decision_notes
+            - ai_suggested_decision
+            - ai_confidence_score
+        slot_usage:
+            decision_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the decision"
+            record_id:
+                range: string
+                required: true
+                description: "ID of the record being screened"
+            decision_reviewer_id:
+                range: string
+                required: true
+                description: "ID of the reviewer making the decision"
+            decision:
+                range: ScreeningDecisionType
+                required: true
+                description: "The screening decision"
+            exclusion_reasons:
+                range: string
+                multivalued: true
+                description: "Reasons for exclusion (if excluded)"
+            inclusion_confidence:
+                range: float
+                description: "Confidence in inclusion decision (0-1)"
+            decision_timestamp:
+                range: datetime
+                required: true
+                description: "When the decision was made"
+            time_spent_seconds:
+                range: integer
+                description: "Time spent on this decision in seconds"
+            decision_notes:
+                range: string
+                description: "Additional notes about the decision"
+            ai_suggested_decision:
+                range: ScreeningDecisionType
+                description: "Decision suggested by AI (if used)"
+            ai_confidence_score:
+                range: float
+                description: "AI confidence in its suggestion (0-1)"
+
+    ConflictResolution:
+        description: "Resolution of conflicts between reviewer decisions"
+        slots:
+            - resolution_id
+            - record_id
+            - conflicting_decisions
+            - resolution_method
+            - final_decision
+            - resolver_id
+            - resolution_timestamp
+            - resolution_notes
+        slot_usage:
+            resolution_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the resolution"
+            record_id:
+                range: string
+                required: true
+                description: "ID of the record with conflicting decisions"
+            conflicting_decisions:
+                range: string
+                multivalued: true
+                required: true
+                description: "IDs of the conflicting decisions"
+            resolution_method:
+                range: ConflictResolutionMethod
+                required: true
+                description: "Method used to resolve the conflict"
+            final_decision:
+                range: ScreeningDecisionType
+                required: true
+                description: "Final decision after resolution"
+            resolver_id:
+                range: string
+                description: "ID of the person/process that resolved the conflict"
+            resolution_timestamp:
+                range: datetime
+                required: true
+                description: "When the conflict was resolved"
+            resolution_notes:
+                range: string
+                description: "Notes about the resolution process"
+
+    ScreeningCriteria:
+        description: "Inclusion and exclusion criteria for screening"
+        slots:
+            - criteria_id
+            - inclusion_criteria
+            - exclusion_criteria
+            - population_criteria
+            - intervention_criteria
+            - comparator_criteria
+            - outcome_criteria
+            - study_design_criteria
+            - publication_type_criteria
+            - language_criteria
+            - date_range_criteria
+            - geographic_criteria
+            - exclude_systematic_reviews
+            - primary_sources_only
+            - criteria_notes
+        slot_usage:
+            criteria_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the criteria set"
+            inclusion_criteria:
+                range: string
+                multivalued: true
+                required: true
+                description: "List of inclusion criteria"
+            exclusion_criteria:
+                range: string
+                multivalued: true
+                required: true
+                description: "List of exclusion criteria"
+            population_criteria:
+                range: string
+                multivalued: true
+                description: "Criteria related to study population"
+            intervention_criteria:
+                range: string
+                multivalued: true
+                description: "Criteria related to interventions"
+            comparator_criteria:
+                range: string
+                multivalued: true
+                description: "Criteria related to comparators"
+            outcome_criteria:
+                range: string
+                multivalued: true
+                description: "Criteria related to outcomes"
+            study_design_criteria:
+                range: string
+                multivalued: true
+                description: "Acceptable study designs"
+            publication_type_criteria:
+                range: PublicationType
+                multivalued: true
+                description: "Acceptable publication types"
+            language_criteria:
+                range: string
+                multivalued: true
+                description: "Acceptable languages"
+            date_range_criteria:
+                range: DateRange
+                description: "Acceptable publication date range"
+            geographic_criteria:
+                range: string
+                multivalued: true
+                description: "Geographic restrictions"
+            exclude_systematic_reviews:
+                range: boolean
+                description: "Whether to exclude systematic reviews"
+            primary_sources_only:
+                range: boolean
+                description: "Whether to include only primary sources"
+            criteria_notes:
+                range: string
+                description: "Additional notes about the criteria"
+
+    DateRange:
+        description: "Date range specification"
+        slots:
+            - start_date
+            - end_date
+        slot_usage:
+            start_date:
+                range: date
+                description: "Start date of the range"
+            end_date:
+                range: date
+                description: "End date of the range"
+
+    ScreeningProtocol:
+        description: "Protocol defining the screening process"
+        slots:
+            - protocol_id
+            - minimum_reviewers_per_record
+            - require_consensus
+            - blind_screening
+            - pilot_screening_size
+            - pilot_agreement_threshold
+            - conflict_resolution_strategy
+            - screening_order
+            - batch_size
+            - protocol_notes
+        slot_usage:
+            protocol_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the protocol"
+            minimum_reviewers_per_record:
+                range: integer
+                required: true
+                description: "Minimum number of reviewers per record"
+            require_consensus:
+                range: boolean
+                description: "Whether consensus is required"
+            blind_screening:
+                range: boolean
+                description: "Whether screening is blind to other reviewers"
+            pilot_screening_size:
+                range: integer
+                description: "Number of records for pilot screening"
+            pilot_agreement_threshold:
+                range: float
+                description: "Required agreement level in pilot (0-1)"
+            conflict_resolution_strategy:
+                range: ConflictResolutionMethod
+                description: "Default strategy for resolving conflicts"
+            screening_order:
+                range: ScreeningOrder
+                description: "Order in which records are screened"
+            batch_size:
+                range: integer
+                description: "Number of records per batch"
+            protocol_notes:
+                range: string
+                description: "Additional protocol notes"
+
+    Reviewer:
+        description: "Information about a reviewer in the screening process"
+        slots:
+            - reviewer_id
+            - reviewer_author
+            - reviewer_role
+            - training_completed
+            - records_assigned
+            - records_completed
+            - reviewer_notes
+        slot_usage:
+            reviewer_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the reviewer"
+            reviewer_author:
+                range: Author
+                required: true
+                description: "Author information for the reviewer"
+            reviewer_role:
+                range: ReviewerRole
+                description: "Role of the reviewer"
+            training_completed:
+                range: boolean
+                description: "Whether training was completed"
+            records_assigned:
+                range: integer
+                description: "Number of records assigned"
+            records_completed:
+                range: integer
+                description: "Number of records completed"
+            reviewer_notes:
+                range: string
+                description: "Notes about the reviewer"
+
+    ExternalTool:
+        description: "External tool used in the screening process"
+        slots:
+            - tool_id
+            - tool_name
+            - tool_version
+            - tool_url
+            - tool_purpose
+            - tool_settings
+            - tool_api_endpoint
+            - tool_license
+            - tool_citation
+        slot_usage:
+            tool_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the tool"
+            tool_name:
+                range: string
+                required: true
+                description: "Name of the tool"
+            tool_version:
+                range: string
+                required: true
+                description: "Version of the tool"
+            tool_url:
+                range: uri
+                description: "URL to the tool"
+            tool_purpose:
+                range: ToolPurpose
+                required: true
+                description: "Purpose of the tool in screening"
+            tool_settings:
+                range: string
+                description: "Configuration settings used"
+            tool_api_endpoint:
+                range: uri
+                description: "API endpoint if applicable"
+            tool_license:
+                range: string
+                description: "License of the tool"
+            tool_citation:
+                range: string
+                description: "How to cite the tool"
+
+    AIScreeningAssistance:
+        description: "AI assistance used in screening"
+        slots:
+            - ai_id
+            - ai_model
+            - ai_version
+            - ai_provider
+            - ai_purpose
+            - ai_prompts
+            - ai_parameters
+            - ai_validation_method
+            - human_oversight_level
+            - ai_performance_metrics
+        slot_usage:
+            ai_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the AI assistance"
+            ai_model:
+                range: string
+                required: true
+                description: "Name of the AI model"
+            ai_version:
+                range: string
+                required: true
+                description: "Version of the AI model"
+            ai_provider:
+                range: string
+                description: "Provider of the AI model"
+            ai_purpose:
+                range: AIPurpose
+                required: true
+                description: "Purpose of AI in screening"
+            ai_prompts:
+                range: string
+                multivalued: true
+                description: "Prompts used with the AI"
+            ai_parameters:
+                range: string
+                description: "Parameters and settings"
+            ai_validation_method:
+                range: string
+                description: "How AI decisions were validated"
+            human_oversight_level:
+                range: OversightLevel
+                required: true
+                description: "Level of human oversight"
+            ai_performance_metrics:
+                range: PerformanceMetrics
+                description: "Performance metrics of the AI"
+
+    PerformanceMetrics:
+        description: "Performance metrics for screening or AI"
+        slots:
+            - accuracy
+            - precision
+            - recall
+            - f1_score
+            - specificity
+            - false_positive_rate
+            - false_negative_rate
+            - cohen_kappa
+            - fleiss_kappa
+            - percent_agreement
+        slot_usage:
+            accuracy:
+                range: float
+                description: "Accuracy score (0-1)"
+            precision:
+                range: float
+                description: "Precision score (0-1)"
+            recall:
+                range: float
+                description: "Recall/sensitivity score (0-1)"
+            f1_score:
+                range: float
+                description: "F1 score (0-1)"
+            specificity:
+                range: float
+                description: "Specificity score (0-1)"
+            false_positive_rate:
+                range: float
+                description: "False positive rate (0-1)"
+            false_negative_rate:
+                range: float
+                description: "False negative rate (0-1)"
+            cohen_kappa:
+                range: float
+                description: "Cohen's kappa for inter-rater agreement"
+            fleiss_kappa:
+                range: float
+                description: "Fleiss' kappa for multi-rater agreement"
+            percent_agreement:
+                range: float
+                description: "Percentage agreement between raters (0-100)"
+
+    RoundStatistics:
+        description: "Statistics for a screening round"
+        slots:
+            - total_records_screened
+            - records_included
+            - records_excluded
+            - records_uncertain
+            - inclusion_rate
+            - exclusion_rate
+            - average_time_per_record
+            - total_screening_time
+            - inter_rater_agreement
+            - conflicts_count
+            - conflicts_resolved
+        slot_usage:
+            total_records_screened:
+                range: integer
+                required: true
+                description: "Total number of records screened"
+            records_included:
+                range: integer
+                required: true
+                description: "Number of records included"
+            records_excluded:
+                range: integer
+                required: true
+                description: "Number of records excluded"
+            records_uncertain:
+                range: integer
+                description: "Number of uncertain decisions"
+            inclusion_rate:
+                range: float
+                description: "Rate of inclusion (0-1)"
+            exclusion_rate:
+                range: float
+                description: "Rate of exclusion (0-1)"
+            average_time_per_record:
+                range: float
+                description: "Average time per record in seconds"
+            total_screening_time:
+                range: float
+                description: "Total screening time in hours"
+            inter_rater_agreement:
+                range: PerformanceMetrics
+                description: "Agreement metrics between raters"
+            conflicts_count:
+                range: integer
+                description: "Number of conflicts"
+            conflicts_resolved:
+                range: integer
+                description: "Number of conflicts resolved"
+
+    ScreeningStatistics:
+        description: "Overall statistics for the entire screening stage"
+        slots:
+            - initial_records_count
+            - post_dedup_count
+            - title_abstract_excluded
+            - fulltext_excluded
+            - final_included_count
+            - overall_inclusion_rate
+            - overall_exclusion_rate
+            - total_time_hours
+            - total_reviewer_hours
+            - cost_estimate
+        slot_usage:
+            initial_records_count:
+                range: integer
+                required: true
+                description: "Initial number of records"
+            post_dedup_count:
+                range: integer
+                description: "Records after deduplication"
+            title_abstract_excluded:
+                range: integer
+                description: "Records excluded at title/abstract"
+            fulltext_excluded:
+                range: integer
+                description: "Records excluded at full-text"
+            final_included_count:
+                range: integer
+                required: true
+                description: "Final number of included records"
+            overall_inclusion_rate:
+                range: float
+                description: "Overall inclusion rate (0-1)"
+            overall_exclusion_rate:
+                range: float
+                description: "Overall exclusion rate (0-1)"
+            total_time_hours:
+                range: float
+                description: "Total time spent in hours"
+            total_reviewer_hours:
+                range: float
+                description: "Total reviewer hours"
+            cost_estimate:
+                range: float
+                description: "Estimated cost of screening"
+
+slots:
+    # Main screening stage slots
+    deduplication_process:
+        range: DeduplicationProcess
+    screening_rounds:
+        range: ScreeningRound
+    screening_criteria:
+        range: ScreeningCriteria
+    screening_protocol:
+        range: ScreeningProtocol
+    overall_statistics:
+        range: ScreeningStatistics
+
+    # Deduplication slots
+    dedup_id:
+        range: string
+    input_record_count:
+        range: integer
+    unique_record_count:
+        range: integer
+    duplicate_count:
+        range: integer
+    dedup_method:
+        range: DeduplicationMethod
+    dedup_tools:
+        range: ExternalTool
+    dedup_criteria:
+        range: string
+    duplicate_groups:
+        range: DuplicateGroup
+    dedup_started_at:
+        range: datetime
+    dedup_completed_at:
+        range: datetime
+    dedup_performed_by:
+        range: Author
+    dedup_notes:
+        range: string
+
+    # Duplicate group slots
+    group_id:
+        range: string
+    master_record_id:
+        range: string
+    duplicate_record_ids:
+        range: string
+    similarity_score:
+        range: float
+    match_fields:
+        range: string
+    duplicate_resolution:
+        range: string
+
+    # Screening round slots
+    round_id:
+        range: string
+    round_type:
+        range: ScreeningRoundType
+    round_number:
+        range: integer
+    round_label:
+        range: string
+    input_records:
+        range: LiteratureRecordCollection
+    screening_decisions:
+        range: ScreeningDecision
+    conflict_resolutions:
+        range: ConflictResolution
+    excluded_record_ids:
+        range: string
+    included_record_ids:
+        range: string
+    round_started_at:
+        range: datetime
+    round_completed_at:
+        range: datetime
+    reviewers:
+        range: Reviewer
+    screening_tools:
+        range: ExternalTool
+    ai_assistance:
+        range: AIScreeningAssistance
+    round_statistics:
+        range: RoundStatistics
+    round_notes:
+        range: string
+
+    # Screening decision slots
+    decision_id:
+        range: string
+    record_id:
+        range: string
+    decision_reviewer_id:
+        range: string
+    decision:
+        range: ScreeningDecisionType
+    exclusion_reasons:
+        range: string
+    inclusion_confidence:
+        range: float
+    decision_timestamp:
+        range: datetime
+    time_spent_seconds:
+        range: integer
+    decision_notes:
+        range: string
+    ai_suggested_decision:
+        range: ScreeningDecisionType
+    ai_confidence_score:
+        range: float
+
+    # Conflict resolution slots
+    resolution_id:
+        range: string
+    conflicting_decisions:
+        range: string
+    resolution_method:
+        range: ConflictResolutionMethod
+    final_decision:
+        range: ScreeningDecisionType
+    resolver_id:
+        range: string
+    resolution_timestamp:
+        range: datetime
+    resolution_notes:
+        range: string
+
+    # Screening criteria slots
+    criteria_id:
+        range: string
+    inclusion_criteria:
+        range: string
+    exclusion_criteria:
+        range: string
+    population_criteria:
+        range: string
+    intervention_criteria:
+        range: string
+    comparator_criteria:
+        range: string
+    outcome_criteria:
+        range: string
+    study_design_criteria:
+        range: string
+    publication_type_criteria:
+        range: PublicationType
+    language_criteria:
+        range: string
+    date_range_criteria:
+        range: DateRange
+    geographic_criteria:
+        range: string
+    exclude_systematic_reviews:
+        range: boolean
+        ifabsent: false
+    primary_sources_only:
+        range: boolean
+        ifabsent: false
+    criteria_notes:
+        range: string
+
+    # Date range slots
+    start_date:
+        range: date
+    end_date:
+        range: date
+
+    # Screening protocol slots
+    protocol_id:
+        range: string
+    minimum_reviewers_per_record:
+        range: integer
+    require_consensus:
+        range: boolean
+        ifabsent: false
+    blind_screening:
+        range: boolean
+        ifabsent: false
+    pilot_screening_size:
+        range: integer
+    pilot_agreement_threshold:
+        range: float
+    conflict_resolution_strategy:
+        range: ConflictResolutionMethod
+    screening_order:
+        range: ScreeningOrder
+    batch_size:
+        range: integer
+    protocol_notes:
+        range: string
+
+    # Reviewer slots
+    reviewer_id:
+        range: string
+    reviewer_author:
+        range: Author
+    reviewer_role:
+        range: ReviewerRole
+    training_completed:
+        range: boolean
+        ifabsent: false
+    records_assigned:
+        range: integer
+    records_completed:
+        range: integer
+    reviewer_notes:
+        range: string
+
+    # External tool slots
+    tool_id:
+        range: string
+    tool_name:
+        range: string
+    tool_version:
+        range: string
+    tool_url:
+        range: uri
+    tool_purpose:
+        range: ToolPurpose
+    tool_settings:
+        range: string
+    tool_api_endpoint:
+        range: uri
+    tool_license:
+        range: string
+    tool_citation:
+        range: string
+
+    # AI assistance slots
+    ai_id:
+        range: string
+    ai_model:
+        range: string
+    ai_version:
+        range: string
+    ai_provider:
+        range: string
+    ai_purpose:
+        range: AIPurpose
+    ai_prompts:
+        range: string
+    ai_parameters:
+        range: string
+    ai_validation_method:
+        range: string
+    human_oversight_level:
+        range: OversightLevel
+    ai_performance_metrics:
+        range: PerformanceMetrics
+
+    # Performance metrics slots
+    accuracy:
+        range: float
+    precision:
+        range: float
+    recall:
+        range: float
+    f1_score:
+        range: float
+    specificity:
+        range: float
+    false_positive_rate:
+        range: float
+    false_negative_rate:
+        range: float
+    cohen_kappa:
+        range: float
+    fleiss_kappa:
+        range: float
+    percent_agreement:
+        range: float
+
+    # Round statistics slots
+    total_records_screened:
+        range: integer
+    records_included:
+        range: integer
+    records_excluded:
+        range: integer
+    records_uncertain:
+        range: integer
+    inclusion_rate:
+        range: float
+    exclusion_rate:
+        range: float
+    average_time_per_record:
+        range: float
+    total_screening_time:
+        range: float
+    inter_rater_agreement:
+        range: PerformanceMetrics
+    conflicts_count:
+        range: integer
+    conflicts_resolved:
+        range: integer
+
+    # Overall statistics slots
+    initial_records_count:
+        range: integer
+    post_dedup_count:
+        range: integer
+    title_abstract_excluded:
+        range: integer
+    fulltext_excluded:
+        range: integer
+    final_included_count:
+        range: integer
+    overall_inclusion_rate:
+        range: float
+    overall_exclusion_rate:
+        range: float
+    total_time_hours:
+        range: float
+    total_reviewer_hours:
+        range: float
+    cost_estimate:
+        range: float
+
+enums:
+    DeduplicationMethod:
+        description: "Methods for deduplication"
+        permissible_values:
+            AUTOMATIC:
+                description: "Fully automated deduplication"
+            SEMI_AUTOMATIC:
+                description: "Automated with manual review"
+            MANUAL:
+                description: "Manual deduplication"
+            HYBRID:
+                description: "Combination of methods"
+
+    ScreeningRoundType:
+        description: "Type of screening round"
+        permissible_values:
+            TITLE_ABSTRACT:
+                description: "Title and abstract screening"
+            FULL_TEXT:
+                description: "Full-text screening"
+            TITLE_ONLY:
+                description: "Title-only screening"
+            ABSTRACT_ONLY:
+                description: "Abstract-only screening"
+            SYSTEMATIC_REVIEW_CHECK:
+                description: "Check if item is a systematic review"
+            DUPLICATE_CHECK:
+                description: "Additional duplicate checking"
+            PILOT:
+                description: "Pilot screening for calibration"
+
+    ScreeningDecisionType:
+        description: "Types of screening decisions"
+        permissible_values:
+            INCLUDE:
+                description: "Include the record"
+            EXCLUDE:
+                description: "Exclude the record"
+            UNCERTAIN:
+                description: "Uncertain, needs review"
+            DUPLICATE:
+                description: "Identified as duplicate"
+            CANNOT_ACCESS:
+                description: "Cannot access the record"
+            WRONG_LANGUAGE:
+                description: "Wrong language"
+            PROTOCOL_ONLY:
+                description: "Protocol only, no results"
+            RETRACTED:
+                description: "Article has been retracted"
+
+    ConflictResolutionMethod:
+        description: "Methods for resolving conflicts"
+        permissible_values:
+            CONSENSUS:
+                description: "Resolved through consensus discussion"
+            THIRD_REVIEWER:
+                description: "Third reviewer makes decision"
+            MAJORITY_VOTE:
+                description: "Majority vote among reviewers"
+            SENIOR_REVIEWER:
+                description: "Senior reviewer makes decision"
+            TEAM_MEETING:
+                description: "Resolved in team meeting"
+            INCLUDE_BY_DEFAULT:
+                description: "Include when in doubt"
+            EXCLUDE_BY_DEFAULT:
+                description: "Exclude when in doubt"
+
+    ReviewerRole:
+        description: "Role of reviewer in screening"
+        permissible_values:
+            PRIMARY_REVIEWER:
+                description: "Primary reviewer"
+            SECONDARY_REVIEWER:
+                description: "Secondary reviewer"
+            ARBITRATOR:
+                description: "Arbitrator for conflicts"
+            SUPERVISOR:
+                description: "Supervising reviewer"
+            TRAINEE:
+                description: "Reviewer in training"
+
+    ToolPurpose:
+        description: "Purpose of external tool"
+        permissible_values:
+            DEDUPLICATION:
+                description: "Tool for deduplication"
+            SCREENING_PLATFORM:
+                description: "Platform for screening"
+            REFERENCE_MANAGER:
+                description: "Reference management tool"
+            AI_SCREENING:
+                description: "AI tool for screening assistance"
+            TEXT_ANALYSIS:
+                description: "Text analysis tool"
+            CONFLICT_RESOLUTION:
+                description: "Tool for resolving conflicts"
+            STATISTICS:
+                description: "Statistical analysis tool"
+            DATA_EXTRACTION:
+                description: "Data extraction tool"
+
+    AIPurpose:
+        description: "Purpose of AI in screening"
+        permissible_values:
+            DECISION_SUGGESTION:
+                description: "Suggest include/exclude decisions"
+            RELEVANCE_RANKING:
+                description: "Rank records by relevance"
+            DUPLICATE_DETECTION:
+                description: "Detect duplicate records"
+            TEXT_CLASSIFICATION:
+                description: "Classify text content"
+            CRITERIA_MATCHING:
+                description: "Match against inclusion/exclusion criteria"
+            QUALITY_ASSESSMENT:
+                description: "Assess study quality"
+            LANGUAGE_DETECTION:
+                description: "Detect document language"
+            STUDY_DESIGN_IDENTIFICATION:
+                description: "Identify study design type"
+
+    OversightLevel:
+        description: "Level of human oversight for AI"
+        permissible_values:
+            FULL_REVIEW:
+                description: "All AI decisions reviewed by human"
+            SAMPLE_REVIEW:
+                description: "Sample of AI decisions reviewed"
+            EXCEPTION_REVIEW:
+                description: "Only uncertain/flagged decisions reviewed"
+            NO_REVIEW:
+                description: "AI decisions accepted without review"
+            DUAL_REVIEW:
+                description: "AI acts as additional reviewer"
+
+    ScreeningOrder:
+        description: "Order for screening records"
+        permissible_values:
+            RANDOM:
+                description: "Random order"
+            CHRONOLOGICAL:
+                description: "By publication date"
+            REVERSE_CHRONOLOGICAL:
+                description: "Newest first"
+            ALPHABETICAL:
+                description: "By title or author"
+            RELEVANCE_RANKED:
+                description: "By relevance score"
+            DATABASE_ORDER:
+                description: "As retrieved from database"
+
+    PublicationType:
+        description: "Types of publications"
+        permissible_values:
+            JOURNAL_ARTICLE:
+                description: "Peer-reviewed journal article"
+            CONFERENCE_PAPER:
+                description: "Conference paper or proceeding"
+            BOOK:
+                description: "Book"
+            BOOK_CHAPTER:
+                description: "Book chapter"
+            DISSERTATION:
+                description: "Doctoral dissertation"
+            THESIS:
+                description: "Master's thesis"
+            TECHNICAL_REPORT:
+                description: "Technical or research report"
+            PREPRINT:
+                description: "Preprint article"
+            WORKING_PAPER:
+                description: "Working paper"
+            SYSTEMATIC_REVIEW:
+                description: "Systematic review"
+            META_ANALYSIS:
+                description: "Meta-analysis"
+            CLINICAL_TRIAL:
+                description: "Clinical trial report"
+            CASE_REPORT:
+                description: "Case report or series"
+            EDITORIAL:
+                description: "Editorial"
+            LETTER:
+                description: "Letter to editor"
+            COMMENT:
+                description: "Comment or correspondence"
+            NEWS:
+                description: "News article"
+            GREY_LITERATURE:
+                description: "Grey literature"
+            PATENT:
+                description: "Patent document"
+            DATASET:
+                description: "Dataset"
+            SOFTWARE:
+                description: "Software"
+            PROTOCOL:
+                description: "Study protocol"
+            ABSTRACT_ONLY:
+                description: "Abstract only"
+            POSTER:
+                description: "Poster presentation"
