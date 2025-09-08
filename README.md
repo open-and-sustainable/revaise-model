@@ -1,4 +1,4 @@
-<div align="center">
+<div align="left">
   <img src="images/logo_full.png" alt="RevAIse Logo" width="400">
 </div>
 
