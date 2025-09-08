@@ -102,32 +102,47 @@ classes:
 
 slots:
     database_name:
+        description: "Name of the database being searched"
         range: string
     database_url:
+        description: "URL to access the database"
         range: uri
     access_date:
+        description: "Date when the database was accessed for searching"
         range: datetime
     database_version:
+        description: "Version or release of the database"
         range: string
     database_notes:
+        description: "Additional notes about the database or access limitations"
         range: string
     query_id:
+        description: "Unique identifier for the search query"
         range: string
     query_string:
+        description: "The actual search query string or expression"
         range: string
     query_date:
+        description: "Date and time when the query was executed"
         range: datetime
     query_filters:
+        description: "Filters applied to the search (e.g., date range, language)"
         range: string
     result_collection_id:
+        description: "Reference to the collection containing search results"
         range: string
     results_count:
+        description: "Number of results returned by the query"
         range: integer
     query_notes:
+        description: "Additional notes about the query or its execution"
         range: string
     databases:
+        description: "List of databases used for literature searching"
         range: Database
     search_queries:
+        description: "List of search queries executed against databases"
         range: SearchQuery
     result_collections:
+        description: "Collections of literature records from searches"
         range: LiteratureRecordCollection

@@ -301,129 +301,182 @@ classes:
 slots:
     # Stage-level slots
     registrations:
+        description: "List of registrations for this review protocol"
         range: Registration
         multivalued: true
     current_registration_version:
+        description: "Current version identifier of the registration"
         range: string
     registration_policy:
+        description: "Policy governing registration amendments and changes"
         range: RegistrationPolicy
     stage_registration_id:
+        description: "Unique identifier for the stage registration"
         range: string
     registry_name:
+        description: "Name of the registry where protocol is registered"
         range: string
     registry_entry_url:
+        description: "URL to the registration entry in the registry"
         range: uri
     registration_type:
+        description: "Type of registration (pre-registration, protocol, etc.)"
         range: RegistrationType
     versions:
+        description: "List of registration versions tracking changes over time"
         range: RegistrationVersion
         multivalued: true
     initial_version_id:
+        description: "Identifier of the initial registration version"
         range: string
     current_version_id:
+        description: "Identifier of the current registration version"
         range: string
     registration_status:
+        description: "Current status of the registration"
         range: RegistrationStatus
 
     # Version slots
     version_id:
+        description: "Unique identifier for this registration version"
         range: string
     version_number:
+        description: "Version number in semantic versioning format"
         range: string
     version_label:
+        description: "Human-readable label for this version"
         range: string
     registry_version_id:
+        description: "Version identifier assigned by the registry"
         range: string
     registry_submission_date:
+        description: "Date when version was submitted to registry"
         range: datetime
     registry_acceptance_date:
+        description: "Date when version was accepted by registry"
         range: datetime
     registration_doi:
+        description: "DOI assigned to this registration version"
         range: string
     content_uri:
+        description: "URI to access the registered content"
         range: uri
     content_hash:
+        description: "Cryptographic hash of the registered content"
         range: string
     content_hash_algorithm:
+        description: "Algorithm used to generate content hash"
         range: HashAlgorithm
     registered_text:
+        description: "Full text of the registered protocol"
         range: string
     template_ref:
+        description: "Reference to registration template used"
         range: uri
     registration_template_version:
+        description: "Version of the registration template"
         range: string
     registration_template_doi:
+        description: "DOI of the registration template"
         range: string
     protocol_snapshot_hash:
+        description: "Hash of protocol snapshot at registration time"
         range: string
     version_date:
+        description: "Date when this version was created"
         range: datetime
     version_author:
+        description: "Author who created this version"
         range: Author
     version_reason:
+        description: "Reason for creating this version"
         range: string
     is_major_revision:
+        description: "Whether this is a major revision"
         range: boolean
         ifabsent: false
     amendments:
+        description: "List of amendments made in this version"
         range: Amendment
         multivalued: true
 
     # Amendment slots
     amendment_id:
+        description: "Unique identifier for the amendment"
         range: string
     amendment_date:
+        description: "Date when amendment was made"
         range: datetime
     amendment_type:
+        description: "Type of amendment (clarification, correction, etc.)"
         range: AmendmentType
     amendment_reason:
+        description: "Reason for making the amendment"
         range: string
     amendment_description:
+        description: "Detailed description of the amendment"
         range: string
     affected_sections:
+        description: "Protocol sections affected by this amendment"
         range: string
         multivalued: true
     affected_version_ids:
+        description: "Version IDs affected by this amendment"
         range: string
         multivalued: true
     diff_uri:
+        description: "URI to view differences introduced by amendment"
         range: uri
     amendment_author:
+        description: "Author who made the amendment"
         range: Author
     approval_status:
+        description: "Approval status of the amendment"
         range: ApprovalStatus
     approval_date:
+        description: "Date when amendment was approved"
         range: datetime
     approver:
+        description: "Person who approved the amendment"
         range: string
 
     # Policy slots
     require_doi:
+        description: "Whether DOI is required for registration"
         range: boolean
         ifabsent: false
     require_content_hash:
+        description: "Whether content hash is required for integrity"
         range: boolean
-        ifabsent: true
+        ifabsent: false
     allowed_change_types:
+        description: "Types of amendments allowed for this registration"
         range: AmendmentType
         multivalued: true
     require_amendment_approval:
+        description: "Whether amendments require formal approval"
         range: boolean
         ifabsent: false
     max_days_between_versions:
+        description: "Maximum days allowed between version updates"
         range: integer
     require_template:
+        description: "Whether registration must use a template"
         range: boolean
         ifabsent: false
     allowed_templates:
+        description: "List of allowed registration templates"
         range: uri
         multivalued: true
     hash_algorithms:
+        description: "Hash algorithms accepted for content verification"
         range: HashAlgorithm
         multivalued: true
     registration_created_at:
+        description: "Timestamp when registration was created"
         range: datetime
     registration_last_modified:
+        description: "Timestamp when registration was last modified"
         range: datetime
 
 enums:

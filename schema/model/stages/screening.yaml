@@ -732,321 +732,463 @@ classes:
 slots:
     # Main screening stage slots
     deduplication_process:
+        description: "Process for identifying and removing duplicate records from search results"
         range: DeduplicationProcess
     screening_rounds:
+        description: "Sequential rounds of screening (e.g., title/abstract, full-text)"
         range: ScreeningRound
     screening_criteria:
+        description: "Inclusion and exclusion criteria for the screening process"
         range: ScreeningCriteria
     screening_protocol:
+        description: "Protocol defining how screening should be conducted"
         range: ScreeningProtocol
     overall_statistics:
+        description: "Aggregate statistics for the entire screening stage"
         range: ScreeningStatistics
 
     # Deduplication slots
     dedup_id:
+        description: "Unique identifier for the deduplication process"
         range: string
     input_record_count:
+        description: "Total number of records before deduplication"
         range: integer
     unique_record_count:
+        description: "Number of unique records after deduplication"
         range: integer
     duplicate_count:
+        description: "Number of duplicate records identified and removed"
         range: integer
     dedup_method:
+        description: "Method used for deduplication (automatic, manual, etc.)"
         range: DeduplicationMethod
     dedup_tools:
+        description: "External tools used for deduplication"
         range: ExternalTool
     dedup_criteria:
+        description: "Criteria used to identify duplicate records"
         range: string
     duplicate_groups:
+        description: "Groups of records identified as duplicates"
         range: DuplicateGroup
     dedup_started_at:
+        description: "Timestamp when deduplication started"
         range: datetime
     dedup_completed_at:
+        description: "Timestamp when deduplication completed"
         range: datetime
     dedup_performed_by:
+        description: "Person(s) who performed the deduplication"
         range: Author
     dedup_notes:
+        description: "Additional notes about the deduplication process"
         range: string
 
     # Duplicate group slots
     group_id:
+        description: "Unique identifier for a group of duplicate records"
         range: string
     master_record_id:
+        description: "ID of the record selected as the master/primary version"
         range: string
     duplicate_record_ids:
+        description: "IDs of records identified as duplicates of the master"
         range: string
     similarity_score:
+        description: "Similarity score between duplicates (0-1)"
         range: float
     match_fields:
+        description: "Fields that matched between duplicate records"
         range: string
     duplicate_resolution:
+        description: "Method used to resolve the duplicate"
         range: string
 
     # Screening round slots
     round_id:
+        description: "Unique identifier for the screening round"
         range: string
     round_type:
+        description: "Type of screening round (title/abstract, full-text, etc.)"
         range: ScreeningRoundType
     round_number:
+        description: "Sequential number of the screening round"
         range: integer
     round_label:
+        description: "Human-readable label for the screening round"
         range: string
     input_records:
+        description: "Collection of records to be screened in this round"
         range: LiteratureRecordCollection
     screening_decisions:
+        description: "Individual screening decisions made by reviewers"
         range: ScreeningDecision
     conflict_resolutions:
+        description: "Resolutions of conflicts between reviewers"
         range: ConflictResolution
     excluded_record_ids:
+        description: "IDs of records excluded in this round"
         range: string
     included_record_ids:
+        description: "IDs of records included/passed to next round"
         range: string
     round_started_at:
+        description: "Timestamp when the round started"
         range: datetime
     round_completed_at:
+        description: "Timestamp when the round completed"
         range: datetime
     reviewers:
+        description: "Reviewers involved in this screening round"
         range: Reviewer
     screening_tools:
+        description: "External tools used in this screening round"
         range: ExternalTool
     ai_assistance:
+        description: "AI assistance configuration for this round"
         range: AIScreeningAssistance
     round_statistics:
+        description: "Statistical metrics for this screening round"
         range: RoundStatistics
     round_notes:
+        description: "Additional notes about this screening round"
         range: string
 
     # Screening decision slots
     decision_id:
+        description: "Unique identifier for the screening decision"
         range: string
     screening_record_id:
+        description: "ID of the record being screened"
         range: string
     decision_reviewer_id:
+        description: "ID of the reviewer making the decision"
         range: string
     decision:
+        description: "The screening decision (include/exclude/uncertain)"
         range: ScreeningDecisionType
     exclusion_reasons:
+        description: "Reasons for exclusion if record was excluded"
         range: string
     inclusion_confidence:
+        description: "Confidence level in inclusion decision (0-1)"
         range: float
     decision_timestamp:
+        description: "Timestamp when the decision was made"
         range: datetime
     time_spent_seconds:
+        description: "Time spent making the decision in seconds"
         range: integer
     decision_notes:
+        description: "Additional notes about the decision"
         range: string
     ai_suggested_decision:
+        description: "Decision suggested by AI if AI assistance was used"
         range: ScreeningDecisionType
     ai_confidence_score:
+        description: "AI's confidence in its suggestion (0-1)"
         range: float
 
     # Conflict resolution slots
     resolution_id:
+        description: "Unique identifier for the conflict resolution"
         range: string
     conflict_record_id:
+        description: "ID of the record with conflicting decisions"
         range: string
     conflicting_decisions:
+        description: "IDs of the conflicting screening decisions"
         range: string
     resolution_method:
+        description: "Method used to resolve the conflict"
         range: ConflictResolutionMethod
     final_decision:
+        description: "Final decision after conflict resolution"
         range: ScreeningDecisionType
     resolver_id:
+        description: "ID of the person/process that resolved the conflict"
         range: string
     resolution_timestamp:
+        description: "Timestamp when the conflict was resolved"
         range: datetime
     resolution_notes:
+        description: "Notes about the conflict resolution process"
         range: string
 
     # Screening criteria slots
     criteria_id:
+        description: "Unique identifier for the criteria set"
         range: string
     inclusion_criteria:
+        description: "List of criteria for including studies"
         range: string
     exclusion_criteria:
+        description: "List of criteria for excluding studies"
         range: string
     population_criteria:
+        description: "Criteria related to study population"
         range: string
     intervention_criteria:
+        description: "Criteria related to interventions"
         range: string
     comparator_criteria:
+        description: "Criteria related to comparators"
         range: string
     outcome_criteria:
+        description: "Criteria related to outcomes"
         range: string
     study_design_criteria:
+        description: "Acceptable study design types"
         range: string
     publication_type_criteria:
+        description: "Acceptable publication types"
         range: PublicationType
     language_criteria:
+        description: "Acceptable languages for publications"
         range: string
     date_range_criteria:
+        description: "Acceptable date range for publications"
         range: DateRange
     geographic_criteria:
+        description: "Geographic restrictions for studies"
         range: string
     exclude_systematic_reviews:
+        description: "Whether to exclude systematic reviews"
         range: boolean
         ifabsent: false
     primary_sources_only:
+        description: "Whether to include only primary sources"
         range: boolean
         ifabsent: false
     criteria_notes:
+        description: "Additional notes about the screening criteria"
         range: string
 
     # Date range slots
     date_range_start:
+        description: "Start date of the date range"
         range: date
     date_range_end:
+        description: "End date of the date range"
         range: date
 
     # Screening protocol slots
     protocol_id:
+        description: "Unique identifier for the screening protocol"
         range: string
     minimum_reviewers_per_record:
+        description: "Minimum number of reviewers required per record"
         range: integer
     require_consensus:
+        description: "Whether consensus is required between reviewers"
         range: boolean
         ifabsent: false
     blind_screening:
+        description: "Whether reviewers are blind to each other's decisions"
         range: boolean
         ifabsent: false
     pilot_screening_size:
+        description: "Number of records for pilot/calibration screening"
         range: integer
     pilot_agreement_threshold:
+        description: "Required agreement level in pilot screening (0-1)"
         range: float
     conflict_resolution_strategy:
+        description: "Default strategy for resolving conflicts"
         range: ConflictResolutionMethod
     screening_order:
+        description: "Order in which records are presented for screening"
         range: ScreeningOrder
     batch_size:
+        description: "Number of records in each screening batch"
         range: integer
     protocol_notes:
+        description: "Additional notes about the screening protocol"
         range: string
 
     # Reviewer slots
     reviewer_id:
+        description: "Unique identifier for the reviewer"
         range: string
     reviewer_author:
+        description: "Author information for the reviewer"
         range: Author
     reviewer_role:
+        description: "Role of the reviewer in the screening process"
         range: ReviewerRole
     training_completed:
+        description: "Whether the reviewer completed training"
         range: boolean
         ifabsent: false
     records_assigned:
+        description: "Number of records assigned to the reviewer"
         range: integer
     records_completed:
+        description: "Number of records completed by the reviewer"
         range: integer
     reviewer_notes:
+        description: "Additional notes about the reviewer"
         range: string
 
     # External tool slots
     tool_id:
+        description: "Unique identifier for the tool"
         range: string
     tool_name:
+        description: "Name of the external tool"
         range: string
     tool_version:
+        description: "Version of the tool used"
         range: string
     tool_url:
+        description: "URL to access or learn about the tool"
         range: uri
     tool_purpose:
+        description: "Purpose of the tool in the screening process"
         range: ToolPurpose
     tool_settings:
+        description: "Configuration settings used for the tool"
         range: string
     tool_api_endpoint:
+        description: "API endpoint if the tool has an API"
         range: uri
     tool_license:
+        description: "License under which the tool is distributed"
         range: string
     tool_citation:
+        description: "How to cite the tool in publications"
         range: string
 
     # AI assistance slots
     ai_id:
+        description: "Unique identifier for the AI assistance configuration"
         range: string
     ai_model:
+        description: "Name of the AI model used"
         range: string
     ai_version:
+        description: "Version of the AI model"
         range: string
     ai_provider:
+        description: "Provider of the AI model"
         range: string
     ai_purpose:
+        description: "Purpose of AI in the screening process"
         range: AIPurpose
     ai_prompts:
+        description: "Prompts used to interact with the AI"
         range: string
     ai_parameters:
+        description: "Parameters and settings for the AI model"
         range: string
     ai_validation_method:
+        description: "Method used to validate AI decisions"
         range: string
     human_oversight_level:
+        description: "Level of human oversight for AI decisions"
         range: OversightLevel
     ai_performance_metrics:
+        description: "Performance metrics of the AI assistance"
         range: PerformanceMetrics
 
     # Performance metrics slots
     accuracy:
+        description: "Overall accuracy of predictions (0-1)"
         range: float
     precision:
+        description: "Precision/positive predictive value (0-1)"
         range: float
     recall:
+        description: "Recall/sensitivity (0-1)"
         range: float
     f1_score:
+        description: "Harmonic mean of precision and recall (0-1)"
         range: float
     specificity:
+        description: "True negative rate (0-1)"
         range: float
     false_positive_rate:
+        description: "Rate of false positives (0-1)"
         range: float
     false_negative_rate:
+        description: "Rate of false negatives (0-1)"
         range: float
     cohen_kappa:
+        description: "Cohen's kappa for inter-rater agreement"
         range: float
     fleiss_kappa:
+        description: "Fleiss' kappa for multi-rater agreement"
         range: float
     percent_agreement:
+        description: "Percentage agreement between raters (0-100)"
         range: float
 
     # Round statistics slots
     total_records_screened:
+        description: "Total number of records screened in this round"
         range: integer
     records_included:
+        description: "Number of records included/passed to next stage"
         range: integer
     records_excluded:
+        description: "Number of records excluded"
         range: integer
     records_uncertain:
+        description: "Number of records marked as uncertain"
         range: integer
     inclusion_rate:
+        description: "Proportion of records included (0-1)"
         range: float
     exclusion_rate:
+        description: "Proportion of records excluded (0-1)"
         range: float
     average_time_per_record:
+        description: "Average time spent per record in seconds"
         range: float
     total_screening_time:
+        description: "Total time spent screening in hours"
         range: float
     inter_rater_agreement:
+        description: "Agreement metrics between reviewers"
         range: PerformanceMetrics
     conflicts_count:
+        description: "Number of conflicts between reviewers"
         range: integer
     conflicts_resolved:
+        description: "Number of conflicts successfully resolved"
         range: integer
 
     # Overall statistics slots
     initial_records_count:
+        description: "Initial number of records before any processing"
         range: integer
     post_dedup_count:
+        description: "Number of records after deduplication"
         range: integer
     title_abstract_excluded:
+        description: "Number of records excluded at title/abstract screening"
         range: integer
     fulltext_excluded:
+        description: "Number of records excluded at full-text screening"
         range: integer
     final_included_count:
+        description: "Final number of included studies"
         range: integer
     overall_inclusion_rate:
+        description: "Overall proportion of records included (0-1)"
         range: float
     overall_exclusion_rate:
+        description: "Overall proportion of records excluded (0-1)"
         range: float
     total_time_hours:
+        description: "Total time spent on screening in hours"
         range: float
     total_reviewer_hours:
+        description: "Total person-hours spent by all reviewers"
         range: float
     cost_estimate:
+        description: "Estimated cost of the screening process"
         range: float
 
 enums:

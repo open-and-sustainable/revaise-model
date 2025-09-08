@@ -165,72 +165,102 @@ classes:
 slots:
     # Template slots
     template_id:
+        description: "Unique identifier for the registration template"
         range: string
     template_name:
+        description: "Human-readable name of the template"
         range: string
     template_version:
+        description: "Version number of the template"
         range: string
     template_uri:
+        description: "URI where the template can be accessed"
         range: uri
     template_doi:
+        description: "DOI of the template publication if available"
         range: string
     template_provider:
+        description: "Organization or registry providing the template"
         range: string
     template_type:
+        description: "Type of registration template"
         range: TemplateType
     template_description:
+        description: "Description of the template and its purpose"
         range: string
     template_language:
+        description: "Language of the template content"
         range: string
         ifabsent: "en"
     required_fields:
+        description: "Fields that must be completed in this template"
         range: TemplateField
         multivalued: true
     optional_fields:
+        description: "Fields that may be completed in this template"
         range: TemplateField
         multivalued: true
     field_definitions:
+        description: "Formal definition of template fields (e.g., JSON Schema)"
         range: string
     validation_rules:
+        description: "Rules for validating template field values"
         range: string
         multivalued: true
     created_date:
+        description: "Date when the template was created"
         range: date
     template_last_updated:
+        description: "Date and time when the template was last updated"
         range: datetime
     deprecation_date:
+        description: "Date when this template will be or was deprecated"
         range: date
     successor_template_id:
+        description: "ID of the template that supersedes this one"
         range: string
 
     # Field slots
     field_id:
+        description: "Unique identifier for this template field"
         range: string
     field_name:
+        description: "Technical name of the field"
         range: string
     field_label:
+        description: "Human-readable label for the field"
         range: string
     field_description:
+        description: "Description of what should be entered in this field"
         range: string
     field_type:
+        description: "Data type of the field"
         range: FieldType
     field_format:
+        description: "Expected format for the field value"
         range: string
     field_constraints:
+        description: "Constraints or validation rules for the field value"
         range: string
         multivalued: true
     field_help_text:
+        description: "Help text to guide users filling out this field"
         range: string
     field_example:
+        description: "Example value demonstrating proper field completion"
         range: string
     field_section:
+        description: "Section of the template this field belongs to"
         range: string
     field_order:
+        description: "Display order of the field within its section"
         range: integer
     is_repeatable:
+        description: "Whether this field can have multiple values"
         range: boolean
         ifabsent: false
     conditional_on:
+        description: "Field ID that this field's visibility depends on"
         range: string
 
 enums:

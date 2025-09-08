@@ -74,26 +74,38 @@ classes:
 
 slots:
     name:
+        description: "Full name of the author"
         range: string
     given_name:
+        description: "Given/first name of the author"
         range: string
     family_name:
+        description: "Family/last name of the author"
         range: string
     orcid:
+        description: "ORCID identifier for the author"
         range: string
     email:
+        description: "Email address of the author"
         range: string
     affiliations:
+        description: "Institutional affiliations of the author"
         range: Affiliation
     institution_name:
+        description: "Name of the affiliated institution"
         range: string
     department:
+        description: "Department or division within the institution"
         range: string
     address:
+        description: "Street address of the institution"
         range: string
     city:
+        description: "City where the institution is located"
         range: string
     country:
+        description: "Country where the institution is located"
         range: string
     ror_id:
+        description: "Research Organization Registry identifier for the institution"
         range: string

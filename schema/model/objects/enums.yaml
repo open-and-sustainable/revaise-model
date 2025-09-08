@@ -38,6 +38,7 @@ enums:
                 description: "Compiling reproducibility package."
 
     StageOutputKind:
+        description: "Types of outputs that can be produced by review stages"
         permissible_values:
             search_query:
                 description: "Search query strings used in databases."
@@ -75,6 +76,7 @@ enums:
                 description: "Other stage output type."
 
     DatasetKind:
+        description: "Types of datasets used in systematic reviews"
         permissible_values:
             bibliographic_db:
                 description: "Online bibliographic database."
