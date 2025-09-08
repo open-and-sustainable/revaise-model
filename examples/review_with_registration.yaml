@@ -1,0 +1,184 @@
+# Example: Review with Registration Stage
+# This example shows a complete review structure focusing on the registration stage
+
+review:
+  review_id: "SR_2024_001"
+  title: "Effectiveness of Digital Health Interventions for Type 2 Diabetes Management: A Systematic Review and Meta-Analysis"
+  review_type: SYSTEMATIC_REVIEW
+  review_status: PROTOCOL_REGISTERED
+  review_question: "What is the effectiveness of digital health interventions compared to usual care for glycemic control in adults with type 2 diabetes?"
+  start_date: "2024-01-10"
+  review_country: "United States"
+
+  # Review team
+  authors:
+    - author_id: "author_001"
+      name: "Dr. Jane Smith"
+      orcid: "0000-0002-1234-5678"
+      email: "jane.smith@university.edu"
+      affiliations:
+        - affiliation_id: "aff_001"
+          organization: "University Medical Center"
+          department: "Department of Digital Health"
+          country: "United States"
+      author_roles:
+        - LEAD_AUTHOR
+        - CORRESPONDING_AUTHOR
+        - SEARCH_SPECIALIST
+
+    - author_id: "author_002"
+      name: "Prof. Michael Johnson"
+      orcid: "0000-0003-2345-6789"
+      affiliations:
+        - affiliation_id: "aff_001"
+          organization: "University Medical Center"
+          department: "Department of Endocrinology"
+      author_roles:
+        - CO_AUTHOR
+        - STATISTICAL_ANALYST
+
+    - author_id: "author_003"
+      name: "Dr. Sarah Williams"
+      orcid: "0000-0001-3456-7890"
+      affiliations:
+        - affiliation_id: "aff_002"
+          organization: "Institute of Evidence-Based Medicine"
+          country: "United Kingdom"
+      author_roles:
+        - CO_AUTHOR
+        - METHODOLOGIST
+
+  # Protocol information
+  protocol:
+    protocol_id: "protocol_SR_2024_001"
+    protocol_version: "1.0"
+    protocol_date: "2024-01-10"
+    protocol_uri: "https://www.crd.york.ac.uk/prospero/display_record.php?ID=CRD42024501234"
+    protocol_amendments: []
+
+  # Registration Stage - The focus of this example
+  stages:
+    - stage_type: registration
+      stage_label: "Protocol Registration on PROSPERO"
+      stage_description: "Pre-registration of systematic review protocol following PRISMA-P guidelines"
+      started_at: "2024-01-10T09:00:00Z"
+      ended_at: "2024-01-15T16:00:00Z"
+
+      # Registration details
+      registrations:
+        - stage_registration_id: "reg_prospero_2024"
+          registry_name: "PROSPERO"
+          registry_entry_url: "https://www.crd.york.ac.uk/prospero/display_record.php?ID=CRD42024501234"
+          registration_type: PRE_REGISTRATION
+          registration_status: REGISTERED
+          registration_created_at: "2024-01-10T09:00:00Z"
+          registration_last_modified: "2024-01-15T16:00:00Z"
+
+          # Version tracking
+          initial_version_id: "v1.0"
+          current_version_id: "v1.0"
+
+          versions:
+            - version_id: "v1.0"
+              version_number: "1.0"
+              version_label: "Initial protocol registration"
+              registry_version_id: "CRD42024501234"
+              registry_submission_date: "2024-01-10T14:00:00Z"
+              registry_acceptance_date: "2024-01-15T10:00:00Z"
+              registration_doi: "10.15124/CRD42024501234"
+              content_uri: "https://www.crd.york.ac.uk/prospero/export_record_pdf.php?RecordID=501234"
+              content_hash: "sha256:7d865e959b2466918c9863afca942d0fb89d7c9ac0c99bafc3749504ded97730"
+              content_hash_algorithm: SHA256
+              registered_text: "See full protocol at PROSPERO website"
+              template_ref: "https://www.crd.york.ac.uk/prospero/documents/PROSPERO_Registration_form.pdf"
+              registration_template_version: "PROSPERO_2023"
+              version_date: "2024-01-10T14:00:00Z"
+              version_author:
+                author_id: "author_001"
+                name: "Dr. Jane Smith"
+              version_reason: "Initial protocol registration before starting the review"
+              is_major_revision: false
+
+      # Registration policy
+      registration_policy:
+        require_doi: true
+        require_content_hash: true
+        require_amendment_approval: true
+        require_template: false
+        allowed_change_types:
+          - CLARIFICATION
+          - CORRECTION
+          - METHODOLOGY_CHANGE
+          - TIMELINE_CHANGE
+        hash_algorithms:
+          - SHA256
+          - SHA512
+        max_days_between_versions: 90
+
+      # Current registration version reference
+      current_registration_version: "v1.0"
+
+      # Stage inputs and outputs
+      inputs:
+        - input_id: "in_reg_001"
+          input_from_stage: null
+          input_description: "Draft protocol document based on PRISMA-P guidelines"
+        - input_id: "in_reg_002"
+          input_from_stage: null
+          input_description: "Team consensus on methodology and search strategy"
+
+      outputs:
+        - output_id: "out_reg_001"
+          output_kind: protocol_document
+          output_format: PDF
+          output_uri: "https://www.crd.york.ac.uk/prospero/export_record_pdf.php?RecordID=501234"
+          output_description: "Registered protocol PDF from PROSPERO"
+          output_hash: "sha256:7d865e959b2466918c9863afca942d0fb89d7c9ac0c99bafc3749504ded97730"
+        - output_id: "out_reg_002"
+          output_kind: registration_receipt
+          output_format: HTML
+          output_uri: "https://www.crd.york.ac.uk/prospero/display_record.php?ID=CRD42024501234"
+          output_description: "PROSPERO registration page with ID CRD42024501234"
+
+  # Funding and conflicts
+  funding_sources:
+    - funding_id: "grant_001"
+      funder_name: "National Institute of Health"
+      grant_number: "R01-DK123456"
+      funding_amount: 500000.00
+      funding_currency: "USD"
+
+  conflicts_of_interest:
+    - author_id: "author_001"
+      conflict_type: NONE
+      conflict_description: "No conflicts to declare"
+    - author_id: "author_002"
+      conflict_type: NONE
+      conflict_description: "No conflicts to declare"
+    - author_id: "author_003"
+      conflict_type: FINANCIAL
+      conflict_description: "Received consulting fees from digital health company (not related to this review)"
+
+  # Software environment
+  software_environments:
+    - env_id: "env_001"
+      env_label: "Protocol development environment"
+      operating_system: "Windows 11"
+      software_packages:
+        - package_id: "pkg_001"
+          package_name: "Microsoft Word"
+          package_version: "Microsoft 365"
+          package_purpose: "Protocol drafting"
+        - package_id: "pkg_002"
+          package_name: "Mendeley"
+          package_version: "2.0"
+          package_purpose: "Reference management"
+
+  # Review metadata
+  review_metadata:
+    metadata_id: "meta_001"
+    review_framework: "PRISMA"
+    review_guidelines: ["PRISMA-P", "Cochrane Handbook"]
+    quality_assessment_tools: ["RoB 2", "GRADE"]
+    synthesis_method: "Meta-analysis"
+    expected_completion_date: "2024-12-31"

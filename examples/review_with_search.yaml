@@ -1,0 +1,249 @@
+# Example: Review with Search Stage
+# This example shows a complete review structure focusing on the search stage
+
+review:
+  review_id: "SR_2024_002"
+  title: "Impact of Telemedicine on Healthcare Access in Rural Communities: A Systematic Review"
+  review_type: SYSTEMATIC_REVIEW
+  review_status: SEARCH_COMPLETED
+  review_question: "How does telemedicine implementation affect healthcare access and health outcomes in rural populations?"
+  start_date: "2024-01-05"
+  review_country: "Canada"
+
+  # Review team
+  authors:
+    - author_id: "author_001"
+      name: "Dr. Emily Chen"
+      orcid: "0000-0001-5678-9012"
+      email: "emily.chen@healthresearch.ca"
+      affiliations:
+        - affiliation_id: "aff_001"
+          organization: "Canadian Institute for Health Research"
+          department: "Rural Health Division"
+          country: "Canada"
+      author_roles:
+        - LEAD_AUTHOR
+        - SEARCH_SPECIALIST
+
+    - author_id: "author_002"
+      name: "Dr. Robert Taylor"
+      orcid: "0000-0002-6789-0123"
+      affiliations:
+        - affiliation_id: "aff_002"
+          organization: "University of Toronto"
+          department: "Faculty of Medicine"
+          country: "Canada"
+      author_roles:
+        - CO_AUTHOR
+        - INFORMATION_SPECIALIST
+
+  # Protocol information
+  protocol:
+    protocol_id: "protocol_SR_2024_002"
+    protocol_version: "1.0"
+    protocol_date: "2024-01-05"
+    protocol_uri: "https://osf.io/ab3cd/"
+
+  # Search Stage - The focus of this example
+  stages:
+    - stage_type: search
+      stage_label: "Comprehensive Literature Search"
+      stage_description: "Systematic search across medical and health technology databases"
+      started_at: "2024-01-20T09:00:00Z"
+      ended_at: "2024-01-24T17:00:00Z"
+
+      # Databases searched
+      databases:
+        - database_name: "MEDLINE"
+          database_url: "https://pubmed.ncbi.nlm.nih.gov/"
+          access_date: "2024-01-20T10:00:00Z"
+          database_version: "2024 January update"
+          database_notes: "Accessed via PubMed interface"
+
+        - database_name: "Embase"
+          database_url: "https://www.embase.com/"
+          access_date: "2024-01-21T09:00:00Z"
+          database_version: "Embase.com version"
+          database_notes: "Includes MEDLINE records"
+
+        - database_name: "CINAHL"
+          database_url: "https://www.ebsco.com/products/research-databases/cinahl"
+          access_date: "2024-01-22T10:00:00Z"
+          database_notes: "Nursing and allied health literature"
+
+        - database_name: "Cochrane Library"
+          database_url: "https://www.cochranelibrary.com/"
+          access_date: "2024-01-23T09:00:00Z"
+          database_notes: "Including CENTRAL, Cochrane Reviews, and trials"
+
+        - database_name: "IEEE Xplore"
+          database_url: "https://ieeexplore.ieee.org/"
+          access_date: "2024-01-24T10:00:00Z"
+          database_notes: "Technology and engineering aspects of telemedicine"
+
+      # Search queries executed
+      search_queries:
+        - query_id: "query_medline_001"
+          database_name: "MEDLINE"
+          query_string: |
+            ((telemedicine[MeSH] OR "Remote Consultation"[MeSH] OR telehealth[tiab] OR tele-health[tiab] OR "mobile health"[tiab] OR mhealth[tiab] OR "digital health"[tiab])
+            AND
+            (rural[MeSH] OR "Rural Population"[MeSH] OR "Rural Health Services"[MeSH] OR rural*[tiab] OR remote[tiab] OR "underserved area*"[tiab])
+            AND
+            ("Health Services Accessibility"[MeSH] OR access*[tiab] OR availab*[tiab] OR utiliz*[tiab] OR "health outcome*"[tiab]))
+          query_date: "2024-01-20T10:30:00Z"
+          query_filters:
+            - "Publication date: 2014/01/01 to 2024/01/20"
+            - "Language: English, French"
+            - "Article types: Clinical Trial, Comparative Study, Evaluation Study, Meta-Analysis, Multicenter Study, Observational Study, Systematic Review"
+            - "Species: Humans"
+          result_collection_id: "coll_medline_001"
+          results_count: 2341
+          query_notes: "Peer reviewed by medical librarian; MeSH terms automatically expanded"
+
+        - query_id: "query_embase_001"
+          database_name: "Embase"
+          query_string: |
+            ('telemedicine'/exp OR 'telehealth'/exp OR 'mobile health'/exp OR telemedicine:ti,ab OR telehealth:ti,ab OR 'mobile health':ti,ab OR mhealth:ti,ab)
+            AND
+            ('rural area'/exp OR 'rural population'/exp OR 'rural health care'/exp OR rural*:ti,ab OR remote:ti,ab OR underserved:ti,ab)
+            AND
+            ('health care access'/exp OR access*:ti,ab OR availab*:ti,ab OR utiliz*:ti,ab OR 'health outcome':ti,ab)
+          query_date: "2024-01-21T09:45:00Z"
+          query_filters:
+            - "[2014-2024]/py"
+            - "([english]/lim OR [french]/lim)"
+            - "([article]/lim OR [review]/lim)"
+            - "[humans]/lim"
+          result_collection_id: "coll_embase_001"
+          results_count: 3127
+          query_notes: "Emtree terms used; excludes MEDLINE records to avoid duplication"
+
+        - query_id: "query_cinahl_001"
+          database_name: "CINAHL"
+          query_string: |
+            (MH "Telemedicine+" OR MH "Telehealth+" OR TI telemedicine OR AB telemedicine OR TI telehealth OR AB telehealth OR TI "mobile health" OR AB "mobile health")
+            AND
+            (MH "Rural Population" OR MH "Rural Health Services+" OR TI rural* OR AB rural* OR TI remote OR AB remote)
+            AND
+            (MH "Health Services Accessibility+" OR TI access* OR AB access* OR TI availab* OR AB availab*)
+          query_date: "2024-01-22T10:15:00Z"
+          query_filters:
+            - "Published Date: 20140101-20240122"
+            - "Language: English, French"
+            - "Peer Reviewed"
+          result_collection_id: "coll_cinahl_001"
+          results_count: 892
+          query_notes: "CINAHL subject headings applied"
+
+        - query_id: "query_cochrane_001"
+          database_name: "Cochrane Library"
+          query_string: |
+            (telemedicine OR telehealth OR "tele medicine" OR "tele health" OR "mobile health" OR mhealth OR "digital health"):ti,ab,kw
+            AND
+            (rural OR remote OR underserved OR "rural population" OR "rural health"):ti,ab,kw
+          query_date: "2024-01-23T09:30:00Z"
+          query_filters:
+            - "Publication Year from 2014 to 2024"
+          result_collection_id: "coll_cochrane_001"
+          results_count: 178
+          query_notes: "Searched Cochrane Reviews, Trials, and CENTRAL"
+
+        - query_id: "query_ieee_001"
+          database_name: "IEEE Xplore"
+          query_string: |
+            ("telemedicine" OR "telehealth" OR "mobile health" OR "mhealth" OR "digital health")
+            AND
+            ("rural" OR "remote" OR "underserved")
+            AND
+            ("access" OR "healthcare delivery" OR "health services")
+          query_date: "2024-01-24T10:45:00Z"
+          query_filters:
+            - "Year: 2014-2024"
+            - "Content Type: Conference Publications, Journals"
+          result_collection_id: "coll_ieee_001"
+          results_count: 156
+          query_notes: "Focus on technical implementation studies"
+
+      # Result collections
+      result_collections:
+        - collection_id: "coll_medline_001"
+          collection_label: "MEDLINE/PubMed Results"
+          record_count: 2341
+          database_source: "MEDLINE"
+          retrieved_date: "2024-01-20T11:00:00Z"
+
+        - collection_id: "coll_embase_001"
+          collection_label: "Embase Results (excluding MEDLINE)"
+          record_count: 3127
+          database_source: "Embase"
+          retrieved_date: "2024-01-21T10:00:00Z"
+
+        - collection_id: "coll_cinahl_001"
+          collection_label: "CINAHL Results"
+          record_count: 892
+          database_source: "CINAHL"
+          retrieved_date: "2024-01-22T10:30:00Z"
+
+        - collection_id: "coll_cochrane_001"
+          collection_label: "Cochrane Library Results"
+          record_count: 178
+          database_source: "Cochrane Library"
+          retrieved_date: "2024-01-23T09:45:00Z"
+
+        - collection_id: "coll_ieee_001"
+          collection_label: "IEEE Xplore Results"
+          record_count: 156
+          database_source: "IEEE Xplore"
+          retrieved_date: "2024-01-24T11:00:00Z"
+
+      # Stage outputs
+      outputs:
+        - output_id: "out_search_001"
+          output_kind: search_query
+          output_format: DOCX
+          output_uri: "file:///data/search_strategies_complete.docx"
+          output_description: "Complete search strategies for all databases with peer review notes"
+          output_hash: "sha256:8b7df143d91c716ecfa5fc1730022cea"
+
+        - output_id: "out_search_002"
+          output_kind: records_raw
+          output_format: RIS
+          output_uri: "file:///data/all_database_results_raw.ris"
+          output_description: "Combined export of all database results before deduplication (n=6694)"
+
+        - output_id: "out_search_003"
+          output_kind: search_log
+          output_format: XLSX
+          output_uri: "file:///data/search_log.xlsx"
+          output_description: "Detailed search log with database information, dates, and result counts"
+
+  # Additional review metadata
+  funding_sources:
+    - funding_id: "grant_002"
+      funder_name: "Canadian Institutes of Health Research"
+      grant_number: "CIHR-2024-789"
+      funding_amount: 250000.00
+      funding_currency: "CAD"
+
+  conflicts_of_interest:
+    - author_id: "author_001"
+      conflict_type: NONE
+      conflict_description: "No conflicts to declare"
+    - author_id: "author_002"
+      conflict_type: NONE
+      conflict_description: "No conflicts to declare"
+
+  software_environments:
+    - env_id: "env_search"
+      env_label: "Search execution environment"
+      operating_system: "Windows 10"
+      software_packages:
+        - package_id: "pkg_001"
+          package_name: "EndNote"
+          package_version: "20"
+          package_purpose: "Reference management and deduplication"
+        - package_id: "pkg_002"
+          package_name: "Covidence"
+          package_version: "2.0"
+          package_purpose: "Systematic review management platform"

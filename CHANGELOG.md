@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.0] - 2025-09-08
+
+### Added
+- Complete implementation of screening stage with comprehensive functionality:
+  - Deduplication process with external tool support
+  - Multiple screening round types (title/abstract, full-text, systematic review check)
+  - PICOS-based screening criteria with support for excluding systematic reviews
+  - External tool integration for all screening steps
+  - AI assistance capabilities with configurable human oversight levels
+  - Conflict resolution mechanisms with multiple strategies
+  - Reviewer management and role tracking
+  - Comprehensive statistics and performance metrics
+  - Inter-rater agreement tracking (Cohen's kappa, Fleiss' kappa)
+- Added comprehensive review examples:
+  - Complete review example with registration stage focus
+  - Complete review example with search stage focus
+  - Complete review example with screening stage focus
+
+### Fixed
+- MkDocs configuration to remove unnecessary emoji extension
+- ReadTheDocs version display using environment variables
+
+
 ## [0.1.0] - 2025-09-05
 
 ### Added

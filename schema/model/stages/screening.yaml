@@ -236,7 +236,7 @@ classes:
                 range: string
                 identifier: true
                 description: "Unique identifier for the decision"
-            record_id:
+            screening_record_id:
                 range: string
                 required: true
                 description: "ID of the record being screened"
@@ -288,7 +288,7 @@ classes:
                 range: string
                 identifier: true
                 description: "Unique identifier for the resolution"
-            record_id:
+            conflict_record_id:
                 range: string
                 required: true
                 description: "ID of the record with conflicting decisions"
@@ -397,13 +397,13 @@ classes:
     DateRange:
         description: "Date range specification"
         slots:
-            - start_date
-            - end_date
+            - date_range_start
+            - date_range_end
         slot_usage:
-            start_date:
+            date_range_start:
                 range: date
                 description: "Start date of the range"
-            end_date:
+            date_range_end:
                 range: date
                 description: "End date of the range"
 
@@ -819,7 +819,7 @@ slots:
     # Screening decision slots
     decision_id:
         range: string
-    record_id:
+    screening_record_id:
         range: string
     decision_reviewer_id:
         range: string
@@ -842,6 +842,8 @@ slots:
 
     # Conflict resolution slots
     resolution_id:
+        range: string
+    conflict_record_id:
         range: string
     conflicting_decisions:
         range: string
@@ -891,9 +893,9 @@ slots:
         range: string
 
     # Date range slots
-    start_date:
+    date_range_start:
         range: date
-    end_date:
+    date_range_end:
         range: date
 
     # Screening protocol slots
