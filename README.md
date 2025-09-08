@@ -1,8 +1,10 @@
 <div align="left">
-  <img src="images/logo_full.png" alt="# RevAIse" width="400">
+  <img src="images/logo_full.png" alt="RevAIse Logo" width="400">
 </div>
 
-> An Open Science standard for transparent, reproducible AI-assisted systematic literature reviews
+> RevAIse Data Model
+
+**An Open Science standard for transparent, reproducible AI-assisted systematic literature reviews**
 
 [![Validate Schema](https://github.com/open-and-sustainable/revaise-model/actions/workflows/validate.yml/badge.svg)](https://github.com/open-and-sustainable/revaise-model/actions/workflows/validate.yml)
 [![Documentation](https://readthedocs.org/projects/revaise-model/badge/?version=latest)](https://revaise-model.readthedocs.io/en/latest/?badge=latest)
