@@ -79,7 +79,6 @@ plugins:
     - tags
     - macros:
           module_name: docs/hooks/readthedocs_version
-          include_dir: docs/includes
 
 # Hooks for custom functionality (alternative to macros plugin)
 # hooks:
