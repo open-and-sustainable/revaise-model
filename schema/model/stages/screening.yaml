@@ -489,51 +489,6 @@ classes:
                 range: string
                 description: "Notes about the reviewer"
 
-    ExternalTool:
-        description: "External tool used in the screening process"
-        slots:
-            - tool_id
-            - tool_name
-            - tool_version
-            - tool_url
-            - tool_purpose
-            - tool_settings
-            - tool_api_endpoint
-            - tool_license
-            - tool_citation
-        slot_usage:
-            tool_id:
-                range: string
-                identifier: true
-                description: "Unique identifier for the tool"
-            tool_name:
-                range: string
-                required: true
-                description: "Name of the tool"
-            tool_version:
-                range: string
-                required: true
-                description: "Version of the tool"
-            tool_url:
-                range: uri
-                description: "URL to the tool"
-            tool_purpose:
-                range: ToolPurpose
-                required: true
-                description: "Purpose of the tool in screening"
-            tool_settings:
-                range: string
-                description: "Configuration settings used"
-            tool_api_endpoint:
-                range: uri
-                description: "API endpoint if applicable"
-            tool_license:
-                range: string
-                description: "License of the tool"
-            tool_citation:
-                range: string
-                description: "How to cite the tool"
-
     AIScreeningAssistance:
         description: "AI assistance used in screening"
         slots:
@@ -1031,34 +986,7 @@ slots:
         description: "Additional notes about the reviewer"
         range: string
 
-    # External tool slots
-    tool_id:
-        description: "Unique identifier for the tool"
-        range: string
-    tool_name:
-        description: "Name of the external tool"
-        range: string
-    tool_version:
-        description: "Version of the tool used"
-        range: string
-    tool_url:
-        description: "URL to access or learn about the tool"
-        range: uri
-    tool_purpose:
-        description: "Purpose of the tool in the screening process"
-        range: ToolPurpose
-    tool_settings:
-        description: "Configuration settings used for the tool"
-        range: string
-    tool_api_endpoint:
-        description: "API endpoint if the tool has an API"
-        range: uri
-    tool_license:
-        description: "License under which the tool is distributed"
-        range: string
-    tool_citation:
-        description: "How to cite the tool in publications"
-        range: string
+    # External tool slots are now in shared external_tool.yaml
 
     # AI assistance slots
     ai_id:
@@ -1273,26 +1201,6 @@ enums:
                 description: "Supervising reviewer"
             TRAINEE:
                 description: "Reviewer in training"
-
-    ToolPurpose:
-        description: "Purpose of external tool"
-        permissible_values:
-            DEDUPLICATION:
-                description: "Tool for deduplication"
-            SCREENING_PLATFORM:
-                description: "Platform for screening"
-            REFERENCE_MANAGER:
-                description: "Reference management tool"
-            AI_SCREENING:
-                description: "AI tool for screening assistance"
-            TEXT_ANALYSIS:
-                description: "Text analysis tool"
-            CONFLICT_RESOLUTION:
-                description: "Tool for resolving conflicts"
-            STATISTICS:
-                description: "Statistical analysis tool"
-            DATA_EXTRACTION:
-                description: "Data extraction tool"
 
     AIPurpose:
         description: "Purpose of AI in screening"

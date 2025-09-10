@@ -26,3 +26,6 @@ imports:
 
     # Software environment for reproducibility
     - ./objects/software_env
+
+    # External tools are used across multiple stages
+    - ./objects/external_tool

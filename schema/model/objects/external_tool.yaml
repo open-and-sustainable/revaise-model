@@ -1,0 +1,334 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/external_tool
+name: revaise_external_tool
+description: "Shared definition for external tools used across review stages."
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - linkml:types
+
+classes:
+    ExternalTool:
+        description: "External tool or platform used in the review process"
+        slots:
+            - tool_id
+            - tool_name
+            - tool_version
+            - tool_url
+            - tool_vendor
+            - tool_purpose
+            - tool_license_type
+            - tool_subscription_level
+            - tool_configuration_file
+            - tool_configuration_parameters
+            - tool_settings
+            - tool_api_endpoint
+            - tool_api_version
+            - tool_export_formats
+            - tool_import_formats
+            - tool_features_used
+            - tool_ai_models
+            - tool_limitations
+            - tool_citation
+            - tool_documentation_url
+            - tool_cost
+            - tool_notes
+        slot_usage:
+            tool_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the tool"
+            tool_name:
+                range: string
+                required: true
+                description: "Name of the tool (e.g., Covidence, RevMan, Elicit, PrismaAI)"
+            tool_version:
+                range: string
+                required: true
+                description: "Version of the tool used"
+            tool_url:
+                range: uri
+                description: "URL to access the tool or platform"
+            tool_vendor:
+                range: string
+                description: "Vendor or organization providing the tool"
+            tool_purpose:
+                range: ToolPurpose
+                required: true
+                multivalued: true
+                description: "Purpose(s) for which the tool was used"
+            tool_license_type:
+                range: ToolLicenseType
+                description: "Type of license for the tool"
+            tool_subscription_level:
+                range: string
+                description: "Subscription level or plan used (if applicable)"
+            tool_configuration_file:
+                range: uri
+                description: "URI to exported configuration file"
+            tool_configuration_parameters:
+                range: ToolParameter
+                multivalued: true
+                description: "Tool-specific configuration parameters"
+            tool_settings:
+                range: string
+                description: "General settings description or JSON configuration"
+            tool_api_endpoint:
+                range: uri
+                description: "API endpoint if accessed programmatically"
+            tool_api_version:
+                range: string
+                description: "Version of the API used"
+            tool_export_formats:
+                range: string
+                multivalued: true
+                description: "Data formats the tool can export"
+            tool_import_formats:
+                range: string
+                multivalued: true
+                description: "Data formats the tool can import"
+            tool_features_used:
+                range: string
+                multivalued: true
+                description: "Specific features of the tool that were used"
+            tool_ai_models:
+                range: string
+                multivalued: true
+                description: "AI models used by the tool (if disclosed)"
+            tool_limitations:
+                range: string
+                description: "Known limitations or issues encountered"
+            tool_citation:
+                range: string
+                description: "Recommended citation for the tool"
+            tool_documentation_url:
+                range: uri
+                description: "URL to tool documentation"
+            tool_cost:
+                range: string
+                description: "Cost information (subscription, per-use, etc.)"
+            tool_notes:
+                range: string
+                description: "Additional notes about tool usage"
+
+    ToolParameter:
+        description: "Configuration parameter for a tool"
+        slots:
+            - param_id
+            - param_name
+            - param_value
+            - param_type
+            - param_category
+            - param_description
+            - param_default
+            - param_required
+        slot_usage:
+            param_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the parameter"
+            param_name:
+                range: string
+                required: true
+                description: "Name of the parameter"
+            param_value:
+                range: string
+                required: true
+                description: "Value of the parameter"
+            param_type:
+                range: ParameterType
+                description: "Data type of the parameter"
+            param_category:
+                range: string
+                description: "Category of parameter (e.g., search, AI, export, filtering)"
+            param_description:
+                range: string
+                description: "Description of what this parameter controls"
+            param_default:
+                range: string
+                description: "Default value if not specified"
+            param_required:
+                range: boolean
+                description: "Whether this parameter is required"
+
+slots:
+    tool_id:
+        description: "Unique identifier for the tool"
+        range: string
+    tool_name:
+        description: "Name of the tool or platform"
+        range: string
+    tool_version:
+        description: "Version of the tool"
+        range: string
+    tool_url:
+        description: "URL to access the tool"
+        range: uri
+    tool_vendor:
+        description: "Vendor or organization providing the tool"
+        range: string
+    tool_purpose:
+        description: "Purpose for which the tool was used"
+        range: ToolPurpose
+    tool_license_type:
+        description: "Type of license"
+        range: ToolLicenseType
+    tool_subscription_level:
+        description: "Subscription level or plan"
+        range: string
+    tool_configuration_file:
+        description: "URI to configuration file"
+        range: uri
+    tool_configuration_parameters:
+        description: "Configuration parameters"
+        range: ToolParameter
+    tool_settings:
+        description: "Tool settings description"
+        range: string
+    tool_api_endpoint:
+        description: "API endpoint URL"
+        range: uri
+    tool_api_version:
+        description: "API version"
+        range: string
+    tool_export_formats:
+        description: "Supported export formats"
+        range: string
+    tool_import_formats:
+        description: "Supported import formats"
+        range: string
+    tool_features_used:
+        description: "Features of the tool that were used"
+        range: string
+    tool_ai_models:
+        description: "AI models used by the tool"
+        range: string
+    tool_limitations:
+        description: "Known limitations"
+        range: string
+    tool_citation:
+        description: "Recommended citation"
+        range: string
+    tool_documentation_url:
+        description: "URL to documentation"
+        range: uri
+    tool_cost:
+        description: "Cost information"
+        range: string
+    tool_notes:
+        description: "Additional notes"
+        range: string
+    param_id:
+        description: "Parameter identifier"
+        range: string
+    param_name:
+        description: "Parameter name"
+        range: string
+    param_value:
+        description: "Parameter value"
+        range: string
+    param_type:
+        description: "Parameter data type"
+        range: ParameterType
+    param_category:
+        description: "Parameter category"
+        range: string
+    param_description:
+        description: "Parameter description"
+        range: string
+    param_default:
+        description: "Default value"
+        range: string
+    param_required:
+        description: "Whether parameter is required"
+        range: boolean
+
+enums:
+    ToolPurpose:
+        description: "Purposes for which tools can be used"
+        permissible_values:
+            SEARCH_MANAGEMENT:
+                description: "Managing literature searches"
+            DEDUPLICATION:
+                description: "Removing duplicate records"
+            SCREENING_PLATFORM:
+                description: "Platform for screening studies"
+            REFERENCE_MANAGER:
+                description: "Managing references and citations"
+            AI_SCREENING:
+                description: "AI-assisted screening"
+            AI_EXTRACTION:
+                description: "AI-assisted data extraction"
+            DATA_EXTRACTION:
+                description: "Manual data extraction platform"
+            TEXT_ANALYSIS:
+                description: "Analyzing text content"
+            CONFLICT_RESOLUTION:
+                description: "Resolving reviewer conflicts"
+            QUALITY_ASSESSMENT:
+                description: "Assessing study quality or risk of bias"
+            META_ANALYSIS:
+                description: "Conducting meta-analysis"
+            STATISTICS:
+                description: "Statistical analysis"
+            DATA_VISUALIZATION:
+                description: "Creating visualizations"
+            PROJECT_MANAGEMENT:
+                description: "Managing review project"
+            COLLABORATION:
+                description: "Team collaboration"
+            PROTOCOL_REGISTRATION:
+                description: "Registering review protocol"
+            REPORTING:
+                description: "Generating reports"
+            PRISMA_FLOW:
+                description: "Creating PRISMA flow diagrams"
+            API_INTEGRATION:
+                description: "Integration with other services"
+            CUSTOM_AUTOMATION:
+                description: "Custom automation scripts"
+            OTHER:
+                description: "Other purpose"
+
+    ToolLicenseType:
+        description: "Types of tool licenses"
+        permissible_values:
+            OPEN_SOURCE:
+                description: "Open source license"
+            COMMERCIAL:
+                description: "Commercial license"
+            ACADEMIC:
+                description: "Academic/educational license"
+            FREEMIUM:
+                description: "Free with premium features"
+            SUBSCRIPTION:
+                description: "Subscription-based"
+            PERPETUAL:
+                description: "Perpetual license"
+            TRIAL:
+                description: "Trial version"
+            CUSTOM:
+                description: "Custom license agreement"
+
+    ParameterType:
+        description: "Data types for tool parameters"
+        permissible_values:
+            STRING:
+                description: "Text value"
+            NUMBER:
+                description: "Numeric value"
+            BOOLEAN:
+                description: "True/false value"
+            DATE:
+                description: "Date value"
+            URL:
+                description: "URL value"
+            FILE_PATH:
+                description: "File path"
+            JSON:
+                description: "JSON object"
+            LIST:
+                description: "List of values"
+            ENUM:
+                description: "Enumerated value from set"

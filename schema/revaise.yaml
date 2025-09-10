@@ -11,4 +11,5 @@ imports:
     - model/stages/registration
     - model/stages/search
     - model/stages/screening
+    - model/stages/extraction
 # The Review class is the required root object for all RevAIse documents

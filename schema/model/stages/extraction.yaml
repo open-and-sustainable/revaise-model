@@ -1,0 +1,1877 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/stages/extraction
+name: extraction_stage
+description: "Schema for data extraction stage of the review workflow."
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - linkml:types
+    - ../review_core
+    - ../objects/literature_record
+    - ../objects/author
+
+classes:
+    ExtractionStage:
+        is_a: StageExecution
+        description: "Data extraction from included studies."
+        slots:
+            - extraction_forms
+            - extraction_protocol
+            - extracted_studies
+            - extraction_quality_control
+            - extraction_statistics
+            - ai_extraction_assistance
+        slot_usage:
+            extraction_forms:
+                range: ExtractionForm
+                multivalued: true
+                description: "Data extraction forms/templates used"
+            extraction_protocol:
+                range: ExtractionProtocol
+                required: true
+                description: "Protocol for data extraction process"
+            extracted_studies:
+                range: ExtractedStudy
+                multivalued: true
+                description: "Studies with extracted data"
+            extraction_quality_control:
+                range: ExtractionQualityControl
+                description: "Quality control measures for extraction"
+            extraction_statistics:
+                range: ExtractionStatistics
+                description: "Overall statistics for the extraction stage"
+            ai_extraction_assistance:
+                range: AIExtractionAssistance
+                description: "AI assistance configuration and performance for extraction"
+
+    ExtractionForm:
+        description: "Template or form used for data extraction"
+        slots:
+            - form_id
+            - form_name
+            - form_version
+            - form_description
+            - form_sections
+            - form_fields
+            - form_uri
+            - pilot_tested
+            - pilot_test_date
+            - pilot_test_notes
+            - form_created_by
+            - form_created_at
+            - form_last_modified
+        slot_usage:
+            form_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the extraction form"
+            form_name:
+                range: string
+                required: true
+                description: "Name of the extraction form"
+            form_version:
+                range: string
+                required: true
+                description: "Version of the extraction form"
+            form_description:
+                range: string
+                description: "Description of the form's purpose and content"
+            form_sections:
+                range: FormSection
+                multivalued: true
+                description: "Sections within the extraction form"
+            form_fields:
+                range: ExtractionField
+                multivalued: true
+                description: "Fields to be extracted"
+            form_uri:
+                range: uri
+                description: "URI to the form template or specification"
+            pilot_tested:
+                range: boolean
+                description: "Whether the form was pilot tested"
+            pilot_test_date:
+                range: date
+                description: "Date of pilot testing"
+            pilot_test_notes:
+                range: string
+                description: "Notes from pilot testing"
+            form_created_by:
+                range: Author
+                description: "Author who created the form"
+            form_created_at:
+                range: datetime
+                description: "When the form was created"
+            form_last_modified:
+                range: datetime
+                description: "Last modification timestamp"
+
+    FormSection:
+        description: "Section within an extraction form"
+        slots:
+            - section_id
+            - section_name
+            - section_order
+            - section_description
+            - section_fields
+            - section_required
+        slot_usage:
+            section_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the form section"
+            section_name:
+                range: string
+                required: true
+                description: "Name of the section"
+            section_order:
+                range: integer
+                description: "Order of the section in the form"
+            section_description:
+                range: string
+                description: "Description of what this section captures"
+            section_fields:
+                range: ExtractionField
+                multivalued: true
+                description: "Fields within this section"
+            section_required:
+                range: boolean
+                description: "Whether this section is required"
+
+    ExtractionField:
+        description: "Individual field for data extraction"
+        slots:
+            - field_id
+            - field_name
+            - field_label
+            - field_type
+            - field_description
+            - field_required
+            - field_options
+            - field_validation_rules
+            - field_default_value
+            - field_order
+            - field_category
+            - field_notes
+        slot_usage:
+            field_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the field"
+            field_name:
+                range: string
+                required: true
+                description: "Machine-readable name for the field"
+            field_label:
+                range: string
+                required: true
+                description: "Human-readable label for the field"
+            field_type:
+                range: FieldType
+                required: true
+                description: "Data type of the field"
+            field_description:
+                range: string
+                description: "Detailed description of what to extract"
+            field_required:
+                range: boolean
+                description: "Whether this field is required"
+            field_options:
+                range: string
+                multivalued: true
+                description: "Options for categorical fields"
+            field_validation_rules:
+                range: string
+                multivalued: true
+                description: "Validation rules for the field"
+            field_default_value:
+                range: string
+                description: "Default value if not provided"
+            field_order:
+                range: integer
+                description: "Display order of the field"
+            field_category:
+                range: FieldCategory
+                description: "Category of information this field captures"
+            field_notes:
+                range: string
+                description: "Additional notes or guidance"
+
+    ExtractionProtocol:
+        description: "Protocol for the data extraction process"
+        slots:
+            - protocol_id
+            - minimum_extractors_per_study
+            - independent_extraction
+            - disagreement_resolution_method
+            - extraction_order
+            - blinding_level
+            - extraction_tools
+            - extraction_software
+            - training_materials_uri
+            - extraction_guidance
+            - protocol_notes
+        slot_usage:
+            protocol_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the extraction protocol"
+            minimum_extractors_per_study:
+                range: integer
+                required: true
+                description: "Minimum number of extractors per study"
+            independent_extraction:
+                range: boolean
+                description: "Whether extraction is done independently"
+            disagreement_resolution_method:
+                range: DisagreementResolutionMethod
+                description: "Method for resolving extraction disagreements"
+            extraction_order:
+                range: ExtractionOrder
+                description: "Order in which studies are extracted"
+            blinding_level:
+                range: BlindingLevel
+                description: "Level of blinding during extraction"
+            extraction_tools:
+                range: ExternalTool
+                multivalued: true
+                description: "AI-assisted extraction tools/platforms used"
+            extraction_software:
+                range: ExternalTool
+                multivalued: true
+                description: "Software tools used for extraction"
+            training_materials_uri:
+                range: uri
+                description: "URI to training materials for extractors"
+            extraction_guidance:
+                range: string
+                description: "Detailed guidance for extractors"
+            protocol_notes:
+                range: string
+                description: "Additional protocol notes"
+
+    ExtractedStudy:
+        description: "A study with extracted data"
+        slots:
+            - extracted_study_id
+            - source_record_id
+            - extraction_form_id
+            - extracted_data
+            - extraction_sessions
+            - extraction_status
+            - extraction_notes
+            - study_characteristics
+            - study_quality_assessment
+            - final_extracted_values
+            - ai_extraction_session
+        slot_usage:
+            extracted_study_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the extracted study"
+            source_record_id:
+                range: string
+                required: true
+                description: "Reference to the source LiteratureRecord"
+            extraction_form_id:
+                range: string
+                required: true
+                description: "Reference to the ExtractionForm used"
+            extracted_data:
+                range: ExtractedDataPoint
+                multivalued: true
+                description: "Individual data points extracted"
+            extraction_sessions:
+                range: ExtractionSession
+                multivalued: true
+                description: "Extraction sessions for this study"
+            extraction_status:
+                range: ExtractionStatus
+                required: true
+                description: "Current extraction status"
+            extraction_notes:
+                range: string
+                description: "General notes about the extraction"
+            study_characteristics:
+                range: StudyCharacteristics
+                description: "Key characteristics of the study"
+            study_quality_assessment:
+                range: QualityAssessment
+                description: "Quality/risk of bias assessment"
+            final_extracted_values:
+                range: ExtractedDataPoint
+                multivalued: true
+                description: "Final reconciled values after resolution"
+            ai_extraction_session:
+                range: AIExtractionSession
+                description: "AI-specific extraction session details"
+
+    ExtractedDataPoint:
+        description: "Individual data point extracted from a study"
+        slots:
+            - datapoint_id
+            - field_id
+            - extracted_value
+            - extracted_unit
+            - extraction_confidence
+            - page_number
+            - quote
+            - extractor_notes
+            - extraction_timestamp
+            - extractor_id
+            - ai_assisted
+            - ai_confidence
+        slot_usage:
+            datapoint_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this data point"
+            field_id:
+                range: string
+                required: true
+                description: "Reference to the ExtractionField"
+            extracted_value:
+                range: string
+                required: true
+                description: "The extracted value"
+            extracted_unit:
+                range: string
+                description: "Unit of measurement if applicable"
+            extraction_confidence:
+                range: ConfidenceLevel
+                description: "Confidence in the extraction"
+            page_number:
+                range: string
+                description: "Page number(s) where data was found"
+            quote:
+                range: string
+                description: "Direct quote from the source"
+            extractor_notes:
+                range: string
+                description: "Notes from the extractor"
+            extraction_timestamp:
+                range: datetime
+                required: true
+                description: "When the extraction occurred"
+            extractor_id:
+                range: string
+                required: true
+                description: "ID of the extractor (human or AI)"
+            ai_assisted:
+                range: boolean
+                description: "Whether AI assisted in extraction"
+            ai_confidence:
+                range: float
+                description: "AI confidence score if applicable"
+
+    ExtractionSession:
+        description: "A session of data extraction by a single extractor"
+        slots:
+            - session_id
+            - extractor
+            - session_started_at
+            - session_ended_at
+            - extracted_fields
+            - session_notes
+            - session_status
+            - time_spent_minutes
+        slot_usage:
+            session_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the extraction session"
+            extractor:
+                range: Author
+                required: true
+                description: "Person who performed the extraction"
+            session_started_at:
+                range: datetime
+                required: true
+                description: "When the session started"
+            session_ended_at:
+                range: datetime
+                description: "When the session ended"
+            extracted_fields:
+                range: string
+                multivalued: true
+                description: "Fields extracted in this session"
+            session_notes:
+                range: string
+                description: "Notes from the extraction session"
+            session_status:
+                range: SessionStatus
+                required: true
+                description: "Status of the extraction session"
+            time_spent_minutes:
+                range: integer
+                description: "Time spent on extraction in minutes"
+
+    StudyCharacteristics:
+        description: "Key characteristics of an extracted study"
+        slots:
+            - study_design
+            - study_setting
+            - study_country
+            - study_duration
+            - sample_size
+            - participant_characteristics
+            - intervention_details
+            - comparator_details
+            - outcome_measures
+            - funding_source
+            - study_registration_id
+        slot_usage:
+            study_design:
+                range: StudyDesign
+                description: "Design of the study"
+            study_setting:
+                range: string
+                description: "Setting where study was conducted"
+            study_country:
+                range: string
+                multivalued: true
+                description: "Country/countries of the study"
+            study_duration:
+                range: string
+                description: "Duration of the study"
+            sample_size:
+                range: integer
+                description: "Total sample size"
+            participant_characteristics:
+                range: string
+                description: "Characteristics of participants"
+            intervention_details:
+                range: string
+                description: "Details of the intervention"
+            comparator_details:
+                range: string
+                description: "Details of the comparator"
+            outcome_measures:
+                range: string
+                multivalued: true
+                description: "Primary and secondary outcomes"
+            funding_source:
+                range: string
+                description: "Source of study funding"
+            study_registration_id:
+                range: string
+                description: "Clinical trial registration ID"
+
+    QualityAssessment:
+        description: "Quality or risk of bias assessment"
+        slots:
+            - assessment_tool
+            - overall_quality
+            - domain_assessments
+            - assessment_notes
+            - assessor_id
+            - assessment_date
+        slot_usage:
+            assessment_tool:
+                range: QualityAssessmentTool
+                required: true
+                description: "Tool used for quality assessment"
+            overall_quality:
+                range: QualityRating
+                description: "Overall quality rating"
+            domain_assessments:
+                range: DomainAssessment
+                multivalued: true
+                description: "Individual domain assessments"
+            assessment_notes:
+                range: string
+                description: "Notes about the assessment"
+            assessor_id:
+                range: string
+                required: true
+                description: "ID of the assessor"
+            assessment_date:
+                range: datetime
+                required: true
+                description: "Date of assessment"
+
+    DomainAssessment:
+        description: "Assessment of a specific quality domain"
+        slots:
+            - domain_name
+            - domain_rating
+            - domain_justification
+        slot_usage:
+            domain_name:
+                range: string
+                required: true
+                description: "Name of the quality domain"
+            domain_rating:
+                range: QualityRating
+                required: true
+                description: "Rating for this domain"
+            domain_justification:
+                range: string
+                description: "Justification for the rating"
+
+    ExtractionQualityControl:
+        description: "Quality control measures for data extraction"
+        slots:
+            - qc_id
+            - double_extraction_rate
+            - agreement_statistics
+            - discrepancy_resolution
+            - spot_check_rate
+            - spot_check_results
+            - training_provided
+            - calibration_exercises
+            - qc_notes
+        slot_usage:
+            qc_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for quality control record"
+            double_extraction_rate:
+                range: float
+                description: "Percentage of studies double-extracted"
+            agreement_statistics:
+                range: AgreementStatistics
+                description: "Inter-rater agreement statistics"
+            discrepancy_resolution:
+                range: DiscrepancyResolution
+                multivalued: true
+                description: "Records of discrepancy resolutions"
+            spot_check_rate:
+                range: float
+                description: "Percentage of extractions spot-checked"
+            spot_check_results:
+                range: string
+                description: "Results of spot checks"
+            training_provided:
+                range: boolean
+                description: "Whether training was provided to extractors"
+            calibration_exercises:
+                range: string
+                description: "Description of calibration exercises"
+            qc_notes:
+                range: string
+                description: "Additional quality control notes"
+
+    AgreementStatistics:
+        description: "Statistics on inter-extractor agreement"
+        slots:
+            - overall_agreement
+            - field_level_agreement
+            - cohen_kappa
+            - disagreement_count
+            - total_comparisons
+        slot_usage:
+            overall_agreement:
+                range: float
+                description: "Overall percentage agreement"
+            field_level_agreement:
+                range: FieldAgreement
+                multivalued: true
+                description: "Agreement by field"
+            cohen_kappa:
+                range: float
+                description: "Cohen's kappa statistic"
+            disagreement_count:
+                range: integer
+                description: "Number of disagreements"
+            total_comparisons:
+                range: integer
+                description: "Total number of comparisons"
+
+    FieldAgreement:
+        description: "Agreement statistics for a specific field"
+        slots:
+            - field_id
+            - agreement_percentage
+            - disagreement_types
+        slot_usage:
+            field_id:
+                range: string
+                required: true
+                description: "Reference to the field"
+            agreement_percentage:
+                range: float
+                required: true
+                description: "Percentage agreement for this field"
+            disagreement_types:
+                range: string
+                multivalued: true
+                description: "Types of disagreements observed"
+
+    DiscrepancyResolution:
+        description: "Record of resolving extraction discrepancies"
+        slots:
+            - resolution_id
+            - study_id
+            - field_id
+            - original_values
+            - resolved_value
+            - resolution_method
+            - resolver_id
+            - resolution_date
+            - resolution_notes
+        slot_usage:
+            resolution_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the resolution"
+            study_id:
+                range: string
+                required: true
+                description: "Study with the discrepancy"
+            field_id:
+                range: string
+                required: true
+                description: "Field with the discrepancy"
+            original_values:
+                range: string
+                multivalued: true
+                required: true
+                description: "Original conflicting values"
+            resolved_value:
+                range: string
+                required: true
+                description: "Final resolved value"
+            resolution_method:
+                range: DisagreementResolutionMethod
+                required: true
+                description: "Method used to resolve"
+            resolver_id:
+                range: string
+                description: "ID of person who resolved"
+            resolution_date:
+                range: datetime
+                required: true
+                description: "When resolved"
+            resolution_notes:
+                range: string
+                description: "Notes about the resolution"
+
+    ExtractionStatistics:
+        description: "Overall statistics for the extraction stage"
+        slots:
+            - total_studies_extracted
+            - total_data_points
+            - extraction_completion_rate
+            - average_time_per_study
+            - total_extraction_hours
+            - extractor_workload
+            - missing_data_rate
+            - extraction_started_date
+            - extraction_completed_date
+        slot_usage:
+            total_studies_extracted:
+                range: integer
+                required: true
+                description: "Total number of studies extracted"
+            total_data_points:
+                range: integer
+                description: "Total number of data points extracted"
+            extraction_completion_rate:
+                range: float
+                description: "Percentage of planned extractions completed"
+            average_time_per_study:
+                range: float
+                description: "Average time to extract one study (hours)"
+            total_extraction_hours:
+                range: float
+                description: "Total hours spent on extraction"
+            extractor_workload:
+                range: ExtractorWorkload
+                multivalued: true
+                description: "Workload distribution among extractors"
+            missing_data_rate:
+                range: float
+                description: "Percentage of missing data"
+            extraction_started_date:
+                range: date
+                description: "Date extraction started"
+            extraction_completed_date:
+                range: date
+                description: "Date extraction completed"
+
+    ExtractorWorkload:
+        description: "Workload statistics for an individual extractor"
+        slots:
+            - extractor_id
+            - studies_extracted
+            - time_spent_hours
+            - average_time_per_study
+        slot_usage:
+            extractor_id:
+                range: string
+                required: true
+                description: "ID of the extractor"
+            studies_extracted:
+                range: integer
+                required: true
+                description: "Number of studies extracted"
+            time_spent_hours:
+                range: float
+                description: "Total time spent"
+            average_time_per_study:
+                range: float
+                description: "Average time per study"
+
+    AIExtractionAssistance:
+        description: "AI assistance configuration for data extraction"
+        slots:
+            - ai_extraction_id
+            - ai_model
+            - ai_model_version
+            - ai_provider
+            - ai_extraction_purpose
+            - ai_prompts
+            - ai_prompt_templates
+            - ai_parameters
+            - ai_confidence_threshold
+            - ai_validation_rules
+            - human_oversight_level
+            - ai_training_data
+            - ai_performance_metrics
+            - ai_monitored_variables
+            - ai_error_handling
+            - associated_tool_id
+        slot_usage:
+            ai_extraction_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for AI extraction configuration"
+            ai_model:
+                range: string
+                required: true
+                description: "AI model name (e.g., GPT-4, Claude, custom NER model)"
+            ai_model_version:
+                range: string
+                required: true
+                description: "Specific version of the AI model"
+            ai_provider:
+                range: string
+                description: "AI service provider (e.g., OpenAI, Anthropic, local)"
+            ai_extraction_purpose:
+                range: AIExtractionPurpose
+                required: true
+                multivalued: true
+                description: "Purposes for which AI is used in extraction"
+            ai_prompts:
+                range: AIPrompt
+                multivalued: true
+                description: "Specific prompts used for extraction"
+            ai_prompt_templates:
+                range: string
+                multivalued: true
+                description: "Template prompts with variable placeholders"
+            ai_parameters:
+                range: AIParameter
+                multivalued: true
+                description: "Model parameters and settings"
+            ai_confidence_threshold:
+                range: float
+                description: "Minimum confidence score for accepting AI extractions"
+            ai_validation_rules:
+                range: string
+                multivalued: true
+                description: "Rules for validating AI-extracted data"
+            human_oversight_level:
+                range: HumanOversightLevel
+                required: true
+                description: "Level of human review required"
+            ai_training_data:
+                range: string
+                description: "Description of training data if custom model"
+            ai_performance_metrics:
+                range: AIExtractionMetrics
+                description: "Performance metrics for AI extraction"
+            ai_monitored_variables:
+                range: MonitoredVariable
+                multivalued: true
+                description: "Variables being monitored for AI extraction quality"
+            ai_error_handling:
+                range: string
+                description: "Strategy for handling AI extraction errors"
+            associated_tool_id:
+                range: string
+                description: "Reference to ExtractionTool if using commercial platform"
+
+    AIPrompt:
+        description: "Prompt used for AI extraction"
+        slots:
+            - prompt_id
+            - prompt_field_id
+            - prompt_text
+            - prompt_type
+            - prompt_version
+            - prompt_examples
+        slot_usage:
+            prompt_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the prompt"
+            prompt_field_id:
+                range: string
+                description: "Field this prompt extracts"
+            prompt_text:
+                range: string
+                required: true
+                description: "The actual prompt text"
+            prompt_type:
+                range: PromptType
+                description: "Type of prompt (zero-shot, few-shot, chain-of-thought)"
+            prompt_version:
+                range: string
+                description: "Version of the prompt"
+            prompt_examples:
+                range: string
+                multivalued: true
+                description: "Examples included in the prompt"
+
+    AIParameter:
+        description: "AI model parameter setting"
+        slots:
+            - parameter_name
+            - parameter_value
+            - parameter_description
+        slot_usage:
+            parameter_name:
+                range: string
+                required: true
+                description: "Name of the parameter (e.g., temperature, max_tokens)"
+            parameter_value:
+                range: string
+                required: true
+                description: "Value of the parameter"
+            parameter_description:
+                range: string
+                description: "Description of what this parameter controls"
+
+    AIExtractionSession:
+        description: "Session details for AI-assisted extraction"
+        slots:
+            - ai_session_id
+            - ai_model_used
+            - ai_extraction_timestamp
+            - ai_fields_extracted
+            - ai_extraction_duration
+            - ai_token_usage
+            - ai_api_calls
+            - ai_errors_encountered
+            - human_modifications
+        slot_usage:
+            ai_session_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for AI extraction session"
+            ai_model_used:
+                range: string
+                required: true
+                description: "Reference to AIExtractionAssistance configuration"
+            ai_extraction_timestamp:
+                range: datetime
+                required: true
+                description: "When AI extraction occurred"
+            ai_fields_extracted:
+                range: string
+                multivalued: true
+                description: "Fields extracted by AI in this session"
+            ai_extraction_duration:
+                range: float
+                description: "Time taken for AI extraction (seconds)"
+            ai_token_usage:
+                range: integer
+                description: "Number of tokens used (for LLM-based extraction)"
+            ai_api_calls:
+                range: integer
+                description: "Number of API calls made"
+            ai_errors_encountered:
+                range: string
+                multivalued: true
+                description: "Errors encountered during AI extraction"
+            human_modifications:
+                range: HumanModification
+                multivalued: true
+                description: "Human modifications to AI extractions"
+
+    HumanModification:
+        description: "Record of human modification to AI extraction"
+        slots:
+            - modification_id
+            - field_modified
+            - original_ai_value
+            - modified_value
+            - modification_reason
+            - modifier_id
+            - modification_timestamp
+        slot_usage:
+            modification_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the modification"
+            field_modified:
+                range: string
+                required: true
+                description: "Field that was modified"
+            original_ai_value:
+                range: string
+                required: true
+                description: "Original value extracted by AI"
+            modified_value:
+                range: string
+                required: true
+                description: "Modified value by human"
+            modification_reason:
+                range: ModificationReason
+                required: true
+                description: "Reason for modification"
+            modifier_id:
+                range: string
+                required: true
+                description: "ID of person who modified"
+            modification_timestamp:
+                range: datetime
+                required: true
+                description: "When modification occurred"
+
+    AIExtractionMetrics:
+        description: "Performance metrics for AI extraction"
+        slots:
+            - extraction_accuracy
+            - field_level_accuracy
+            - extraction_completeness
+            - false_positive_rate
+            - false_negative_rate
+            - average_confidence_score
+            - human_agreement_rate
+            - processing_speed
+        slot_usage:
+            extraction_accuracy:
+                range: float
+                description: "Overall accuracy of AI extraction"
+            field_level_accuracy:
+                range: FieldAccuracy
+                multivalued: true
+                description: "Accuracy by field type"
+            extraction_completeness:
+                range: float
+                description: "Percentage of fields successfully extracted"
+            false_positive_rate:
+                range: float
+                description: "Rate of incorrect extractions"
+            false_negative_rate:
+                range: float
+                description: "Rate of missed extractions"
+            average_confidence_score:
+                range: float
+                description: "Average AI confidence across extractions"
+            human_agreement_rate:
+                range: float
+                description: "Rate of agreement with human review"
+            processing_speed:
+                range: float
+                description: "Average documents per hour"
+
+    FieldAccuracy:
+        description: "Accuracy metrics for a specific field"
+        slots:
+            - field_id
+            - accuracy_score
+            - sample_size
+            - common_errors
+        slot_usage:
+            field_id:
+                range: string
+                required: true
+                description: "Field being measured"
+            accuracy_score:
+                range: float
+                required: true
+                description: "Accuracy for this field"
+            sample_size:
+                range: integer
+                description: "Number of samples evaluated"
+            common_errors:
+                range: string
+                multivalued: true
+                description: "Common error patterns observed"
+
+    MonitoredVariable:
+        description: "Variable monitored for AI extraction quality"
+        slots:
+            - variable_id
+            - variable_name
+            - variable_field_id
+            - monitoring_method
+            - alert_threshold
+            - current_performance
+        slot_usage:
+            variable_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for monitored variable"
+            variable_name:
+                range: string
+                required: true
+                description: "Name of the variable being monitored"
+            variable_field_id:
+                range: string
+                description: "Associated extraction field"
+            monitoring_method:
+                range: string
+                description: "How this variable is monitored"
+            alert_threshold:
+                range: float
+                description: "Threshold for quality alerts"
+            current_performance:
+                range: float
+                description: "Current performance metric"
+
+slots:
+    ai_extraction_assistance:
+        description: "AI assistance configuration for extraction"
+        range: AIExtractionAssistance
+    extraction_forms:
+        description: "Data extraction forms used"
+        range: ExtractionForm
+    extraction_protocol:
+        description: "Protocol for data extraction"
+        range: ExtractionProtocol
+    extracted_studies:
+        description: "Studies with extracted data"
+        range: ExtractedStudy
+    extraction_quality_control:
+        description: "Quality control measures"
+        range: ExtractionQualityControl
+    extraction_statistics:
+        description: "Overall extraction statistics"
+        range: ExtractionStatistics
+    form_id:
+        description: "Unique identifier for extraction form"
+        range: string
+    form_name:
+        description: "Name of the extraction form"
+        range: string
+    form_version:
+        description: "Version of the extraction form"
+        range: string
+    form_description:
+        description: "Description of the form"
+        range: string
+    form_sections:
+        description: "Sections in the form"
+        range: FormSection
+    form_fields:
+        description: "Fields in the form"
+        range: ExtractionField
+    form_uri:
+        description: "URI to form template"
+        range: uri
+    pilot_tested:
+        description: "Whether form was pilot tested"
+        range: boolean
+    pilot_test_date:
+        description: "Date of pilot testing"
+        range: date
+    pilot_test_notes:
+        description: "Notes from pilot testing"
+        range: string
+    form_created_by:
+        description: "Creator of the form"
+        range: Author
+    form_created_at:
+        description: "Form creation timestamp"
+        range: datetime
+    form_last_modified:
+        description: "Last modification timestamp"
+        range: datetime
+    section_id:
+        description: "Unique identifier for section"
+        range: string
+    section_name:
+        description: "Name of the section"
+        range: string
+    section_order:
+        description: "Order of section in form"
+        range: integer
+    section_description:
+        description: "Description of section"
+        range: string
+    section_fields:
+        description: "Fields in this section"
+        range: ExtractionField
+    section_required:
+        description: "Whether section is required"
+        range: boolean
+    field_id:
+        description: "Unique identifier for field"
+        range: string
+    field_name:
+        description: "Machine-readable field name"
+        range: string
+    field_label:
+        description: "Human-readable field label"
+        range: string
+    field_type:
+        description: "Data type of field"
+        range: FieldType
+    field_description:
+        description: "Description of field"
+        range: string
+    field_required:
+        description: "Whether field is required"
+        range: boolean
+    field_options:
+        description: "Options for categorical fields"
+        range: string
+    field_validation_rules:
+        description: "Validation rules for field"
+        range: string
+    field_default_value:
+        description: "Default value for field"
+        range: string
+    field_order:
+        description: "Display order of field"
+        range: integer
+    field_category:
+        description: "Category of field"
+        range: FieldCategory
+    field_notes:
+        description: "Additional field notes"
+        range: string
+    protocol_id:
+        description: "Unique identifier for protocol"
+        range: string
+    minimum_extractors_per_study:
+        description: "Minimum number of extractors per study"
+        range: integer
+    independent_extraction:
+        description: "Whether extraction is independent"
+        range: boolean
+    disagreement_resolution_method:
+        description: "Method for resolving disagreements"
+        range: DisagreementResolutionMethod
+    extraction_order:
+        description: "Order of extraction"
+        range: ExtractionOrder
+    extraction_tools:
+        description: "AI-assisted extraction tools used"
+        range: ExternalTool
+    blinding_level:
+        description: "Level of blinding"
+        range: BlindingLevel
+    extraction_software:
+        description: "Software used for extraction"
+        range: ExternalTool
+    training_materials_uri:
+        description: "URI to training materials"
+        range: uri
+    extraction_guidance:
+        description: "Guidance for extractors"
+        range: string
+    protocol_notes:
+        description: "Additional protocol notes"
+        range: string
+    extracted_study_id:
+        description: "Unique identifier for extracted study"
+        range: string
+    source_record_id:
+        description: "Reference to source record"
+        range: string
+    extraction_form_id:
+        description: "Reference to extraction form"
+        range: string
+    extracted_data:
+        description: "Extracted data points"
+        range: ExtractedDataPoint
+    extraction_sessions:
+        description: "Extraction sessions"
+        range: ExtractionSession
+    extraction_status:
+        description: "Status of extraction"
+        range: ExtractionStatus
+    extraction_notes:
+        description: "Notes about extraction"
+        range: string
+    study_characteristics:
+        description: "Study characteristics"
+        range: StudyCharacteristics
+    study_quality_assessment:
+        description: "Quality assessment"
+        range: QualityAssessment
+    final_extracted_values:
+        description: "Final reconciled values"
+        range: ExtractedDataPoint
+    datapoint_id:
+        description: "Unique identifier for data point"
+        range: string
+    extracted_value:
+        description: "The extracted value"
+        range: string
+    extracted_unit:
+        description: "Unit of measurement"
+        range: string
+    extraction_confidence:
+        description: "Confidence in extraction"
+        range: ConfidenceLevel
+    page_number:
+        description: "Page number where found"
+        range: string
+    quote:
+        description: "Direct quote from source"
+        range: string
+    extractor_notes:
+        description: "Notes from extractor"
+        range: string
+    extraction_timestamp:
+        description: "When extraction occurred"
+        range: datetime
+    extractor_id:
+        description: "ID of extractor"
+        range: string
+    ai_assisted:
+        description: "Whether AI assisted"
+        range: boolean
+    ai_confidence:
+        description: "AI confidence score"
+        range: float
+    session_id:
+        description: "Unique identifier for session"
+        range: string
+    extractor:
+        description: "Person doing extraction"
+        range: Author
+    session_started_at:
+        description: "Session start time"
+        range: datetime
+    session_ended_at:
+        description: "Session end time"
+        range: datetime
+    extracted_fields:
+        description: "Fields extracted in session"
+        range: string
+    session_notes:
+        description: "Session notes"
+        range: string
+    session_status:
+        description: "Status of session"
+        range: SessionStatus
+    time_spent_minutes:
+        description: "Time spent in minutes"
+        range: integer
+    study_design:
+        description: "Design of the study"
+        range: StudyDesign
+    study_setting:
+        description: "Setting of study"
+        range: string
+    study_country:
+        description: "Country of study"
+        range: string
+    study_duration:
+        description: "Duration of study"
+        range: string
+    sample_size:
+        description: "Sample size"
+        range: integer
+    participant_characteristics:
+        description: "Participant characteristics"
+        range: string
+    intervention_details:
+        description: "Intervention details"
+        range: string
+    comparator_details:
+        description: "Comparator details"
+        range: string
+    outcome_measures:
+        description: "Outcome measures"
+        range: string
+    funding_source:
+        description: "Funding source"
+        range: string
+    study_registration_id:
+        description: "Study registration ID"
+        range: string
+    assessment_tool:
+        description: "Quality assessment tool"
+        range: QualityAssessmentTool
+    overall_quality:
+        description: "Overall quality rating"
+        range: QualityRating
+    domain_assessments:
+        description: "Domain assessments"
+        range: DomainAssessment
+    assessment_notes:
+        description: "Assessment notes"
+        range: string
+    assessor_id:
+        description: "ID of assessor"
+        range: string
+    assessment_date:
+        description: "Date of assessment"
+        range: datetime
+    domain_name:
+        description: "Name of domain"
+        range: string
+    domain_rating:
+        description: "Rating for domain"
+        range: QualityRating
+    domain_justification:
+        description: "Justification for rating"
+        range: string
+    qc_id:
+        description: "Quality control ID"
+        range: string
+    double_extraction_rate:
+        description: "Rate of double extraction"
+        range: float
+    agreement_statistics:
+        description: "Agreement statistics"
+        range: AgreementStatistics
+    discrepancy_resolution:
+        description: "Discrepancy resolutions"
+        range: DiscrepancyResolution
+    spot_check_rate:
+        description: "Rate of spot checks"
+        range: float
+    spot_check_results:
+        description: "Results of spot checks"
+        range: string
+    training_provided:
+        description: "Whether training provided"
+        range: boolean
+    calibration_exercises:
+        description: "Calibration exercises"
+        range: string
+    qc_notes:
+        description: "Quality control notes"
+        range: string
+    overall_agreement:
+        description: "Overall agreement percentage"
+        range: float
+    field_level_agreement:
+        description: "Agreement by field"
+        range: FieldAgreement
+    cohen_kappa:
+        description: "Cohen's kappa"
+        range: float
+    disagreement_count:
+        description: "Number of disagreements"
+        range: integer
+    total_comparisons:
+        description: "Total comparisons"
+        range: integer
+    agreement_percentage:
+        description: "Agreement percentage"
+        range: float
+    disagreement_types:
+        description: "Types of disagreements"
+        range: string
+    resolution_id:
+        description: "Resolution ID"
+        range: string
+    study_id:
+        description: "Study ID"
+        range: string
+    original_values:
+        description: "Original conflicting values"
+        range: string
+    resolved_value:
+        description: "Resolved value"
+        range: string
+    resolution_method:
+        description: "Resolution method"
+        range: DisagreementResolutionMethod
+    resolver_id:
+        description: "ID of resolver"
+        range: string
+    resolution_date:
+        description: "Date of resolution"
+        range: datetime
+    resolution_notes:
+        description: "Resolution notes"
+        range: string
+    total_studies_extracted:
+        description: "Total studies extracted"
+        range: integer
+    total_data_points:
+        description: "Total data points"
+        range: integer
+    extraction_completion_rate:
+        description: "Completion rate"
+        range: float
+    average_time_per_study:
+        description: "Average time per study"
+        range: float
+    total_extraction_hours:
+        description: "Total extraction hours"
+        range: float
+    extractor_workload:
+        description: "Workload by extractor"
+        range: ExtractorWorkload
+    missing_data_rate:
+        description: "Rate of missing data"
+        range: float
+    extraction_started_date:
+        description: "Start date"
+        range: date
+    extraction_completed_date:
+        description: "Completion date"
+        range: date
+    studies_extracted:
+        description: "Number of studies extracted"
+        range: integer
+    time_spent_hours:
+        description: "Time spent in hours"
+        range: float
+    ai_extraction_id:
+        description: "Unique identifier for AI extraction configuration"
+        range: string
+    ai_model:
+        description: "AI model name"
+        range: string
+    ai_model_version:
+        description: "AI model version"
+        range: string
+    ai_provider:
+        description: "AI service provider"
+        range: string
+    ai_extraction_purpose:
+        description: "Purpose of AI extraction"
+        range: AIExtractionPurpose
+    ai_prompts:
+        description: "Prompts used for AI extraction"
+        range: AIPrompt
+    ai_prompt_templates:
+        description: "Template prompts with variables"
+        range: string
+    ai_parameters:
+        description: "AI model parameters"
+        range: AIParameter
+    ai_confidence_threshold:
+        description: "Minimum confidence threshold"
+        range: float
+    ai_validation_rules:
+        description: "Validation rules for AI data"
+        range: string
+    human_oversight_level:
+        description: "Level of human oversight"
+        range: HumanOversightLevel
+    ai_training_data:
+        description: "Training data description"
+        range: string
+    ai_performance_metrics:
+        description: "AI performance metrics"
+        range: AIExtractionMetrics
+    ai_monitored_variables:
+        description: "Variables monitored for quality"
+        range: MonitoredVariable
+    ai_error_handling:
+        description: "Error handling strategy"
+        range: string
+    prompt_id:
+        description: "Unique identifier for prompt"
+        range: string
+    prompt_field_id:
+        description: "Field the prompt extracts"
+        range: string
+    prompt_text:
+        description: "Actual prompt text"
+        range: string
+    prompt_type:
+        description: "Type of prompt"
+        range: PromptType
+    prompt_version:
+        description: "Version of prompt"
+        range: string
+    prompt_examples:
+        description: "Examples in prompt"
+        range: string
+    parameter_name:
+        description: "Name of parameter"
+        range: string
+    parameter_value:
+        description: "Value of parameter"
+        range: string
+    parameter_description:
+        description: "Description of parameter"
+        range: string
+    ai_extraction_session:
+        description: "AI extraction session details"
+        range: AIExtractionSession
+    ai_session_id:
+        description: "AI session identifier"
+        range: string
+    ai_model_used:
+        description: "AI model used in session"
+        range: string
+    ai_extraction_timestamp:
+        description: "When AI extraction occurred"
+        range: datetime
+    ai_fields_extracted:
+        description: "Fields extracted by AI"
+        range: string
+    ai_extraction_duration:
+        description: "Duration of AI extraction"
+        range: float
+    ai_token_usage:
+        description: "Tokens used by AI"
+        range: integer
+    ai_api_calls:
+        description: "Number of API calls"
+        range: integer
+    ai_errors_encountered:
+        description: "Errors during AI extraction"
+        range: string
+    human_modifications:
+        description: "Human modifications to AI output"
+        range: HumanModification
+    modification_id:
+        description: "Modification identifier"
+        range: string
+    field_modified:
+        description: "Field that was modified"
+        range: string
+    original_ai_value:
+        description: "Original AI-extracted value"
+        range: string
+    modified_value:
+        description: "Human-modified value"
+        range: string
+    modification_reason:
+        description: "Reason for modification"
+        range: ModificationReason
+    modifier_id:
+        description: "ID of modifier"
+        range: string
+    modification_timestamp:
+        description: "When modification occurred"
+        range: datetime
+    extraction_accuracy:
+        description: "Overall extraction accuracy"
+        range: float
+    field_level_accuracy:
+        description: "Accuracy by field"
+        range: FieldAccuracy
+    extraction_completeness:
+        description: "Completeness of extraction"
+        range: float
+    false_positive_rate:
+        description: "False positive rate"
+        range: float
+    false_negative_rate:
+        description: "False negative rate"
+        range: float
+    average_confidence_score:
+        description: "Average AI confidence"
+        range: float
+    human_agreement_rate:
+        description: "Human-AI agreement rate"
+        range: float
+    processing_speed:
+        description: "Processing speed"
+        range: float
+    accuracy_score:
+        description: "Accuracy score"
+        range: float
+    common_errors:
+        description: "Common error patterns"
+        range: string
+    variable_id:
+        description: "Monitored variable ID"
+        range: string
+    variable_name:
+        description: "Name of monitored variable"
+        range: string
+    variable_field_id:
+        description: "Associated field ID"
+        range: string
+    monitoring_method:
+        description: "Monitoring method"
+        range: string
+    alert_threshold:
+        description: "Alert threshold"
+        range: float
+    current_performance:
+        description: "Current performance metric"
+        range: float
+    associated_tool_id:
+        description: "Associated tool reference"
+        range: string
+
+enums:
+    FieldType:
+        description: "Data types for extraction fields"
+        permissible_values:
+            TEXT:
+                description: "Free text field"
+            NUMBER:
+                description: "Numeric field"
+            DATE:
+                description: "Date field"
+            BOOLEAN:
+                description: "Yes/No field"
+            SINGLE_SELECT:
+                description: "Single choice from options"
+            MULTI_SELECT:
+                description: "Multiple choices from options"
+            RANGE:
+                description: "Numeric range"
+            URL:
+                description: "URL/link field"
+            FILE_REFERENCE:
+                description: "Reference to a file"
+            PERCENTAGE:
+                description: "Percentage value"
+            COORDINATES:
+                description: "Geographic coordinates"
+
+    FieldCategory:
+        description: "Categories of extraction fields"
+        permissible_values:
+            STUDY_IDENTIFICATION:
+                description: "Study ID, authors, year"
+            STUDY_METHODS:
+                description: "Study design, methods"
+            PARTICIPANTS:
+                description: "Participant information"
+            INTERVENTIONS:
+                description: "Intervention details"
+            COMPARATORS:
+                description: "Comparator details"
+            OUTCOMES:
+                description: "Outcome measures and results"
+            STATISTICAL_DATA:
+                description: "Statistical information"
+            QUALITY_ASSESSMENT:
+                description: "Quality/bias assessment"
+            FUNDING:
+                description: "Funding and conflicts"
+            OTHER:
+                description: "Other information"
+
+    ExtractionStatus:
+        description: "Status of data extraction"
+        permissible_values:
+            NOT_STARTED:
+                description: "Extraction not yet started"
+            IN_PROGRESS:
+                description: "Extraction in progress"
+            COMPLETED:
+                description: "Extraction completed"
+            REQUIRES_REVIEW:
+                description: "Extraction needs review"
+            DISCREPANCY_RESOLUTION:
+                description: "Resolving discrepancies"
+            FINALIZED:
+                description: "Extraction finalized"
+            EXCLUDED:
+                description: "Study excluded during extraction"
+
+    ConfidenceLevel:
+        description: "Confidence level in extracted data"
+        permissible_values:
+            HIGH:
+                description: "High confidence - clear data"
+            MODERATE:
+                description: "Moderate confidence - some interpretation"
+            LOW:
+                description: "Low confidence - significant uncertainty"
+            UNCLEAR:
+                description: "Unclear - cannot determine"
+
+    SessionStatus:
+        description: "Status of extraction session"
+        permissible_values:
+            STARTED:
+                description: "Session started"
+            PAUSED:
+                description: "Session paused"
+            COMPLETED:
+                description: "Session completed"
+            ABANDONED:
+                description: "Session abandoned"
+
+    StudyDesign:
+        description: "Study design types"
+        permissible_values:
+            RCT:
+                description: "Randomized controlled trial"
+            CLUSTER_RCT:
+                description: "Cluster randomized trial"
+            NON_RANDOMIZED:
+                description: "Non-randomized controlled trial"
+            COHORT:
+                description: "Cohort study"
+            CASE_CONTROL:
+                description: "Case-control study"
+            CROSS_SECTIONAL:
+                description: "Cross-sectional study"
+            CASE_SERIES:
+                description: "Case series"
+            CASE_REPORT:
+                description: "Case report"
+            QUALITATIVE:
+                description: "Qualitative study"
+            MIXED_METHODS:
+                description: "Mixed methods study"
+            SYSTEMATIC_REVIEW:
+                description: "Systematic review"
+            META_ANALYSIS:
+                description: "Meta-analysis"
+            OTHER:
+                description: "Other study design"
+
+    QualityAssessmentTool:
+        description: "Tools for quality assessment"
+        permissible_values:
+            COCHRANE_ROB2:
+                description: "Cochrane Risk of Bias 2"
+            COCHRANE_ROBINS_I:
+                description: "ROBINS-I for non-randomized studies"
+            NEWCASTLE_OTTAWA:
+                description: "Newcastle-Ottawa Scale"
+            JADAD:
+                description: "Jadad scale"
+            GRADE:
+                description: "GRADE approach"
+            CASP:
+                description: "Critical Appraisal Skills Programme"
+            JBI:
+                description: "Joanna Briggs Institute tools"
+            AMSTAR:
+                description: "AMSTAR for systematic reviews"
+            QUADAS:
+                description: "QUADAS for diagnostic studies"
+            CUSTOM:
+                description: "Custom assessment tool"
+
+    QualityRating:
+        description: "Quality/risk ratings"
+        permissible_values:
+            LOW_RISK:
+                description: "Low risk of bias"
+            SOME_CONCERNS:
+                description: "Some concerns"
+            HIGH_RISK:
+                description: "High risk of bias"
+            CRITICAL_RISK:
+                description: "Critical risk of bias"
+            NO_INFORMATION:
+                description: "No information"
+            NOT_APPLICABLE:
+                description: "Not applicable"
+
+    DisagreementResolutionMethod:
+        description: "Methods for resolving extraction disagreements"
+        permissible_values:
+            CONSENSUS_DISCUSSION:
+                description: "Consensus through discussion"
+            THIRD_REVIEWER:
+                description: "Third reviewer arbitration"
+            SENIOR_REVIEWER:
+                description: "Senior reviewer decision"
+            MAJORITY_VOTE:
+                description: "Majority vote"
+            STATISTICAL_METHOD:
+                description: "Statistical resolution method"
+            RE_EXTRACTION:
+                description: "Re-extraction by both parties"
+
+    ExtractionOrder:
+        description: "Order for extracting studies"
+        permissible_values:
+            RANDOM:
+                description: "Random order"
+            ALPHABETICAL:
+                description: "Alphabetical by author"
+            CHRONOLOGICAL:
+                description: "By publication year"
+            BY_RELEVANCE:
+                description: "By relevance score"
+            BY_QUALITY:
+                description: "By quality score"
+            ASSIGNED:
+                description: "Pre-assigned order"
+
+    BlindingLevel:
+        description: "Level of blinding during extraction"
+        permissible_values:
+            NONE:
+                description: "No blinding"
+            SINGLE_BLIND:
+                description: "Extractors blinded to each other"
+            DOUBLE_BLIND:
+                description: "Extractors blinded to study authors/journal"
+            TRIPLE_BLIND:
+                description: "Full blinding including outcomes"
+
+    AIExtractionPurpose:
+        description: "Purposes for AI use in extraction"
+        permissible_values:
+            FULL_EXTRACTION:
+                description: "AI performs complete data extraction"
+            FIELD_IDENTIFICATION:
+                description: "AI identifies relevant fields in text"
+            VALUE_EXTRACTION:
+                description: "AI extracts specific values"
+            TABLE_PARSING:
+                description: "AI parses tables and figures"
+            TEXT_CLASSIFICATION:
+                description: "AI classifies text segments"
+            ENTITY_RECOGNITION:
+                description: "AI recognizes named entities"
+            RELATIONSHIP_EXTRACTION:
+                description: "AI extracts relationships between entities"
+            QUALITY_CHECK:
+                description: "AI checks extraction quality"
+            ANOMALY_DETECTION:
+                description: "AI detects anomalies in extracted data"
+            DATA_VALIDATION:
+                description: "AI validates extracted data"
+
+    PromptType:
+        description: "Types of prompts for AI extraction"
+        permissible_values:
+            ZERO_SHOT:
+                description: "No examples provided"
+            FEW_SHOT:
+                description: "Few examples provided"
+            CHAIN_OF_THOUGHT:
+                description: "Step-by-step reasoning"
+            STRUCTURED_OUTPUT:
+                description: "Structured output format specified"
+            CONVERSATIONAL:
+                description: "Multi-turn conversation"
+
+    HumanOversightLevel:
+        description: "Level of human oversight for AI extraction"
+        permissible_values:
+            FULL_REVIEW:
+                description: "All AI extractions reviewed by human"
+            SAMPLE_REVIEW:
+                description: "Sample of AI extractions reviewed"
+            CONFIDENCE_BASED:
+                description: "Review based on AI confidence scores"
+            EXCEPTION_ONLY:
+                description: "Review only when AI flags issues"
+            MINIMAL:
+                description: "Minimal human review"
+
+    ModificationReason:
+        description: "Reasons for modifying AI extractions"
+        permissible_values:
+            INCORRECT_VALUE:
+                description: "AI extracted incorrect value"
+            INCOMPLETE_EXTRACTION:
+                description: "AI extraction was incomplete"
+            WRONG_CONTEXT:
+                description: "AI misunderstood context"
+            FORMATTING_ERROR:
+                description: "Formatting issue in extraction"
+            UNIT_ERROR:
+                description: "Wrong unit or scale"
+            AMBIGUITY_RESOLUTION:
+                description: "Resolved ambiguous extraction"
+            PRECISION_ADJUSTMENT:
+                description: "Adjusted precision/rounding"
+            VALIDATION_FAILURE:
+                description: "Failed validation rules"
