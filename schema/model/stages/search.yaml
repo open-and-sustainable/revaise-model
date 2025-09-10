@@ -7,7 +7,7 @@ prefixes:
 default_prefix: revaise
 imports:
     - linkml:types
-    - ../core
+    - ../review_core
     - ../objects/literature_record
 classes:
     SearchStage:

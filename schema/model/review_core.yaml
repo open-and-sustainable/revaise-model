@@ -1,5 +1,5 @@
-id: https://open-and-sustainable.github.io/revaise-model/schema/core
-name: revaise_core
+id: https://open-and-sustainable.github.io/revaise-model/schema/review_core
+name: revaise_review_core
 description: "Core definitions for the RevAIse model. Only includes essential objects needed across all reviews."
 prefixes:
     linkml: https://w3id.org/linkml/
