@@ -2,382 +2,382 @@
 # This example shows a complete review structure focusing on the screening stage
 
 review:
-  review_id: "SR_2024_003"
-  title: "Artificial Intelligence Applications in Cancer Diagnosis: A Systematic Review and Meta-Analysis"
-  review_type: SYSTEMATIC_REVIEW
-  review_status: SCREENING_COMPLETED
-  review_question: "What is the diagnostic accuracy of AI-based tools compared to standard clinical assessment for cancer detection?"
-  start_date: "2024-01-01"
-  review_country: "United Kingdom"
+    review_id: "SR_2024_003"
+    title: "Artificial Intelligence Applications in Cancer Diagnosis: A Systematic Review and Meta-Analysis"
+    review_type: SYSTEMATIC_REVIEW
+    review_status: SCREENING_COMPLETED
+    review_question: "What is the diagnostic accuracy of AI-based tools compared to standard clinical assessment for cancer detection?"
+    start_date: "2024-01-01"
+    review_country: "United Kingdom"
 
-  # Review team
-  authors:
-    - author_id: "author_001"
-      name: "Dr. Alexandra Mitchell"
-      orcid: "0000-0001-9876-5432"
-      email: "a.mitchell@oncology.ac.uk"
-      affiliations:
-        - affiliation_id: "aff_001"
-          organization: "Royal Cancer Research Institute"
-          department: "Department of Computational Oncology"
-          country: "United Kingdom"
-      author_roles:
-        - LEAD_AUTHOR
-        - SCREENING_COORDINATOR
+    # Review team
+    authors:
+        - author_id: "author_001"
+          name: "Dr. Alexandra Mitchell"
+          orcid: "0000-0001-9876-5432"
+          email: "a.mitchell@oncology.ac.uk"
+          affiliations:
+              - affiliation_id: "aff_001"
+                organization: "Royal Cancer Research Institute"
+                department: "Department of Computational Oncology"
+                country: "United Kingdom"
+          author_roles:
+              - LEAD_AUTHOR
+              - SCREENING_COORDINATOR
 
-    - author_id: "author_002"
-      name: "Dr. James Park"
-      orcid: "0000-0002-8765-4321"
-      affiliations:
-        - affiliation_id: "aff_001"
-          organization: "Royal Cancer Research Institute"
-          department: "Department of Computational Oncology"
-      author_roles:
-        - CO_AUTHOR
-        - SCREENING_REVIEWER
+        - author_id: "author_002"
+          name: "Dr. James Park"
+          orcid: "0000-0002-8765-4321"
+          affiliations:
+              - affiliation_id: "aff_001"
+                organization: "Royal Cancer Research Institute"
+                department: "Department of Computational Oncology"
+          author_roles:
+              - CO_AUTHOR
+              - SCREENING_REVIEWER
 
-    - author_id: "author_003"
-      name: "Dr. Maria Santos"
-      orcid: "0000-0003-7654-3210"
-      affiliations:
-        - affiliation_id: "aff_002"
-          organization: "Oxford University"
-          department: "Centre for Evidence-Based Medicine"
-          country: "United Kingdom"
-      author_roles:
-        - CO_AUTHOR
-        - ARBITRATOR
+        - author_id: "author_003"
+          name: "Dr. Maria Santos"
+          orcid: "0000-0003-7654-3210"
+          affiliations:
+              - affiliation_id: "aff_002"
+                organization: "Oxford University"
+                department: "Centre for Evidence-Based Medicine"
+                country: "United Kingdom"
+          author_roles:
+              - CO_AUTHOR
+              - ARBITRATOR
 
-  # Protocol information
-  protocol:
-    protocol_id: "protocol_SR_2024_003"
-    protocol_version: "1.1"
-    protocol_date: "2024-01-01"
-    protocol_uri: "https://www.crd.york.ac.uk/prospero/display_record.php?ID=CRD42024555555"
+    # Protocol information
+    protocol:
+        protocol_id: "protocol_SR_2024_003"
+        protocol_version: "1.1"
+        protocol_date: "2024-01-01"
+        protocol_uri: "https://www.crd.york.ac.uk/prospero/display_record.php?ID=CRD42024555555"
 
-  # Screening Stage - The focus of this example
-  stages:
-    - stage_type: screening
-      stage_label: "Two-Phase Screening Process"
-      stage_description: "Systematic screening with deduplication, title/abstract review, and full-text assessment"
-      started_at: "2024-02-01T09:00:00Z"
-      ended_at: "2024-02-28T17:00:00Z"
+    # Screening Stage - The focus of this example
+    stages:
+        - stage_type: screening
+          stage_label: "Two-Phase Screening Process"
+          stage_description: "Systematic screening with deduplication, title/abstract review, and full-text assessment"
+          started_at: "2024-02-01T09:00:00Z"
+          ended_at: "2024-02-28T17:00:00Z"
 
-      # Deduplication process
-      deduplication_process:
-        dedup_id: "dedup_001"
-        input_record_count: 4562
-        unique_record_count: 3189
-        duplicate_count: 1373
-        dedup_method: SEMI_AUTOMATIC
-        dedup_tools:
-          - tool_id: "tool_001"
-            tool_name: "EndNote"
-            tool_version: "20"
-            tool_url: "https://endnote.com/"
-            tool_purpose: REFERENCE_MANAGER
-            tool_settings: "Duplicate detection: Author, Year, Title, Journal"
-          - tool_id: "tool_002"
-            tool_name: "Rayyan"
-            tool_version: "Web version"
-            tool_url: "https://rayyan.ai/"
-            tool_purpose: DEDUPLICATION
-            tool_settings: "Similarity threshold: 0.90"
-        dedup_criteria:
-          - "DOI exact match"
-          - "Title similarity > 90%"
-          - "First author and year match"
-          - "Page numbers overlap"
-        dedup_started_at: "2024-02-01T09:00:00Z"
-        dedup_completed_at: "2024-02-01T16:00:00Z"
-        dedup_performed_by:
-          - author_id: "author_001"
-            name: "Dr. Alexandra Mitchell"
-        duplicate_groups:
-          - group_id: "dup_group_001"
-            master_record_id: "rec_00123"
-            duplicate_record_ids: ["rec_01456", "rec_02789"]
-            similarity_score: 0.98
-            match_fields: ["DOI", "title", "authors", "year"]
-            duplicate_resolution: "Keep PubMed version as primary"
-        dedup_notes: "Manual review required for 127 potential duplicates with similarity scores between 0.85-0.90"
+          # Deduplication process
+          deduplication_process:
+              dedup_id: "dedup_001"
+              input_record_count: 4562
+              unique_record_count: 3189
+              duplicate_count: 1373
+              dedup_method: SEMI_AUTOMATIC
+              dedup_tools:
+                  - tool_id: "tool_001"
+                    tool_name: "EndNote"
+                    tool_version: "20"
+                    tool_url: "https://endnote.com/"
+                    tool_purpose: REFERENCE_MANAGER
+                    tool_settings: "Duplicate detection: Author, Year, Title, Journal"
+                  - tool_id: "tool_002"
+                    tool_name: "Rayyan"
+                    tool_version: "Web version"
+                    tool_url: "https://rayyan.ai/"
+                    tool_purpose: DEDUPLICATION
+                    tool_settings: "Similarity threshold: 0.90"
+              dedup_criteria:
+                  - "DOI exact match"
+                  - "Title similarity > 90%"
+                  - "First author and year match"
+                  - "Page numbers overlap"
+              dedup_started_at: "2024-02-01T09:00:00Z"
+              dedup_completed_at: "2024-02-01T16:00:00Z"
+              dedup_performed_by:
+                  - author_id: "author_001"
+                    name: "Dr. Alexandra Mitchell"
+              duplicate_groups:
+                  - group_id: "dup_group_001"
+                    master_record_id: "rec_00123"
+                    duplicate_record_ids: ["rec_01456", "rec_02789"]
+                    similarity_score: 0.98
+                    match_fields: ["DOI", "title", "authors", "year"]
+                    duplicate_resolution: "Keep PubMed version as primary"
+              dedup_notes: "Manual review required for 127 potential duplicates with similarity scores between 0.85-0.90"
 
-      # Screening criteria (PICOS framework)
-      screening_criteria:
-        criteria_id: "criteria_001"
-        inclusion_criteria:
-          - "Studies evaluating AI or machine learning for cancer diagnosis"
-          - "Comparison with histopathology or clinical diagnosis"
-          - "Reported diagnostic accuracy metrics (sensitivity, specificity, AUC)"
-          - "Human subjects or human tissue samples"
-          - "Primary research studies"
-          - "Published from 2018 onwards"
-        exclusion_criteria:
-          - "Conference abstracts without full text"
-          - "Editorials, letters, opinions"
-          - "Non-English publications"
-          - "Animal or in-vitro studies only"
-          - "AI for treatment planning or prognosis only"
-          - "Review articles (retained for reference checking)"
-        population_criteria:
-          - "Patients with suspected or confirmed cancer"
-          - "Any cancer type"
-          - "Any age group"
-        intervention_criteria:
-          - "AI/ML algorithms for diagnosis"
-          - "Deep learning models"
-          - "Computer-aided detection systems"
-        comparator_criteria:
-          - "Histopathology (gold standard)"
-          - "Clinical diagnosis by specialists"
-          - "Existing diagnostic tools"
-        outcome_criteria:
-          - "Sensitivity and specificity"
-          - "Area under the ROC curve (AUC)"
-          - "Positive/negative predictive values"
-          - "Diagnostic accuracy"
-        study_design_criteria:
-          - "Diagnostic accuracy studies"
-          - "Cohort studies"
-          - "Case-control studies"
-          - "Cross-sectional studies"
-        publication_type_criteria:
-          - JOURNAL_ARTICLE
-          - CLINICAL_TRIAL
-          - TECHNICAL_REPORT
-        language_criteria:
-          - "English"
-        date_range_criteria:
-          date_range_start: "2018-01-01"
-          date_range_end: "2024-01-31"
-        exclude_systematic_reviews: true
-        primary_sources_only: true
-        criteria_notes: "Systematic reviews excluded from analysis but retained for reference mining"
+          # Screening criteria (PICOS framework)
+          screening_criteria:
+              criteria_id: "criteria_001"
+              inclusion_criteria:
+                  - "Studies evaluating AI or machine learning for cancer diagnosis"
+                  - "Comparison with histopathology or clinical diagnosis"
+                  - "Reported diagnostic accuracy metrics (sensitivity, specificity, AUC)"
+                  - "Human subjects or human tissue samples"
+                  - "Primary research studies"
+                  - "Published from 2018 onwards"
+              exclusion_criteria:
+                  - "Conference abstracts without full text"
+                  - "Editorials, letters, opinions"
+                  - "Non-English publications"
+                  - "Animal or in-vitro studies only"
+                  - "AI for treatment planning or prognosis only"
+                  - "Review articles (retained for reference checking)"
+              population_criteria:
+                  - "Patients with suspected or confirmed cancer"
+                  - "Any cancer type"
+                  - "Any age group"
+              intervention_criteria:
+                  - "AI/ML algorithms for diagnosis"
+                  - "Deep learning models"
+                  - "Computer-aided detection systems"
+              comparator_criteria:
+                  - "Histopathology (gold standard)"
+                  - "Clinical diagnosis by specialists"
+                  - "Existing diagnostic tools"
+              outcome_criteria:
+                  - "Sensitivity and specificity"
+                  - "Area under the ROC curve (AUC)"
+                  - "Positive/negative predictive values"
+                  - "Diagnostic accuracy"
+              study_design_criteria:
+                  - "Diagnostic accuracy studies"
+                  - "Cohort studies"
+                  - "Case-control studies"
+                  - "Cross-sectional studies"
+              publication_type_criteria:
+                  - JOURNAL_ARTICLE
+                  - CLINICAL_TRIAL
+                  - TECHNICAL_REPORT
+              language_criteria:
+                  - "English"
+              date_range_criteria:
+                  date_range_start: "2018-01-01"
+                  date_range_end: "2024-01-31"
+              exclude_systematic_reviews: true
+              primary_sources_only: true
+              criteria_notes: "Systematic reviews excluded from analysis but retained for reference mining"
 
-      # Screening protocol
-      screening_protocol:
-        protocol_id: "screen_protocol_001"
-        minimum_reviewers_per_record: 2
-        require_consensus: false
-        blind_screening: true
-        pilot_screening_size: 100
-        pilot_agreement_threshold: 0.80
-        conflict_resolution_strategy: THIRD_REVIEWER
-        screening_order: RANDOM
-        batch_size: 500
-        protocol_notes: "All reviewers completed calibration exercise with 100 pilot records achieving 85% agreement"
+          # Screening protocol
+          screening_protocol:
+              protocol_id: "screen_protocol_001"
+              minimum_reviewers_per_record: 2
+              require_consensus: false
+              blind_screening: true
+              pilot_screening_size: 100
+              pilot_agreement_threshold: 0.80
+              conflict_resolution_strategy: THIRD_REVIEWER
+              screening_order: RANDOM
+              batch_size: 500
+              protocol_notes: "All reviewers completed calibration exercise with 100 pilot records achieving 85% agreement"
 
-      # Screening rounds
-      screening_rounds:
-        # Round 1: Title/Abstract Screening
-        - round_id: "round_001"
-          round_type: TITLE_ABSTRACT
-          round_number: 1
-          round_label: "Title and Abstract Screening"
-          input_records:
-            collection_id: "coll_post_dedup"
-            record_count: 3189
-          screening_decisions:
-            - decision_id: "dec_001"
-              screening_record_id: "rec_00123"
-              decision_reviewer_id: "reviewer_001"
-              decision: INCLUDE
-              decision_timestamp: "2024-02-05T10:15:00Z"
-              time_spent_seconds: 45
-              ai_suggested_decision: INCLUDE
-              ai_confidence_score: 0.89
-            - decision_id: "dec_002"
-              screening_record_id: "rec_00123"
-              decision_reviewer_id: "reviewer_002"
-              decision: INCLUDE
-              decision_timestamp: "2024-02-05T14:22:00Z"
-              time_spent_seconds: 38
-          conflict_resolutions:
-            - resolution_id: "res_001"
-              conflict_record_id: "rec_00456"
-              conflicting_decisions: ["dec_101", "dec_102"]
-              resolution_method: THIRD_REVIEWER
-              final_decision: INCLUDE
-              resolver_id: "reviewer_003"
-              resolution_timestamp: "2024-02-10T11:00:00Z"
-              resolution_notes: "Unclear methodology description warranted full-text review"
-          excluded_record_ids: ["rec_00001", "rec_00002", "rec_00003"]
-          included_record_ids: ["rec_00123", "rec_00456", "rec_00789"]
-          round_started_at: "2024-02-02T09:00:00Z"
-          round_completed_at: "2024-02-12T17:00:00Z"
-          reviewers:
-            - reviewer_id: "reviewer_001"
-              reviewer_author:
-                author_id: "author_001"
-                name: "Dr. Alexandra Mitchell"
-              reviewer_role: PRIMARY_REVIEWER
-              training_completed: true
-              records_assigned: 1595
-              records_completed: 1595
-            - reviewer_id: "reviewer_002"
-              reviewer_author:
-                author_id: "author_002"
-                name: "Dr. James Park"
-              reviewer_role: PRIMARY_REVIEWER
-              training_completed: true
-              records_assigned: 1594
-              records_completed: 1594
-            - reviewer_id: "reviewer_003"
-              reviewer_author:
-                author_id: "author_003"
-                name: "Dr. Maria Santos"
-              reviewer_role: ARBITRATOR
-              training_completed: true
-              records_assigned: 142
-              records_completed: 142
-          screening_tools:
-            - tool_id: "tool_003"
-              tool_name: "Covidence"
-              tool_version: "Web version 2.0"
-              tool_url: "https://www.covidence.org/"
-              tool_purpose: SCREENING_PLATFORM
-              tool_settings: "Dual screening enabled, blind mode active"
-          ai_assistance:
-            ai_id: "ai_001"
-            ai_model: "GPT-4"
-            ai_version: "2024-01"
-            ai_provider: "OpenAI"
-            ai_purpose: DECISION_SUGGESTION
-            ai_prompts:
-              - "Based on the title and abstract, does this study evaluate AI for cancer diagnosis with comparison to standard methods?"
-            ai_parameters: "temperature=0.2, max_tokens=150"
-            ai_validation_method: "Random sample of 200 records manually validated"
-            human_oversight_level: SAMPLE_REVIEW
-            ai_performance_metrics:
-              accuracy: 0.87
-              precision: 0.89
-              recall: 0.85
-              f1_score: 0.87
-              cohen_kappa: 0.74
-          round_statistics:
-            total_records_screened: 3189
-            records_included: 487
-            records_excluded: 2702
-            records_uncertain: 0
-            inclusion_rate: 0.153
-            exclusion_rate: 0.847
-            average_time_per_record: 48.2
-            total_screening_time: 42.7
-            inter_rater_agreement:
-              cohen_kappa: 0.81
-              percent_agreement: 90.5
-            conflicts_count: 142
-            conflicts_resolved: 142
-          round_notes: "High agreement achieved after pilot training. AI suggestions helped identify edge cases."
+          # Screening rounds
+          screening_rounds:
+              # Round 1: Title/Abstract Screening
+              - round_id: "round_001"
+                round_type: TITLE_ABSTRACT
+                round_number: 1
+                round_label: "Title and Abstract Screening"
+                input_records:
+                    collection_id: "coll_post_dedup"
+                    record_count: 3189
+                screening_decisions:
+                    - decision_id: "dec_001"
+                      screening_record_id: "rec_00123"
+                      decision_reviewer_id: "reviewer_001"
+                      decision: INCLUDE
+                      decision_timestamp: "2024-02-05T10:15:00Z"
+                      time_spent_seconds: 45
+                      ai_suggested_decision: INCLUDE
+                      ai_confidence_score: 0.89
+                    - decision_id: "dec_002"
+                      screening_record_id: "rec_00123"
+                      decision_reviewer_id: "reviewer_002"
+                      decision: INCLUDE
+                      decision_timestamp: "2024-02-05T14:22:00Z"
+                      time_spent_seconds: 38
+                conflict_resolutions:
+                    - resolution_id: "res_001"
+                      conflict_record_id: "rec_00456"
+                      conflicting_decisions: ["dec_101", "dec_102"]
+                      resolution_method: THIRD_REVIEWER
+                      final_decision: INCLUDE
+                      resolver_id: "reviewer_003"
+                      resolution_timestamp: "2024-02-10T11:00:00Z"
+                      resolution_notes: "Unclear methodology description warranted full-text review"
+                excluded_record_ids: ["rec_00001", "rec_00002", "rec_00003"]
+                included_record_ids: ["rec_00123", "rec_00456", "rec_00789"]
+                round_started_at: "2024-02-02T09:00:00Z"
+                round_completed_at: "2024-02-12T17:00:00Z"
+                reviewers:
+                    - reviewer_id: "reviewer_001"
+                      reviewer_author:
+                          author_id: "author_001"
+                          name: "Dr. Alexandra Mitchell"
+                      reviewer_role: PRIMARY_REVIEWER
+                      training_completed: true
+                      records_assigned: 1595
+                      records_completed: 1595
+                    - reviewer_id: "reviewer_002"
+                      reviewer_author:
+                          author_id: "author_002"
+                          name: "Dr. James Park"
+                      reviewer_role: PRIMARY_REVIEWER
+                      training_completed: true
+                      records_assigned: 1594
+                      records_completed: 1594
+                    - reviewer_id: "reviewer_003"
+                      reviewer_author:
+                          author_id: "author_003"
+                          name: "Dr. Maria Santos"
+                      reviewer_role: ARBITRATOR
+                      training_completed: true
+                      records_assigned: 142
+                      records_completed: 142
+                screening_tools:
+                    - tool_id: "tool_003"
+                      tool_name: "Covidence"
+                      tool_version: "Web version 2.0"
+                      tool_url: "https://www.covidence.org/"
+                      tool_purpose: SCREENING_PLATFORM
+                      tool_settings: "Dual screening enabled, blind mode active"
+                ai_assistance:
+                    ai_id: "ai_001"
+                    ai_model: "GPT-4"
+                    ai_version: "2024-01"
+                    ai_provider: "OpenAI"
+                    ai_purpose: DECISION_SUGGESTION
+                    ai_prompts:
+                        - "Based on the title and abstract, does this study evaluate AI for cancer diagnosis with comparison to standard methods?"
+                    ai_parameters: "temperature=0.2, max_tokens=150"
+                    ai_validation_method: "Random sample of 200 records manually validated"
+                    human_oversight_level: SAMPLE_REVIEW
+                    ai_performance_metrics:
+                        accuracy: 0.87
+                        precision: 0.89
+                        recall: 0.85
+                        f1_score: 0.87
+                        cohen_kappa: 0.74
+                round_statistics:
+                    total_records_screened: 3189
+                    records_included: 487
+                    records_excluded: 2702
+                    records_uncertain: 0
+                    inclusion_rate: 0.153
+                    exclusion_rate: 0.847
+                    average_time_per_record: 48.2
+                    total_screening_time: 42.7
+                    inter_rater_agreement:
+                        cohen_kappa: 0.81
+                        percent_agreement: 90.5
+                    conflicts_count: 142
+                    conflicts_resolved: 142
+                round_notes: "High agreement achieved after pilot training. AI suggestions helped identify edge cases."
 
-        # Round 2: Full-text Screening
-        - round_id: "round_002"
-          round_type: FULL_TEXT
-          round_number: 2
-          round_label: "Full-text Screening"
-          input_records:
-            collection_id: "coll_ta_included"
-            record_count: 487
-          excluded_record_ids: ["rec_00789", "rec_01234", "rec_05678"]
-          included_record_ids: ["rec_00123", "rec_00456", "rec_09876"]
-          round_started_at: "2024-02-15T09:00:00Z"
-          round_completed_at: "2024-02-27T17:00:00Z"
-          reviewers:
-            - reviewer_id: "reviewer_001"
-              reviewer_author:
-                author_id: "author_001"
-                name: "Dr. Alexandra Mitchell"
-              reviewer_role: PRIMARY_REVIEWER
-              records_assigned: 244
-              records_completed: 244
-            - reviewer_id: "reviewer_002"
-              reviewer_author:
-                author_id: "author_002"
-                name: "Dr. James Park"
-              reviewer_role: PRIMARY_REVIEWER
-              records_assigned: 243
-              records_completed: 243
-          round_statistics:
-            total_records_screened: 487
-            records_included: 93
-            records_excluded: 394
-            inclusion_rate: 0.191
-            exclusion_rate: 0.809
-            average_time_per_record: 720
-            total_screening_time: 97.4
-            conflicts_count: 38
-            conflicts_resolved: 38
-          round_notes: "Common exclusion reasons: no diagnostic accuracy metrics (n=156), wrong comparator (n=89), duplicate publication (n=45)"
+              # Round 2: Full-text Screening
+              - round_id: "round_002"
+                round_type: FULL_TEXT
+                round_number: 2
+                round_label: "Full-text Screening"
+                input_records:
+                    collection_id: "coll_ta_included"
+                    record_count: 487
+                excluded_record_ids: ["rec_00789", "rec_01234", "rec_05678"]
+                included_record_ids: ["rec_00123", "rec_00456", "rec_09876"]
+                round_started_at: "2024-02-15T09:00:00Z"
+                round_completed_at: "2024-02-27T17:00:00Z"
+                reviewers:
+                    - reviewer_id: "reviewer_001"
+                      reviewer_author:
+                          author_id: "author_001"
+                          name: "Dr. Alexandra Mitchell"
+                      reviewer_role: PRIMARY_REVIEWER
+                      records_assigned: 244
+                      records_completed: 244
+                    - reviewer_id: "reviewer_002"
+                      reviewer_author:
+                          author_id: "author_002"
+                          name: "Dr. James Park"
+                      reviewer_role: PRIMARY_REVIEWER
+                      records_assigned: 243
+                      records_completed: 243
+                round_statistics:
+                    total_records_screened: 487
+                    records_included: 93
+                    records_excluded: 394
+                    inclusion_rate: 0.191
+                    exclusion_rate: 0.809
+                    average_time_per_record: 720
+                    total_screening_time: 97.4
+                    conflicts_count: 38
+                    conflicts_resolved: 38
+                round_notes: "Common exclusion reasons: no diagnostic accuracy metrics (n=156), wrong comparator (n=89), duplicate publication (n=45)"
 
-      # Overall screening statistics
-      overall_statistics:
-        initial_records_count: 4562
-        post_dedup_count: 3189
-        title_abstract_excluded: 2702
-        fulltext_excluded: 394
-        final_included_count: 93
-        overall_inclusion_rate: 0.020
-        overall_exclusion_rate: 0.980
-        total_time_hours: 140.1
-        total_reviewer_hours: 280.2
-        cost_estimate: 14010.00
+          # Overall screening statistics
+          overall_statistics:
+              initial_records_count: 4562
+              post_dedup_count: 3189
+              title_abstract_excluded: 2702
+              fulltext_excluded: 394
+              final_included_count: 93
+              overall_inclusion_rate: 0.020
+              overall_exclusion_rate: 0.980
+              total_time_hours: 140.1
+              total_reviewer_hours: 280.2
+              cost_estimate: 14010.00
 
-      # Stage outputs
-      outputs:
-        - output_id: "out_screen_001"
-          output_kind: screening_decisions
-          output_format: CSV
-          output_uri: "file:///data/screening_decisions_complete.csv"
-          output_description: "Complete screening decisions with reviewer assignments and timestamps"
-        - output_id: "out_screen_002"
-          output_kind: records_deduped
-          output_format: RIS
-          output_uri: "file:///data/unique_records_post_dedup.ris"
-          output_description: "Deduplicated records (n=3189)"
-        - output_id: "out_screen_003"
-          output_kind: prisma_flow
-          output_format: PDF
-          output_uri: "file:///data/prisma_flow_diagram.pdf"
-          output_description: "PRISMA flow diagram showing screening process"
-        - output_id: "out_screen_004"
-          output_kind: included_studies
-          output_format: XLSX
-          output_uri: "file:///data/included_studies_final.xlsx"
-          output_description: "Final included studies with basic characteristics (n=93)"
+          # Stage outputs
+          outputs:
+              - output_id: "out_screen_001"
+                output_kind: screening_decisions
+                output_format: CSV
+                output_uri: "file:///data/screening_decisions_complete.csv"
+                output_description: "Complete screening decisions with reviewer assignments and timestamps"
+              - output_id: "out_screen_002"
+                output_kind: records_deduped
+                output_format: RIS
+                output_uri: "file:///data/unique_records_post_dedup.ris"
+                output_description: "Deduplicated records (n=3189)"
+              - output_id: "out_screen_003"
+                output_kind: prisma_flow
+                output_format: PDF
+                output_uri: "file:///data/prisma_flow_diagram.pdf"
+                output_description: "PRISMA flow diagram showing screening process"
+              - output_id: "out_screen_004"
+                output_kind: included_studies
+                output_format: XLSX
+                output_uri: "file:///data/included_studies_final.xlsx"
+                output_description: "Final included studies with basic characteristics (n=93)"
 
-  # Additional review metadata
-  funding_sources:
-    - funding_id: "grant_003"
-      funder_name: "Cancer Research UK"
-      grant_number: "C12345/A67890"
-      funding_amount: 750000.00
-      funding_currency: "GBP"
+    # Additional review metadata
+    funding_sources:
+        - funding_id: "grant_003"
+          funder_name: "Cancer Research UK"
+          grant_number: "C12345/A67890"
+          funding_amount: 750000.00
+          funding_currency: "GBP"
 
-  conflicts_of_interest:
-    - author_id: "author_001"
-      conflict_type: NONE
-      conflict_description: "No conflicts to declare"
-    - author_id: "author_002"
-      conflict_type: NONE
-      conflict_description: "No conflicts to declare"
-    - author_id: "author_003"
-      conflict_type: NONE
-      conflict_description: "No conflicts to declare"
+    conflicts_of_interest:
+        - author_id: "author_001"
+          conflict_type: NONE
+          conflict_description: "No conflicts to declare"
+        - author_id: "author_002"
+          conflict_type: NONE
+          conflict_description: "No conflicts to declare"
+        - author_id: "author_003"
+          conflict_type: NONE
+          conflict_description: "No conflicts to declare"
 
-  software_environments:
-    - env_id: "env_screening"
-      env_label: "Screening environment"
-      operating_system: "macOS 14.0"
-      software_packages:
-        - package_id: "pkg_001"
-          package_name: "Covidence"
-          package_version: "2.0"
-          package_purpose: "Screening platform"
-        - package_id: "pkg_002"
-          package_name: "Rayyan"
-          package_version: "Web"
-          package_purpose: "Deduplication and screening"
-        - package_id: "pkg_003"
-          package_name: "R"
-          package_version: "4.3.2"
-          package_purpose: "Inter-rater agreement statistics"
+    software_environments:
+        - env_id: "env_screening"
+          env_label: "Screening environment"
+          operating_system: "macOS 14.0"
+          software_packages:
+              - package_id: "pkg_001"
+                package_name: "Covidence"
+                package_version: "2.0"
+                package_purpose: "Screening platform"
+              - package_id: "pkg_002"
+                package_name: "Rayyan"
+                package_version: "Web"
+                package_purpose: "Deduplication and screening"
+              - package_id: "pkg_003"
+                package_name: "R"
+                package_version: "4.3.2"
+                package_purpose: "Inter-rater agreement statistics"

@@ -1,0 +1,364 @@
+# Example: Review with AI-Assisted Data Extraction
+# This example demonstrates comprehensive data extraction using commercial AI tools
+
+review:
+    review_id: "SR_2024_004"
+    title: "Digital Mental Health Interventions for Depression in Young Adults: A Systematic Review"
+    review_type: SYSTEMATIC_REVIEW
+    review_status: EXTRACTION_COMPLETED
+    review_question: "What is the effectiveness of digital mental health interventions compared to usual care for treating depression in young adults (18-30 years)?"
+    start_date: "2024-02-01"
+    review_country: "Australia"
+
+    # Review team
+    authors:
+        - author_id: "author_001"
+          name: "Dr. Emily Chen"
+          orcid: "0000-0001-2345-6789"
+          email: "e.chen@university.edu.au"
+          affiliations:
+              - affiliation_id: "aff_001"
+                organization: "University of Melbourne"
+                department: "Department of Psychology"
+                country: "Australia"
+          author_roles:
+              - LEAD_AUTHOR
+              - DATA_EXTRACTOR
+
+        - author_id: "author_002"
+          name: "Dr. Marcus Williams"
+          orcid: "0000-0002-3456-7890"
+          affiliations:
+              - affiliation_id: "aff_002"
+                organization: "Monash University"
+                department: "School of Public Health"
+                country: "Australia"
+          author_roles:
+              - CO_AUTHOR
+              - DATA_EXTRACTOR
+
+    # Protocol
+    protocol:
+        protocol_id: "protocol_SR_2024_004"
+        protocol_version: "1.2"
+        protocol_date: "2024-02-01"
+        protocol_uri: "https://osf.io/abc123"
+
+    # Data Extraction Stage
+    stages:
+        - stage_type: data_extraction
+          stage_label: "AI-Assisted Data Extraction"
+          stage_description: "Systematic extraction using Elicit AI platform with human validation"
+          started_at: "2024-04-01T09:00:00Z"
+          ended_at: "2024-04-15T17:00:00Z"
+
+          # Extraction tools - Using commercial AI platforms
+          extraction_tools:
+              - tool_id: "tool_elicit_001"
+                tool_name: "Elicit"
+                tool_version: "2024.04"
+                tool_url: "https://elicit.org"
+                tool_vendor: "Ought"
+                tool_purpose:
+                    - AI_EXTRACTION
+                    - TEXT_ANALYSIS
+                tool_license_type: SUBSCRIPTION
+                tool_subscription_level: "Professional"
+                tool_configuration_file: "https://osf.io/configs/elicit_config_sr2024004.json"
+                tool_configuration_parameters:
+                    - param_id: "param_001"
+                      param_name: "extraction_confidence_threshold"
+                      param_value: "0.85"
+                      param_type: NUMBER
+                      param_category: "AI settings"
+                      param_description: "Minimum confidence for auto-accepting extractions"
+                    - param_id: "param_002"
+                      param_name: "enable_table_extraction"
+                      param_value: "true"
+                      param_type: BOOLEAN
+                      param_category: "Feature settings"
+                    - param_id: "param_003"
+                      param_name: "output_format"
+                      param_value: "structured_json"
+                      param_type: ENUM
+                      param_category: "Export settings"
+                tool_export_formats:
+                    - "JSON"
+                    - "CSV"
+                    - "Excel"
+                tool_import_formats:
+                    - "RIS"
+                    - "BibTeX"
+                    - "PDF"
+                tool_features_used:
+                    - "Automated data extraction"
+                    - "Table parsing"
+                    - "Statistical value extraction"
+                    - "Study characteristic identification"
+                tool_ai_models:
+                    - "GPT-4 (for text understanding)"
+                    - "Custom NER model (for entity extraction)"
+                tool_limitations: "Limited accuracy for complex statistical transformations; manual verification required for effect sizes"
+                tool_documentation_url: "https://elicit.org/docs/extraction"
+                tool_cost: "$500/month professional plan"
+
+              # Additional tools can be added here as needed
+              # For example, if using prismAId or other custom tools
+
+          # AI assistance configuration
+          ai_extraction_assistance:
+              ai_extraction_id: "ai_config_001"
+              ai_model: "Elicit Extraction Model"
+              ai_model_version: "2024.04"
+              ai_provider: "Ought (via Elicit platform)"
+              ai_extraction_purpose:
+                  - FULL_EXTRACTION
+                  - TABLE_PARSING
+                  - VALUE_EXTRACTION
+                  - QUALITY_CHECK
+              associated_tool_id: "tool_elicit_001"
+              ai_confidence_threshold: 0.85
+              human_oversight_level: CONFIDENCE_BASED
+              ai_prompts:
+                  - prompt_id: "prompt_001"
+                    prompt_field_id: "field_sample_size"
+                    prompt_text: "Extract the total sample size at baseline. Look for 'n=', 'N=', 'participants', 'subjects', or 'patients enrolled'. Return only the number."
+                    prompt_type: FEW_SHOT
+                    prompt_version: "1.2"
+                    prompt_examples:
+                        - "Input: 'A total of 156 participants were randomized' → Output: 156"
+                        - "Input: 'We enrolled n=89 young adults' → Output: 89"
+                  - prompt_id: "prompt_002"
+                    prompt_field_id: "field_depression_measure"
+                    prompt_text: "Identify the primary depression outcome measure. Common scales include PHQ-9, BDI, MADRS, HAMD. Extract the full name and abbreviation."
+                    prompt_type: CHAIN_OF_THOUGHT
+                    prompt_version: "1.0"
+              ai_parameters:
+                  - parameter_name: "temperature"
+                    parameter_value: "0.2"
+                    parameter_description: "Low temperature for consistent extraction"
+                  - parameter_name: "max_retries"
+                    parameter_value: "3"
+                    parameter_description: "Maximum extraction attempts per field"
+              ai_validation_rules:
+                  - "Sample size must be positive integer"
+                  - "Dates must be in valid format"
+                  - "Percentages must be 0-100"
+                  - "Effect sizes must include confidence intervals when available"
+              ai_monitored_variables:
+                  - variable_id: "monitor_001"
+                    variable_name: "Statistical value extraction accuracy"
+                    variable_field_id: "field_effect_size"
+                    monitoring_method: "Spot check 20% of extractions"
+                    alert_threshold: 0.80
+                    current_performance: 0.88
+                  - variable_id: "monitor_002"
+                    variable_name: "Sample size identification"
+                    variable_field_id: "field_sample_size"
+                    monitoring_method: "Compare with manual extraction"
+                    alert_threshold: 0.95
+                    current_performance: 0.97
+              ai_performance_metrics:
+                  extraction_accuracy: 0.91
+                  extraction_completeness: 0.94
+                  false_positive_rate: 0.03
+                  false_negative_rate: 0.06
+                  average_confidence_score: 0.89
+                  human_agreement_rate: 0.93
+                  processing_speed: 12.5 # documents per hour
+                  field_level_accuracy:
+                      - field_id: "field_sample_size"
+                        accuracy_score: 0.97
+                        sample_size: 75
+                        common_errors:
+                            - "Confusion between screening and final sample"
+                      - field_id: "field_effect_size"
+                        accuracy_score: 0.88
+                        sample_size: 75
+                        common_errors:
+                            - "Missing confidence intervals"
+                            - "Wrong effect size metric"
+              ai_error_handling: "Flag low-confidence extractions for human review; retry with modified prompts for failed extractions"
+
+          # Extraction form
+          extraction_forms:
+              - form_id: "form_001"
+                form_name: "Digital Mental Health RCT Extraction Form"
+                form_version: "2.0"
+                form_description: "Standardized form for extracting data from digital mental health RCTs"
+                pilot_tested: true
+                pilot_test_date: "2024-03-28"
+                form_sections:
+                    - section_id: "section_participants"
+                      section_name: "Participant Characteristics"
+                      section_order: 1
+                      section_required: true
+                      section_fields:
+                          - field_id: "field_sample_size"
+                            field_name: "total_n"
+                            field_label: "Total Sample Size"
+                            field_type: NUMBER
+                            field_required: true
+                            field_category: PARTICIPANTS
+                          - field_id: "field_mean_age"
+                            field_name: "mean_age"
+                            field_label: "Mean Age"
+                            field_type: NUMBER
+                            field_category: PARTICIPANTS
+
+          # Extraction protocol
+          extraction_protocol:
+              protocol_id: "extract_protocol_001"
+              minimum_extractors_per_study: 1 # AI + human verification
+              independent_extraction: false # AI does initial, human verifies
+              disagreement_resolution_method: CONSENSUS_DISCUSSION
+              extraction_order: RANDOM
+              blinding_level: NONE
+              extraction_tools:
+                  - tool_id: "tool_elicit_001"
+              extraction_guidance: "AI performs initial extraction. Human reviews all low-confidence (<0.85) extractions and 20% random sample of high-confidence extractions."
+
+          # Example extracted study
+          extracted_studies:
+              - extracted_study_id: "extracted_001"
+                source_record_id: "record_001"
+                extraction_form_id: "form_001"
+                extraction_status: FINALIZED
+
+                # AI extraction session details
+                ai_extraction_session:
+                    ai_session_id: "ai_session_001"
+                    ai_model_used: "ai_config_001"
+                    ai_extraction_timestamp: "2024-04-02T10:00:00Z"
+                    ai_fields_extracted:
+                        - "field_sample_size"
+                        - "field_mean_age"
+                        - "field_depression_measure"
+                        - "field_effect_size"
+                    ai_extraction_duration: 45.3 # seconds
+                    ai_token_usage: 8500
+                    ai_api_calls: 12
+                    human_modifications:
+                        - modification_id: "mod_001"
+                          field_modified: "field_effect_size"
+                          original_ai_value: "-0.42"
+                          modified_value: "-0.42 (95% CI: -0.68, -0.16)"
+                          modification_reason: INCOMPLETE_EXTRACTION
+                          modifier_id: "author_001"
+                          modification_timestamp: "2024-04-02T14:30:00Z"
+
+                # Study characteristics
+                study_characteristics:
+                    study_design: RCT
+                    study_setting: "Online recruitment via social media"
+                    study_country:
+                        - "United States"
+                    sample_size: 324
+                    participant_characteristics: "Young adults 18-30 years, mild to moderate depression (PHQ-9: 10-19)"
+                    intervention_details: "App-based CBT, 8 weeks, daily modules"
+                    comparator_details: "Waitlist control with access to usual care"
+                    outcome_measures:
+                        - "PHQ-9 (primary)"
+                        - "GAD-7 (secondary)"
+
+                # Extracted data points
+                extracted_data:
+                    - datapoint_id: "dp_001"
+                      field_id: "field_sample_size"
+                      extracted_value: "324"
+                      extraction_confidence: HIGH
+                      page_number: "3"
+                      extraction_timestamp: "2024-04-02T10:00:15Z"
+                      extractor_id: "ai_config_001"
+                      ai_assisted: true
+                      ai_confidence: 0.97
+                    - datapoint_id: "dp_002"
+                      field_id: "field_effect_size"
+                      extracted_value: "-0.42 (95% CI: -0.68, -0.16)"
+                      extracted_unit: "Cohen's d"
+                      extraction_confidence: HIGH
+                      page_number: "7"
+                      quote: "The intervention group showed a moderate effect size (Cohen's d = -0.42, 95% CI: -0.68 to -0.16) compared to control"
+                      extraction_timestamp: "2024-04-02T14:30:00Z"
+                      extractor_id: "author_001" # Human corrected
+                      ai_assisted: true
+                      ai_confidence: 0.78 # Original AI confidence was lower
+
+          # Quality control
+          extraction_quality_control:
+              qc_id: "qc_001"
+              double_extraction_rate: 20.0 # 20% human validation of AI extractions
+              spot_check_rate: 100.0 # All low-confidence AI extractions checked
+              training_provided: true
+              calibration_exercises: "Team reviewed 5 AI-extracted studies together to calibrate acceptance criteria"
+              agreement_statistics:
+                  overall_agreement: 93.2
+                  cohen_kappa: 0.86
+                  disagreement_count: 28
+                  total_comparisons: 420
+              discrepancy_resolution:
+                  - resolution_id: "resolve_001"
+                    study_id: "extracted_001"
+                    field_id: "field_effect_size"
+                    original_values:
+                        - "-0.42 (AI extraction)"
+                        - "-0.42 (95% CI: -0.68, -0.16) (Human review)"
+                    resolved_value: "-0.42 (95% CI: -0.68, -0.16)"
+                    resolution_method: CONSENSUS_DISCUSSION
+                    resolution_date: "2024-04-03T10:00:00Z"
+                    resolution_notes: "AI correctly identified effect size but missed confidence intervals in table footnote"
+
+          # Overall statistics
+          extraction_statistics:
+              total_studies_extracted: 75
+              total_data_points: 3750
+              extraction_completion_rate: 100.0
+              average_time_per_study: 0.25 # 15 minutes with AI assistance
+              total_extraction_hours: 18.75
+              missing_data_rate: 12.3
+              extraction_started_date: "2024-04-01"
+              extraction_completed_date: "2024-04-15"
+              extractor_workload:
+                  - extractor_id: "ai_config_001"
+                    studies_extracted: 75
+                    time_spent_hours: 1.04 # AI processing time
+                    average_time_per_study: 0.014
+                  - extractor_id: "author_001"
+                    studies_extracted: 75 # Review/validation
+                    time_spent_hours: 17.71
+                    average_time_per_study: 0.236
+
+          # Stage outputs
+          outputs:
+              - output_id: "out_extract_001"
+                output_kind: extraction_table
+                output_format: XLSX
+                output_uri: "file:///data/extracted_data_ai_assisted.xlsx"
+                output_description: "Complete extraction table with AI confidence scores and human modifications tracked"
+              - output_id: "out_extract_002"
+                output_kind: model_card
+                output_format: JSON
+                output_uri: "file:///data/ai_extraction_model_card.json"
+                output_description: "AI model card documenting extraction configuration and performance"
+
+    # Additional metadata
+    funding_sources:
+        - funding_id: "grant_004"
+          funder_name: "Australian Research Council"
+          grant_number: "DP240123456"
+          funding_amount: 450000.00
+          funding_currency: "AUD"
+
+    software_environments:
+        - env_id: "env_extraction"
+          env_label: "AI-assisted extraction environment"
+          operating_system: "Ubuntu 22.04"
+          software_packages:
+              - package_id: "pkg_001"
+                package_name: "Elicit"
+                package_version: "2024.04"
+                package_purpose: "AI-powered data extraction"
+              - package_id: "pkg_002"
+                package_name: "Python"
+                package_version: "3.11"
+                package_purpose: "Data processing and validation scripts"
