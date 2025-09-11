@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0] - 2025-09-11
+
+### Added
+- Complete implementation of synthesis stage with comprehensive functionality:
+  - Support for multiple synthesis approaches (narrative, quantitative, mixed)
+  - Meta-analysis capabilities with various effect measures and models
+  - Subgroup and sensitivity analyses
+  - Publication bias assessment tools (funnel plots, Egger's test, trim-and-fill)
+  - Evidence grading systems (GRADE, Oxford CEBM, AHRQ, SIGN, NICE)
+  - Heterogeneity statistics (I², tau², Q statistic)
+  - Narrative synthesis with thematic analysis
+  - AI-assisted synthesis capabilities
+  - Comprehensive quality control and transparency measures
+- Shared base components for consistent stage architecture:
+  - SearchProtocol, SearchQualityControl, SearchStatistics classes extending shared base classes
+  - RegistrationProtocol, RegistrationQualityControl, RegistrationStatistics classes extending shared base classes
+  - All stages now inherit from StageProtocol, StageQualityControl, and StageStatistics base classes
+  - Consistent naming patterns and field structures across all stages
+
+### Changed
+- Enhanced search stage with protocol, quality control, and statistics components
+- Enhanced registration stage with protocol, quality control, and statistics components
+- Reorganized documentation to properly distinguish Review Core Objects from Shared Infrastructure Objects
+
 ## [0.3.0] - 2025-09-11
 
 ### Added
