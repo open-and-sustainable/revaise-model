@@ -47,11 +47,9 @@ build:
                     VERSION="dev"
                 fi
                 echo "Using version: $VERSION"
-                # Clean version for schema (remove -dev suffix)
-                SCHEMA_VERSION=$(echo "$VERSION" | sed 's/-dev$//')
                 # Create temporary schema with version injected
                 cp -r schema schema_temp
-                sed -i "s/^name: revaise$/name: revaise\nversion: ${SCHEMA_VERSION}/" schema_temp/revaise.yaml
+                sed -i "s/^name: revaise$/name: revaise\nversion: ${VERSION}/" schema_temp/revaise.yaml
                 gen-doc schema_temp/revaise.yaml --directory docs/schema/main || echo "Main schema docs generated"
                 rm -rf schema_temp
 
@@ -80,11 +78,9 @@ build:
                 else
                     VERSION="dev"
                 fi
-                # Clean version for schema (remove -dev suffix)
-                SCHEMA_VERSION=$(echo "$VERSION" | sed 's/-dev$//')
                 # Create temporary schema directory with version injected
                 cp -r schema schema_temp
-                sed -i "s/^name: revaise$/name: revaise\nversion: ${SCHEMA_VERSION}/" schema_temp/revaise.yaml
+                sed -i "s/^name: revaise$/name: revaise\nversion: ${VERSION}/" schema_temp/revaise.yaml
                 gen-json-schema schema_temp/revaise.yaml > docs/api/revaise.schema.json || echo "JSON Schema generated"
                 gen-jsonld-context schema_temp/revaise.yaml > docs/api/context.jsonld || echo "JSON-LD context generated"
                 rm -rf schema_temp

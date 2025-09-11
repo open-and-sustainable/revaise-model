@@ -56,15 +56,12 @@ mkdir -p "$OUT/schema/$VER" "$OUT/schema/latest" "$OUT/docs/$VER"
 # Build the main revaise schema
 echo "Building main RevAIse schema (version: $VER)..."
 
-# Extract clean version number for schema (remove -dev suffix if present)
-SCHEMA_VER=$(echo "$VER" | sed 's/-dev$//')
-
 # Create a temporary directory to work in
 TEMP_DIR=$(mktemp -d)
 cp -r "$SCHEMA_DIR"/* "$TEMP_DIR/"
 
-# Always inject version into the schema (use clean version without -dev)
-sed -i "s/^name: revaise$/name: revaise\nversion: ${SCHEMA_VER}/" "$TEMP_DIR/revaise.yaml"
+# Always inject version into the schema
+sed -i "s/^name: revaise$/name: revaise\nversion: ${VER}/" "$TEMP_DIR/revaise.yaml"
 
 gen-json-schema "$TEMP_DIR/revaise.yaml" > "$OUT/schema/$VER/revaise.schema.json"
 gen-jsonld-context "$TEMP_DIR/revaise.yaml" > "$OUT/schema/$VER/context.jsonld"
