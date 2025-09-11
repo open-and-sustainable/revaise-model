@@ -64,7 +64,7 @@ TEMP_DIR=$(mktemp -d)
 cp -r "$SCHEMA_DIR"/* "$TEMP_DIR/"
 
 # Always inject version into the schema (use clean version without -dev)
-awk '/^name: revaise$/{print; print "version: '"$SCHEMA_VER"'"; next}1' "$TEMP_DIR/revaise.yaml" > "$TEMP_DIR/revaise_versioned.yaml"
+awk -v ver="$SCHEMA_VER" '/^name: revaise$/{print; print "version: " ver; next}1' "$TEMP_DIR/revaise.yaml" > "$TEMP_DIR/revaise_versioned.yaml"
 mv "$TEMP_DIR/revaise_versioned.yaml" "$TEMP_DIR/revaise.yaml"
 
 gen-json-schema "$TEMP_DIR/revaise.yaml" > "$OUT/schema/$VER/revaise.schema.json"
