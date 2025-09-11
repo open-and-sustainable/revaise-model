@@ -9,16 +9,25 @@ imports:
     - linkml:types
     - ../objects/stage_execution
     - ../objects/author
+    - ../objects/stage_protocol
+    - ../objects/stage_quality_control
+    - ../objects/stage_statistics
 
 classes:
     RegistrationStage:
         description: "Stage for managing review registrations and pre-registrations, focusing on referencing external registry entries rather than hosting registration content."
         is_a: StageExecution
         slots:
+            - registration_protocol
             - registrations
             - current_registration_version
             - registration_policy
+            - registration_quality_control
+            - registration_statistics
         slot_usage:
+            registration_protocol:
+                range: RegistrationProtocol
+                description: "Protocol defining the registration approach and requirements"
             registrations:
                 range: Registration
                 multivalued: true
@@ -26,10 +35,16 @@ classes:
                 description: "All registrations associated with this review"
             current_registration_version:
                 range: string
-                description: "Identifier of the currently active registration version"
+                description: "Version ID of the current active registration"
             registration_policy:
                 range: RegistrationPolicy
-                description: "Policy rules for registration management"
+                description: "Policy governing registration requirements"
+            registration_quality_control:
+                range: RegistrationQualityControl
+                description: "Quality control measures for the registration process"
+            registration_statistics:
+                range: RegistrationStatistics
+                description: "Statistics about the registration process"
 
     Registration:
         description: "A registration entry referencing an external registry, with full versioning support."
@@ -256,8 +271,98 @@ classes:
                 range: string
                 description: "Person or entity who approved the amendment"
 
+    RegistrationProtocol:
+        is_a: StageProtocol
+        description: "Protocol defining the registration approach and requirements"
+        slots:
+            - registration_timing
+            - registration_platforms
+            - registration_update_policy
+            - transparency_commitments
+            - embargo_period
+        slot_usage:
+            registration_timing:
+                range: string
+                required: true
+                description: "When registration should occur (e.g., before data collection)"
+            registration_platforms:
+                range: string
+                multivalued: true
+                required: true
+                description: "Platforms where the protocol will be registered"
+            registration_update_policy:
+                range: string
+                description: "Policy for updating registrations"
+            transparency_commitments:
+                range: string
+                multivalued: true
+                description: "Commitments to transparency and open science"
+            embargo_period:
+                range: string
+                description: "Any embargo period for the registration"
+
+    RegistrationQualityControl:
+        is_a: StageQualityControl
+        description: "Quality control measures for the registration process"
+        slots:
+            - registration_completeness_check
+            - registration_accuracy_verification
+            - version_control_audit
+            - amendment_review_process
+        slot_usage:
+            registration_completeness_check:
+                range: boolean
+                description: "Whether registration completeness was verified"
+            registration_accuracy_verification:
+                range: boolean
+                description: "Whether registration accuracy was verified"
+            version_control_audit:
+                range: string
+                description: "Audit trail for version control"
+            amendment_review_process:
+                range: string
+                description: "Process for reviewing amendments"
+
+    RegistrationStatistics:
+        is_a: StageStatistics
+        description: "Statistics about the registration process"
+        slots:
+            - total_registrations
+            - total_versions
+            - total_amendments
+            - days_to_first_registration
+            - average_days_between_versions
+            - registration_compliance_rate
+        slot_usage:
+            base_total_items:
+                range: integer
+                required: true
+                description: "Total number of registration versions"
+            total_registrations:
+                range: integer
+                required: true
+                description: "Total number of registrations created"
+            total_versions:
+                range: integer
+                required: true
+                description: "Total number of registration versions"
+            total_amendments:
+                range: integer
+                description: "Total number of amendments"
+            days_to_first_registration:
+                range: integer
+                description: "Days from protocol creation to first registration"
+            average_days_between_versions:
+                range: float
+                description: "Average days between registration versions"
+            registration_compliance_rate:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Rate of compliance with registration requirements"
+
     RegistrationPolicy:
-        description: "Policy rules for registration management, can be customized by profiles."
+        description: "Policy governing registration requirements and constraints"
         slots:
             - require_doi
             - require_content_hash
@@ -310,6 +415,66 @@ slots:
     registration_policy:
         description: "Policy governing registration amendments and changes"
         range: RegistrationPolicy
+
+    # RegistrationProtocol slots
+    registration_protocol:
+        description: "Protocol defining the registration approach"
+        range: RegistrationProtocol
+    registration_timing:
+        description: "When registration should occur"
+        range: string
+    registration_platforms:
+        description: "Platforms where protocol will be registered"
+        range: string
+    registration_update_policy:
+        description: "Policy for updating registrations"
+        range: string
+    transparency_commitments:
+        description: "Commitments to transparency and open science"
+        range: string
+    embargo_period:
+        description: "Any embargo period for the registration"
+        range: string
+
+    # RegistrationQualityControl slots
+    registration_quality_control:
+        description: "Quality control for registration process"
+        range: RegistrationQualityControl
+    registration_completeness_check:
+        description: "Whether registration completeness was verified"
+        range: boolean
+    registration_accuracy_verification:
+        description: "Whether registration accuracy was verified"
+        range: boolean
+    version_control_audit:
+        description: "Audit trail for version control"
+        range: string
+    amendment_review_process:
+        description: "Process for reviewing amendments"
+        range: string
+
+    # RegistrationStatistics slots
+    registration_statistics:
+        description: "Statistics about the registration process"
+        range: RegistrationStatistics
+    total_registrations:
+        description: "Total number of registrations created"
+        range: integer
+    total_versions:
+        description: "Total number of registration versions"
+        range: integer
+    total_amendments:
+        description: "Total number of amendments"
+        range: integer
+    days_to_first_registration:
+        description: "Days from protocol creation to first registration"
+        range: integer
+    average_days_between_versions:
+        description: "Average days between registration versions"
+        range: float
+    registration_compliance_rate:
+        description: "Rate of compliance with registration requirements"
+        range: float
     stage_registration_id:
         description: "Unique identifier for the stage registration"
         range: string

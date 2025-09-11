@@ -18,6 +18,9 @@ imports:
     - ../objects/field_definition
     - ../objects/quality_assessment
     - ../objects/enums
+    - ../objects/stage_protocol
+    - ../objects/stage_quality_control
+    - ../objects/stage_statistics
 
 classes:
     ScreeningStage:
@@ -403,9 +406,9 @@ classes:
                 description: "Additional notes about the criteria"
 
     ScreeningProtocol:
+        is_a: StageProtocol
         description: "Protocol defining the screening process"
         slots:
-            - protocol_id
             - minimum_reviewers_per_record
             - require_consensus
             - blind_screening
@@ -414,12 +417,7 @@ classes:
             - conflict_resolution_strategy
             - screening_order
             - screening_batch_size
-            - protocol_notes
         slot_usage:
-            protocol_id:
-                range: string
-                identifier: true
-                description: "Unique identifier for the protocol"
             minimum_reviewers_per_record:
                 range: integer
                 required: true
@@ -445,9 +443,6 @@ classes:
             screening_batch_size:
                 range: integer
                 description: "Number of records per batch"
-            protocol_notes:
-                range: string
-                description: "Additional protocol notes"
 
     RoundStatistics:
         description: "Statistics for a screening round"
@@ -464,6 +459,10 @@ classes:
             - conflicts_count
             - conflicts_resolved
         slot_usage:
+            base_total_items:
+                range: integer
+                required: true
+                description: "Total number of records to screen"
             total_records_screened:
                 range: integer
                 required: true
@@ -501,8 +500,24 @@ classes:
                 range: integer
                 description: "Number of conflicts resolved"
 
+    ScreeningQualityControl:
+        is_a: StageQualityControl
+        description: "Quality control for screening process"
+        slots:
+            - pilot_agreement_achieved
+            - screening_consistency_checks
+        slot_usage:
+            pilot_agreement_achieved:
+                range: float
+                description: "Agreement level achieved in pilot screening"
+            screening_consistency_checks:
+                range: string
+                multivalued: true
+                description: "Consistency checks performed during screening"
+
     ScreeningStatistics:
-        description: "Overall statistics for the entire screening stage"
+        is_a: StageStatistics
+        description: "Overall statistics for the screening stage"
         slots:
             - initial_records_count
             - post_dedup_count
@@ -792,10 +807,7 @@ slots:
         description: "End date of the date range"
         range: date
 
-    # Screening protocol slots
-    protocol_id:
-        description: "Unique identifier for the screening protocol"
-        range: string
+    # Screening protocol slots (screening-specific only, others inherited from StageProtocol)
     minimum_reviewers_per_record:
         description: "Minimum number of reviewers required per record"
         range: integer
@@ -822,10 +834,8 @@ slots:
     screening_batch_size:
         description: "Number of records in each screening batch"
         range: integer
-    protocol_notes:
-        description: "Additional notes about the screening protocol"
-        range: string
 
+    # ScreeningForm slots
     # Round statistics slots
     total_records_screened:
         description: "Total number of records screened in this round"
@@ -892,6 +902,14 @@ slots:
     cost_estimate:
         description: "Estimated cost of the screening process"
         range: float
+
+    # ScreeningQualityControl slots
+    pilot_agreement_achieved:
+        description: "Agreement level achieved in pilot screening"
+        range: float
+    screening_consistency_checks:
+        description: "Consistency checks performed during screening"
+        range: string
 
 enums:
     DeduplicationMethod:

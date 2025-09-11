@@ -9,15 +9,24 @@ imports:
     - linkml:types
     - ../review_core
     - ../objects/literature_record
+    - ../objects/stage_protocol
+    - ../objects/stage_quality_control
+    - ../objects/stage_statistics
 classes:
     SearchStage:
         is_a: StageExecution
         description: "Executing literature search strategies."
         slots:
+            - search_protocol
             - databases
             - search_queries
             - result_collections
+            - search_quality_control
+            - search_statistics
         slot_usage:
+            search_protocol:
+                range: SearchProtocol
+                description: "Protocol defining the search strategy and approach"
             databases:
                 range: Database
                 multivalued: true
@@ -30,6 +39,110 @@ classes:
                 range: LiteratureRecordCollection
                 multivalued: true
                 description: "Collections of literature records resulting from searches"
+            search_quality_control:
+                range: SearchQualityControl
+                description: "Quality control measures for the search process"
+            search_statistics:
+                range: SearchStatistics
+                description: "Statistics about the search process"
+
+    SearchProtocol:
+        is_a: StageProtocol
+        description: "Protocol defining the search strategy and approach"
+        slots:
+            - search_strategy_description
+            - peer_review_search_strategy
+            - search_limits
+            - language_restrictions
+            - date_restrictions
+            - publication_type_restrictions
+            - grey_literature_approach
+        slot_usage:
+            search_strategy_description:
+                range: string
+                required: true
+                description: "Detailed description of the search strategy"
+            peer_review_search_strategy:
+                range: boolean
+                description: "Whether the search strategy was peer-reviewed (PRESS)"
+            search_limits:
+                range: string
+                multivalued: true
+                description: "Limits applied to searches (e.g., human studies only)"
+            language_restrictions:
+                range: string
+                multivalued: true
+                description: "Language restrictions applied to searches"
+            date_restrictions:
+                range: string
+                description: "Date range restrictions for searches"
+            publication_type_restrictions:
+                range: string
+                multivalued: true
+                description: "Publication type restrictions (e.g., RCTs only)"
+            grey_literature_approach:
+                range: string
+                description: "Approach for searching grey literature"
+
+    SearchQualityControl:
+        is_a: StageQualityControl
+        description: "Quality control measures for the search process"
+        slots:
+            - search_strategy_validation
+            - search_reproducibility_check
+            - search_completeness_assessment
+            - search_update_schedule
+        slot_usage:
+            search_strategy_validation:
+                range: string
+                description: "How the search strategy was validated"
+            search_reproducibility_check:
+                range: boolean
+                description: "Whether search reproducibility was verified"
+            search_completeness_assessment:
+                range: string
+                description: "Assessment of search completeness"
+            search_update_schedule:
+                range: string
+                description: "Schedule for updating searches"
+
+    SearchStatistics:
+        is_a: StageStatistics
+        description: "Statistics about the search process"
+        slots:
+            - total_databases_searched
+            - total_queries_executed
+            - total_records_retrieved
+            - unique_records_after_dedup
+            - grey_literature_sources
+            - supplementary_search_methods
+        slot_usage:
+            base_total_items:
+                range: integer
+                required: true
+                description: "Total number of records retrieved from all searches"
+            total_databases_searched:
+                range: integer
+                required: true
+                description: "Number of databases searched"
+            total_queries_executed:
+                range: integer
+                required: true
+                description: "Total number of search queries executed"
+            total_records_retrieved:
+                range: integer
+                required: true
+                description: "Total number of records retrieved before deduplication"
+            unique_records_after_dedup:
+                range: integer
+                description: "Number of unique records after deduplication"
+            grey_literature_sources:
+                range: integer
+                description: "Number of grey literature sources searched"
+            supplementary_search_methods:
+                range: string
+                multivalued: true
+                description: "Supplementary search methods used (e.g., citation searching, hand searching)"
 
     Database:
         description: "Information about a database used for searching"
@@ -101,6 +214,75 @@ classes:
                 description: "Additional notes about the query or its execution"
 
 slots:
+    # SearchStage slots
+    search_protocol:
+        description: "Protocol defining the search strategy"
+        range: SearchProtocol
+    search_quality_control:
+        description: "Quality control for search process"
+        range: SearchQualityControl
+    search_statistics:
+        description: "Statistics about the search process"
+        range: SearchStatistics
+
+    # SearchProtocol slots
+    search_strategy_description:
+        description: "Detailed description of the search strategy"
+        range: string
+    peer_review_search_strategy:
+        description: "Whether the search strategy was peer-reviewed"
+        range: boolean
+    search_limits:
+        description: "Limits applied to searches"
+        range: string
+    language_restrictions:
+        description: "Language restrictions for searches"
+        range: string
+    date_restrictions:
+        description: "Date range restrictions for searches"
+        range: string
+    publication_type_restrictions:
+        description: "Publication type restrictions"
+        range: string
+    grey_literature_approach:
+        description: "Approach for searching grey literature"
+        range: string
+
+    # SearchQualityControl slots
+    search_strategy_validation:
+        description: "How the search strategy was validated"
+        range: string
+    search_reproducibility_check:
+        description: "Whether search reproducibility was verified"
+        range: boolean
+    search_completeness_assessment:
+        description: "Assessment of search completeness"
+        range: string
+    search_update_schedule:
+        description: "Schedule for updating searches"
+        range: string
+
+    # SearchStatistics slots
+    total_databases_searched:
+        description: "Number of databases searched"
+        range: integer
+    total_queries_executed:
+        description: "Total number of search queries executed"
+        range: integer
+    total_records_retrieved:
+        description: "Total records retrieved before deduplication"
+        range: integer
+    unique_records_after_dedup:
+        description: "Unique records after deduplication"
+        range: integer
+    grey_literature_sources:
+        description: "Number of grey literature sources"
+        range: integer
+    supplementary_search_methods:
+        description: "Supplementary search methods used"
+        range: string
+
+    # Database slots
     database_name:
         description: "Name of the database being searched"
         range: string
@@ -116,6 +298,8 @@ slots:
     database_notes:
         description: "Additional notes about the database or access limitations"
         range: string
+
+    # SearchQuery slots
     query_id:
         description: "Unique identifier for the search query"
         range: string
@@ -137,6 +321,8 @@ slots:
     query_notes:
         description: "Additional notes about the query or its execution"
         range: string
+
+    # Collections
     databases:
         description: "List of databases used for literature searching"
         range: Database

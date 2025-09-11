@@ -27,6 +27,9 @@ These are the fundamental building blocks of a systematic review:
 - **[Software Environment](objects/software_env/)** - Computational environment specifications
 - **[Stage Execution](objects/stage_execution/)** - Base class for all review stages
 - **[Stage Output](objects/stage_output/)** - Outputs from stage executions
+- **[Stage Protocol](objects/stage_protocol/)** - Base protocol class for all stages
+- **[Stage Quality Control](objects/stage_quality_control/)** - Base quality control for all stages
+- **[Stage Statistics](objects/stage_statistics/)** - Base statistics for all stages
 - **[Work Session](objects/work_session/)** - Work session tracking and metrics
 - **[Enumerations](objects/enums/)** - Controlled vocabularies and value sets
 
@@ -37,6 +40,7 @@ These represent the sequential phases of a systematic review:
 - **[Search](stages/search/)** - Literature search strategy and execution
 - **[Screening](stages/screening/)** - Title/abstract and full-text screening
 - **[Extraction](stages/extraction/)** - Data extraction from included studies
+- **[Synthesis](stages/synthesis/)** - Data synthesis and meta-analysis
 
 ## Schema Features
 
@@ -105,6 +109,7 @@ Use the version selector at the bottom of the page to access documentation for d
 | [Search Stage](stages/search/) | Search strategy and execution | Search documentation |
 | [Screening Stage](stages/screening/) | Study selection process | Screening documentation |
 | [Extraction Stage](stages/extraction/) | Data extraction process | Extraction documentation |
+| [Synthesis Stage](stages/synthesis/) | Data synthesis and meta-analysis | Synthesis documentation |
 
 ## Schema Extensions
 

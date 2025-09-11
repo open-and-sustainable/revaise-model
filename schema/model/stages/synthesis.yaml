@@ -1,0 +1,1386 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/stages/synthesis
+name: synthesis_stage
+description: "Synthesis stage for systematic reviews, covering both narrative and quantitative synthesis methods"
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+
+imports:
+    - linkml:types
+    - ../objects/stage_execution
+    - ../objects/stage_output
+    - ../objects/ai_assistance
+    - ../objects/external_tool
+    - ../objects/work_session
+    - ../objects/participant
+    - ../objects/quality_metrics
+    - ../objects/conflict_resolution
+    - ../objects/author
+    - ../objects/enums
+    - ../objects/stage_protocol
+    - ../objects/stage_quality_control
+    - ../objects/stage_statistics
+
+classes:
+    SynthesisStage:
+        is_a: StageExecution
+        description: "Stage for synthesizing evidence from included studies"
+        slots:
+            - synthesis_protocol
+            - synthesis_methods
+            - narrative_synthesis
+            - meta_analyses
+            - subgroup_analyses
+            - sensitivity_analyses
+            - publication_bias_assessment
+            - evidence_grading
+            - synthesis_quality_control
+            - synthesis_statistics
+            - synthesis_visualizations
+            - ai_assistance_config
+        slot_usage:
+            synthesis_protocol:
+                range: SynthesisProtocol
+                required: true
+                description: "Protocol defining how synthesis will be conducted"
+            synthesis_methods:
+                range: SynthesisMethod
+                multivalued: true
+                required: true
+                description: "Methods used for evidence synthesis"
+            narrative_synthesis:
+                range: NarrativeSynthesis
+                description: "Narrative synthesis results if performed"
+            meta_analyses:
+                range: MetaAnalysis
+                multivalued: true
+                description: "Meta-analyses performed on the data"
+            subgroup_analyses:
+                range: SubgroupAnalysis
+                multivalued: true
+                description: "Subgroup analyses conducted"
+            sensitivity_analyses:
+                range: SensitivityAnalysis
+                multivalued: true
+                description: "Sensitivity analyses performed"
+            publication_bias_assessment:
+                range: PublicationBiasAssessment
+                description: "Assessment of publication bias"
+            evidence_grading:
+                range: EvidenceGrading
+                multivalued: true
+                description: "Grading of evidence quality/certainty"
+            synthesis_quality_control:
+                range: SynthesisQualityControl
+                description: "Quality control measures for synthesis"
+            synthesis_statistics:
+                range: SynthesisStatistics
+                description: "Statistics about the synthesis process"
+            synthesis_visualizations:
+                range: StageOutput
+                multivalued: true
+                description: "Visualizations produced (forest plots, funnel plots, etc.)"
+            ai_assistance_config:
+                range: AIAssistance
+                description: "AI assistance configuration for synthesis"
+
+    SynthesisProtocol:
+        is_a: StageProtocol
+        description: "Protocol defining synthesis approach and methods"
+        slots:
+            - synthesis_approach
+            - planned_comparisons
+            - effect_measures
+            - heterogeneity_assessment
+            - data_transformation_rules
+            - missing_data_strategy
+        slot_usage:
+            synthesis_approach:
+                range: SynthesisApproach
+                required: true
+                multivalued: true
+                description: "Overall approach to synthesis (narrative, quantitative, mixed)"
+            planned_comparisons:
+                range: string
+                multivalued: true
+                description: "Planned comparisons and contrasts"
+            effect_measures:
+                range: EffectMeasure
+                multivalued: true
+                description: "Effect measures to be synthesized"
+            heterogeneity_assessment:
+                range: string
+                description: "Approach to assessing heterogeneity"
+            data_transformation_rules:
+                range: string
+                multivalued: true
+                description: "Rules for transforming data for synthesis"
+            missing_data_strategy:
+                range: MissingDataStrategy
+                description: "Strategy for handling missing data"
+
+    SynthesisMethod:
+        description: "Specific method used for synthesis"
+        slots:
+            - method_id
+            - method_type
+            - method_name
+            - method_description
+            - method_justification
+            - method_assumptions
+            - method_limitations
+            - method_reference
+        slot_usage:
+            method_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this method"
+            method_type:
+                range: SynthesisMethodType
+                required: true
+                description: "Type of synthesis method"
+            method_name:
+                range: string
+                required: true
+                description: "Name of the specific method"
+            method_description:
+                range: string
+                description: "Detailed description of the method"
+            method_justification:
+                range: string
+                description: "Justification for using this method"
+            method_assumptions:
+                range: string
+                multivalued: true
+                description: "Assumptions made by this method"
+            method_limitations:
+                range: string
+                multivalued: true
+                description: "Limitations of this method"
+            method_reference:
+                range: string
+                description: "Reference for this method"
+
+    NarrativeSynthesis:
+        description: "Results from narrative synthesis"
+        slots:
+            - synthesis_id
+            - synthesis_framework
+            - synthesis_themes
+            - synthesis_patterns
+            - synthesis_text
+            - supporting_tables
+            - synthesis_sessions
+            - synthesist_ids
+            - synthesis_confidence
+            - ai_synthesis_session
+        slot_usage:
+            synthesis_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this narrative synthesis"
+            synthesis_framework:
+                range: string
+                description: "Framework used for narrative synthesis"
+            synthesis_themes:
+                range: SynthesisTheme
+                multivalued: true
+                description: "Themes identified in the synthesis"
+            synthesis_patterns:
+                range: string
+                multivalued: true
+                description: "Patterns identified across studies"
+            synthesis_text:
+                range: string
+                required: true
+                description: "Main narrative synthesis text"
+            supporting_tables:
+                range: StageOutput
+                multivalued: true
+                description: "Supporting tables and summaries"
+            synthesis_sessions:
+                range: WorkSession
+                multivalued: true
+                description: "Work sessions for this synthesis"
+            synthesist_ids:
+                range: string
+                multivalued: true
+                required: true
+                description: "IDs of people who conducted synthesis"
+            synthesis_confidence:
+                range: ConfidenceLevel
+                description: "Confidence in synthesis conclusions"
+            ai_synthesis_session:
+                range: AISession
+                description: "AI assistance session if used"
+
+    SynthesisTheme:
+        description: "Theme identified in narrative synthesis"
+        slots:
+            - theme_id
+            - theme_name
+            - theme_description
+            - supporting_studies
+            - theme_strength
+            - theme_notes
+        slot_usage:
+            theme_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this theme"
+            theme_name:
+                range: string
+                required: true
+                description: "Name of the theme"
+            theme_description:
+                range: string
+                description: "Description of the theme"
+            supporting_studies:
+                range: string
+                multivalued: true
+                description: "Study IDs supporting this theme"
+            theme_strength:
+                range: EvidenceStrength
+                description: "Strength of evidence for this theme"
+            theme_notes:
+                range: string
+                description: "Additional notes about the theme"
+
+    MetaAnalysis:
+        description: "Results from a meta-analysis"
+        slots:
+            - analysis_id
+            - analysis_name
+            - outcome_measure
+            - comparison_groups
+            - included_studies
+            - effect_size
+            - confidence_interval_lower
+            - confidence_interval_upper
+            - p_value
+            - heterogeneity_statistics
+            - model_type
+            - forest_plot_output
+            - analysis_sessions
+            - analyst_ids
+            - analysis_notes
+            - ai_analysis_session
+        slot_usage:
+            analysis_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this meta-analysis"
+            analysis_name:
+                range: string
+                required: true
+                description: "Name of the meta-analysis"
+            outcome_measure:
+                range: string
+                required: true
+                description: "Outcome measure being analyzed"
+            comparison_groups:
+                range: string
+                multivalued: true
+                required: true
+                description: "Groups being compared"
+            included_studies:
+                range: string
+                multivalued: true
+                required: true
+                description: "Study IDs included in this analysis"
+            effect_size:
+                range: float
+                required: true
+                description: "Pooled effect size"
+            confidence_interval_lower:
+                range: float
+                required: true
+                description: "Lower bound of confidence interval"
+            confidence_interval_upper:
+                range: float
+                required: true
+                description: "Upper bound of confidence interval"
+            p_value:
+                range: float
+                description: "P-value for the pooled effect"
+            heterogeneity_statistics:
+                range: HeterogeneityStatistics
+                description: "Heterogeneity statistics (I², Q, tau²)"
+            model_type:
+                range: MetaAnalysisModel
+                required: true
+                description: "Type of model used (fixed/random effects)"
+            forest_plot_output:
+                range: StageOutput
+                description: "Forest plot visualization"
+            analysis_sessions:
+                range: WorkSession
+                multivalued: true
+                description: "Work sessions for this analysis"
+            analyst_ids:
+                range: string
+                multivalued: true
+                required: true
+                description: "IDs of analysts"
+            analysis_notes:
+                range: string
+                description: "Additional notes about the analysis"
+            ai_analysis_session:
+                range: AISession
+                description: "AI assistance session if used"
+
+    HeterogeneityStatistics:
+        description: "Statistics measuring heterogeneity in meta-analysis"
+        slots:
+            - i_squared
+            - tau_squared
+            - q_statistic
+            - q_p_value
+            - prediction_interval_lower
+            - prediction_interval_upper
+        slot_usage:
+            i_squared:
+                range: float
+                description: "I² statistic (percentage of variation due to heterogeneity)"
+            tau_squared:
+                range: float
+                description: "Tau² (between-study variance)"
+            q_statistic:
+                range: float
+                description: "Cochran's Q statistic"
+            q_p_value:
+                range: float
+                description: "P-value for Q statistic"
+            prediction_interval_lower:
+                range: float
+                description: "Lower bound of prediction interval"
+            prediction_interval_upper:
+                range: float
+                description: "Upper bound of prediction interval"
+
+    SubgroupAnalysis:
+        description: "Subgroup analysis within meta-analysis"
+        slots:
+            - subgroup_id
+            - parent_analysis_id
+            - subgroup_variable
+            - subgroup_categories
+            - subgroup_results
+            - heterogeneity_between_groups
+            - interaction_test_p_value
+            - subgroup_notes
+        slot_usage:
+            subgroup_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this subgroup analysis"
+            parent_analysis_id:
+                range: string
+                required: true
+                description: "ID of parent meta-analysis"
+            subgroup_variable:
+                range: string
+                required: true
+                description: "Variable used for subgrouping"
+            subgroup_categories:
+                range: string
+                multivalued: true
+                required: true
+                description: "Categories within the subgroup variable"
+            subgroup_results:
+                range: SubgroupResult
+                multivalued: true
+                description: "Results for each subgroup"
+            heterogeneity_between_groups:
+                range: float
+                description: "Heterogeneity between subgroups"
+            interaction_test_p_value:
+                range: float
+                description: "P-value for test of subgroup differences"
+            subgroup_notes:
+                range: string
+                description: "Notes about the subgroup analysis"
+
+    SubgroupResult:
+        description: "Result for a specific subgroup"
+        slots:
+            - subgroup_name
+            - n_studies
+            - effect_size
+            - confidence_interval_lower
+            - confidence_interval_upper
+            - p_value
+            - i_squared
+        slot_usage:
+            subgroup_name:
+                range: string
+                required: true
+                description: "Name of the subgroup"
+            n_studies:
+                range: integer
+                required: true
+                description: "Number of studies in this subgroup"
+            effect_size:
+                range: float
+                required: true
+                description: "Effect size for this subgroup"
+            confidence_interval_lower:
+                range: float
+                required: true
+                description: "Lower CI bound"
+            confidence_interval_upper:
+                range: float
+                required: true
+                description: "Upper CI bound"
+            p_value:
+                range: float
+                description: "P-value for this subgroup"
+            i_squared:
+                range: float
+                description: "I² for this subgroup"
+
+    SensitivityAnalysis:
+        description: "Sensitivity analysis to test robustness of results"
+        slots:
+            - sensitivity_id
+            - parent_analysis_id
+            - sensitivity_type
+            - sensitivity_description
+            - studies_excluded
+            - studies_included
+            - original_effect
+            - sensitivity_effect
+            - effect_change_percentage
+            - conclusion_changed
+            - sensitivity_notes
+        slot_usage:
+            sensitivity_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this sensitivity analysis"
+            parent_analysis_id:
+                range: string
+                required: true
+                description: "ID of parent analysis"
+            sensitivity_type:
+                range: SensitivityType
+                required: true
+                description: "Type of sensitivity analysis"
+            sensitivity_description:
+                range: string
+                description: "Description of what was tested"
+            studies_excluded:
+                range: string
+                multivalued: true
+                description: "Studies excluded in this analysis"
+            studies_included:
+                range: string
+                multivalued: true
+                description: "Studies included in this analysis"
+            original_effect:
+                range: float
+                required: true
+                description: "Original effect size"
+            sensitivity_effect:
+                range: float
+                required: true
+                description: "Effect size after sensitivity analysis"
+            effect_change_percentage:
+                range: float
+                description: "Percentage change in effect"
+            conclusion_changed:
+                range: boolean
+                description: "Whether conclusions changed"
+            sensitivity_notes:
+                range: string
+                description: "Notes about the sensitivity analysis"
+
+    PublicationBiasAssessment:
+        description: "Assessment of publication bias"
+        slots:
+            - bias_assessment_id
+            - assessment_methods
+            - funnel_plot_output
+            - eggers_test_result
+            - beggs_test_result
+            - trim_fill_result
+            - failsafe_n
+            - selection_models
+            - bias_conclusion
+            - bias_impact
+            - bias_assessment_notes
+        slot_usage:
+            bias_assessment_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this assessment"
+            assessment_methods:
+                range: PublicationBiasMethod
+                multivalued: true
+                required: true
+                description: "Methods used to assess publication bias"
+            funnel_plot_output:
+                range: StageOutput
+                description: "Funnel plot visualization"
+            eggers_test_result:
+                range: StatisticalTestResult
+                description: "Result of Egger's test"
+            beggs_test_result:
+                range: StatisticalTestResult
+                description: "Result of Begg's test"
+            trim_fill_result:
+                range: TrimFillResult
+                description: "Result of trim and fill analysis"
+            failsafe_n:
+                range: integer
+                description: "Fail-safe N calculation"
+            selection_models:
+                range: string
+                multivalued: true
+                description: "Selection model results"
+            bias_conclusion:
+                range: BiasRisk
+                description: "Overall conclusion about publication bias"
+            bias_impact:
+                range: string
+                description: "Impact of bias on conclusions"
+            bias_assessment_notes:
+                range: string
+                description: "Notes about the assessment"
+
+    StatisticalTestResult:
+        description: "Result of a statistical test"
+        slots:
+            - test_statistic
+            - p_value
+            - confidence_interval_lower
+            - confidence_interval_upper
+            - interpretation
+        slot_usage:
+            test_statistic:
+                range: float
+                required: true
+                description: "Test statistic value"
+            p_value:
+                range: float
+                required: true
+                description: "P-value"
+            confidence_interval_lower:
+                range: float
+                description: "Lower CI bound"
+            confidence_interval_upper:
+                range: float
+                description: "Upper CI bound"
+            interpretation:
+                range: string
+                description: "Interpretation of the result"
+
+    TrimFillResult:
+        description: "Result of trim and fill analysis"
+        slots:
+            - studies_trimmed
+            - studies_filled
+            - adjusted_effect
+            - adjusted_ci_lower
+            - adjusted_ci_upper
+            - adjustment_direction
+        slot_usage:
+            studies_trimmed:
+                range: integer
+                description: "Number of studies trimmed"
+            studies_filled:
+                range: integer
+                description: "Number of studies filled"
+            adjusted_effect:
+                range: float
+                description: "Adjusted effect size"
+            adjusted_ci_lower:
+                range: float
+                description: "Adjusted lower CI"
+            adjusted_ci_upper:
+                range: float
+                description: "Adjusted upper CI"
+            adjustment_direction:
+                range: string
+                description: "Direction of adjustment"
+
+    EvidenceGrading:
+        description: "Grading of evidence quality/certainty"
+        slots:
+            - grading_id
+            - outcome_assessed
+            - grading_system
+            - initial_quality
+            - final_quality
+            - quality_domains
+            - downgrade_reasons
+            - upgrade_reasons
+            - grading_notes
+            - grader_ids
+            - grading_date
+        slot_usage:
+            grading_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this grading"
+            outcome_assessed:
+                range: string
+                required: true
+                description: "Outcome being graded"
+            grading_system:
+                range: GradingSystem
+                required: true
+                description: "System used for grading (e.g., GRADE)"
+            initial_quality:
+                range: EvidenceQuality
+                required: true
+                description: "Initial quality rating"
+            final_quality:
+                range: EvidenceQuality
+                required: true
+                description: "Final quality rating after adjustments"
+            quality_domains:
+                range: QualityDomain
+                multivalued: true
+                description: "Assessment of individual quality domains"
+            downgrade_reasons:
+                range: string
+                multivalued: true
+                description: "Reasons for downgrading"
+            upgrade_reasons:
+                range: string
+                multivalued: true
+                description: "Reasons for upgrading"
+            grading_notes:
+                range: string
+                description: "Notes about the grading"
+            grader_ids:
+                range: string
+                multivalued: true
+                required: true
+                description: "IDs of people who performed grading"
+            grading_date:
+                range: date
+                description: "Date of grading"
+
+    QualityDomain:
+        description: "Individual quality domain assessment"
+        slots:
+            - quality_domain_name
+            - quality_domain_rating
+            - quality_domain_justification
+        slot_usage:
+            quality_domain_name:
+                range: string
+                required: true
+                description: "Name of the quality domain"
+            quality_domain_rating:
+                range: DomainRating
+                required: true
+                description: "Rating for this domain"
+            quality_domain_justification:
+                range: string
+                description: "Justification for the rating"
+
+    SynthesisQualityControl:
+        is_a: StageQualityControl
+        description: "Quality control for synthesis process"
+        slots:
+            - calculation_verification
+            - code_review
+            - external_review
+            - transparency_measures
+        slot_usage:
+            calculation_verification:
+                range: string
+                multivalued: true
+                description: "Methods used to verify calculations"
+            code_review:
+                range: boolean
+                description: "Whether analysis code was reviewed"
+            external_review:
+                range: boolean
+                description: "Whether external review was conducted"
+            transparency_measures:
+                range: string
+                multivalued: true
+                description: "Measures taken to ensure transparency"
+
+    SynthesisStatistics:
+        is_a: StageStatistics
+        description: "Statistics about the synthesis process"
+        slots:
+            - total_studies_synthesized
+            - total_participants
+            - total_outcomes_analyzed
+            - narrative_syntheses_count
+            - meta_analyses_count
+            - subgroup_analyses_count
+            - sensitivity_analyses_count
+        slot_usage:
+            base_total_items:
+                range: integer
+                required: true
+                description: "Total number of studies to synthesize"
+            total_studies_synthesized:
+                range: integer
+                required: true
+                description: "Total number of studies synthesized"
+            total_participants:
+                range: integer
+                description: "Total participants across all studies"
+            total_outcomes_analyzed:
+                range: integer
+                description: "Number of outcomes analyzed"
+            narrative_syntheses_count:
+                range: integer
+                description: "Number of narrative syntheses performed"
+            meta_analyses_count:
+                range: integer
+                description: "Number of meta-analyses performed"
+            subgroup_analyses_count:
+                range: integer
+                description: "Number of subgroup analyses"
+            sensitivity_analyses_count:
+                range: integer
+                description: "Number of sensitivity analyses"
+
+# Define all slots
+slots:
+    # SynthesisStage slots
+    synthesis_protocol:
+        description: "Protocol for synthesis"
+        range: SynthesisProtocol
+    synthesis_methods:
+        description: "Methods used for synthesis"
+        range: SynthesisMethod
+    narrative_synthesis:
+        description: "Narrative synthesis results"
+        range: NarrativeSynthesis
+    meta_analyses:
+        description: "Meta-analyses performed"
+        range: MetaAnalysis
+    subgroup_analyses:
+        description: "Subgroup analyses"
+        range: SubgroupAnalysis
+    sensitivity_analyses:
+        description: "Sensitivity analyses"
+        range: SensitivityAnalysis
+    publication_bias_assessment:
+        description: "Publication bias assessment"
+        range: PublicationBiasAssessment
+    evidence_grading:
+        description: "Evidence quality grading"
+        range: EvidenceGrading
+    synthesis_quality_control:
+        description: "Quality control for synthesis"
+        range: SynthesisQualityControl
+    synthesis_statistics:
+        description: "Synthesis statistics"
+        range: SynthesisStatistics
+    synthesis_visualizations:
+        description: "Synthesis visualizations"
+        range: StageOutput
+
+    # Protocol slots (synthesis-specific only, others inherited from StageProtocol)
+    synthesis_approach:
+        description: "Approach to synthesis"
+        range: SynthesisApproach
+    planned_comparisons:
+        description: "Planned comparisons"
+        range: string
+    effect_measures:
+        description: "Effect measures"
+        range: EffectMeasure
+    heterogeneity_assessment:
+        description: "Heterogeneity assessment approach"
+        range: string
+    data_transformation_rules:
+        description: "Data transformation rules"
+        range: string
+    missing_data_strategy:
+        description: "Missing data strategy"
+        range: MissingDataStrategy
+
+    # Method slots
+    method_id:
+        description: "Method identifier"
+        range: string
+    method_type:
+        description: "Type of method"
+        range: SynthesisMethodType
+    method_name:
+        description: "Method name"
+        range: string
+    method_description:
+        description: "Method description"
+        range: string
+    method_justification:
+        description: "Justification for method"
+        range: string
+    method_assumptions:
+        description: "Method assumptions"
+        range: string
+    method_limitations:
+        description: "Method limitations"
+        range: string
+    method_reference:
+        description: "Method reference"
+        range: string
+
+    # Narrative synthesis slots
+    synthesis_id:
+        description: "Synthesis identifier"
+        range: string
+    synthesis_framework:
+        description: "Synthesis framework"
+        range: string
+    synthesis_themes:
+        description: "Synthesis themes"
+        range: SynthesisTheme
+    synthesis_patterns:
+        description: "Patterns identified"
+        range: string
+    synthesis_text:
+        description: "Synthesis text"
+        range: string
+    supporting_tables:
+        description: "Supporting tables"
+        range: StageOutput
+    synthesis_sessions:
+        description: "Work sessions"
+        range: WorkSession
+    synthesist_ids:
+        description: "Synthesist identifiers"
+        range: string
+    synthesis_confidence:
+        description: "Confidence in synthesis"
+        range: ConfidenceLevel
+    ai_synthesis_session:
+        description: "AI session for synthesis"
+        range: AISession
+
+    # Theme slots
+    theme_id:
+        description: "Theme identifier"
+        range: string
+    theme_name:
+        description: "Theme name"
+        range: string
+    theme_description:
+        description: "Theme description"
+        range: string
+    supporting_studies:
+        description: "Supporting studies"
+        range: string
+    theme_strength:
+        description: "Theme strength"
+        range: EvidenceStrength
+    theme_notes:
+        description: "Theme notes"
+        range: string
+
+    # Meta-analysis slots
+    analysis_id:
+        description: "Analysis identifier"
+        range: string
+    analysis_name:
+        description: "Analysis name"
+        range: string
+    outcome_measure:
+        description: "Outcome measure"
+        range: string
+    comparison_groups:
+        description: "Comparison groups"
+        range: string
+    included_studies:
+        description: "Included studies"
+        range: string
+    effect_size:
+        description: "Effect size"
+        range: float
+    confidence_interval_lower:
+        description: "Lower CI"
+        range: float
+    confidence_interval_upper:
+        description: "Upper CI"
+        range: float
+    p_value:
+        description: "P-value"
+        range: float
+    heterogeneity_statistics:
+        description: "Heterogeneity statistics"
+        range: HeterogeneityStatistics
+    model_type:
+        description: "Model type"
+        range: MetaAnalysisModel
+    forest_plot_output:
+        description: "Forest plot output"
+        range: StageOutput
+    analysis_sessions:
+        description: "Analysis sessions"
+        range: WorkSession
+    analyst_ids:
+        description: "Analyst identifiers"
+        range: string
+    analysis_notes:
+        description: "Analysis notes"
+        range: string
+    ai_analysis_session:
+        description: "AI analysis session"
+        range: AISession
+
+    # Heterogeneity slots
+    i_squared:
+        description: "I-squared statistic"
+        range: float
+    tau_squared:
+        description: "Tau-squared statistic"
+        range: float
+    q_statistic:
+        description: "Q statistic"
+        range: float
+    q_p_value:
+        description: "Q p-value"
+        range: float
+    prediction_interval_lower:
+        description: "Prediction interval lower"
+        range: float
+    prediction_interval_upper:
+        description: "Prediction interval upper"
+        range: float
+
+    # Subgroup analysis slots
+    subgroup_id:
+        description: "Subgroup identifier"
+        range: string
+    parent_analysis_id:
+        description: "Parent analysis identifier"
+        range: string
+    subgroup_variable:
+        description: "Subgroup variable"
+        range: string
+    subgroup_categories:
+        description: "Subgroup categories"
+        range: string
+    subgroup_results:
+        description: "Subgroup results"
+        range: SubgroupResult
+    heterogeneity_between_groups:
+        description: "Between-group heterogeneity"
+        range: float
+    interaction_test_p_value:
+        description: "Interaction test p-value"
+        range: float
+    subgroup_notes:
+        description: "Subgroup notes"
+        range: string
+
+    # Subgroup result slots
+    subgroup_name:
+        description: "Subgroup name"
+        range: string
+    n_studies:
+        description: "Number of studies"
+        range: integer
+
+    # Sensitivity analysis slots
+    sensitivity_id:
+        description: "Sensitivity analysis identifier"
+        range: string
+    sensitivity_type:
+        description: "Sensitivity type"
+        range: SensitivityType
+    sensitivity_description:
+        description: "Sensitivity description"
+        range: string
+    studies_excluded:
+        description: "Studies excluded"
+        range: string
+    studies_included:
+        description: "Studies included"
+        range: string
+    original_effect:
+        description: "Original effect"
+        range: float
+    sensitivity_effect:
+        description: "Sensitivity effect"
+        range: float
+    effect_change_percentage:
+        description: "Effect change percentage"
+        range: float
+    conclusion_changed:
+        description: "Conclusion changed"
+        range: boolean
+    sensitivity_notes:
+        description: "Sensitivity notes"
+        range: string
+
+    # Publication bias slots
+    bias_assessment_id:
+        description: "Bias assessment identifier"
+        range: string
+    assessment_methods:
+        description: "Assessment methods"
+        range: PublicationBiasMethod
+    funnel_plot_output:
+        description: "Funnel plot output"
+        range: StageOutput
+    eggers_test_result:
+        description: "Egger's test result"
+        range: StatisticalTestResult
+    beggs_test_result:
+        description: "Begg's test result"
+        range: StatisticalTestResult
+    trim_fill_result:
+        description: "Trim and fill result"
+        range: TrimFillResult
+    failsafe_n:
+        description: "Fail-safe N"
+        range: integer
+    selection_models:
+        description: "Selection models"
+        range: string
+    bias_conclusion:
+        description: "Bias conclusion"
+        range: BiasRisk
+    bias_impact:
+        description: "Bias impact"
+        range: string
+    bias_assessment_notes:
+        description: "Bias assessment notes"
+        range: string
+
+    # Statistical test result slots
+    test_statistic:
+        description: "Test statistic"
+        range: float
+    interpretation:
+        description: "Interpretation"
+        range: string
+
+    # Trim and fill slots
+    studies_trimmed:
+        description: "Studies trimmed"
+        range: integer
+    studies_filled:
+        description: "Studies filled"
+        range: integer
+    adjusted_effect:
+        description: "Adjusted effect"
+        range: float
+    adjusted_ci_lower:
+        description: "Adjusted CI lower"
+        range: float
+    adjusted_ci_upper:
+        description: "Adjusted CI upper"
+        range: float
+    adjustment_direction:
+        description: "Adjustment direction"
+        range: string
+
+    # Evidence grading slots
+    grading_id:
+        description: "Grading identifier"
+        range: string
+    outcome_assessed:
+        description: "Outcome assessed"
+        range: string
+    grading_system:
+        description: "Grading system"
+        range: GradingSystem
+    initial_quality:
+        description: "Initial quality"
+        range: EvidenceQuality
+    final_quality:
+        description: "Final quality"
+        range: EvidenceQuality
+    quality_domains:
+        description: "Quality domains"
+        range: QualityDomain
+    downgrade_reasons:
+        description: "Downgrade reasons"
+        range: string
+    upgrade_reasons:
+        description: "Upgrade reasons"
+        range: string
+    grading_notes:
+        description: "Grading notes"
+        range: string
+    grader_ids:
+        description: "Grader identifiers"
+        range: string
+    grading_date:
+        description: "Grading date"
+        range: date
+
+    # Quality domain slots
+    quality_domain_name:
+        description: "Quality domain name"
+        range: string
+    quality_domain_rating:
+        description: "Quality domain rating"
+        range: DomainRating
+    quality_domain_justification:
+        description: "Quality domain justification"
+        range: string
+
+    # Quality control slots (synthesis-specific only, others inherited from StageQualityControl)
+    calculation_verification:
+        description: "Calculation verification"
+        range: string
+    code_review:
+        description: "Code review conducted"
+        range: boolean
+    external_review:
+        description: "External review conducted"
+        range: boolean
+    transparency_measures:
+        description: "Transparency measures"
+        range: string
+
+    # Statistics slots (synthesis-specific only, others inherited from StageStatistics)
+    total_studies_synthesized:
+        description: "Total studies synthesized"
+        range: integer
+    total_participants:
+        description: "Total participants"
+        range: integer
+    total_outcomes_analyzed:
+        description: "Total outcomes analyzed"
+        range: integer
+    narrative_syntheses_count:
+        description: "Narrative syntheses count"
+        range: integer
+    meta_analyses_count:
+        description: "Meta-analyses count"
+        range: integer
+    subgroup_analyses_count:
+        description: "Subgroup analyses count"
+        range: integer
+    sensitivity_analyses_count:
+        description: "Sensitivity analyses count"
+        range: integer
+
+# Enumerations
+enums:
+    SynthesisApproach:
+        description: "Overall approach to synthesis"
+        permissible_values:
+            NARRATIVE:
+                description: "Narrative/descriptive synthesis"
+            QUANTITATIVE:
+                description: "Quantitative synthesis (meta-analysis)"
+            MIXED:
+                description: "Mixed narrative and quantitative"
+            VOTE_COUNTING:
+                description: "Vote counting based on direction of effect"
+            QUALITATIVE:
+                description: "Qualitative evidence synthesis"
+            REALIST:
+                description: "Realist synthesis"
+            THEMATIC:
+                description: "Thematic synthesis"
+
+    SynthesisMethodType:
+        description: "Specific type of synthesis method"
+        permissible_values:
+            PAIRWISE_META_ANALYSIS:
+                description: "Traditional pairwise meta-analysis"
+            NETWORK_META_ANALYSIS:
+                description: "Network meta-analysis"
+            INDIVIDUAL_PATIENT_DATA:
+                description: "Individual patient data meta-analysis"
+            CUMULATIVE_META_ANALYSIS:
+                description: "Cumulative meta-analysis"
+            META_REGRESSION:
+                description: "Meta-regression analysis"
+            BAYESIAN_META_ANALYSIS:
+                description: "Bayesian meta-analysis"
+            NARRATIVE_SUMMARY:
+                description: "Narrative summary"
+            FRAMEWORK_SYNTHESIS:
+                description: "Framework synthesis"
+            TEXTUAL_NARRATIVE:
+                description: "Textual narrative synthesis"
+            TABULATION:
+                description: "Tabulation of results"
+            GRAPHICAL_DISPLAY:
+                description: "Graphical display of results"
+
+    EffectMeasure:
+        description: "Types of effect measures"
+        permissible_values:
+            MEAN_DIFFERENCE:
+                description: "Mean difference"
+            STANDARDIZED_MEAN_DIFFERENCE:
+                description: "Standardized mean difference (SMD)"
+            ODDS_RATIO:
+                description: "Odds ratio"
+            RISK_RATIO:
+                description: "Risk ratio/relative risk"
+            RISK_DIFFERENCE:
+                description: "Risk difference"
+            HAZARD_RATIO:
+                description: "Hazard ratio"
+            INCIDENCE_RATE_RATIO:
+                description: "Incidence rate ratio"
+            CORRELATION:
+                description: "Correlation coefficient"
+            PROPORTION:
+                description: "Single proportion"
+            PREVALENCE:
+                description: "Prevalence"
+            DIAGNOSTIC_ODDS_RATIO:
+                description: "Diagnostic odds ratio"
+            SENSITIVITY_SPECIFICITY:
+                description: "Sensitivity and specificity"
+
+    MissingDataStrategy:
+        description: "Strategy for handling missing data"
+        permissible_values:
+            COMPLETE_CASE:
+                description: "Complete case analysis only"
+            IMPUTATION:
+                description: "Imputation of missing values"
+            SENSITIVITY_ANALYSIS:
+                description: "Sensitivity analysis for missing data"
+            CONTACT_AUTHORS:
+                description: "Contact authors for missing data"
+            WORST_CASE:
+                description: "Worst-case scenario assumption"
+            BEST_CASE:
+                description: "Best-case scenario assumption"
+            LAST_OBSERVATION:
+                description: "Last observation carried forward"
+
+    MetaAnalysisModel:
+        description: "Type of meta-analysis model"
+        permissible_values:
+            FIXED_EFFECT:
+                description: "Fixed effect model"
+            RANDOM_EFFECTS:
+                description: "Random effects model"
+            FIXED_EFFECTS_PLURAL:
+                description: "Fixed effects (plural) model"
+            BAYESIAN_FIXED:
+                description: "Bayesian fixed effect"
+            BAYESIAN_RANDOM:
+                description: "Bayesian random effects"
+            QUALITY_EFFECTS:
+                description: "Quality effects model"
+
+    SensitivityType:
+        description: "Type of sensitivity analysis"
+        permissible_values:
+            EXCLUDE_HIGH_RISK:
+                description: "Exclude high risk of bias studies"
+            EXCLUDE_LOW_QUALITY:
+                description: "Exclude low quality studies"
+            EXCLUDE_OUTLIERS:
+                description: "Exclude outlier studies"
+            EXCLUDE_SMALL_STUDIES:
+                description: "Exclude small studies"
+            EXCLUDE_INDUSTRY_FUNDED:
+                description: "Exclude industry-funded studies"
+            ALTERNATIVE_MODEL:
+                description: "Use alternative statistical model"
+            ALTERNATIVE_MEASURE:
+                description: "Use alternative effect measure"
+            ONE_STUDY_REMOVED:
+                description: "Leave-one-out analysis"
+            PUBLICATION_YEAR:
+                description: "By publication year"
+            STUDY_QUALITY:
+                description: "By study quality scores"
+
+    PublicationBiasMethod:
+        description: "Methods for assessing publication bias"
+        permissible_values:
+            FUNNEL_PLOT:
+                description: "Visual inspection of funnel plot"
+            EGGERS_TEST:
+                description: "Egger's regression test"
+            BEGGS_TEST:
+                description: "Begg's rank correlation test"
+            TRIM_FILL:
+                description: "Trim and fill method"
+            FAILSAFE_N:
+                description: "Rosenthal's fail-safe N"
+            PETERS_TEST:
+                description: "Peters' test"
+            SELECTION_MODELS:
+                description: "Selection models"
+            P_CURVE:
+                description: "P-curve analysis"
+            EXCESS_SIGNIFICANCE:
+                description: "Excess significance test"
+
+    BiasRisk:
+        description: "Risk of bias level"
+        permissible_values:
+            LOW:
+                description: "Low risk of bias"
+            MODERATE:
+                description: "Moderate risk of bias"
+            HIGH:
+                description: "High risk of bias"
+            UNCLEAR:
+                description: "Unclear risk of bias"
+
+    EvidenceStrength:
+        description: "Strength of evidence"
+        permissible_values:
+            VERY_STRONG:
+                description: "Very strong evidence"
+            STRONG:
+                description: "Strong evidence"
+            MODERATE:
+                description: "Moderate evidence"
+            WEAK:
+                description: "Weak evidence"
+            VERY_WEAK:
+                description: "Very weak evidence"
+            NO_EVIDENCE:
+                description: "No evidence"
+
+    EvidenceQuality:
+        description: "Quality/certainty of evidence (GRADE)"
+        permissible_values:
+            HIGH:
+                description: "High quality/certainty"
+            MODERATE:
+                description: "Moderate quality/certainty"
+            LOW:
+                description: "Low quality/certainty"
+            VERY_LOW:
+                description: "Very low quality/certainty"
+
+    GradingSystem:
+        description: "System used for grading evidence"
+        permissible_values:
+            GRADE:
+                description: "Grading of Recommendations Assessment, Development and Evaluation"
+            OXFORD_CEBM:
+                description: "Oxford Centre for Evidence-Based Medicine"
+            AHRQ:
+                description: "Agency for Healthcare Research and Quality"
+            SIGN:
+                description: "Scottish Intercollegiate Guidelines Network"
+            NICE:
+                description: "National Institute for Health and Care Excellence"
+            CUSTOM:
+                description: "Custom grading system"
+
+    DomainRating:
+        description: "Rating for quality domains"
+        permissible_values:
+            NO_CONCERNS:
+                description: "No serious concerns"
+            SERIOUS_CONCERNS:
+                description: "Serious concerns"
+            VERY_SERIOUS_CONCERNS:
+                description: "Very serious concerns"
+            NOT_APPLICABLE:
+                description: "Not applicable"

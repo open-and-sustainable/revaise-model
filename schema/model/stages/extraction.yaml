@@ -18,6 +18,9 @@ imports:
     - ../objects/work_session
     - ../objects/field_definition
     - ../objects/quality_assessment
+    - ../objects/stage_protocol
+    - ../objects/stage_quality_control
+    - ../objects/stage_statistics
 
 classes:
     ExtractionStage:
@@ -111,6 +114,7 @@ classes:
                 description: "Last modification timestamp"
 
     ExtractionProtocol:
+        is_a: StageProtocol
         description: "Protocol for the data extraction process"
         slots:
             - minimum_extractors_per_study
@@ -118,15 +122,8 @@ classes:
             - disagreement_resolution_method
             - extraction_order
             - blinding_level
-            - extraction_tools
-            - extraction_software
-            - training_materials_uri
             - extraction_guidance
         slot_usage:
-            protocol_id:
-                range: string
-                identifier: true
-                description: "Unique identifier for the extraction protocol"
             minimum_extractors_per_study:
                 range: integer
                 required: true
@@ -143,23 +140,9 @@ classes:
             blinding_level:
                 range: BlindingLevel
                 description: "Level of blinding during extraction"
-            extraction_tools:
-                range: ExternalTool
-                multivalued: true
-                description: "AI-assisted extraction tools/platforms used"
-            extraction_software:
-                range: ExternalTool
-                multivalued: true
-                description: "Software tools used for extraction"
-            training_materials_uri:
-                range: uri
-                description: "URI to training materials for extractors"
             extraction_guidance:
                 range: string
                 description: "Detailed guidance for extractors"
-            protocol_notes:
-                range: string
-                description: "Additional protocol notes"
 
     ExtractedStudy:
         description: "A study with extracted data"
@@ -275,61 +258,29 @@ classes:
                 description: "AI confidence score if applicable"
 
     ExtractionQualityControl:
+        is_a: StageQualityControl
         description: "Quality control measures for data extraction"
         slots:
-            - extraction_qc_id
-            - double_extraction_rate
-            - agreement_metrics
-            - discrepancy_resolutions
-            - spot_check_rate
-            - spot_check_results
-            - training_provided
-            - calibration_exercises
-            - qc_notes
+            - extraction_specific_checks
         slot_usage:
-            extraction_qc_id:
+            extraction_specific_checks:
                 range: string
-                identifier: true
-                description: "Unique identifier for quality control record"
-            double_extraction_rate:
-                range: float
-                description: "Percentage of studies double-extracted"
-            agreement_metrics:
-                range: AgreementMetrics
-                description: "Inter-rater agreement statistics"
-            discrepancy_resolutions:
-                range: ConflictResolution
                 multivalued: true
-                description: "Records of resolved discrepancies"
-            spot_check_rate:
-                range: float
-                description: "Percentage of extractions spot-checked"
-            spot_check_results:
-                range: string
-                description: "Results of spot checks"
-            training_provided:
-                range: boolean
-                description: "Whether training was provided"
-            calibration_exercises:
-                range: string
-                description: "Description of calibration exercises"
-            qc_notes:
-                range: string
-                description: "Additional quality control notes"
+                description: "Extraction-specific quality checks performed"
 
     ExtractionStatistics:
-        description: "Overall statistics for the extraction stage"
+        is_a: StageStatistics
+        description: "Statistics about the extraction process"
         slots:
             - total_studies_extracted
             - total_data_points
-            - extraction_completion_rate
-            - average_time_per_study
-            - total_extraction_hours
-            - participant_workloads
             - missing_data_rate
-            - extraction_started_date
-            - extraction_completed_date
+            - average_time_per_study
         slot_usage:
+            base_total_items:
+                range: integer
+                required: true
+                description: "Total number of studies to extract"
             total_studies_extracted:
                 range: integer
                 required: true
@@ -337,28 +288,12 @@ classes:
             total_data_points:
                 range: integer
                 description: "Total number of data points extracted"
-            extraction_completion_rate:
-                range: float
-                description: "Percentage of planned extractions completed"
             average_time_per_study:
                 range: float
-                description: "Average time per study in hours"
-            total_extraction_hours:
-                range: float
-                description: "Total hours spent on extraction"
-            participant_workloads:
-                range: ParticipantWorkload
-                multivalued: true
-                description: "Workload statistics per participant"
+                description: "Average time per study (minutes)"
             missing_data_rate:
                 range: float
-                description: "Rate of missing data across extractions"
-            extraction_started_date:
-                range: date
-                description: "Date extraction began"
-            extraction_completed_date:
-                range: date
-                description: "Date extraction completed"
+                description: "Rate of missing data points"
 
 slots:
     # Stage-level slots
@@ -430,22 +365,13 @@ slots:
         description: "Method for resolving disagreements"
         range: ResolutionMethod
     extraction_order:
-        description: "Order of extraction"
+        description: "Order in which studies are extracted"
         range: ExtractionOrder
-    extraction_tools:
-        description: "AI-assisted extraction tools used"
-        range: ExternalTool
     blinding_level:
         description: "Level of blinding"
         range: BlindingLevel
-    extraction_software:
-        description: "Software used for extraction"
-        range: ExternalTool
-    training_materials_uri:
-        description: "URI to training materials"
-        range: uri
     extraction_guidance:
-        description: "Guidance for extractors"
+        description: "Detailed extraction guidance"
         range: string
 
     # Study-related slots
@@ -519,62 +445,24 @@ slots:
         range: float
 
     # QC slots
-    extraction_qc_id:
-        description: "QC record identifier"
-        range: string
-    double_extraction_rate:
-        description: "Rate of double extraction"
-        range: float
-    agreement_metrics:
-        description: "Agreement statistics"
-        range: AgreementMetrics
-    discrepancy_resolutions:
-        description: "Resolved discrepancies"
-        range: ConflictResolution
-    spot_check_rate:
-        description: "Rate of spot checks"
-        range: float
-    spot_check_results:
-        description: "Results of spot checks"
-        range: string
-    training_provided:
-        description: "Whether training provided"
-        range: boolean
-    calibration_exercises:
-        description: "Calibration exercises performed"
-        range: string
-    qc_notes:
-        description: "QC notes"
+    # Quality control slots
+    extraction_specific_checks:
+        description: "Extraction-specific quality checks"
         range: string
 
-    # Statistics slots
+    # Statistics slots (extraction-specific only, others inherited from StageStatistics)
     total_studies_extracted:
         description: "Total studies extracted"
         range: integer
     total_data_points:
-        description: "Total data points"
+        description: "Total data points extracted"
         range: integer
-    extraction_completion_rate:
-        description: "Completion rate"
-        range: float
     average_time_per_study:
-        description: "Average time per study"
+        description: "Average time per study (minutes)"
         range: float
-    total_extraction_hours:
-        description: "Total extraction hours"
-        range: float
-    participant_workloads:
-        description: "Workload per participant"
-        range: ParticipantWorkload
     missing_data_rate:
-        description: "Rate of missing data"
+        description: "Rate of missing data points"
         range: float
-    extraction_started_date:
-        description: "Start date"
-        range: date
-    extraction_completed_date:
-        description: "Completion date"
-        range: date
 
 enums:
     ExtractionStatus:

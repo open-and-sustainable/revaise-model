@@ -1,0 +1,88 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/stage_statistics
+name: stage_statistics
+description: "Shared statistics components for review stages"
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - linkml:types
+    - ./participant
+
+classes:
+    StageStatistics:
+        description: "Base class for statistics collected about review stages. Stage-specific statistics classes should inherit from this."
+        abstract: true
+        slots:
+            - base_stats_id
+            - base_started_date
+            - base_completed_date
+            - base_total_items
+            - base_items_completed
+            - base_completion_rate
+            - base_total_hours
+            - base_participant_workloads
+            - base_stats_notes
+        slot_usage:
+            base_stats_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for stage statistics"
+            base_started_date:
+                range: date
+                description: "Date the stage started"
+            base_completed_date:
+                range: date
+                description: "Date the stage completed"
+            base_total_items:
+                range: integer
+                required: true
+                description: "Total number of items to process in this stage"
+            base_items_completed:
+                range: integer
+                description: "Number of items completed"
+            base_completion_rate:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Proportion of items completed"
+            base_total_hours:
+                range: float
+                description: "Total hours spent on this stage"
+            base_participant_workloads:
+                range: ParticipantWorkload
+                multivalued: true
+                description: "Workload distribution among participants"
+            base_stats_notes:
+                range: string
+                description: "Additional notes about stage statistics"
+
+slots:
+    # StageStatistics base slots
+    base_stats_id:
+        description: "Base statistics identifier"
+        range: string
+    base_started_date:
+        description: "Base stage start date"
+        range: date
+    base_completed_date:
+        description: "Base stage completion date"
+        range: date
+    base_total_items:
+        description: "Base total items"
+        range: integer
+    base_items_completed:
+        description: "Base items completed"
+        range: integer
+    base_completion_rate:
+        description: "Base completion rate"
+        range: float
+    base_total_hours:
+        description: "Base total hours"
+        range: float
+    base_participant_workloads:
+        description: "Base participant workloads"
+        range: ParticipantWorkload
+    base_stats_notes:
+        description: "Base statistics notes"
+        range: string

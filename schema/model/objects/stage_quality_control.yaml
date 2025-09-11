@@ -1,0 +1,83 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/stage_quality_control
+name: stage_quality_control
+description: "Shared quality control components for review stages"
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - linkml:types
+    - ./conflict_resolution
+    - ./quality_metrics
+
+classes:
+    StageQualityControl:
+        description: "Base class for quality control measures across review stages. Stage-specific QC classes should inherit from this."
+        abstract: true
+        slots:
+            - base_qc_id
+            - base_qc_type
+            - base_double_checking_rate
+            - base_agreement_metrics
+            - base_discrepancy_resolutions
+            - base_spot_check_rate
+            - base_calibration_performed
+            - base_qc_notes
+        slot_usage:
+            base_qc_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for quality control instance"
+            base_qc_type:
+                range: string
+                description: "Type of quality control (screening, extraction, synthesis, etc.)"
+            base_double_checking_rate:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Proportion of items double-checked"
+            base_agreement_metrics:
+                range: AgreementMetrics
+                description: "Inter-rater agreement metrics"
+            base_discrepancy_resolutions:
+                range: ConflictResolution
+                multivalued: true
+                description: "Record of resolved discrepancies"
+            base_spot_check_rate:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Proportion of items spot-checked"
+            base_calibration_performed:
+                range: boolean
+                description: "Whether calibration exercises were performed"
+            base_qc_notes:
+                range: string
+                description: "Additional quality control notes"
+
+slots:
+    # StageQualityControl base slots
+    base_qc_id:
+        description: "Base QC identifier"
+        range: string
+    base_qc_type:
+        description: "Base QC type"
+        range: string
+    base_double_checking_rate:
+        description: "Base double-checking rate"
+        range: float
+    base_agreement_metrics:
+        description: "Base agreement metrics"
+        range: AgreementMetrics
+    base_discrepancy_resolutions:
+        description: "Base discrepancy resolutions"
+        range: ConflictResolution
+    base_spot_check_rate:
+        description: "Base spot check rate"
+        range: float
+    base_calibration_performed:
+        description: "Base calibration performed flag"
+        range: boolean
+    base_qc_notes:
+        description: "Base QC notes"
+        range: string

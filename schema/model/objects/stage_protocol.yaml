@@ -1,0 +1,132 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/stage_protocol
+name: stage_protocol
+description: "Shared base protocol class for all review stage protocols"
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - linkml:types
+    - ./external_tool
+
+classes:
+    StageProtocol:
+        description: "Base class for protocols defining how a review stage should be conducted. Stage-specific protocols should inherit from this class."
+        abstract: true
+        slots:
+            - base_protocol_id
+            - base_protocol_version
+            - base_protocol_date
+            - base_protocol_description
+            - base_protocol_tools
+            - base_protocol_software
+            - base_protocol_deviations
+            - base_protocol_notes
+            - base_protocol_training
+        slot_usage:
+            base_protocol_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this stage protocol"
+            base_protocol_version:
+                range: string
+                description: "Version of the protocol"
+            base_protocol_date:
+                range: date
+                description: "Date the protocol was finalized"
+            base_protocol_description:
+                range: string
+                description: "Detailed description of the protocol"
+            base_protocol_tools:
+                range: ExternalTool
+                multivalued: true
+                description: "Tools used in this stage"
+            base_protocol_software:
+                range: ExternalTool
+                multivalued: true
+                description: "Software packages used in this stage"
+            base_protocol_deviations:
+                range: string
+                multivalued: true
+                description: "Deviations from the planned protocol"
+            base_protocol_notes:
+                range: string
+                description: "Additional notes about the protocol"
+            base_protocol_training:
+                range: StageTrainingInfo
+                description: "Training provided for this stage"
+
+    StageTrainingInfo:
+        description: "Shared training information for review stages"
+        slots:
+            - stage_training_provided
+            - stage_training_materials_uri
+            - stage_training_duration_hours
+            - stage_training_completion_rate
+            - stage_training_notes
+        slot_usage:
+            stage_training_provided:
+                range: boolean
+                required: true
+                description: "Whether training was provided"
+            stage_training_materials_uri:
+                range: uri
+                description: "URI to training materials"
+            stage_training_duration_hours:
+                range: float
+                description: "Duration of training in hours"
+            stage_training_completion_rate:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Proportion of team members who completed training"
+            stage_training_notes:
+                range: string
+                description: "Additional notes about training"
+
+slots:
+    # StageProtocol base slots
+    base_protocol_id:
+        description: "Base protocol identifier"
+        range: string
+    base_protocol_version:
+        description: "Base protocol version"
+        range: string
+    base_protocol_date:
+        description: "Base protocol date"
+        range: date
+    base_protocol_description:
+        description: "Base protocol description"
+        range: string
+    base_protocol_tools:
+        description: "Base protocol tools"
+        range: ExternalTool
+    base_protocol_software:
+        description: "Base protocol software"
+        range: ExternalTool
+    base_protocol_deviations:
+        description: "Base protocol deviations"
+        range: string
+    base_protocol_notes:
+        description: "Base protocol notes"
+        range: string
+    base_protocol_training:
+        description: "Base protocol training"
+        range: StageTrainingInfo
+
+    # StageTrainingInfo slots
+    stage_training_provided:
+        description: "Whether stage training was provided"
+        range: boolean
+    stage_training_materials_uri:
+        description: "URI to stage training materials"
+        range: uri
+    stage_training_duration_hours:
+        description: "Stage training duration in hours"
+        range: float
+    stage_training_completion_rate:
+        description: "Stage training completion rate"
+        range: float
+    stage_training_notes:
+        description: "Stage training notes"
+        range: string
