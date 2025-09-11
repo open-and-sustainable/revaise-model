@@ -1,0 +1,495 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/quality_metrics
+name: quality_metrics
+description: "Shared quality and performance metrics used across review stages"
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - linkml:types
+
+classes:
+    AgreementMetrics:
+        description: "Metrics for measuring agreement between reviewers/extractors"
+        slots:
+            - overall_agreement
+            - cohen_kappa
+            - fleiss_kappa
+            - krippendorff_alpha
+            - percent_agreement
+            - disagreement_count
+            - total_comparisons
+            - field_level_agreements
+        slot_usage:
+            overall_agreement:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Overall agreement rate across all items"
+            cohen_kappa:
+                range: float
+                minimum_value: -1.0
+                maximum_value: 1.0
+                description: "Cohen's kappa for inter-rater agreement"
+            fleiss_kappa:
+                range: float
+                minimum_value: -1.0
+                maximum_value: 1.0
+                description: "Fleiss' kappa for multiple raters"
+            krippendorff_alpha:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Krippendorff's alpha reliability coefficient"
+            percent_agreement:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 100.0
+                description: "Simple percentage agreement"
+            disagreement_count:
+                range: integer
+                description: "Number of disagreements"
+            total_comparisons:
+                range: integer
+                description: "Total number of comparisons made"
+            field_level_agreements:
+                range: FieldAgreement
+                multivalued: true
+                description: "Agreement metrics for individual fields"
+
+    FieldAgreement:
+        description: "Agreement metrics for a specific field or item"
+        slots:
+            - field_identifier
+            - agreement_rate
+            - disagreement_types
+            - agreement_sample_size
+            - confidence_interval
+        slot_usage:
+            field_identifier:
+                range: string
+                required: true
+                description: "Identifier of the field or item"
+            agreement_rate:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                required: true
+                description: "Agreement rate for this field"
+            disagreement_types:
+                range: string
+                multivalued: true
+                description: "Types of disagreements observed"
+            agreement_sample_size:
+                range: integer
+                description: "Number of items compared"
+            confidence_interval:
+                range: ConfidenceInterval
+                description: "Confidence interval for the agreement rate"
+
+    PerformanceMetrics:
+        description: "General performance metrics"
+        slots:
+            - sensitivity
+            - specificity
+            - precision
+            - negative_predictive_value
+            - false_positive_rate
+            - false_negative_rate
+            - false_discovery_rate
+            - false_omission_rate
+            - accuracy
+            - balanced_accuracy
+            - f1_score
+            - matthews_correlation
+            - diagnostic_odds_ratio
+            - area_under_curve
+        slot_usage:
+            sensitivity:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "True positive rate (recall)"
+            specificity:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "True negative rate"
+            precision:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Positive predictive value"
+            negative_predictive_value:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Negative predictive value"
+            false_positive_rate:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Type I error rate"
+            false_negative_rate:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Type II error rate"
+            false_discovery_rate:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Expected proportion of false discoveries"
+            false_omission_rate:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Proportion of false negatives among negative calls"
+            accuracy:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Overall accuracy"
+            balanced_accuracy:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Average of sensitivity and specificity"
+            f1_score:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Harmonic mean of precision and recall"
+            matthews_correlation:
+                range: float
+                minimum_value: -1.0
+                maximum_value: 1.0
+                description: "Matthews correlation coefficient"
+            diagnostic_odds_ratio:
+                range: float
+                minimum_value: 0.0
+                description: "Ratio of odds of positive test in diseased vs non-diseased"
+            area_under_curve:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Area under the ROC curve"
+
+    ProcessMetrics:
+        description: "Metrics related to process efficiency and completion"
+        slots:
+            - total_items
+            - completed_items
+            - completion_rate
+            - process_avg_time_per_item
+            - median_time_per_item
+            - process_total_time_hours
+            - items_per_day
+            - backlog_size
+            - throughput_trend
+        slot_usage:
+            total_items:
+                range: integer
+                required: true
+                description: "Total number of items to process"
+            completed_items:
+                range: integer
+                required: true
+                description: "Number of items completed"
+            completion_rate:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Proportion of items completed"
+            process_avg_time_per_item:
+                range: float
+                description: "Average time per item in minutes"
+            median_time_per_item:
+                range: float
+                description: "Median time per item in minutes"
+            process_total_time_hours:
+                range: float
+                description: "Total time spent in hours"
+            items_per_day:
+                range: float
+                description: "Average items processed per day"
+            backlog_size:
+                range: integer
+                description: "Number of items remaining"
+            throughput_trend:
+                range: string
+                description: "Trend in processing speed (increasing/stable/decreasing)"
+
+    ConfidenceInterval:
+        description: "Confidence interval specification"
+        slots:
+            - lower_bound
+            - upper_bound
+            - confidence_level
+        slot_usage:
+            lower_bound:
+                range: float
+                required: true
+                description: "Lower bound of the interval"
+            upper_bound:
+                range: float
+                required: true
+                description: "Upper bound of the interval"
+            confidence_level:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Confidence level (e.g., 0.95 for 95%)"
+
+    QualityControl:
+        description: "Quality control measures and checks"
+        slots:
+            - qc_id
+            - qc_type
+            - qc_sample_size
+            - sample_method
+            - checks_performed
+            - issues_found
+            - issues_resolved
+            - qc_pass_rate
+            - corrective_actions
+            - qc_timestamp
+            - qc_performed_by
+        slot_usage:
+            qc_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this quality control check"
+            qc_type:
+                range: QualityControlType
+                required: true
+                description: "Type of quality control performed"
+            qc_sample_size:
+                range: integer
+                description: "Size of the sample checked"
+            sample_method:
+                range: SamplingMethod
+                description: "Method used for sampling"
+            checks_performed:
+                range: string
+                multivalued: true
+                description: "Specific checks performed"
+            issues_found:
+                range: integer
+                description: "Number of issues identified"
+            issues_resolved:
+                range: integer
+                description: "Number of issues resolved"
+            qc_pass_rate:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Proportion of items passing QC"
+            corrective_actions:
+                range: string
+                multivalued: true
+                description: "Corrective actions taken"
+            qc_timestamp:
+                range: datetime
+                description: "When QC was performed"
+            qc_performed_by:
+                range: string
+                description: "Who performed the QC"
+
+slots:
+    # AgreementMetrics slots
+    overall_agreement:
+        description: "Overall agreement rate across all items"
+        range: float
+    cohen_kappa:
+        description: "Cohen's kappa for inter-rater agreement"
+        range: float
+    fleiss_kappa:
+        description: "Fleiss' kappa for multiple raters"
+        range: float
+    krippendorff_alpha:
+        description: "Krippendorff's alpha reliability coefficient"
+        range: float
+    percent_agreement:
+        description: "Simple percentage agreement"
+        range: float
+    disagreement_count:
+        description: "Number of disagreements"
+        range: integer
+    total_comparisons:
+        description: "Total number of comparisons made"
+        range: integer
+    field_level_agreements:
+        description: "Agreement metrics for individual fields"
+        range: FieldAgreement
+
+    # FieldAgreement slots
+    field_identifier:
+        description: "Identifier of the field or item"
+        range: string
+    agreement_rate:
+        description: "Agreement rate for this field"
+        range: float
+    disagreement_types:
+        description: "Types of disagreements observed"
+        range: string
+    agreement_sample_size:
+        description: "Number of items compared"
+        range: integer
+    qc_sample_size:
+        description: "Size of the sample checked"
+        range: integer
+    confidence_interval:
+        description: "Confidence interval for the agreement rate"
+        range: ConfidenceInterval
+
+    # PerformanceMetrics slots
+    sensitivity:
+        description: "True positive rate (recall)"
+        range: float
+    specificity:
+        description: "True negative rate"
+        range: float
+    precision:
+        description: "Positive predictive value"
+        range: float
+    negative_predictive_value:
+        description: "Negative predictive value"
+        range: float
+    false_positive_rate:
+        description: "Type I error rate"
+        range: float
+    false_negative_rate:
+        description: "Type II error rate"
+        range: float
+    false_discovery_rate:
+        description: "Expected proportion of false discoveries"
+        range: float
+    false_omission_rate:
+        description: "Proportion of false negatives among negative calls"
+        range: float
+    accuracy:
+        description: "Overall accuracy"
+        range: float
+    balanced_accuracy:
+        description: "Average of sensitivity and specificity"
+        range: float
+    f1_score:
+        description: "Harmonic mean of precision and recall"
+        range: float
+    matthews_correlation:
+        description: "Matthews correlation coefficient"
+        range: float
+    diagnostic_odds_ratio:
+        description: "Ratio of odds of positive test in diseased vs non-diseased"
+        range: float
+    area_under_curve:
+        description: "Area under the ROC curve"
+        range: float
+
+    # ProcessMetrics slots
+    total_items:
+        description: "Total number of items to process"
+        range: integer
+    completed_items:
+        description: "Number of items completed"
+        range: integer
+    completion_rate:
+        description: "Proportion of items completed"
+        range: float
+    process_avg_time_per_item:
+        description: "Average time per item in minutes"
+        range: float
+    median_time_per_item:
+        description: "Median time per item in minutes"
+        range: float
+    process_total_time_hours:
+        description: "Total time spent in hours"
+        range: float
+    items_per_day:
+        description: "Average items processed per day"
+        range: float
+    backlog_size:
+        description: "Number of items remaining"
+        range: integer
+    throughput_trend:
+        description: "Trend in processing speed"
+        range: string
+
+    # ConfidenceInterval slots
+    lower_bound:
+        description: "Lower bound of the interval"
+        range: float
+    upper_bound:
+        description: "Upper bound of the interval"
+        range: float
+    confidence_level:
+        description: "Confidence level (e.g., 0.95 for 95%)"
+        range: float
+
+    # QualityControl slots
+    qc_id:
+        description: "Unique identifier for this quality control check"
+        range: string
+    qc_type:
+        description: "Type of quality control performed"
+        range: QualityControlType
+    sample_method:
+        description: "Method used for sampling"
+        range: SamplingMethod
+    checks_performed:
+        description: "Specific checks performed"
+        range: string
+    issues_found:
+        description: "Number of issues identified"
+        range: integer
+    issues_resolved:
+        description: "Number of issues resolved"
+        range: integer
+    qc_pass_rate:
+        description: "Proportion of items passing QC"
+        range: float
+    corrective_actions:
+        description: "Corrective actions taken"
+        range: string
+    qc_timestamp:
+        description: "When QC was performed"
+        range: datetime
+    qc_performed_by:
+        description: "Who performed the QC"
+        range: string
+
+enums:
+    QualityControlType:
+        description: "Types of quality control checks"
+        permissible_values:
+            DOUBLE_CHECK:
+                description: "Double-checking by another person"
+            SPOT_CHECK:
+                description: "Random spot checks"
+            SYSTEMATIC_REVIEW:
+                description: "Systematic review of all items"
+            AUTOMATED_VALIDATION:
+                description: "Automated validation checks"
+            CALIBRATION_EXERCISE:
+                description: "Calibration exercise for consistency"
+            AUDIT:
+                description: "Formal audit process"
+            PEER_REVIEW:
+                description: "Peer review process"
+
+    SamplingMethod:
+        description: "Methods for sampling items for quality control"
+        permissible_values:
+            RANDOM:
+                description: "Random sampling"
+            STRATIFIED:
+                description: "Stratified sampling"
+            SYSTEMATIC:
+                description: "Systematic sampling (e.g., every nth item)"
+            PURPOSIVE:
+                description: "Purposive/targeted sampling"
+            CONVENIENCE:
+                description: "Convenience sampling"
+            RISK_BASED:
+                description: "Risk-based sampling"

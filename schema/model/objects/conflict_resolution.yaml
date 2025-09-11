@@ -1,0 +1,319 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/conflict_resolution
+name: conflict_resolution
+description: "Shared conflict resolution components used across review stages"
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - linkml:types
+    - ./participant
+
+classes:
+    ConflictResolution:
+        description: "Resolution of conflicts or disagreements between reviewers"
+        slots:
+            - resolution_id
+            - conflict_type
+            - conflicting_items
+            - original_decisions
+            - resolution_method
+            - final_decision
+            - resolver
+            - resolution_timestamp
+            - resolution_duration
+            - resolution_notes
+            - resolution_confidence
+        slot_usage:
+            resolution_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this resolution"
+            conflict_type:
+                range: ConflictType
+                required: true
+                description: "Type of conflict being resolved"
+            conflicting_items:
+                range: string
+                required: true
+                multivalued: true
+                description: "IDs of items in conflict"
+            original_decisions:
+                range: string
+                required: true
+                multivalued: true
+                description: "Original conflicting decisions or values"
+            resolution_method:
+                range: ResolutionMethod
+                required: true
+                description: "Method used to resolve the conflict"
+            final_decision:
+                range: string
+                required: true
+                description: "Final resolved decision or value"
+            resolver:
+                range: Participant
+                description: "Person or process that resolved the conflict"
+            resolution_timestamp:
+                range: datetime
+                required: true
+                description: "When the conflict was resolved"
+            resolution_duration:
+                range: float
+                description: "Time taken to resolve in minutes"
+            resolution_notes:
+                range: string
+                description: "Notes about the resolution process"
+            resolution_confidence:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Confidence in the resolution"
+
+    ConflictPattern:
+        description: "Pattern analysis of conflicts"
+        slots:
+            - pattern_id
+            - pattern_type
+            - frequency
+            - involved_fields
+            - involved_participants
+            - common_causes
+            - resolution_success_rate
+            - average_resolution_time
+        slot_usage:
+            pattern_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this pattern"
+            pattern_type:
+                range: string
+                required: true
+                description: "Type of conflict pattern"
+            frequency:
+                range: integer
+                description: "How often this pattern occurs"
+            involved_fields:
+                range: string
+                multivalued: true
+                description: "Fields commonly involved in this pattern"
+            involved_participants:
+                range: string
+                multivalued: true
+                description: "Participants commonly involved"
+            common_causes:
+                range: string
+                multivalued: true
+                description: "Common causes of this conflict pattern"
+            resolution_success_rate:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Success rate of resolutions"
+            average_resolution_time:
+                range: float
+                description: "Average time to resolve in minutes"
+
+    ResolutionStatistics:
+        description: "Statistics about conflict resolution"
+        slots:
+            - total_conflicts
+            - resolved_conflicts
+            - pending_conflicts
+            - resolution_rate
+            - average_resolution_time
+            - resolution_methods_used
+            - most_common_conflict_type
+            - participant_agreement_matrix
+        slot_usage:
+            total_conflicts:
+                range: integer
+                required: true
+                description: "Total number of conflicts identified"
+            resolved_conflicts:
+                range: integer
+                required: true
+                description: "Number of conflicts resolved"
+            pending_conflicts:
+                range: integer
+                description: "Number of conflicts pending resolution"
+            resolution_rate:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Proportion of conflicts resolved"
+            average_resolution_time:
+                range: float
+                description: "Average time to resolve conflicts in minutes"
+            resolution_methods_used:
+                range: ResolutionMethodCount
+                multivalued: true
+                description: "Count of each resolution method used"
+            most_common_conflict_type:
+                range: ConflictType
+                description: "Most frequently occurring conflict type"
+            participant_agreement_matrix:
+                range: string
+                description: "Matrix showing agreement patterns between participants"
+
+    ResolutionMethodCount:
+        description: "Count of a specific resolution method usage"
+        slots:
+            - method
+            - count
+            - success_rate
+        slot_usage:
+            method:
+                range: ResolutionMethod
+                required: true
+                description: "The resolution method"
+            count:
+                range: integer
+                required: true
+                description: "Number of times this method was used"
+            success_rate:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Success rate of this method"
+
+slots:
+    # ConflictResolution slots
+    resolution_id:
+        description: "Unique identifier for this resolution"
+        range: string
+    conflict_type:
+        description: "Type of conflict being resolved"
+        range: ConflictType
+    conflicting_items:
+        description: "IDs of items in conflict"
+        range: string
+    original_decisions:
+        description: "Original conflicting decisions or values"
+        range: string
+    resolution_method:
+        description: "Method used to resolve the conflict"
+        range: ResolutionMethod
+    final_decision:
+        description: "Final resolved decision or value"
+        range: string
+    resolver:
+        description: "Person or process that resolved the conflict"
+        range: Participant
+    resolution_timestamp:
+        description: "When the conflict was resolved"
+        range: datetime
+    resolution_duration:
+        description: "Time taken to resolve in minutes"
+        range: float
+    resolution_notes:
+        description: "Notes about the resolution process"
+        range: string
+    resolution_confidence:
+        description: "Confidence in the resolution"
+        range: float
+
+    # ConflictPattern slots
+    pattern_id:
+        description: "Unique identifier for this pattern"
+        range: string
+    pattern_type:
+        description: "Type of conflict pattern"
+        range: string
+    frequency:
+        description: "How often this pattern occurs"
+        range: integer
+    involved_fields:
+        description: "Fields commonly involved in this pattern"
+        range: string
+    involved_participants:
+        description: "Participants commonly involved"
+        range: string
+    common_causes:
+        description: "Common causes of this conflict pattern"
+        range: string
+    resolution_success_rate:
+        description: "Success rate of resolutions"
+        range: float
+    average_resolution_time:
+        description: "Average time to resolve in minutes"
+        range: float
+
+    # ResolutionStatistics slots
+    total_conflicts:
+        description: "Total number of conflicts identified"
+        range: integer
+    resolved_conflicts:
+        description: "Number of conflicts resolved"
+        range: integer
+    pending_conflicts:
+        description: "Number of conflicts pending resolution"
+        range: integer
+    resolution_rate:
+        description: "Proportion of conflicts resolved"
+        range: float
+    resolution_methods_used:
+        description: "Count of each resolution method used"
+        range: ResolutionMethodCount
+    most_common_conflict_type:
+        description: "Most frequently occurring conflict type"
+        range: ConflictType
+    participant_agreement_matrix:
+        description: "Matrix showing agreement patterns between participants"
+        range: string
+
+    # ResolutionMethodCount slots
+    method:
+        description: "The resolution method"
+        range: ResolutionMethod
+    count:
+        description: "Number of times this method was used"
+        range: integer
+    success_rate:
+        description: "Success rate of this method"
+        range: float
+
+enums:
+    ConflictType:
+        description: "Types of conflicts that can occur"
+        permissible_values:
+            INCLUSION_EXCLUSION:
+                description: "Disagreement on inclusion/exclusion"
+            DATA_VALUE:
+                description: "Different data values extracted"
+            CLASSIFICATION:
+                description: "Different classifications assigned"
+            QUALITY_RATING:
+                description: "Different quality ratings"
+            INTERPRETATION:
+                description: "Different interpretations of content"
+            MISSING_DATA:
+                description: "Disagreement on missing data handling"
+            METHODOLOGICAL:
+                description: "Methodological disagreements"
+            TECHNICAL:
+                description: "Technical or formatting disagreements"
+
+    ResolutionMethod:
+        description: "Methods for resolving conflicts"
+        permissible_values:
+            CONSENSUS_DISCUSSION:
+                description: "Resolution through discussion to reach consensus"
+            THIRD_REVIEWER:
+                description: "Third reviewer makes the decision"
+            SENIOR_REVIEWER:
+                description: "Senior reviewer makes the decision"
+            MAJORITY_VOTE:
+                description: "Decision by majority vote"
+            TEAM_MEETING:
+                description: "Resolution in team meeting"
+            STATISTICAL_METHOD:
+                description: "Statistical method for resolution"
+            PREDEFINED_RULE:
+                description: "Application of predefined rules"
+            RE_REVIEW:
+                description: "Re-review of the material"
+            EXTERNAL_EXPERT:
+                description: "Consultation with external expert"
+            AUTOMATED_RULE:
+                description: "Automated rule-based resolution"

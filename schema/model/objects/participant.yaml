@@ -1,0 +1,171 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/participant
+name: participant
+description: "Participants in the review process (reviewers, extractors, etc.)"
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - linkml:types
+    - ./author
+    - ./enums
+    - ./stage_execution
+
+classes:
+    Participant:
+        description: "A person participating in the review process"
+        is_a: Author
+        slots:
+            - participant_role
+            - expertise_areas
+            - training_completed
+            - assigned_items_count
+            - completed_items_count
+            - participant_avg_time_per_item
+            - conflict_of_interest_declared
+            - participant_notes
+        slot_usage:
+            participant_role:
+                range: ParticipantRole
+                required: true
+                multivalued: true
+                description: "Role(s) of the participant in the review"
+            expertise_areas:
+                range: string
+                multivalued: true
+                description: "Areas of expertise relevant to the review"
+            training_completed:
+                range: string
+                multivalued: true
+                description: "Training or calibration exercises completed"
+            assigned_items_count:
+                range: integer
+                description: "Number of items assigned to this participant"
+            completed_items_count:
+                range: integer
+                description: "Number of items completed by this participant"
+            participant_avg_time_per_item:
+                range: float
+                description: "Average time spent per item (minutes)"
+            conflict_of_interest_declared:
+                range: boolean
+                description: "Whether conflicts of interest were declared"
+            participant_notes:
+                range: string
+                description: "Additional notes about the participant"
+
+    ParticipantWorkload:
+        description: "Workload statistics for a participant"
+        slots:
+            - participant_id
+            - stage_type
+            - items_processed_count
+            - time_spent_hours
+            - first_item_date
+            - last_item_date
+            - average_items_per_day
+            - peak_items_per_day
+        slot_usage:
+            participant_id:
+                range: string
+                required: true
+                description: "Reference to the participant"
+            stage_type:
+                range: StageType
+                required: true
+                description: "Stage of the review process"
+            items_processed_count:
+                range: integer
+                required: true
+                description: "Total items processed"
+            time_spent_hours:
+                range: float
+                description: "Total time spent in hours"
+            first_item_date:
+                range: date
+                description: "Date of first item processed"
+            last_item_date:
+                range: date
+                description: "Date of last item processed"
+            average_items_per_day:
+                range: float
+                description: "Average items processed per day"
+            peak_items_per_day:
+                range: integer
+                description: "Maximum items processed in a single day"
+
+slots:
+    participant_role:
+        description: "Role(s) of the participant in the review"
+        range: ParticipantRole
+    expertise_areas:
+        description: "Areas of expertise relevant to the review"
+        range: string
+    training_completed:
+        description: "Training or calibration exercises completed"
+        range: string
+    assigned_items_count:
+        description: "Number of items assigned to this participant"
+        range: integer
+    completed_items_count:
+        description: "Number of items completed by this participant"
+        range: integer
+    participant_avg_time_per_item:
+        description: "Average time spent per item (minutes)"
+        range: float
+    conflict_of_interest_declared:
+        description: "Whether conflicts of interest were declared"
+        range: boolean
+    participant_notes:
+        description: "Additional notes about the participant"
+        range: string
+    participant_id:
+        description: "Reference to the participant"
+        range: string
+    items_processed_count:
+        description: "Total items processed"
+        range: integer
+    time_spent_hours:
+        description: "Total time spent in hours"
+        range: float
+    first_item_date:
+        description: "Date of first item processed"
+        range: date
+    last_item_date:
+        description: "Date of last item processed"
+        range: date
+    average_items_per_day:
+        description: "Average items processed per day"
+        range: float
+    peak_items_per_day:
+        description: "Maximum items processed in a single day"
+        range: integer
+
+enums:
+    ParticipantRole:
+        description: "Roles that participants can have in the review process"
+        permissible_values:
+            LEAD_REVIEWER:
+                description: "Lead reviewer coordinating the review"
+            REVIEWER:
+                description: "Standard reviewer"
+            SCREENER:
+                description: "Participant screening records"
+            DATA_EXTRACTOR:
+                description: "Participant extracting data"
+            QUALITY_ASSESSOR:
+                description: "Participant assessing quality/risk of bias"
+            CONFLICT_RESOLVER:
+                description: "Participant resolving conflicts"
+            STATISTICIAN:
+                description: "Statistical analysis participant"
+            METHODOLOGIST:
+                description: "Methodology expert"
+            DOMAIN_EXPERT:
+                description: "Subject matter expert"
+            INFORMATION_SPECIALIST:
+                description: "Search and information retrieval expert"
+            PROJECT_MANAGER:
+                description: "Project management"
+            EXTERNAL_REVIEWER:
+                description: "External peer reviewer"

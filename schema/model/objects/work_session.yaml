@@ -1,0 +1,325 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/work_session
+name: work_session
+description: "Shared work session components for tracking participant activities"
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - linkml:types
+    - ./participant
+    - ./enums
+    - ./stage_execution
+
+classes:
+    WorkSession:
+        description: "A work session by a participant on review tasks"
+        slots:
+            - session_id
+            - participant
+            - session_type
+            - stage_type
+            - session_started_at
+            - session_ended_at
+            - paused_duration
+            - active_duration
+            - session_item_ids
+            - items_completed
+            - session_status
+            - session_environment
+            - session_notes
+        slot_usage:
+            session_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this session"
+            participant:
+                range: Participant
+                required: true
+                description: "Participant conducting this session"
+            session_type:
+                range: SessionType
+                required: true
+                description: "Type of work session"
+            stage_type:
+                range: StageType
+                required: true
+                description: "Review stage this session belongs to"
+            session_started_at:
+                range: datetime
+                required: true
+                description: "When the session started"
+            session_ended_at:
+                range: datetime
+                description: "When the session ended"
+            paused_duration:
+                range: float
+                description: "Total paused time in minutes"
+            active_duration:
+                range: float
+                description: "Active working time in minutes"
+            session_item_ids:
+                range: string
+                multivalued: true
+                description: "IDs of items processed in this session"
+            items_completed:
+                range: integer
+                description: "Number of items completed"
+            session_status:
+                range: SessionStatus
+                required: true
+                description: "Current status of the session"
+            session_environment:
+                range: SessionEnvironment
+                description: "Environment details for the session"
+            session_notes:
+                range: string
+                description: "Notes about the session"
+
+    SessionEnvironment:
+        description: "Environment details for a work session"
+        slots:
+            - platform
+            - browser
+            - location
+            - connection_quality
+            - tools_used
+        slot_usage:
+            platform:
+                range: string
+                description: "Platform or system used"
+            browser:
+                range: string
+                description: "Browser used if applicable"
+            location:
+                range: string
+                description: "Location or setting of work"
+            connection_quality:
+                range: string
+                description: "Network connection quality"
+            tools_used:
+                range: string
+                multivalued: true
+                description: "Tools or software used during session"
+
+    SessionMetrics:
+        description: "Metrics for a work session"
+        slots:
+            - session_id
+            - items_per_hour
+            - session_avg_time_per_item
+            - error_rate
+            - rework_rate
+            - break_frequency
+            - focus_score
+        slot_usage:
+            session_id:
+                range: string
+                required: true
+                description: "Reference to the work session"
+            items_per_hour:
+                range: float
+                description: "Items processed per hour"
+            session_avg_time_per_item:
+                range: float
+                description: "Average time per item in minutes"
+            error_rate:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Rate of errors made"
+            rework_rate:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Rate of items requiring rework"
+            break_frequency:
+                range: float
+                description: "Average time between breaks in minutes"
+            focus_score:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Measure of session focus/consistency"
+
+    BatchProcessing:
+        description: "Batch processing within a session"
+        slots:
+            - batch_id
+            - session_id
+            - batch_size
+            - batch_number
+            - batch_started_at
+            - completed_at
+            - items_in_batch
+            - batch_completion_rate
+        slot_usage:
+            batch_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this batch"
+            session_id:
+                range: string
+                required: true
+                description: "Session this batch belongs to"
+            batch_size:
+                range: integer
+                required: true
+                description: "Number of items in the batch"
+            batch_number:
+                range: integer
+                description: "Sequential number of this batch"
+            batch_started_at:
+                range: datetime
+                required: true
+                description: "When batch processing started"
+            completed_at:
+                range: datetime
+                description: "When batch processing completed"
+            items_in_batch:
+                range: string
+                multivalued: true
+                description: "IDs of items in this batch"
+            batch_completion_rate:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Proportion of batch completed"
+
+slots:
+    # WorkSession slots
+    session_id:
+        description: "Unique identifier for this session"
+        range: string
+    participant:
+        description: "Participant conducting this session"
+        range: Participant
+    session_type:
+        description: "Type of work session"
+        range: SessionType
+    session_started_at:
+        description: "When the session started"
+        range: datetime
+    session_ended_at:
+        description: "When the session ended"
+        range: datetime
+    paused_duration:
+        description: "Total paused time in minutes"
+        range: float
+    active_duration:
+        description: "Active working time in minutes"
+        range: float
+    session_item_ids:
+        description: "IDs of items processed in this session"
+        range: string
+    items_completed:
+        description: "Number of items completed"
+        range: integer
+    session_status:
+        description: "Current status of the session"
+        range: SessionStatus
+    session_environment:
+        description: "Environment details for the session"
+        range: SessionEnvironment
+    session_notes:
+        description: "Notes about the session"
+        range: string
+
+    # SessionEnvironment slots
+    platform:
+        description: "Platform or system used"
+        range: string
+    browser:
+        description: "Browser used if applicable"
+        range: string
+    location:
+        description: "Location or setting of work"
+        range: string
+    connection_quality:
+        description: "Network connection quality"
+        range: string
+    tools_used:
+        description: "Tools or software used during session"
+        range: string
+
+    # SessionMetrics slots
+    items_per_hour:
+        description: "Items processed per hour"
+        range: float
+    session_avg_time_per_item:
+        description: "Average time per item in minutes"
+        range: float
+    error_rate:
+        description: "Rate of errors made"
+        range: float
+    rework_rate:
+        description: "Rate of items requiring rework"
+        range: float
+    break_frequency:
+        description: "Average time between breaks in minutes"
+        range: float
+    focus_score:
+        description: "Measure of session focus/consistency"
+        range: float
+
+    # BatchProcessing slots
+    batch_id:
+        description: "Unique identifier for this batch"
+        range: string
+    batch_size:
+        description: "Number of items in the batch"
+        range: integer
+    batch_number:
+        description: "Sequential number of this batch"
+        range: integer
+    batch_started_at:
+        description: "When batch processing started"
+        range: datetime
+    completed_at:
+        description: "When batch processing completed"
+        range: datetime
+    items_in_batch:
+        description: "IDs of items in this batch"
+        range: string
+    batch_completion_rate:
+        description: "Proportion of batch completed"
+        range: float
+
+enums:
+    SessionType:
+        description: "Types of work sessions"
+        permissible_values:
+            SCREENING:
+                description: "Screening session"
+            EXTRACTION:
+                description: "Data extraction session"
+            QUALITY_ASSESSMENT:
+                description: "Quality assessment session"
+            CONFLICT_RESOLUTION:
+                description: "Conflict resolution session"
+            VALIDATION:
+                description: "Validation session"
+            TRAINING:
+                description: "Training or calibration session"
+            REVIEW:
+                description: "Review or checking session"
+            PILOT:
+                description: "Pilot or test session"
+
+    SessionStatus:
+        description: "Status of a work session"
+        permissible_values:
+            PLANNED:
+                description: "Session is planned but not started"
+            IN_PROGRESS:
+                description: "Session is currently active"
+            PAUSED:
+                description: "Session is paused"
+            COMPLETED:
+                description: "Session completed normally"
+            ABANDONED:
+                description: "Session was abandoned"
+            EXPIRED:
+                description: "Session expired due to timeout"
+            ERROR:
+                description: "Session ended due to error"

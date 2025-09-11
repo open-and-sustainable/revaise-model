@@ -10,6 +10,14 @@ imports:
     - ../review_core
     - ../objects/literature_record
     - ../objects/author
+    - ../objects/participant
+    - ../objects/ai_assistance
+    - ../objects/quality_metrics
+    - ../objects/conflict_resolution
+    - ../objects/work_session
+    - ../objects/field_definition
+    - ../objects/quality_assessment
+    - ../objects/enums
 
 classes:
     ScreeningStage:
@@ -181,7 +189,7 @@ classes:
                 multivalued: true
                 description: "Individual screening decisions made"
             conflict_resolutions:
-                range: ConflictResolution
+                range: ScreeningConflictResolution
                 multivalued: true
                 description: "Resolutions of conflicts between reviewers"
             excluded_record_ids:
@@ -199,7 +207,7 @@ classes:
                 range: datetime
                 description: "When this round completed"
             reviewers:
-                range: Reviewer
+                range: Participant
                 multivalued: true
                 minimum_cardinality: 1
                 description: "Reviewers involved in this round"
@@ -208,7 +216,7 @@ classes:
                 multivalued: true
                 description: "Tools used for screening in this round"
             ai_assistance:
-                range: AIScreeningAssistance
+                range: AIAssistance
                 description: "AI assistance used in this round"
             round_statistics:
                 range: RoundStatistics
@@ -222,7 +230,7 @@ classes:
         slots:
             - decision_id
             - record_id
-            - reviewer_id
+            - decision_reviewer_id
             - decision
             - exclusion_reasons
             - inclusion_confidence
@@ -272,19 +280,19 @@ classes:
                 range: float
                 description: "AI confidence in its suggestion (0-1)"
 
-    ConflictResolution:
+    ScreeningConflictResolution:
         description: "Resolution of conflicts between reviewer decisions"
         slots:
-            - resolution_id
-            - record_id
+            - screening_resolution_id
+            - conflict_record_id
             - conflicting_decisions
-            - resolution_method
-            - final_decision
+            - screening_resolution_method
+            - screening_final_decision
+            - screening_resolution_timestamp
             - resolver_id
-            - resolution_timestamp
-            - resolution_notes
+            - screening_resolution_notes
         slot_usage:
-            resolution_id:
+            screening_resolution_id:
                 range: string
                 identifier: true
                 description: "Unique identifier for the resolution"
@@ -297,22 +305,22 @@ classes:
                 multivalued: true
                 required: true
                 description: "IDs of the conflicting decisions"
-            resolution_method:
+            screening_resolution_method:
                 range: ConflictResolutionMethod
                 required: true
                 description: "Method used to resolve the conflict"
-            final_decision:
+            screening_final_decision:
                 range: ScreeningDecisionType
                 required: true
-                description: "Final decision after resolution"
+                description: "Final decision after conflict resolution"
             resolver_id:
                 range: string
                 description: "ID of the person/process that resolved the conflict"
-            resolution_timestamp:
+            screening_resolution_timestamp:
                 range: datetime
                 required: true
                 description: "When the conflict was resolved"
-            resolution_notes:
+            screening_resolution_notes:
                 range: string
                 description: "Notes about the resolution process"
 
@@ -394,19 +402,6 @@ classes:
                 range: string
                 description: "Additional notes about the criteria"
 
-    DateRange:
-        description: "Date range specification"
-        slots:
-            - date_range_start
-            - date_range_end
-        slot_usage:
-            date_range_start:
-                range: date
-                description: "Start date of the range"
-            date_range_end:
-                range: date
-                description: "End date of the range"
-
     ScreeningProtocol:
         description: "Protocol defining the screening process"
         slots:
@@ -418,7 +413,7 @@ classes:
             - pilot_agreement_threshold
             - conflict_resolution_strategy
             - screening_order
-            - batch_size
+            - screening_batch_size
             - protocol_notes
         slot_usage:
             protocol_id:
@@ -447,143 +442,12 @@ classes:
             screening_order:
                 range: ScreeningOrder
                 description: "Order in which records are screened"
-            batch_size:
+            screening_batch_size:
                 range: integer
                 description: "Number of records per batch"
             protocol_notes:
                 range: string
                 description: "Additional protocol notes"
-
-    Reviewer:
-        description: "Information about a reviewer in the screening process"
-        slots:
-            - reviewer_id
-            - reviewer_author
-            - reviewer_role
-            - training_completed
-            - records_assigned
-            - records_completed
-            - reviewer_notes
-        slot_usage:
-            reviewer_id:
-                range: string
-                identifier: true
-                description: "Unique identifier for the reviewer"
-            reviewer_author:
-                range: Author
-                required: true
-                description: "Author information for the reviewer"
-            reviewer_role:
-                range: ReviewerRole
-                description: "Role of the reviewer"
-            training_completed:
-                range: boolean
-                description: "Whether training was completed"
-            records_assigned:
-                range: integer
-                description: "Number of records assigned"
-            records_completed:
-                range: integer
-                description: "Number of records completed"
-            reviewer_notes:
-                range: string
-                description: "Notes about the reviewer"
-
-    AIScreeningAssistance:
-        description: "AI assistance used in screening"
-        slots:
-            - ai_id
-            - ai_model
-            - ai_version
-            - ai_provider
-            - ai_purpose
-            - ai_prompts
-            - ai_parameters
-            - ai_validation_method
-            - human_oversight_level
-            - ai_performance_metrics
-        slot_usage:
-            ai_id:
-                range: string
-                identifier: true
-                description: "Unique identifier for the AI assistance"
-            ai_model:
-                range: string
-                required: true
-                description: "Name of the AI model"
-            ai_version:
-                range: string
-                required: true
-                description: "Version of the AI model"
-            ai_provider:
-                range: string
-                description: "Provider of the AI model"
-            ai_purpose:
-                range: AIPurpose
-                required: true
-                description: "Purpose of AI in screening"
-            ai_prompts:
-                range: string
-                multivalued: true
-                description: "Prompts used with the AI"
-            ai_parameters:
-                range: string
-                description: "Parameters and settings"
-            ai_validation_method:
-                range: string
-                description: "How AI decisions were validated"
-            human_oversight_level:
-                range: OversightLevel
-                required: true
-                description: "Level of human oversight"
-            ai_performance_metrics:
-                range: PerformanceMetrics
-                description: "Performance metrics of the AI"
-
-    PerformanceMetrics:
-        description: "Performance metrics for screening or AI"
-        slots:
-            - accuracy
-            - precision
-            - recall
-            - f1_score
-            - specificity
-            - false_positive_rate
-            - false_negative_rate
-            - cohen_kappa
-            - fleiss_kappa
-            - percent_agreement
-        slot_usage:
-            accuracy:
-                range: float
-                description: "Accuracy score (0-1)"
-            precision:
-                range: float
-                description: "Precision score (0-1)"
-            recall:
-                range: float
-                description: "Recall/sensitivity score (0-1)"
-            f1_score:
-                range: float
-                description: "F1 score (0-1)"
-            specificity:
-                range: float
-                description: "Specificity score (0-1)"
-            false_positive_rate:
-                range: float
-                description: "False positive rate (0-1)"
-            false_negative_rate:
-                range: float
-                description: "False negative rate (0-1)"
-            cohen_kappa:
-                range: float
-                description: "Cohen's kappa for inter-rater agreement"
-            fleiss_kappa:
-                range: float
-                description: "Fleiss' kappa for multi-rater agreement"
-            percent_agreement:
-                range: float
-                description: "Percentage agreement between raters (0-100)"
 
     RoundStatistics:
         description: "Statistics for a screening round"
@@ -628,7 +492,7 @@ classes:
                 range: float
                 description: "Total screening time in hours"
             inter_rater_agreement:
-                range: PerformanceMetrics
+                range: AgreementMetrics
                 description: "Agreement metrics between raters"
             conflicts_count:
                 range: integer
@@ -647,7 +511,7 @@ classes:
             - final_included_count
             - overall_inclusion_rate
             - overall_exclusion_rate
-            - total_time_hours
+            - screening_total_time_hours
             - total_reviewer_hours
             - cost_estimate
         slot_usage:
@@ -674,7 +538,7 @@ classes:
             overall_exclusion_rate:
                 range: float
                 description: "Overall exclusion rate (0-1)"
-            total_time_hours:
+            screening_total_time_hours:
                 range: float
                 description: "Total time spent in hours"
             total_reviewer_hours:
@@ -781,7 +645,7 @@ slots:
         range: ScreeningDecision
     conflict_resolutions:
         description: "Resolutions of conflicts between reviewers"
-        range: ConflictResolution
+        range: ScreeningConflictResolution
     excluded_record_ids:
         description: "IDs of records excluded in this round"
         range: string
@@ -796,13 +660,13 @@ slots:
         range: datetime
     reviewers:
         description: "Reviewers involved in this screening round"
-        range: Reviewer
+        range: Participant
     screening_tools:
         description: "External tools used in this screening round"
         range: ExternalTool
     ai_assistance:
         description: "AI assistance configuration for this round"
-        range: AIScreeningAssistance
+        range: AIAssistance
     round_statistics:
         description: "Statistical metrics for this screening round"
         range: RoundStatistics
@@ -846,7 +710,7 @@ slots:
         range: float
 
     # Conflict resolution slots
-    resolution_id:
+    screening_resolution_id:
         description: "Unique identifier for the conflict resolution"
         range: string
     conflict_record_id:
@@ -855,20 +719,20 @@ slots:
     conflicting_decisions:
         description: "IDs of the conflicting screening decisions"
         range: string
-    resolution_method:
+    screening_resolution_method:
         description: "Method used to resolve the conflict"
         range: ConflictResolutionMethod
-    final_decision:
+    screening_final_decision:
         description: "Final decision after conflict resolution"
         range: ScreeningDecisionType
     resolver_id:
         description: "ID of the person/process that resolved the conflict"
         range: string
-    resolution_timestamp:
+    screening_resolution_timestamp:
         description: "Timestamp when the conflict was resolved"
         range: datetime
-    resolution_notes:
-        description: "Notes about the conflict resolution process"
+    screening_resolution_notes:
+        description: "Notes about the conflict resolution"
         range: string
 
     # Screening criteria slots
@@ -955,102 +819,12 @@ slots:
     screening_order:
         description: "Order in which records are presented for screening"
         range: ScreeningOrder
-    batch_size:
+    screening_batch_size:
         description: "Number of records in each screening batch"
         range: integer
     protocol_notes:
         description: "Additional notes about the screening protocol"
         range: string
-
-    # Reviewer slots
-    reviewer_id:
-        description: "Unique identifier for the reviewer"
-        range: string
-    reviewer_author:
-        description: "Author information for the reviewer"
-        range: Author
-    reviewer_role:
-        description: "Role of the reviewer in the screening process"
-        range: ReviewerRole
-    training_completed:
-        description: "Whether the reviewer completed training"
-        range: boolean
-        ifabsent: false
-    records_assigned:
-        description: "Number of records assigned to the reviewer"
-        range: integer
-    records_completed:
-        description: "Number of records completed by the reviewer"
-        range: integer
-    reviewer_notes:
-        description: "Additional notes about the reviewer"
-        range: string
-
-    # External tool slots are now in shared external_tool.yaml
-
-    # AI assistance slots
-    ai_id:
-        description: "Unique identifier for the AI assistance configuration"
-        range: string
-    ai_model:
-        description: "Name of the AI model used"
-        range: string
-    ai_version:
-        description: "Version of the AI model"
-        range: string
-    ai_provider:
-        description: "Provider of the AI model"
-        range: string
-    ai_purpose:
-        description: "Purpose of AI in the screening process"
-        range: AIPurpose
-    ai_prompts:
-        description: "Prompts used to interact with the AI"
-        range: string
-    ai_parameters:
-        description: "Parameters and settings for the AI model"
-        range: string
-    ai_validation_method:
-        description: "Method used to validate AI decisions"
-        range: string
-    human_oversight_level:
-        description: "Level of human oversight for AI decisions"
-        range: OversightLevel
-    ai_performance_metrics:
-        description: "Performance metrics of the AI assistance"
-        range: PerformanceMetrics
-
-    # Performance metrics slots
-    accuracy:
-        description: "Overall accuracy of predictions (0-1)"
-        range: float
-    precision:
-        description: "Precision/positive predictive value (0-1)"
-        range: float
-    recall:
-        description: "Recall/sensitivity (0-1)"
-        range: float
-    f1_score:
-        description: "Harmonic mean of precision and recall (0-1)"
-        range: float
-    specificity:
-        description: "True negative rate (0-1)"
-        range: float
-    false_positive_rate:
-        description: "Rate of false positives (0-1)"
-        range: float
-    false_negative_rate:
-        description: "Rate of false negatives (0-1)"
-        range: float
-    cohen_kappa:
-        description: "Cohen's kappa for inter-rater agreement"
-        range: float
-    fleiss_kappa:
-        description: "Fleiss' kappa for multi-rater agreement"
-        range: float
-    percent_agreement:
-        description: "Percentage agreement between raters (0-100)"
-        range: float
 
     # Round statistics slots
     total_records_screened:
@@ -1079,7 +853,7 @@ slots:
         range: float
     inter_rater_agreement:
         description: "Agreement metrics between reviewers"
-        range: PerformanceMetrics
+        range: AgreementMetrics
     conflicts_count:
         description: "Number of conflicts between reviewers"
         range: integer
@@ -1109,7 +883,7 @@ slots:
     overall_exclusion_rate:
         description: "Overall proportion of records excluded (0-1)"
         range: float
-    total_time_hours:
+    screening_total_time_hours:
         description: "Total time spent on screening in hours"
         range: float
     total_reviewer_hours:
@@ -1202,7 +976,7 @@ enums:
             TRAINEE:
                 description: "Reviewer in training"
 
-    AIPurpose:
+    ScreeningAIPurpose:
         description: "Purpose of AI in screening"
         permissible_values:
             DECISION_SUGGESTION:

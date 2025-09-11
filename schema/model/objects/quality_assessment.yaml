@@ -1,0 +1,454 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/quality_assessment
+name: quality_assessment
+description: "Shared quality assessment components used across review stages"
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - linkml:types
+    - ./participant
+
+classes:
+    QualityAssessment:
+        description: "Quality or risk of bias assessment for a study or item"
+        slots:
+            - assessment_id
+            - item_id
+            - assessment_tool
+            - overall_quality
+            - domain_assessments
+            - assessment_notes
+            - assessor
+            - assessment_date
+            - assessment_time_minutes
+            - confidence_rating
+        slot_usage:
+            assessment_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this assessment"
+            item_id:
+                range: string
+                required: true
+                description: "ID of the item being assessed"
+            assessment_tool:
+                range: QualityAssessmentTool
+                required: true
+                description: "Tool used for quality assessment"
+            overall_quality:
+                range: QualityRating
+                description: "Overall quality rating"
+            domain_assessments:
+                range: DomainAssessment
+                multivalued: true
+                description: "Assessment of individual quality domains"
+            assessment_notes:
+                range: string
+                description: "Notes about the assessment"
+            assessor:
+                range: Participant
+                required: true
+                description: "Person who performed the assessment"
+            assessment_date:
+                range: datetime
+                required: true
+                description: "Date and time of assessment"
+            assessment_time_minutes:
+                range: float
+                description: "Time taken to complete assessment in minutes"
+            confidence_rating:
+                range: ConfidenceLevel
+                description: "Assessor's confidence in the assessment"
+
+    DomainAssessment:
+        description: "Assessment of a specific quality domain"
+        slots:
+            - domain_name
+            - domain_rating
+            - domain_justification
+            - supporting_quotes
+            - page_references
+        slot_usage:
+            domain_name:
+                range: string
+                required: true
+                description: "Name of the quality domain"
+            domain_rating:
+                range: QualityRating
+                required: true
+                description: "Rating for this domain"
+            domain_justification:
+                range: string
+                description: "Justification for the rating"
+            supporting_quotes:
+                range: string
+                multivalued: true
+                description: "Quotes supporting the assessment"
+            page_references:
+                range: string
+                multivalued: true
+                description: "Page references for the assessment"
+
+    QualityChecklist:
+        description: "Checklist for quality assessment"
+        slots:
+            - checklist_id
+            - checklist_name
+            - checklist_version
+            - checklist_items
+            - scoring_method
+            - interpretation_guide
+        slot_usage:
+            checklist_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the checklist"
+            checklist_name:
+                range: string
+                required: true
+                description: "Name of the checklist"
+            checklist_version:
+                range: string
+                description: "Version of the checklist"
+            checklist_items:
+                range: ChecklistItem
+                multivalued: true
+                description: "Items in the checklist"
+            scoring_method:
+                range: string
+                description: "Method for scoring the checklist"
+            interpretation_guide:
+                range: string
+                description: "Guide for interpreting scores"
+
+    ChecklistItem:
+        description: "Individual item in a quality checklist"
+        slots:
+            - item_id
+            - item_text
+            - item_category
+            - response_options
+            - scoring_weight
+            - guidance_text
+        slot_usage:
+            item_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for the item"
+            item_text:
+                range: string
+                required: true
+                description: "Text of the checklist item"
+            item_category:
+                range: string
+                description: "Category this item belongs to"
+            response_options:
+                range: string
+                multivalued: true
+                description: "Possible responses to this item"
+            scoring_weight:
+                range: float
+                description: "Weight of this item in scoring"
+            guidance_text:
+                range: string
+                description: "Guidance for answering this item"
+
+    StudyCharacteristics:
+        description: "Key characteristics of a study"
+        slots:
+            - study_design
+            - study_setting
+            - study_country
+            - study_duration
+            - study_sample_size
+            - participant_characteristics
+            - intervention_details
+            - comparator_details
+            - outcome_measures
+            - funding_source
+            - study_registration_id
+            - publication_status
+        slot_usage:
+            study_design:
+                range: StudyDesign
+                description: "Design of the study"
+            study_setting:
+                range: string
+                description: "Setting where study was conducted"
+            study_country:
+                range: string
+                multivalued: true
+                description: "Countries where study was conducted"
+            study_duration:
+                range: string
+                description: "Duration of the study"
+            study_sample_size:
+                range: integer
+                description: "Total sample size"
+            participant_characteristics:
+                range: string
+                description: "Description of participants"
+            intervention_details:
+                range: string
+                description: "Details of the intervention"
+            comparator_details:
+                range: string
+                description: "Details of the comparator"
+            outcome_measures:
+                range: string
+                multivalued: true
+                description: "Outcome measures used"
+            funding_source:
+                range: string
+                description: "Source of study funding"
+            study_registration_id:
+                range: string
+                description: "Clinical trial registration ID"
+            publication_status:
+                range: PublicationStatus
+                description: "Publication status of the study"
+
+slots:
+    # QualityAssessment slots
+    assessment_id:
+        description: "Unique identifier for this assessment"
+        range: string
+    item_id:
+        description: "ID of the item being assessed"
+        range: string
+    assessment_tool:
+        description: "Tool used for quality assessment"
+        range: QualityAssessmentTool
+    overall_quality:
+        description: "Overall quality rating"
+        range: QualityRating
+    domain_assessments:
+        description: "Assessment of individual quality domains"
+        range: DomainAssessment
+    assessment_notes:
+        description: "Notes about the assessment"
+        range: string
+    assessor:
+        description: "Person who performed the assessment"
+        range: Participant
+    assessment_date:
+        description: "Date and time of assessment"
+        range: datetime
+    assessment_time_minutes:
+        description: "Time taken to complete assessment in minutes"
+        range: float
+    confidence_rating:
+        description: "Assessor's confidence in the assessment"
+        range: ConfidenceLevel
+
+    # DomainAssessment slots
+    domain_name:
+        description: "Name of the quality domain"
+        range: string
+    domain_rating:
+        description: "Rating for this domain"
+        range: QualityRating
+    domain_justification:
+        description: "Justification for the rating"
+        range: string
+    supporting_quotes:
+        description: "Quotes supporting the assessment"
+        range: string
+    page_references:
+        description: "Page references for the assessment"
+        range: string
+
+    # QualityChecklist slots
+    checklist_id:
+        description: "Unique identifier for the checklist"
+        range: string
+    checklist_name:
+        description: "Name of the checklist"
+        range: string
+    checklist_version:
+        description: "Version of the checklist"
+        range: string
+    checklist_items:
+        description: "Items in the checklist"
+        range: ChecklistItem
+    scoring_method:
+        description: "Method for scoring the checklist"
+        range: string
+    interpretation_guide:
+        description: "Guide for interpreting scores"
+        range: string
+
+    # ChecklistItem slots
+    item_text:
+        description: "Text of the checklist item"
+        range: string
+    item_category:
+        description: "Category this item belongs to"
+        range: string
+    response_options:
+        description: "Possible responses to this item"
+        range: string
+    scoring_weight:
+        description: "Weight of this item in scoring"
+        range: float
+    guidance_text:
+        description: "Guidance for answering this item"
+        range: string
+
+    # StudyCharacteristics slots
+    study_design:
+        description: "Design of the study"
+        range: StudyDesign
+    study_setting:
+        description: "Setting where study was conducted"
+        range: string
+    study_country:
+        description: "Countries where study was conducted"
+        range: string
+    study_duration:
+        description: "Duration of the study"
+        range: string
+    study_sample_size:
+        description: "Total sample size"
+        range: integer
+    participant_characteristics:
+        description: "Description of participants"
+        range: string
+    intervention_details:
+        description: "Details of the intervention"
+        range: string
+    comparator_details:
+        description: "Details of the comparator"
+        range: string
+    outcome_measures:
+        description: "Outcome measures used"
+        range: string
+    funding_source:
+        description: "Source of study funding"
+        range: string
+    study_registration_id:
+        description: "Clinical trial registration ID"
+        range: string
+    publication_status:
+        description: "Publication status of the study"
+        range: PublicationStatus
+
+enums:
+    QualityAssessmentTool:
+        description: "Tools for quality assessment"
+        permissible_values:
+            COCHRANE_ROB2:
+                description: "Cochrane Risk of Bias 2 tool"
+            COCHRANE_ROBINS_I:
+                description: "Risk Of Bias In Non-randomized Studies of Interventions"
+            NEWCASTLE_OTTAWA:
+                description: "Newcastle-Ottawa Scale"
+            JADAD:
+                description: "Jadad scale"
+            GRADE:
+                description: "Grading of Recommendations Assessment, Development and Evaluation"
+            CASP:
+                description: "Critical Appraisal Skills Programme"
+            JBI:
+                description: "Joanna Briggs Institute tools"
+            AMSTAR:
+                description: "A MeaSurement Tool to Assess systematic Reviews"
+            QUADAS:
+                description: "Quality Assessment of Diagnostic Accuracy Studies"
+            MINORS:
+                description: "Methodological Index for Non-Randomized Studies"
+            STROBE:
+                description: "Strengthening the Reporting of Observational Studies in Epidemiology"
+            CONSORT:
+                description: "Consolidated Standards of Reporting Trials"
+            CUSTOM:
+                description: "Custom assessment tool"
+
+    QualityRating:
+        description: "Quality rating levels"
+        permissible_values:
+            LOW_RISK:
+                description: "Low risk of bias"
+            SOME_CONCERNS:
+                description: "Some concerns about bias"
+            HIGH_RISK:
+                description: "High risk of bias"
+            CRITICAL_RISK:
+                description: "Critical risk of bias"
+            NO_INFORMATION:
+                description: "No information available"
+            NOT_APPLICABLE:
+                description: "Not applicable to this study"
+            GOOD:
+                description: "Good quality"
+            FAIR:
+                description: "Fair quality"
+            POOR:
+                description: "Poor quality"
+
+    StudyDesign:
+        description: "Types of study designs"
+        permissible_values:
+            RCT:
+                description: "Randomized controlled trial"
+            CLUSTER_RCT:
+                description: "Cluster randomized controlled trial"
+            NON_RANDOMIZED:
+                description: "Non-randomized controlled trial"
+            COHORT:
+                description: "Cohort study"
+            CASE_CONTROL:
+                description: "Case-control study"
+            CROSS_SECTIONAL:
+                description: "Cross-sectional study"
+            CASE_SERIES:
+                description: "Case series"
+            CASE_REPORT:
+                description: "Case report"
+            QUALITATIVE:
+                description: "Qualitative study"
+            MIXED_METHODS:
+                description: "Mixed methods study"
+            SYSTEMATIC_REVIEW:
+                description: "Systematic review"
+            META_ANALYSIS:
+                description: "Meta-analysis"
+            SCOPING_REVIEW:
+                description: "Scoping review"
+            NARRATIVE_REVIEW:
+                description: "Narrative review"
+            OTHER:
+                description: "Other study design"
+
+    ConfidenceLevel:
+        description: "Confidence levels"
+        permissible_values:
+            VERY_HIGH:
+                description: "Very high confidence"
+            HIGH:
+                description: "High confidence"
+            MODERATE:
+                description: "Moderate confidence"
+            LOW:
+                description: "Low confidence"
+            VERY_LOW:
+                description: "Very low confidence"
+
+    PublicationStatus:
+        description: "Publication status of studies"
+        permissible_values:
+            PUBLISHED:
+                description: "Published in peer-reviewed journal"
+            PREPRINT:
+                description: "Available as preprint"
+            GREY_LITERATURE:
+                description: "Grey literature"
+            UNPUBLISHED:
+                description: "Unpublished study"
+            ABSTRACT_ONLY:
+                description: "Only abstract available"
+            PROTOCOL_ONLY:
+                description: "Only protocol available"
+            RETRACTED:
+                description: "Publication has been retracted"

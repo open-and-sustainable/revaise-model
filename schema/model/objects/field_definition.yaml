@@ -1,0 +1,392 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/field_definition
+name: field_definition
+description: "Shared field definition components used across forms and templates"
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - linkml:types
+    - ./registration_template
+
+classes:
+    FieldDefinition:
+        description: "Definition of a field used in forms, templates, or data collection"
+        slots:
+            - field_id
+            - field_name
+            - field_label
+            - field_type
+            - field_description
+            - field_required
+            - field_category
+            - field_order
+            - field_group
+            - field_help_text
+            - field_placeholder
+            - field_default_value
+            - field_validation_rules
+            - field_options
+            - field_dependencies
+            - field_metadata
+        slot_usage:
+            field_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this field"
+            field_name:
+                range: string
+                required: true
+                description: "Machine-readable name for the field"
+            field_label:
+                range: string
+                required: true
+                description: "Human-readable label for the field"
+            field_type:
+                range: FieldType
+                required: true
+                description: "Data type of the field"
+            field_description:
+                range: string
+                description: "Detailed description of the field"
+            field_required:
+                range: boolean
+                description: "Whether this field is required"
+            field_category:
+                range: string
+                description: "Category or section this field belongs to"
+            field_order:
+                range: integer
+                description: "Display order of the field"
+            field_group:
+                range: string
+                description: "Group this field belongs to"
+            field_help_text:
+                range: string
+                description: "Help text to guide users"
+            field_placeholder:
+                range: string
+                description: "Placeholder text for the field"
+            field_default_value:
+                range: string
+                description: "Default value for the field"
+            field_validation_rules:
+                range: ValidationRule
+                multivalued: true
+                description: "Validation rules for the field"
+            field_options:
+                range: FieldOption
+                multivalued: true
+                description: "Options for select/multi-select fields"
+            field_dependencies:
+                range: FieldDependency
+                multivalued: true
+                description: "Dependencies on other fields"
+            field_metadata:
+                range: string
+                description: "Additional metadata as JSON"
+
+    ValidationRule:
+        description: "Validation rule for a field"
+        slots:
+            - rule_type
+            - rule_value
+            - error_message
+            - severity
+        slot_usage:
+            rule_type:
+                range: ValidationRuleType
+                required: true
+                description: "Type of validation rule"
+            rule_value:
+                range: string
+                description: "Value or pattern for the rule"
+            error_message:
+                range: string
+                description: "Error message when validation fails"
+            severity:
+                range: ValidationSeverity
+                description: "Severity of validation failure"
+
+    FieldOption:
+        description: "Option for select/multi-select fields"
+        slots:
+            - option_value
+            - option_label
+            - option_description
+            - option_order
+            - option_group
+            - is_default
+        slot_usage:
+            option_value:
+                range: string
+                required: true
+                description: "Value of the option"
+            option_label:
+                range: string
+                required: true
+                description: "Display label for the option"
+            option_description:
+                range: string
+                description: "Description of the option"
+            option_order:
+                range: integer
+                description: "Display order of the option"
+            option_group:
+                range: string
+                description: "Group this option belongs to"
+            is_default:
+                range: boolean
+                description: "Whether this is a default selection"
+
+    FieldDependency:
+        description: "Dependency between fields"
+        slots:
+            - depends_on_field
+            - dependency_type
+            - dependency_condition
+            - dependency_value
+        slot_usage:
+            depends_on_field:
+                range: string
+                required: true
+                description: "Field this depends on"
+            dependency_type:
+                range: DependencyType
+                required: true
+                description: "Type of dependency"
+            dependency_condition:
+                range: string
+                description: "Condition for the dependency"
+            dependency_value:
+                range: string
+                description: "Value to check against"
+
+    FormSection:
+        description: "Section within a form or template"
+        slots:
+            - section_id
+            - section_name
+            - section_label
+            - section_description
+            - section_order
+            - section_required
+            - section_repeatable
+            - section_fields
+            - section_conditions
+        slot_usage:
+            section_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this section"
+            section_name:
+                range: string
+                required: true
+                description: "Machine-readable name for the section"
+            section_label:
+                range: string
+                required: true
+                description: "Human-readable label for the section"
+            section_description:
+                range: string
+                description: "Description of the section"
+            section_order:
+                range: integer
+                description: "Display order of the section"
+            section_required:
+                range: boolean
+                description: "Whether this section is required"
+            section_repeatable:
+                range: boolean
+                description: "Whether this section can be repeated"
+            section_fields:
+                range: FieldDefinition
+                multivalued: true
+                description: "Fields in this section"
+            section_conditions:
+                range: string
+                multivalued: true
+                description: "Conditions for showing this section"
+
+slots:
+    # FieldDefinition slots
+    field_id:
+        description: "Unique identifier for this field"
+        range: string
+    field_name:
+        description: "Machine-readable name for the field"
+        range: string
+    field_label:
+        description: "Human-readable label for the field"
+        range: string
+    field_type:
+        description: "Data type of the field"
+        range: FieldType
+    field_description:
+        description: "Detailed description of the field"
+        range: string
+    field_required:
+        description: "Whether this field is required"
+        range: boolean
+    field_category:
+        description: "Category or section this field belongs to"
+        range: string
+    field_order:
+        description: "Display order of the field"
+        range: integer
+    field_group:
+        description: "Group this field belongs to"
+        range: string
+    field_help_text:
+        description: "Help text to guide users"
+        range: string
+    field_placeholder:
+        description: "Placeholder text for the field"
+        range: string
+    field_default_value:
+        description: "Default value for the field"
+        range: string
+    field_validation_rules:
+        description: "Validation rules for the field"
+        range: ValidationRule
+    field_options:
+        description: "Options for select/multi-select fields"
+        range: FieldOption
+    field_dependencies:
+        description: "Dependencies on other fields"
+        range: FieldDependency
+    field_metadata:
+        description: "Additional metadata as JSON"
+        range: string
+
+    # ValidationRule slots
+    rule_type:
+        description: "Type of validation rule"
+        range: ValidationRuleType
+    rule_value:
+        description: "Value or pattern for the rule"
+        range: string
+    error_message:
+        description: "Error message when validation fails"
+        range: string
+    severity:
+        description: "Severity of validation failure"
+        range: ValidationSeverity
+
+    # FieldOption slots
+    option_value:
+        description: "Value of the option"
+        range: string
+    option_label:
+        description: "Display label for the option"
+        range: string
+    option_description:
+        description: "Description of the option"
+        range: string
+    option_order:
+        description: "Display order of the option"
+        range: integer
+    option_group:
+        description: "Group this option belongs to"
+        range: string
+    is_default:
+        description: "Whether this is a default selection"
+        range: boolean
+
+    # FieldDependency slots
+    depends_on_field:
+        description: "Field this depends on"
+        range: string
+    dependency_type:
+        description: "Type of dependency"
+        range: DependencyType
+    dependency_condition:
+        description: "Condition for the dependency"
+        range: string
+    dependency_value:
+        description: "Value to check against"
+        range: string
+
+    # FormSection slots
+    section_id:
+        description: "Unique identifier for this section"
+        range: string
+    section_name:
+        description: "Machine-readable name for the section"
+        range: string
+    section_label:
+        description: "Human-readable label for the section"
+        range: string
+    section_description:
+        description: "Description of the section"
+        range: string
+    section_order:
+        description: "Display order of the section"
+        range: integer
+    section_required:
+        description: "Whether this section is required"
+        range: boolean
+    section_repeatable:
+        description: "Whether this section can be repeated"
+        range: boolean
+    section_fields:
+        description: "Fields in this section"
+        range: FieldDefinition
+    section_conditions:
+        description: "Conditions for showing this section"
+        range: string
+
+enums:
+    ValidationRuleType:
+        description: "Types of validation rules"
+        permissible_values:
+            REQUIRED:
+                description: "Field is required"
+            MIN_LENGTH:
+                description: "Minimum length constraint"
+            MAX_LENGTH:
+                description: "Maximum length constraint"
+            PATTERN:
+                description: "Regular expression pattern"
+            MIN_VALUE:
+                description: "Minimum numeric value"
+            MAX_VALUE:
+                description: "Maximum numeric value"
+            DATE_RANGE:
+                description: "Date range constraint"
+            EMAIL:
+                description: "Valid email format"
+            URL:
+                description: "Valid URL format"
+            UNIQUE:
+                description: "Value must be unique"
+            CUSTOM:
+                description: "Custom validation logic"
+
+    ValidationSeverity:
+        description: "Severity levels for validation failures"
+        permissible_values:
+            ERROR:
+                description: "Validation failure prevents submission"
+            WARNING:
+                description: "Validation failure shows warning but allows submission"
+            INFO:
+                description: "Informational message only"
+
+    DependencyType:
+        description: "Types of field dependencies"
+        permissible_values:
+            SHOW_IF:
+                description: "Show field if condition is met"
+            HIDE_IF:
+                description: "Hide field if condition is met"
+            ENABLE_IF:
+                description: "Enable field if condition is met"
+            DISABLE_IF:
+                description: "Disable field if condition is met"
+            REQUIRE_IF:
+                description: "Make required if condition is met"
+            CALCULATE_FROM:
+                description: "Calculate value from other fields"
+            VALIDATE_WITH:
+                description: "Validate in relation to other fields"

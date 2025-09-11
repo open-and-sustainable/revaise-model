@@ -102,57 +102,57 @@ classes:
     TemplateField:
         description: "A field within a registration template."
         slots:
-            - field_id
-            - field_name
-            - field_label
-            - field_description
-            - field_type
-            - field_format
-            - field_constraints
-            - field_help_text
-            - field_example
-            - field_section
-            - field_order
+            - template_field_id
+            - template_field_name
+            - template_field_label
+            - template_field_description
+            - template_field_type
+            - template_field_format
+            - template_field_constraints
+            - template_field_help_text
+            - template_field_example
+            - template_field_section
+            - template_field_order
             - is_repeatable
             - conditional_on
 
         slot_usage:
-            field_id:
+            template_field_id:
                 identifier: true
                 required: true
                 description: "Unique identifier for this field within the template"
-            field_name:
+            template_field_name:
                 range: string
                 required: true
                 description: "Technical name of the field"
-            field_label:
+            template_field_label:
                 range: string
                 required: true
                 description: "Human-readable label for the field"
-            field_description:
+            template_field_description:
                 range: string
                 description: "Description of what should be entered in this field"
-            field_type:
+            template_field_type:
                 range: FieldType
                 required: true
                 description: "Data type of the field"
-            field_format:
+            template_field_format:
                 range: string
                 description: "Expected format for the field value"
-            field_constraints:
+            template_field_constraints:
                 range: string
                 multivalued: true
                 description: "Constraints on the field value"
-            field_help_text:
+            template_field_help_text:
                 range: string
                 description: "Help text to guide users"
-            field_example:
+            template_field_example:
                 range: string
                 description: "Example value for this field"
-            field_section:
+            template_field_section:
                 range: string
                 description: "Section of the template this field belongs to"
-            field_order:
+            template_field_order:
                 range: integer
                 description: "Display order of the field"
             is_repeatable:
@@ -221,39 +221,38 @@ slots:
         range: string
 
     # Field slots
-    field_id:
+    template_field_id:
         description: "Unique identifier for this template field"
         range: string
-    field_name:
+    template_field_name:
         description: "Technical name of the field"
         range: string
-    field_label:
+    template_field_label:
         description: "Human-readable label for the field"
         range: string
-    field_description:
+    template_field_description:
         description: "Description of what should be entered in this field"
         range: string
-    field_type:
+    template_field_type:
         description: "Data type of the field"
         range: FieldType
-    field_format:
+    template_field_format:
         description: "Expected format for the field value"
         range: string
-    field_constraints:
-        description: "Constraints or validation rules for the field value"
+    template_field_constraints:
+        description: "Constraints on the field value"
         range: string
-        multivalued: true
-    field_help_text:
-        description: "Help text to guide users filling out this field"
+    template_field_help_text:
+        description: "Help text to guide users"
         range: string
-    field_example:
-        description: "Example value demonstrating proper field completion"
+    template_field_example:
+        description: "Example value for this field"
         range: string
-    field_section:
+    template_field_section:
         description: "Section of the template this field belongs to"
         range: string
-    field_order:
-        description: "Display order of the field within its section"
+    template_field_order:
+        description: "Display order of the field"
         range: integer
     is_repeatable:
         description: "Whether this field can have multiple values"

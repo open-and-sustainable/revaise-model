@@ -1,0 +1,452 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/ai_assistance
+name: ai_assistance
+description: "Shared AI assistance components used across different review stages"
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - linkml:types
+    - ./enums
+    - ./quality_metrics
+    - ./participant
+
+classes:
+    AIAssistance:
+        description: "Configuration for AI assistance in any review stage"
+        slots:
+            - ai_id
+            - ai_model
+            - ai_version
+            - ai_provider
+            - ai_purpose
+            - ai_prompts
+            - ai_parameters
+            - ai_confidence_threshold
+            - ai_validation_rules
+            - human_oversight_level
+            - ai_training_description
+            - ai_performance_metrics
+            - ai_error_handling
+        slot_usage:
+            ai_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this AI assistance configuration"
+            ai_model:
+                range: string
+                required: true
+                description: "Name of the AI model (e.g., GPT-4, Claude, BERT)"
+            ai_version:
+                range: string
+                required: true
+                description: "Version of the AI model"
+            ai_provider:
+                range: string
+                description: "AI service provider (e.g., OpenAI, Anthropic, Hugging Face)"
+            ai_purpose:
+                range: AIPurpose
+                required: true
+                multivalued: true
+                description: "Purposes for which AI is used"
+            ai_prompts:
+                range: AIPrompt
+                multivalued: true
+                description: "Prompts used to interact with the AI"
+            ai_parameters:
+                range: AIParameter
+                multivalued: true
+                description: "Model parameters and settings"
+            ai_confidence_threshold:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Minimum confidence score for accepting AI outputs"
+            ai_validation_rules:
+                range: string
+                multivalued: true
+                description: "Rules for validating AI outputs"
+            human_oversight_level:
+                range: HumanOversightLevel
+                required: true
+                description: "Level of human review required"
+            ai_training_description:
+                range: string
+                description: "Description of training data or fine-tuning if applicable"
+            ai_performance_metrics:
+                range: AIPerformanceMetrics
+                description: "Performance metrics for the AI assistance"
+            ai_error_handling:
+                range: string
+                description: "Strategy for handling AI errors or failures"
+
+    AIPrompt:
+        description: "Prompt configuration for AI interaction"
+        slots:
+            - prompt_id
+            - prompt_text
+            - prompt_type
+            - prompt_version
+            - prompt_examples
+            - target_field
+        slot_usage:
+            prompt_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this prompt"
+            prompt_text:
+                range: string
+                required: true
+                description: "The actual prompt text"
+            prompt_type:
+                range: PromptType
+                description: "Type of prompting strategy"
+            prompt_version:
+                range: string
+                description: "Version of this prompt"
+            prompt_examples:
+                range: string
+                multivalued: true
+                description: "Few-shot examples included in the prompt"
+            target_field:
+                range: string
+                description: "Field or task this prompt targets"
+
+    AIParameter:
+        description: "AI model parameter configuration"
+        slots:
+            - parameter_name
+            - parameter_value
+            - parameter_description
+        slot_usage:
+            parameter_name:
+                range: string
+                required: true
+                description: "Name of the parameter"
+            parameter_value:
+                range: string
+                required: true
+                description: "Value of the parameter"
+            parameter_description:
+                range: string
+                description: "Description of what this parameter controls"
+
+    AISession:
+        description: "Session details for AI-assisted work"
+        slots:
+            - ai_session_id
+            - ai_config_id
+            - session_timestamp
+            - item_ids_processed
+            - session_duration
+            - token_usage
+            - api_calls
+            - errors_encountered
+            - human_modifications
+        slot_usage:
+            ai_session_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this AI session"
+            ai_config_id:
+                range: string
+                required: true
+                description: "Reference to the AIAssistance configuration used"
+            session_timestamp:
+                range: datetime
+                required: true
+                description: "When this AI session occurred"
+            item_ids_processed:
+                range: string
+                multivalued: true
+                description: "IDs of items processed in this session"
+            session_duration:
+                range: float
+                description: "Duration of the session in seconds"
+            token_usage:
+                range: integer
+                description: "Number of tokens used (for LLM-based systems)"
+            api_calls:
+                range: integer
+                description: "Number of API calls made"
+            errors_encountered:
+                range: string
+                multivalued: true
+                description: "Errors encountered during the session"
+            human_modifications:
+                range: HumanModification
+                multivalued: true
+                description: "Modifications made by humans to AI outputs"
+
+    HumanModification:
+        description: "Record of human modification to AI output"
+        slots:
+            - modification_id
+            - item_modified
+            - original_ai_value
+            - modified_value
+            - modification_reason
+            - modifier_id
+            - modification_timestamp
+        slot_usage:
+            modification_id:
+                range: string
+                identifier: true
+                description: "Unique identifier for this modification"
+            item_modified:
+                range: string
+                required: true
+                description: "Item or field that was modified"
+            original_ai_value:
+                range: string
+                required: true
+                description: "Original value produced by AI"
+            modified_value:
+                range: string
+                required: true
+                description: "Value after human modification"
+            modification_reason:
+                range: ModificationReason
+                required: true
+                description: "Reason for the modification"
+            modifier_id:
+                range: string
+                required: true
+                description: "ID of the person who made the modification"
+            modification_timestamp:
+                range: datetime
+                required: true
+                description: "When the modification was made"
+
+    AIPerformanceMetrics:
+        is_a: PerformanceMetrics
+        description: "Performance metrics for AI assistance, extending general performance metrics with AI-specific measures"
+        slots:
+            - processing_speed
+            - human_agreement_rate
+            - confidence_calibration
+        slot_usage:
+            processing_speed:
+                range: float
+                description: "Average processing time per item (seconds)"
+            human_agreement_rate:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Rate of agreement with human reviewers"
+            confidence_calibration:
+                range: float
+                description: "Calibration of AI confidence scores"
+
+slots:
+    # AIAssistance slots
+    ai_id:
+        description: "Unique identifier for AI assistance configuration"
+        range: string
+    ai_model:
+        description: "Name of the AI model"
+        range: string
+    ai_version:
+        description: "Version of the AI model"
+        range: string
+    ai_provider:
+        description: "AI service provider"
+        range: string
+    ai_purpose:
+        description: "Purposes for which AI is used"
+        range: AIPurpose
+    ai_prompts:
+        description: "Prompts used to interact with the AI"
+        range: AIPrompt
+    ai_parameters:
+        description: "Model parameters and settings"
+        range: AIParameter
+    ai_confidence_threshold:
+        description: "Minimum confidence score for accepting AI outputs"
+        range: float
+    ai_validation_rules:
+        description: "Rules for validating AI outputs"
+        range: string
+    human_oversight_level:
+        description: "Level of human review required"
+        range: HumanOversightLevel
+    ai_training_description:
+        description: "Description of training data or fine-tuning"
+        range: string
+    ai_performance_metrics:
+        description: "Performance metrics for the AI assistance"
+        range: AIPerformanceMetrics
+    ai_error_handling:
+        description: "Strategy for handling AI errors or failures"
+        range: string
+
+    # AIPrompt slots
+    prompt_id:
+        description: "Unique identifier for prompt"
+        range: string
+    prompt_text:
+        description: "The actual prompt text"
+        range: string
+    prompt_type:
+        description: "Type of prompting strategy"
+        range: PromptType
+    prompt_version:
+        description: "Version of this prompt"
+        range: string
+    prompt_examples:
+        description: "Few-shot examples included in the prompt"
+        range: string
+    target_field:
+        description: "Field or task this prompt targets"
+        range: string
+
+    # AIParameter slots
+    parameter_name:
+        description: "Name of the parameter"
+        range: string
+    parameter_value:
+        description: "Value of the parameter"
+        range: string
+    parameter_description:
+        description: "Description of what this parameter controls"
+        range: string
+
+    # AISession slots
+    ai_session_id:
+        description: "Unique identifier for AI session"
+        range: string
+    ai_config_id:
+        description: "Reference to the AIAssistance configuration used"
+        range: string
+    session_timestamp:
+        description: "When this AI session occurred"
+        range: datetime
+    item_ids_processed:
+        description: "IDs of items processed in this session"
+        range: string
+    session_duration:
+        description: "Duration of the session in seconds"
+        range: float
+    token_usage:
+        description: "Number of tokens used"
+        range: integer
+    api_calls:
+        description: "Number of API calls made"
+        range: integer
+    errors_encountered:
+        description: "Errors encountered during the session"
+        range: string
+    human_modifications:
+        description: "Modifications made by humans to AI outputs"
+        range: HumanModification
+
+    # HumanModification slots
+    modification_id:
+        description: "Unique identifier for modification"
+        range: string
+    item_modified:
+        description: "Item or field that was modified"
+        range: string
+    original_ai_value:
+        description: "Original value produced by AI"
+        range: string
+    modified_value:
+        description: "Value after human modification"
+        range: string
+    modification_reason:
+        description: "Reason for the modification"
+        range: ModificationReason
+    modifier_id:
+        description: "ID of the person who made the modification"
+        range: string
+    modification_timestamp:
+        description: "When the modification was made"
+        range: datetime
+
+    # AIPerformanceMetrics slots (AI-specific only, others inherited from PerformanceMetrics)
+    processing_speed:
+        description: "Average processing time per item (seconds)"
+        range: float
+    human_agreement_rate:
+        description: "Rate of agreement with human reviewers"
+        range: float
+    confidence_calibration:
+        description: "Calibration of AI confidence scores"
+        range: float
+
+enums:
+    AIPurpose:
+        description: "Purpose for which AI is being used"
+        permissible_values:
+            CLASSIFICATION:
+                description: "Classifying items into categories"
+            EXTRACTION:
+                description: "Extracting data or information"
+            GENERATION:
+                description: "Generating text or content"
+            SUMMARIZATION:
+                description: "Summarizing content"
+            TRANSLATION:
+                description: "Translating between languages"
+            VALIDATION:
+                description: "Validating data or decisions"
+            SUGGESTION:
+                description: "Providing suggestions or recommendations"
+            QUALITY_CHECK:
+                description: "Checking quality or identifying issues"
+            ANOMALY_DETECTION:
+                description: "Detecting anomalies or outliers"
+
+    PromptType:
+        description: "Type of prompting strategy"
+        permissible_values:
+            ZERO_SHOT:
+                description: "No examples provided"
+            FEW_SHOT:
+                description: "A few examples provided"
+            CHAIN_OF_THOUGHT:
+                description: "Step-by-step reasoning"
+            STRUCTURED_OUTPUT:
+                description: "Output in specific structure"
+            CONVERSATIONAL:
+                description: "Multi-turn conversation"
+            INSTRUCTION_BASED:
+                description: "Direct instruction following"
+
+    HumanOversightLevel:
+        description: "Level of human oversight required"
+        permissible_values:
+            FULL_REVIEW:
+                description: "All AI outputs must be reviewed"
+            SAMPLE_REVIEW:
+                description: "Random sample of outputs reviewed"
+            CONFIDENCE_BASED:
+                description: "Review based on AI confidence scores"
+            EXCEPTION_ONLY:
+                description: "Only review exceptions or errors"
+            MINIMAL:
+                description: "Minimal or no review required"
+            NONE:
+                description: "No human review"
+
+    ModificationReason:
+        description: "Reason for modifying AI output"
+        permissible_values:
+            INCORRECT:
+                description: "AI output was incorrect"
+            INCOMPLETE:
+                description: "AI output was incomplete"
+            IMPRECISE:
+                description: "AI output lacked precision"
+            WRONG_CONTEXT:
+                description: "AI misunderstood context"
+            FORMATTING:
+                description: "Formatting issues"
+            VALIDATION_FAILURE:
+                description: "Failed validation rules"
+            AMBIGUITY:
+                description: "Resolved ambiguity"
+            HUMAN_JUDGMENT:
+                description: "Required human judgment"
+            POLICY_OVERRIDE:
+                description: "Policy or guideline override"

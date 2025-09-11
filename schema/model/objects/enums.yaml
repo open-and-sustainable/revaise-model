@@ -8,6 +8,35 @@ default_prefix: revaise
 imports:
     - linkml:types
 
+classes:
+    DateRange:
+        description: "A simple date range representation"
+        slots:
+            - range_start
+            - range_end
+            - range_description
+        slot_usage:
+            range_start:
+                range: string
+                description: "Start date/time in any format"
+            range_end:
+                range: string
+                description: "End date/time in any format"
+            range_description:
+                range: string
+                description: "Optional description of the date range"
+
+slots:
+    range_start:
+        description: "Start of a date range"
+        range: string
+    range_end:
+        description: "End of a date range"
+        range: string
+    range_description:
+        description: "Description of a date range"
+        range: string
+
 enums:
     StageType:
         description: "Logical stages of a systematic review (typical flow)."

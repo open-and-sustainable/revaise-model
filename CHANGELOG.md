@@ -2,6 +2,35 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2025-09-11
+
+### Added
+- Complete implementation of extraction stage with comprehensive functionality:
+  - Data extraction forms with customizable sections and fields
+  - Extraction protocol management with configurable reviewer requirements
+  - Support for pilot testing and calibration exercises
+  - AI-assisted extraction capabilities with human validation workflows
+  - Multiple extractor support with independent extraction options
+  - Disagreement resolution methods (consensus, third reviewer, majority vote)
+  - Extraction quality control with double extraction rates and agreement metrics
+  - Study characteristics and quality assessment integration
+  - Comprehensive extraction statistics and workload tracking
+  - Support for various extraction orders (random, alphabetical, chronological, by relevance/quality)
+  - Blinding levels for extraction (none, single, double, triple blind)
+- Complete review example demonstrating AI-assisted extraction workflow
+- Shared DateRange class for flexible date range representation
+
+### Changed
+- Renamed conflicting slot names across schemas to ensure uniqueness:
+  - Standardized naming conventions for stage-specific slots
+  - Prefixed context-specific slots to avoid namespace collisions
+  - Made AIPerformanceMetrics extend PerformanceMetrics to reduce duplication
+
+### Fixed
+- Resolved all slot naming conflicts between extraction, screening, and core objects
+- Fixed documentation build errors caused by duplicate slot definitions
+- Ensured all classes, enums, and slots have proper descriptions for complete documentation
+
 ## [0.2.0] - 2025-09-08
 
 ### Added
