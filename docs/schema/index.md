@@ -36,7 +36,7 @@ These represent the sequential phases of a systematic review:
 - **[Registration](stages/registration/)** - Protocol registration and pre-registration
 - **[Search](stages/search/)** - Literature search strategy and execution
 - **[Screening](stages/screening/)** - Title/abstract and full-text screening
-- **[Extraction](stages/extraction/)** - Data extraction with AI assistance support
+- **[Extraction](stages/extraction/)** - Data extraction from included studies
 
 ## Schema Features
 

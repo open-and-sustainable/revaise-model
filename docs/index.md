@@ -54,7 +54,7 @@ The RevAIse schema is available in multiple formats:
 - **[Registration](schema/stages/registration/)** - Protocol registration and pre-registration
 - **[Search](schema/stages/search/)** - Literature search execution and documentation
 - **[Screening](schema/stages/screening/)** - Title/abstract and full-text screening
-- **[Extraction](schema/stages/extraction/)** - Data extraction with AI assistance support
+- **[Extraction](schema/stages/extraction/)** - Data extraction from included studies
 
 ## Features
 
