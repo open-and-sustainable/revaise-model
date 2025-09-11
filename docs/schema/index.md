@@ -9,29 +9,37 @@ The RevAIse schema is organized into three main categories:
 ### Main Schema
 The [main schema](main/) defines the root `Review` class and imports all components. This is the entry point for understanding the complete data model.
 
-### Core Objects
-These are the fundamental building blocks of a systematic review:
+### Review Core Objects
+These are the fundamental objects that characterize a systematic review:
 
-- **[AI Assistance](objects/ai_assistance/)** - AI model configurations and assistance documentation
-- **[Author](objects/author/)** - Information about review authors and contributors
-- **[Conflict Resolution](objects/conflict_resolution/)** - Conflict resolution tracking and methods
-- **[External Tool](objects/external_tool/)** - External tools and software used in the review
-- **[Field Definition](objects/field_definition/)** - Data extraction field definitions and forms
-- **[Literature Record](objects/literature_record/)** - Individual literature items and their metadata
-- **[Participant](objects/participant/)** - Review participants and their roles
-- **[Protocol](objects/protocol/)** - Review protocol and registration details
-- **[Quality Assessment](objects/quality_assessment/)** - Quality assessment tools and metrics
-- **[Quality Metrics](objects/quality_metrics/)** - Performance and agreement metrics
-- **[Registration Template](objects/registration_template/)** - Templates for review registration
 - **[Review](objects/review/)** - The main review container and metadata
-- **[Software Environment](objects/software_env/)** - Computational environment specifications
+- **[Author](objects/author/)** - Information about review authors and contributors
+- **[Protocol](objects/protocol/)** - Review protocol and registration details
+- **[Literature Record](objects/literature_record/)** - Individual literature items and their metadata
+
+### Shared Infrastructure Objects
+These objects are imported in review_core.yaml for sharing across stages:
+
+- **[Registration Template](objects/registration_template/)** - Templates for review registration
 - **[Stage Execution](objects/stage_execution/)** - Base class for all review stages
 - **[Stage Output](objects/stage_output/)** - Outputs from stage executions
+- **[Software Environment](objects/software_env/)** - Computational environment specifications
+- **[External Tool](objects/external_tool/)** - External tools and software used in the review
+- **[Enumerations](objects/enums/)** - Controlled vocabularies and value sets
+
+### Additional Objects
+These objects provide additional functionality used by stages:
+
 - **[Stage Protocol](objects/stage_protocol/)** - Base protocol class for all stages
 - **[Stage Quality Control](objects/stage_quality_control/)** - Base quality control for all stages
 - **[Stage Statistics](objects/stage_statistics/)** - Base statistics for all stages
+- **[AI Assistance](objects/ai_assistance/)** - AI model configurations and assistance documentation
+- **[Conflict Resolution](objects/conflict_resolution/)** - Conflict resolution tracking and methods
+- **[Field Definition](objects/field_definition/)** - Data extraction field definitions and forms
+- **[Participant](objects/participant/)** - Review participants and their roles
+- **[Quality Assessment](objects/quality_assessment/)** - Quality assessment tools and metrics
+- **[Quality Metrics](objects/quality_metrics/)** - Performance and agreement metrics
 - **[Work Session](objects/work_session/)** - Work session tracking and metrics
-- **[Enumerations](objects/enums/)** - Controlled vocabularies and value sets
 
 ### Review Stages
 These represent the sequential phases of a systematic review:

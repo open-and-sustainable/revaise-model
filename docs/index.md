@@ -42,12 +42,25 @@ The RevAIse schema is available in multiple formats:
 
 ## Key Components
 
-### Core Objects
+### Review Core Objects
+
+These are the fundamental objects that characterize a systematic review:
 
 - **[Review](schema/objects/review/)** - The root container for systematic reviews
 - **[Author](schema/objects/author/)** - Review authors and contributors
 - **[Protocol](schema/objects/protocol/)** - Review protocol and registration details
 - **[Literature Record](schema/objects/literature_record/)** - Individual literature items
+
+### Shared Infrastructure Objects
+
+These objects are imported in review_core.yaml for sharing across stages:
+
+- **[Registration Template](schema/objects/registration_template/)** - Templates for review registration
+- **[Stage Execution](schema/objects/stage_execution/)** - Base class for all review stages
+- **[Stage Output](schema/objects/stage_output/)** - Outputs from stage executions
+- **[Software Environment](schema/objects/software_env/)** - Computational environment specifications
+- **[External Tool](schema/objects/external_tool/)** - External tools and software used
+- **[Enumerations](schema/objects/enums/)** - Controlled vocabularies and value sets
 
 ### Review Stages
 
@@ -55,6 +68,7 @@ The RevAIse schema is available in multiple formats:
 - **[Search](schema/stages/search/)** - Literature search execution and documentation
 - **[Screening](schema/stages/screening/)** - Title/abstract and full-text screening
 - **[Extraction](schema/stages/extraction/)** - Data extraction from included studies
+- **[Synthesis](schema/stages/synthesis/)** - Data synthesis and meta-analysis
 
 ## Features
 
