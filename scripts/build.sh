@@ -3,18 +3,77 @@ set -euo pipefail
 
 SCHEMA_DIR="schema"
 OUT="site"
-VER="${1:-dev}"
+
+# Determine version from Git, VERSION file, or argument
+# Priority: Git tag > Git branch > VERSION file > argument > 'dev'
+if git describe --exact-match --tags HEAD 2>/dev/null; then
+    # We're on a tag, use it (remove 'v' prefix if present)
+    VER=$(git describe --exact-match --tags HEAD | sed 's/^v//')
+elif [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] || [ "$(git rev-parse --abbrev-ref HEAD)" = "master" ]; then
+    # We're on main/master branch, check if VERSION file exists for development version
+    if [ -f "VERSION" ]; then
+        # Append -dev to distinguish from stable
+        VER="$(cat VERSION | tr -d '[:space:]')-dev"
+    else
+        VER="dev"
+    fi
+elif [ -f "VERSION" ]; then
+    # Not on tag or main, use VERSION file
+    VER=$(cat VERSION | tr -d '[:space:]')
+elif [ -n "$1" ]; then
+    # Use provided argument
+    VER="$1"
+else
+    # Default to dev
+    VER="dev"
+fi
+
+# For ReadTheDocs environment, check environment variables
+if [ -n "$READTHEDOCS_VERSION" ]; then
+    if [ "$READTHEDOCS_VERSION" = "latest" ]; then
+        # Building latest from main branch
+        if [ -f "VERSION" ]; then
+            VER="$(cat VERSION | tr -d '[:space:]')-dev"
+        else
+            VER="dev"
+        fi
+    elif [ "$READTHEDOCS_VERSION" = "stable" ]; then
+        # Building stable - use VERSION file without -dev suffix
+        if [ -f "VERSION" ]; then
+            VER=$(cat VERSION | tr -d '[:space:]')
+        fi
+    else
+        # Building a specific version tag
+        VER="$READTHEDOCS_VERSION"
+    fi
+fi
+
 BASE_URL="/revaise-model"
 
 rm -rf "$OUT"
 mkdir -p "$OUT/schema/$VER" "$OUT/schema/latest" "$OUT/docs/$VER"
 
 # Build the main revaise schema
-echo "Building main RevAIse schema..."
-gen-json-schema "$SCHEMA_DIR/revaise.yaml" > "$OUT/schema/$VER/revaise.schema.json"
-gen-jsonld-context "$SCHEMA_DIR/revaise.yaml" > "$OUT/schema/$VER/context.jsonld"
-gen-doc "$SCHEMA_DIR/revaise.yaml" --directory "$OUT/docs/$VER/main"
-cp "$SCHEMA_DIR/revaise.yaml" "$OUT/schema/$VER/revaise.yaml"
+echo "Building main RevAIse schema (version: $VER)..."
+
+# Extract clean version number for schema (remove -dev suffix if present)
+SCHEMA_VER=$(echo "$VER" | sed 's/-dev$//')
+
+# Create a temporary directory to work in
+TEMP_DIR=$(mktemp -d)
+cp -r "$SCHEMA_DIR"/* "$TEMP_DIR/"
+
+# Always inject version into the schema (use clean version without -dev)
+awk '/^name: revaise$/{print; print "version: '"$SCHEMA_VER"'"; next}1' "$TEMP_DIR/revaise.yaml" > "$TEMP_DIR/revaise_versioned.yaml"
+mv "$TEMP_DIR/revaise_versioned.yaml" "$TEMP_DIR/revaise.yaml"
+
+gen-json-schema "$TEMP_DIR/revaise.yaml" > "$OUT/schema/$VER/revaise.schema.json"
+gen-jsonld-context "$TEMP_DIR/revaise.yaml" > "$OUT/schema/$VER/context.jsonld"
+gen-doc "$TEMP_DIR/revaise.yaml" --directory "$OUT/docs/$VER/main"
+cp "$TEMP_DIR/revaise.yaml" "$OUT/schema/$VER/revaise.yaml"
+
+# Clean up temporary directory
+rm -rf "$TEMP_DIR"
 
 # Build documentation for core components
 echo "Building documentation for core components..."

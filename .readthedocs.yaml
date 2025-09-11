@@ -28,7 +28,31 @@ build:
 
             # Generate documentation from LinkML schemas
             - echo "Generating LinkML documentation..."
-            - gen-doc schema/revaise.yaml --directory docs/schema/main || echo "Main schema docs generated"
+            # Determine version based on ReadTheDocs environment
+            - |
+                if [ -n "$READTHEDOCS_VERSION" ]; then
+                    echo "ReadTheDocs version: $READTHEDOCS_VERSION"
+                    if [ "$READTHEDOCS_VERSION" = "latest" ] && [ -f "VERSION" ]; then
+                        VERSION="$(cat VERSION | tr -d '[:space:]')-dev"
+                    elif [ "$READTHEDOCS_VERSION" = "stable" ] && [ -f "VERSION" ]; then
+                        VERSION=$(cat VERSION | tr -d '[:space:]')
+                    elif [ -f "VERSION" ]; then
+                        VERSION=$(cat VERSION | tr -d '[:space:]')
+                    else
+                        VERSION="$READTHEDOCS_VERSION"
+                    fi
+                elif [ -f "VERSION" ]; then
+                    VERSION=$(cat VERSION | tr -d '[:space:]')
+                else
+                    VERSION="dev"
+                fi
+                echo "Using version: $VERSION"
+                # Clean version for schema (remove -dev suffix)
+                SCHEMA_VERSION=$(echo "$VERSION" | sed 's/-dev$//')
+                # Create temporary schema with version injected
+                awk '/^name: revaise$/{print; print "version: '"$SCHEMA_VERSION"'"; next}1' schema/revaise.yaml > schema/revaise_temp.yaml
+                gen-doc schema/revaise_temp.yaml --directory docs/schema/main || echo "Main schema docs generated"
+                rm -f schema/revaise_temp.yaml
 
             # Generate object documentation
             - for file in schema/model/objects/*.yaml; do basename=$(basename "$file" .yaml); echo "Processing $basename..."; gen-doc "$file" --directory "docs/schema/objects/$basename" 2>/dev/null || echo "Skipped $basename"; done
@@ -38,8 +62,30 @@ build:
 
             # Generate JSON Schema and JSON-LD context
             - echo "Generating JSON Schema..."
-            - gen-json-schema schema/revaise.yaml > docs/api/revaise.schema.json || echo "JSON Schema generated"
-            - gen-jsonld-context schema/revaise.yaml > docs/api/context.jsonld || echo "JSON-LD context generated"
+            - |
+                # Use same version logic as above
+                if [ -n "$READTHEDOCS_VERSION" ]; then
+                    if [ "$READTHEDOCS_VERSION" = "latest" ] && [ -f "VERSION" ]; then
+                        VERSION="$(cat VERSION | tr -d '[:space:]')-dev"
+                    elif [ "$READTHEDOCS_VERSION" = "stable" ] && [ -f "VERSION" ]; then
+                        VERSION=$(cat VERSION | tr -d '[:space:]')
+                    elif [ -f "VERSION" ]; then
+                        VERSION=$(cat VERSION | tr -d '[:space:]')
+                    else
+                        VERSION="$READTHEDOCS_VERSION"
+                    fi
+                elif [ -f "VERSION" ]; then
+                    VERSION=$(cat VERSION | tr -d '[:space:]')
+                else
+                    VERSION="dev"
+                fi
+                # Clean version for schema (remove -dev suffix)
+                SCHEMA_VERSION=$(echo "$VERSION" | sed 's/-dev$//')
+                # Create temporary schema with version injected
+                awk '/^name: revaise$/{print; print "version: '"$SCHEMA_VERSION"'"; next}1' schema/revaise.yaml > schema/revaise_temp.yaml
+                gen-json-schema schema/revaise_temp.yaml > docs/api/revaise.schema.json || echo "JSON Schema generated"
+                gen-jsonld-context schema/revaise_temp.yaml > docs/api/context.jsonld || echo "JSON-LD context generated"
+                rm -f schema/revaise_temp.yaml
 
             # Copy README if it doesn't exist in docs
             - test -f docs/index.md || cp README.md docs/index.md
