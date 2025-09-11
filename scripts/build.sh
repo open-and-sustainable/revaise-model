@@ -29,7 +29,7 @@ else
 fi
 
 # For ReadTheDocs environment, check environment variables
-if [ -n "$READTHEDOCS_VERSION" ]; then
+if [ -n "${READTHEDOCS_VERSION:-}" ]; then
     if [ "$READTHEDOCS_VERSION" = "latest" ]; then
         # Building latest from main branch
         if [ -f "VERSION" ]; then
