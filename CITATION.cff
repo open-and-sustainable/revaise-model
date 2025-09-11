@@ -24,14 +24,6 @@ license: CC0-1.0
 repository-code: "https://github.com/open-and-sustainable/revaise-model"
 url: "https://revaise-model.readthedocs.io/"
 doi: 10.5281/zenodo.17054435
-references:
-  - type: manual
-    title: "RevAIse Model Technical Documentation"
-    authors:
-      - given-names: Riccardo
-        family-names: Boero
-    url: "https://revaise-model.readthedocs.io/"
-    year: 2025
 identifiers:
   - type: doi
     value: 10.5281/zenodo.17054435
