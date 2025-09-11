@@ -12,14 +12,22 @@ The [main schema](main/) defines the root `Review` class and imports all compone
 ### Core Objects
 These are the fundamental building blocks of a systematic review:
 
+- **[AI Assistance](objects/ai_assistance/)** - AI model configurations and assistance documentation
 - **[Author](objects/author/)** - Information about review authors and contributors
-- **[Protocol](objects/protocol/)** - Review protocol and registration details
-- **[Review](objects/review/)** - The main review container and metadata
+- **[Conflict Resolution](objects/conflict_resolution/)** - Conflict resolution tracking and methods
+- **[External Tool](objects/external_tool/)** - External tools and software used in the review
+- **[Field Definition](objects/field_definition/)** - Data extraction field definitions and forms
 - **[Literature Record](objects/literature_record/)** - Individual literature items and their metadata
+- **[Participant](objects/participant/)** - Review participants and their roles
+- **[Protocol](objects/protocol/)** - Review protocol and registration details
+- **[Quality Assessment](objects/quality_assessment/)** - Quality assessment tools and metrics
+- **[Quality Metrics](objects/quality_metrics/)** - Performance and agreement metrics
+- **[Registration Template](objects/registration_template/)** - Templates for review registration
+- **[Review](objects/review/)** - The main review container and metadata
+- **[Software Environment](objects/software_env/)** - Computational environment specifications
 - **[Stage Execution](objects/stage_execution/)** - Base class for all review stages
 - **[Stage Output](objects/stage_output/)** - Outputs from stage executions
-- **[Software Environment](objects/software_env/)** - Computational environment specifications
-- **[Registration Template](objects/registration_template/)** - Templates for review registration
+- **[Work Session](objects/work_session/)** - Work session tracking and metrics
 - **[Enumerations](objects/enums/)** - Controlled vocabularies and value sets
 
 ### Review Stages
@@ -28,6 +36,7 @@ These represent the sequential phases of a systematic review:
 - **[Registration](stages/registration/)** - Protocol registration and pre-registration
 - **[Search](stages/search/)** - Literature search strategy and execution
 - **[Screening](stages/screening/)** - Title/abstract and full-text screening
+- **[Extraction](stages/extraction/)** - Data extraction with AI assistance support
 
 ## Schema Features
 
@@ -95,6 +104,7 @@ Use the version selector at the bottom of the page to access documentation for d
 | [Registration Stage](stages/registration/) | Registration/pre-registration | Protocol documentation |
 | [Search Stage](stages/search/) | Search strategy and execution | Search documentation |
 | [Screening Stage](stages/screening/) | Study selection process | Screening documentation |
+| [Extraction Stage](stages/extraction/) | Data extraction process | Extraction documentation |
 
 ## Schema Extensions
 

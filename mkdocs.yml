@@ -51,19 +51,28 @@ nav:
           - Overview: schema/index.md
           - Main Schema: schema/main/
           - Objects:
+                - AI Assistance: schema/objects/ai_assistance/
                 - Author: schema/objects/author/
+                - Conflict Resolution: schema/objects/conflict_resolution/
                 - Enums: schema/objects/enums/
+                - External Tool: schema/objects/external_tool/
+                - Field Definition: schema/objects/field_definition/
                 - Literature Record: schema/objects/literature_record/
+                - Participant: schema/objects/participant/
                 - Protocol: schema/objects/protocol/
+                - Quality Assessment: schema/objects/quality_assessment/
+                - Quality Metrics: schema/objects/quality_metrics/
                 - Registration Template: schema/objects/registration_template/
                 - Review: schema/objects/review/
                 - Software Environment: schema/objects/software_env/
                 - Stage Execution: schema/objects/stage_execution/
                 - Stage Output: schema/objects/stage_output/
+                - Work Session: schema/objects/work_session/
           - Stages:
                 - Registration: schema/stages/registration/
                 - Search: schema/stages/search/
                 - Screening: schema/stages/screening/
+                - Extraction: schema/stages/extraction/
     - API:
           - JSON Schema: api/revaise.schema.json
           - JSON-LD Context: api/context.jsonld

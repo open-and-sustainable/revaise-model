@@ -54,11 +54,12 @@ The RevAIse schema is available in multiple formats:
 - **[Registration](schema/stages/registration/)** - Protocol registration and pre-registration
 - **[Search](schema/stages/search/)** - Literature search execution and documentation
 - **[Screening](schema/stages/screening/)** - Title/abstract and full-text screening
+- **[Extraction](schema/stages/extraction/)** - Data extraction with AI assistance support
 
 ## Features
 
 ### Stage-Based Organization
-Reviews are organized into discrete stages (registration, search, screening, etc.), each with:
+Reviews are organized into discrete stages (registration, search, screening, extraction, etc.), each with:
 - Execution metadata (timing, actors, tools)
 - Input/output specifications
 - AI usage documentation
