@@ -1,7 +1,7 @@
 cff-version: 1.2.0
 message: "Please check technical documentation at https://revaise-model.readthedocs.io/"
-title: "RevAIse: A Data Model for AI-Assisted Systematic Literature Reviews"
-abstract: "An Open Science standard for transparent, reproducible AI-assisted systematic literature reviews. RevAIse provides a comprehensive, open standard for documenting every aspect of AI-assisted systematic reviews, ensuring reproducibility, transparency, and interoperability."
+title: "RevAIse: A Data Model for AI-Assisted Systematic Literature Review Workflows"
+abstract: "An Open Science standard for transparent, reproducible AI-assisted systematic literature review workflows. RevAIse provides a comprehensive, open standard for documenting complete systematic review workflows, enabling workflow automation, reproducibility, transparency, and interoperability across platforms and institutions."
 type: software
 authors:
   - given-names: Riccardo

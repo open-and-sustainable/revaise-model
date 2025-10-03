@@ -4,7 +4,7 @@
 
 > # RevAIse Data Model
 
-**An Open Science standard for transparent, reproducible AI-assisted systematic literature reviews**
+**An Open Science standard for transparent, reproducible AI-assisted systematic literature review workflows**
 
 [![Validate Schema](https://github.com/open-and-sustainable/revaise-model/actions/workflows/validate.yml/badge.svg)](https://github.com/open-and-sustainable/revaise-model/actions/workflows/validate.yml)
 [![Documentation](https://readthedocs.org/projects/revaise-model/badge/?version=latest)](https://revaise-model.readthedocs.io/en/latest/?badge=latest)
@@ -12,67 +12,74 @@
 
 ## Why RevAIse?
 
-The integration of AI into systematic literature reviews promises to accelerate research synthesis, but it also introduces critical challenges:
+The integration of AI into systematic literature reviews promises to accelerate research synthesis, but it also introduces critical workflow challenges:
 
-- **Reproducibility Crisis**: How can we ensure AI-assisted reviews can be independently verified and replicated?
-- **Transparency Gap**: What prompts, models, and decision criteria were actually used?
-- **Method Fragmentation**: Every team uses different tools, formats, and workflows, making collaboration difficult
-- **Trust Deficit**: Without standardized documentation, how can readers assess the quality and reliability of AI-assisted reviews?
+- **Reproducibility Crisis**: How can we ensure AI-assisted review workflows can be independently verified and replicated?
+- **Transparency Gap**: What prompts, models, and decision criteria were actually used in the workflow?
+- **Workflow Fragmentation**: Every team uses different review processes, making collaboration and replication difficult
+- **Process Opacity**: Complex AI-assisted review workflows lack clear documentation of decision flows and dependencies
+- **Trust Deficit**: Without standardized workflow documentation, how can readers assess the quality and reliability of AI-assisted reviews?
 
-**RevAIse addresses these challenges by providing a comprehensive, open standard for documenting every aspect of AI-assisted systematic reviews.**
+**RevAIse addresses these challenges by providing a comprehensive, open standard for documenting complete systematic review workflows.**
 
 ## What is RevAIse?
 
-RevAIse is a structured data model that captures:
+RevAIse is a structured data model that captures complete systematic review workflows:
 
-- **Complete Review Metadata** - From protocol registration to final synthesis
-- **AI Usage Documentation** - Models, prompts, parameters, and decisions
-- **Search Strategies** - Queries, databases, and result collections
-- **Screening & Extraction** - Criteria, decisions, and human-in-the-loop processes
-- **Full Reproducibility** - Software environments, data versions, and computational steps
+- **Workflow Process Documentation** - From protocol registration through synthesis, capturing the complete review workflow with stage dependencies
+- **AI-Assisted Process Steps** - Models, prompts, parameters, and automated decision points integrated within the review workflow
+- **Search Process Workflows** - Query strategies, database execution sequences, and result processing flows
+- **Review Process Workflows** - Screening criteria, extraction procedures, and human-AI collaboration patterns throughout the review
+- **Workflow Reproducibility** - Complete process environments, data lineage, and step-by-step execution documentation
 
 ## Who Benefits?
 
 ### Researchers
-- Document your AI-assisted review process comprehensively
-- Share reproducible research artifacts with the community
-- Build on existing reviews with full transparency
+- **Document review workflows** comprehensively for future reuse and methodological transparency
+- **Share reproducible research workflows** with complete process documentation
+- **Build on existing review workflows** with full transparency of methods and processes
+- Enable **workflow replication** across different research teams and contexts
 
 ### Journal Editors & Peer Reviewers
-- Assess the methodological rigor of AI-assisted reviews
-- Verify compliance with reporting standards (PRISMA, etc.)
-- Ensure reproducibility requirements are met
+- Assess the methodological rigor of AI-assisted review workflows and processes
+- Verify compliance with reporting standards (PRISMA, etc.) through complete workflow documentation
+- Ensure workflow reproducibility and transparency requirements are met
 
 ### Tool Developers
-- Build interoperable tools that speak a common language
-- Import/export review data across platforms
-- Contribute to an open ecosystem
+- **Understand standard review workflow patterns** to build compatible tools
+- **Enable process interoperability** between different AI and review platforms
+- Import/export review workflow data across platforms using standardized documentation
+- Contribute to an open ecosystem of interoperable review tools
 
 ### Research Institutions
-- Establish best practices for AI-assisted evidence synthesis
-- Ensure research outputs meet transparency standards
-- Build institutional knowledge bases
+- Establish best practices for AI-assisted evidence synthesis workflows
+- Ensure research outputs meet transparency and workflow documentation standards
+- **Build institutional workflow knowledge** bases and process libraries
 
 ## Key Features
 
 - **Open Standard** - Community-governed, CC0 licensed (public domain), and freely available
-- **Technology Agnostic** - Works with any AI model or review tool
-- **FAIR Principles** - Findable, Accessible, Interoperable, and Reusable data
+- **Process Agnostic** - Works with any AI model, review tool, or institutional workflow
+- **Workflow Templates** - Reusable patterns for common review types and AI integration processes
+- **Process Documentation** - Complete capture of review steps, decision points, and data flows
+- **Workflow Provenance** - Full lineage from initial searches to final conclusions
+- **FAIR Principles** - Findable, Accessible, Interoperable, and Reusable workflow documentation
 - **Multiple Formats** - JSON, YAML, RDF, and more
-- **Extensible** - Adapt to your specific domain needs
-- **Version Controlled** - Track changes in your review methodology
+- **Extensible** - Adapt workflow definitions to your specific domain and institutional needs
+- **Version Controlled** - Track changes in your review methodology and workflow evolution
 
 ## Quick Start
 
 ### For Researchers
-Start documenting your AI-assisted review using the RevAIse schema:
+Start documenting your AI-assisted review workflows using the RevAIse schema:
 
 1. **Browse the Schema**: [Documentation](https://revaise-model.readthedocs.io/)
 2. **Download Templates**: [JSON Schema - Stable](https://revaise-model.readthedocs.io/en/stable/api/revaise.schema.json)
-3. **Validate Your Data**: Use standard JSON Schema validators
+3. **Map Your Review Workflow**: Document your systematic review process using RevAIse workflow stages
+4. **Validate Your Data**: Use standard JSON Schema validators
 
 ### For Developers
-Integrate RevAIse into your tools:
+Integrate RevAIse into your systematic review tools:
 
 ```json
 {
@@ -82,9 +89,17 @@ Integrate RevAIse into your tools:
 }
 ```
 
+### For Methodologists
+Use RevAIse to standardize systematic review workflows:
+
+1. **Define Standard Processes** - Document institutional systematic review workflows
+2. **Capture Process Dependencies** - Map relationships between review stages and decision points
+3. **Enable Process Replication** - Create templates for reproducible review workflows
+4. **Share Process Knowledge** - Publish standardized workflow definitions for community use
+
 ## Get Involved
 
-RevAIse is a community effort. We welcome contributions from researchers, developers, librarians, and anyone interested in improving the transparency and reproducibility of AI-assisted research.
+RevAIse is a community effort. We welcome contributions from researchers, developers, librarians, methodologists, and anyone interested in improving the transparency and reproducibility of AI-assisted research workflows.
 
 - **Read the Documentation**: [revaise-model.readthedocs.io](https://revaise-model.readthedocs.io/)
 - **Join the Discussion**: [GitHub Discussions](https://github.com/open-and-sustainable/revaise-model/discussions)
@@ -95,11 +110,15 @@ RevAIse is a community effort. We welcome contributions from researchers, develo
 
 We envision a future where:
 
-- AI is the only viable way to keep pace with the vast and ever-growing body of scientific publications, beyond what human readers and reviewers alone can process
-- Every AI-assisted systematic review is fully transparent and reproducible
-- Researchers can seamlessly build upon each other's work
-- AI tools enhance rather than obscure the review process
-- The scientific community has complete confidence in AI-assisted evidence synthesis
+- **Systematic review workflows** are fully documented, transparent, and reproducible
+- **Process standardization** enables researchers to build on proven review methodologies
+- **Workflow documentation** seamlessly coordinates human expertise with AI capabilities in systematic reviews
+- **Process libraries** accelerate evidence synthesis across research domains
+- AI is effectively integrated into systematic review workflows while maintaining methodological rigor
+- Every AI-assisted systematic review workflow is fully transparent and reproducible
+- Researchers can seamlessly build upon each other's systematic review processes
+- AI tools enhance rather than obscure the systematic review process through clear workflow documentation
+- The scientific community has complete confidence in AI-assisted evidence synthesis workflows
 
 ## License
 
@@ -111,7 +130,7 @@ If you use RevAIse in your research, please cite:
 
 ```bibtex
 @software{revaise2025,
-  title = {RevAIse: A Data Model for AI-Assisted Systematic Literature Reviews},
+  title = {RevAIse: A Data Model for AI-Assisted Systematic Literature Review Workflows},
   author = {Boero, Riccardo},
   year = {2025},
   url = {https://github.com/open-and-sustainable/revaise-model},
@@ -122,5 +141,5 @@ If you use RevAIse in your research, please cite:
 ---
 
 <p align="center">
-  <strong>Building trust in AI-assisted research through radical transparency</strong>
+  <strong>Building trust in AI-assisted research through transparent, reproducible workflows</strong>
 </p>

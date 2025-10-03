@@ -6,6 +6,7 @@ Thank you for your interest in contributing to the RevAIse data model! This docu
 
 - [Code of Conduct](#code-of-conduct)
 - [How to Contribute](#how-to-contribute)
+- [Workflow Contributions](#workflow-contributions)
 - [Development Process](#development-process)
 - [Schema Evolution](#schema-evolution)
 - [Creating Extensions](#creating-extensions)
@@ -48,6 +49,56 @@ We are committed to providing a welcoming and inclusive environment. All partici
 6. Commit with clear, descriptive messages
 7. Push to your fork and submit a pull request
 8. Link any relevant issues
+
+## Systematic Review Workflow Contributions
+
+RevAIse is designed to support systematic review workflows and process documentation. We welcome contributions that enhance workflow documentation capabilities:
+
+### Review Process Documentation
+
+Contributing new patterns for documenting:
+
+- **Review Stage Templates**: Standardized documentation for common review stages
+- **AI-Assisted Review Processes**: Templates for documenting AI integration in systematic reviews
+- **Quality Assurance Workflows**: Documentation patterns for different quality control approaches
+- **Multi-Reviewer Workflows**: Patterns for collaborative review processes with conflict resolution
+
+### Workflow Templates and Examples
+
+We encourage contributions of:
+
+1. **Complete Review Examples**: End-to-end systematic review workflow documentation using RevAIse
+2. **Stage Templates**: Reusable documentation patterns for common review stages
+3. **Methodology Guides**: Documentation of proven systematic review methodologies
+4. **Best Practice Examples**: Real-world examples of transparent, reproducible review workflows
+
+### Workflow Documentation Guidelines
+
+When contributing workflow-related features:
+
+1. **Document Dependencies**: Clearly specify stage prerequisites and information flows between review stages
+2. **Enable Reproducibility**: Include complete methodology and decision documentation
+3. **Support Transparency**: Provide metadata for review process tracking and quality assessment
+4. **Consider Scalability**: Design documentation patterns for both small and large-scale systematic reviews
+5. **Maintain Standards**: Ensure compatibility with systematic review reporting standards (PRISMA, etc.)
+
+### Schema Contributions for Review Workflows
+
+For workflow-related schema changes:
+
+- **Stage Definitions**: New workflow stages for domain-specific systematic review processes
+- **Process Metadata**: Enhanced tracking of review methodology and decision-making
+- **AI Integration Documentation**: Improved patterns for documenting AI assistance within reviews
+- **Quality Control**: New mechanisms for workflow validation and methodological quality assurance
+
+### Testing Workflow Contributions
+
+Systematic review workflow contributions should include:
+
+- Example workflow documentation using the contributed features
+- Test data demonstrating complete review process documentation
+- Validation against systematic review methodology standards
+- Examples from different domains showing adaptability
 
 ## Development Process
 
