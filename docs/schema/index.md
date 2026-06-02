@@ -44,11 +44,13 @@ These objects provide additional functionality for systematic review workflow do
 ### Review Workflow Stages
 These represent the sequential phases of a systematic review workflow with proper dependency documentation:
 
+- **[Scoping](stages/scoping/)** - Optional exploratory planning, question refinement, feasibility assessment, and scoping decisions
 - **[Registration](stages/registration/)** - Protocol registration and workflow pre-specification
 - **[Search](stages/search/)** - Literature search strategy execution and documentation
 - **[Screening](stages/screening/)** - Title/abstract and full-text screening workflows
 - **[Extraction](stages/extraction/)** - Data extraction processes from included studies
 - **[Synthesis](stages/synthesis/)** - Data synthesis workflows and analysis procedures
+- **[Reporting](stages/reporting/)** - Optional reporting standards, checklists, PRISMA flow, report documents, and publication records
 
 ## Schema Features
 
@@ -148,11 +150,13 @@ Systematic review tools can rely on minor version compatibility for consistent d
 | [Main Schema](main/) | Complete workflow schema definition | Understanding the full systematic review workflow model |
 | [Review Object](objects/review/) | Root workflow container | Starting a systematic review workflow document |
 | [Stage Execution](objects/stage_execution/) | Base workflow stage class | Implementing systematic review stage documentation |
+| [Scoping Stage](stages/scoping/) | Optional review planning and scope refinement | Documenting exploratory planning when performed |
 | [Registration Stage](stages/registration/) | Workflow registration/pre-specification | Protocol and methodology documentation |
 | [Search Stage](stages/search/) | Search strategy and execution workflows | Search methodology documentation and replication |
 | [Screening Stage](stages/screening/) | Study selection workflows | Screening process documentation with AI assistance |
 | [Extraction Stage](stages/extraction/) | Data extraction processes | Extraction methodology and AI-assisted workflows |
 | [Synthesis Stage](stages/synthesis/) | Data synthesis workflows | Analysis procedures and evidence synthesis documentation |
+| [Reporting Stage](stages/reporting/) | Optional reporting and publication workflows | Reporting checklist, PRISMA flow, and publication documentation |
 
 ## Workflow Schema Extensions
 

@@ -1,0 +1,63 @@
+review_id: SR_2026_008
+review_title: "Digital health intervention outcomes: risk-of-bias example"
+review_type: SYSTEMATIC_REVIEW
+review_status: IN_PROGRESS
+review_authors:
+  - name: "Helen Okafor"
+    email: "helen.okafor@example.org"
+protocol:
+  research_question: "What is the effect of digital health interventions on medication adherence?"
+  eligibility_criteria: "Randomized controlled trials reporting medication adherence outcomes."
+stages:
+  - stage_type: data_extraction
+    stage_label: "Extraction and risk-of-bias assessment"
+    stage_description: "Data extraction with outcome-level risk-of-bias assessment."
+    started_at: "2026-04-15T09:00:00Z"
+    extraction_protocol:
+      base_protocol_id: extraction_protocol_002
+      minimum_extractors_per_study: 2
+      independent_extraction: true
+      disagreement_resolution_method: CONSENSUS_DISCUSSION
+      extraction_order: RANDOM
+      blinding_level: NONE
+    extraction_forms:
+      - form_id: form_rob_001
+        form_name: "Medication adherence extraction and RoB form"
+        form_version: "1.0.0"
+    extracted_studies:
+      - extracted_study_id: study_extract_001
+        source_record_id: record_001
+        extraction_form_id: form_rob_001
+        extraction_status: COMPLETED
+        quality_assessment:
+          assessment_id: rob_assessment_001
+          item_id: record_001
+          assessment_purpose: RISK_OF_BIAS
+          assessment_unit: OUTCOME
+          assessment_tool: COCHRANE_ROB2
+          rob_assessment_version: "RoB 2"
+          target_outcome: "Medication adherence at 6 months"
+          target_effect: "Intervention versus usual care"
+          overall_risk_of_bias: SOME_CONCERNS
+          rob_consensus_status: CONSENSUS_REACHED
+          rob_direction: UNPREDICTABLE
+          rob_justification: "Some concerns due to incomplete reporting of allocation concealment."
+          assessor:
+            name: "Helen Okafor"
+            participant_role:
+              - QUALITY_ASSESSOR
+          assessment_date: "2026-04-20T14:00:00Z"
+          risk_of_bias_domains:
+            - rob_domain_id: rob2_domain_1
+              rob_domain_name: "Bias arising from the randomization process"
+              rob_domain_judgement: SOME_CONCERNS
+              rob_domain_rationale: "Random sequence generation was described, but allocation concealment was unclear."
+              signalling_questions:
+                - signalling_question_id: rob2_1_1
+                  signalling_question_text: "Was the allocation sequence random?"
+                  signalling_question_response: "YES"
+                  signalling_question_rationale: "The article reports computer-generated randomization."
+                - signalling_question_id: rob2_1_2
+                  signalling_question_text: "Was the allocation sequence concealed until participants were enrolled and assigned?"
+                  signalling_question_response: NO_INFORMATION
+                  signalling_question_rationale: "The concealment procedure was not described."

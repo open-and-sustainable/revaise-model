@@ -66,11 +66,13 @@ These objects are imported in review_core.yaml for sharing across workflow stage
 
 These represent the sequential phases of a systematic review workflow:
 
+- **[Scoping](schema/stages/scoping/)** - Optional exploratory planning and question refinement
 - **[Registration](schema/stages/registration/)** - Protocol registration and workflow pre-specification
 - **[Search](schema/stages/search/)** - Literature search strategy execution and documentation
 - **[Screening](schema/stages/screening/)** - Title/abstract and full-text screening workflows
 - **[Extraction](schema/stages/extraction/)** - Data extraction processes from included studies
 - **[Synthesis](schema/stages/synthesis/)** - Data synthesis workflows and analysis procedures
+- **[Reporting](schema/stages/reporting/)** - Optional reporting, checklist, PRISMA flow, and publication documentation
 
 ## Features
 

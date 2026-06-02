@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.0] - 2026-06-02
+### Added
+- Optional `ScopingStage` for exploratory planning, review question refinement, feasibility assessment, stakeholder input, and scoping decisions.
+- Optional `ReportingStage` for reporting standards, reporting checklists, PRISMA flow information, report documents, publication records, reporting deviations, and reporting signoff.
+- Expanded risk-of-bias support in `QualityAssessment`, including assessment purpose/unit, risk-of-bias domain judgements, signalling questions, bias direction, consensus status, and additional risk-of-bias tools.
+- Examples for scoping, reporting, and detailed risk-of-bias assessment.
+
+### Changed
+- Added stage and output enum values for reporting and new reporting/scoping artifacts.
+
 ## [0.4.2] - 2026-06-02
 ### Added
 - Versioned release artifacts for JSON Schema, JSON-LD context, SHACL, OWL, RDF, LinkML YAML, manifests, and checksums.

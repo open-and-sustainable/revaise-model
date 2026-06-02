@@ -1,0 +1,61 @@
+review_id: SR_2026_006
+review_title: "Digital health intervention outcomes: scoping example"
+review_type: SYSTEMATIC_REVIEW
+review_status: PROTOCOL
+review_authors:
+  - name: "Priya Raman"
+    email: "priya.raman@example.org"
+protocol:
+  research_question: "Which outcome domains are commonly used in reviews of digital health interventions?"
+  eligibility_criteria: "To be finalized after scoping."
+stages:
+  - stage_type: scoping
+    stage_label: "Question scoping"
+    stage_description: "Exploratory work to refine the review question and feasibility."
+    started_at: "2026-01-05T09:00:00Z"
+    scoping_protocol:
+      base_protocol_id: scoping_protocol_001
+      scoping_objective: "Refine the review question and check whether the literature volume is manageable."
+      initial_review_question: "What outcomes are used in digital health intervention studies?"
+      planned_scoping_methods:
+        - "Exploratory database searches"
+        - "Review of recent evidence maps"
+    scoping_question_candidates:
+      - question_candidate_id: question_001
+        question_text: "Which patient-reported outcome domains are used in randomized digital health intervention studies?"
+        question_framework: PICO
+        candidate_population: "Adults receiving digital health interventions"
+        candidate_intervention_or_exposure: "Digital health intervention"
+        candidate_comparator: "Usual care or active comparator"
+        candidate_outcomes:
+          - "Patient-reported outcomes"
+          - "Engagement outcomes"
+        candidate_status: SELECTED
+        candidate_rationale: "The scope is narrower and feasible for a full systematic review."
+    exploratory_searches:
+      - exploratory_search_id: exploratory_search_001
+        exploratory_source: "MEDLINE"
+        exploratory_query: "(digital health OR eHealth) AND intervention AND outcome"
+        exploratory_search_date: "2026-01-06T10:00:00Z"
+        exploratory_results_count: 240
+        exploratory_relevant_count: 38
+        exploratory_notes: "Search volume is feasible after narrowing to randomized studies."
+    scoping_decisions:
+      - scoping_decision_id: scoping_decision_001
+        scoping_decision_type: SCOPE_NARROWING
+        scoping_decision_text: "Limit the review to randomized controlled trials."
+        scoping_decision_rationale: "Exploratory searches showed a large mixed-methods evidence base."
+        decision_date: "2026-01-08T12:00:00Z"
+        affected_protocol_sections:
+          - "Eligibility criteria"
+    feasibility_assessment:
+      feasibility_literature_volume: "Manageable after limiting study design."
+      feasibility_data_availability: "Outcome domains are usually extractable from published reports."
+      feasibility_conclusion: FEASIBLE_WITH_CHANGES
+    scoping_statistics:
+      base_stats_id: scoping_stats_001
+      base_total_items: 240
+      candidate_questions_count: 1
+      exploratory_searches_count: 1
+      exploratory_records_found: 240
+      scoping_decisions_count: 1

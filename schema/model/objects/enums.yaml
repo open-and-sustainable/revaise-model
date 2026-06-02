@@ -61,6 +61,8 @@ enums:
                 description: "Performing quantitative synthesis."
             synthesis_narrative:
                 description: "Performing narrative synthesis."
+            reporting:
+                description: "Preparing review reports, checklists, and publication records."
             reporting_prisma:
                 description: "Preparing PRISMA report."
             reproducibility_pack:
@@ -95,6 +97,12 @@ enums:
                 description: "Forest plot graphic."
             prisma_flow:
                 description: "PRISMA flow diagram."
+            scoping_summary:
+                description: "Summary of scoping work."
+            report_document:
+                description: "Review report, manuscript, or supplementary document."
+            reporting_checklist:
+                description: "Reporting checklist artifact."
             code_archive:
                 description: "Archive of code used."
             environment_lock:

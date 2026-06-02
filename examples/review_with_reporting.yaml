@@ -1,0 +1,78 @@
+review_id: SR_2026_007
+review_title: "Digital health intervention outcomes: reporting example"
+review_type: SYSTEMATIC_REVIEW
+review_status: IN_PROGRESS
+review_authors:
+  - name: "Nora Alvarez"
+    email: "nora.alvarez@example.org"
+protocol:
+  research_question: "Which outcomes are reported in randomized digital health intervention studies?"
+  eligibility_criteria: "Randomized controlled trials of digital health interventions in adults."
+stages:
+  - stage_type: reporting
+    stage_label: "Reporting and publication"
+    stage_description: "Preparation of reporting checklist, flow diagram, manuscript, and publication metadata."
+    started_at: "2026-06-01T09:00:00Z"
+    reporting_protocol:
+      base_protocol_id: reporting_protocol_001
+      target_audiences:
+        - "Systematic review readers"
+        - "Journal editors"
+      target_publication_types:
+        - MANUSCRIPT
+        - SUPPLEMENTARY_MATERIAL
+      planned_reporting_standards:
+        - "PRISMA 2020"
+        - "PRISMA-S"
+      data_availability_plan: "Publish extraction table and screening decisions in an open repository."
+    reporting_standards:
+      - reporting_standard_id: prisma_2020
+        reporting_standard_name: "PRISMA 2020"
+        reporting_standard_version: "2020"
+        reporting_standard_status: IN_PROGRESS
+    reporting_checklists:
+      - reporting_checklist_id: checklist_001
+        checklist_standard: "PRISMA 2020"
+        reporting_checklist_version: "2020"
+        reporting_checklist_status: IN_PROGRESS
+        reporting_checklist_items:
+          - reporting_item_id: prisma_item_7
+            reporting_item_label: "Search strategy"
+            reporting_item_text: "Present the full search strategies for all databases."
+            reporting_item_status: COMPLETE
+            reporting_item_location: "Supplement 1"
+            reporting_item_artifact_refs:
+              - search_query
+              - search_log
+    prisma_flow_diagram:
+      prisma_flow_id: prisma_flow_001
+      prisma_flow_standard: "PRISMA 2020"
+      records_identified: 1250
+      records_screened: 980
+      reports_sought: 120
+      reports_assessed: 110
+      prisma_studies_included: 24
+    report_documents:
+      - report_document_id: manuscript_001
+        report_document_type: MANUSCRIPT
+        report_title: "Outcome reporting in randomized digital health intervention studies"
+        report_status: DRAFT
+        report_version: "0.1.0"
+        report_date: "2026-06-01T12:00:00Z"
+    publication_records:
+      - publication_id: publication_001
+        report_publication_status: NOT_SUBMITTED
+        publication_venue: "Target journal to be selected"
+    reporting_quality_control:
+      base_qc_id: reporting_qc_001
+      checklist_verified: false
+      flow_counts_reconciled: true
+      artifact_links_verified: true
+    reporting_statistics:
+      base_stats_id: reporting_stats_001
+      base_total_items: 1
+      reporting_standards_count: 2
+      reporting_checklist_items_total: 1
+      reporting_checklist_items_complete: 1
+      report_documents_count: 1
+      publications_count: 1

@@ -25,17 +25,17 @@ Release artifacts are published under:
 https://open-and-sustainable.github.io/revaise-model/schema/<version>/
 ```
 
-For example, version `0.4.2` artifacts are available at:
+For example, version `0.5.0` artifacts are available at:
 
 ```text
-https://open-and-sustainable.github.io/revaise-model/schema/0.4.2/revaise.linkml.yaml
-https://open-and-sustainable.github.io/revaise-model/schema/0.4.2/revaise.schema.json
-https://open-and-sustainable.github.io/revaise-model/schema/0.4.2/context.jsonld
-https://open-and-sustainable.github.io/revaise-model/schema/0.4.2/revaise.shacl.ttl
-https://open-and-sustainable.github.io/revaise-model/schema/0.4.2/revaise.owl.ttl
-https://open-and-sustainable.github.io/revaise-model/schema/0.4.2/revaise.rdf.ttl
-https://open-and-sustainable.github.io/revaise-model/schema/0.4.2/manifest.json
-https://open-and-sustainable.github.io/revaise-model/schema/0.4.2/SHA256SUMS
+https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/revaise.linkml.yaml
+https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/revaise.schema.json
+https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/context.jsonld
+https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/revaise.shacl.ttl
+https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/revaise.owl.ttl
+https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/revaise.rdf.ttl
+https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/manifest.json
+https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/SHA256SUMS
 ```
 
 The latest published release is available through:
@@ -52,7 +52,7 @@ Example Python access:
 import json
 import urllib.request
 
-version = "0.4.2"
+version = "0.5.0"
 base_url = f"https://open-and-sustainable.github.io/revaise-model/schema/{version}"
 
 with urllib.request.urlopen(f"{base_url}/manifest.json") as response:

@@ -197,6 +197,7 @@ classes:
                 description: "Key characteristics of the study"
             quality_assessment:
                 range: QualityAssessment
+                inlined: true
                 description: "Quality/risk of bias assessment"
             final_extracted_values:
                 range: ExtractedDataPoint

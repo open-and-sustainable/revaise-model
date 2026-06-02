@@ -1,0 +1,588 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/stages/reporting
+name: revaise_reporting
+description: "Optional reporting stage for documenting manuscripts, reporting checklists, PRISMA flow information, and publication status."
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+
+imports:
+    - linkml:types
+    - ../objects/stage_execution
+    - ../objects/stage_output
+    - ../objects/ai_assistance
+    - ../objects/participant
+    - ../objects/stage_protocol
+    - ../objects/stage_quality_control
+    - ../objects/stage_statistics
+
+classes:
+    ReportingStage:
+        is_a: StageExecution
+        description: "Optional stage for documenting review reporting and publication activities."
+        slots:
+            - reporting_protocol
+            - reporting_standards
+            - reporting_checklists
+            - report_documents
+            - prisma_flow_diagram
+            - publication_records
+            - reporting_deviations
+            - reporting_approvals
+            - reporting_quality_control
+            - reporting_statistics
+            - ai_assistance_config
+        slot_usage:
+            reporting_protocol:
+                range: ReportingProtocol
+                inlined: true
+                description: "Protocol or plan for reporting the review"
+            reporting_standards:
+                range: ReportingStandard
+                multivalued: true
+                inlined_as_list: true
+                description: "Reporting standards used or planned"
+            reporting_checklists:
+                range: ReportingChecklist
+                multivalued: true
+                inlined_as_list: true
+                description: "Reporting checklists and item-level completion information"
+            report_documents:
+                range: ReportDocument
+                multivalued: true
+                inlined_as_list: true
+                description: "Manuscripts, preprints, reports, and supplementary reporting documents"
+            prisma_flow_diagram:
+                range: PrismaFlowDiagram
+                inlined: true
+                description: "PRISMA flow diagram information if applicable"
+            publication_records:
+                range: PublicationRecord
+                multivalued: true
+                inlined_as_list: true
+                description: "Publication, submission, and dissemination records"
+            reporting_deviations:
+                range: ReportingDeviation
+                multivalued: true
+                inlined_as_list: true
+                description: "Protocol deviations disclosed in reporting"
+            reporting_approvals:
+                range: ReportingApproval
+                multivalued: true
+                inlined_as_list: true
+                description: "Author, stakeholder, or governance approvals for reports"
+            reporting_quality_control:
+                range: ReportingQualityControl
+                inlined: true
+                description: "Quality control measures for reporting"
+            reporting_statistics:
+                range: ReportingStatistics
+                inlined: true
+                description: "Summary statistics for the reporting process"
+            ai_assistance_config:
+                range: AIAssistance
+                inlined: true
+                description: "AI assistance configuration for reporting"
+
+    ReportingProtocol:
+        is_a: StageProtocol
+        description: "Protocol or plan for reporting and dissemination."
+        slots:
+            - target_audiences
+            - target_publication_types
+            - reporting_timeline
+            - planned_reporting_standards
+            - open_access_plan
+            - data_availability_plan
+            - preprint_plan
+        slot_usage:
+            target_audiences:
+                multivalued: true
+            target_publication_types:
+                multivalued: true
+            planned_reporting_standards:
+                multivalued: true
+
+    ReportingStandard:
+        description: "Reporting standard used or planned for the review report."
+        slots:
+            - reporting_standard_id
+            - reporting_standard_name
+            - reporting_standard_version
+            - reporting_standard_uri
+            - reporting_standard_scope
+            - reporting_standard_status
+
+    ReportingChecklist:
+        description: "Checklist documenting completion of a reporting standard."
+        slots:
+            - reporting_checklist_id
+            - checklist_standard
+            - reporting_checklist_version
+            - reporting_checklist_items
+            - reporting_checklist_status
+            - reporting_checklist_output
+        slot_usage:
+            reporting_checklist_items:
+                range: ReportingChecklistItem
+                multivalued: true
+                inlined_as_list: true
+            reporting_checklist_output:
+                range: StageOutput
+                inlined: true
+
+    ReportingChecklistItem:
+        description: "Item-level status for a reporting checklist."
+        slots:
+            - reporting_item_id
+            - reporting_item_label
+            - reporting_item_text
+            - reporting_item_status
+            - reporting_item_location
+            - reporting_item_artifact_refs
+            - reporting_item_notes
+        slot_usage:
+            reporting_item_artifact_refs:
+                multivalued: true
+
+    ReportDocument:
+        description: "Report, manuscript, preprint, or supplementary document."
+        slots:
+            - report_document_id
+            - report_document_type
+            - report_title
+            - report_status
+            - report_uri
+            - report_doi
+            - report_version
+            - report_date
+            - report_output
+        slot_usage:
+            report_output:
+                range: StageOutput
+                inlined: true
+
+    PrismaFlowDiagram:
+        description: "PRISMA flow diagram counts and artifact references."
+        slots:
+            - prisma_flow_id
+            - prisma_flow_standard
+            - records_identified
+            - records_screened
+            - reports_sought
+            - reports_assessed
+            - prisma_studies_included
+            - prisma_flow_output
+            - prisma_flow_notes
+        slot_usage:
+            prisma_flow_output:
+                range: StageOutput
+                inlined: true
+
+    PublicationRecord:
+        description: "Submission, publication, or dissemination record."
+        slots:
+            - publication_id
+            - report_publication_status
+            - publication_venue
+            - publication_submission_date
+            - publication_acceptance_date
+            - publication_publication_date
+            - publication_doi
+            - publication_url
+            - publication_notes
+
+    ReportingDeviation:
+        description: "Protocol or workflow deviation disclosed in reporting."
+        slots:
+            - reporting_deviation_id
+            - deviation_from
+            - deviation_description
+            - deviation_rationale
+            - deviation_reported_where
+            - deviation_impact
+
+    ReportingApproval:
+        description: "Approval or signoff associated with reporting."
+        slots:
+            - reporting_approval_id
+            - reporting_approver
+            - reporting_approval_role
+            - reporting_approval_status
+            - reporting_approval_date
+            - reporting_approval_notes
+        slot_usage:
+            reporting_approver:
+                range: Participant
+                inlined: true
+
+    ReportingQualityControl:
+        is_a: StageQualityControl
+        description: "Quality control measures for reporting."
+        slots:
+            - checklist_verified
+            - flow_counts_reconciled
+            - artifact_links_verified
+            - reporting_peer_review
+            - reporting_transparency_check
+
+    ReportingStatistics:
+        is_a: StageStatistics
+        description: "Summary statistics for reporting."
+        slots:
+            - reporting_standards_count
+            - reporting_checklist_items_total
+            - reporting_checklist_items_complete
+            - report_documents_count
+            - publications_count
+            - reporting_deviations_count
+
+slots:
+    reporting_protocol:
+        description: "Protocol or plan for reporting the review"
+        range: ReportingProtocol
+    reporting_standards:
+        description: "Reporting standards used or planned"
+        range: ReportingStandard
+    reporting_checklists:
+        description: "Reporting checklists and item-level completion information"
+        range: ReportingChecklist
+    report_documents:
+        description: "Manuscripts, preprints, reports, and supplementary reporting documents"
+        range: ReportDocument
+    prisma_flow_diagram:
+        description: "PRISMA flow diagram information if applicable"
+        range: PrismaFlowDiagram
+    publication_records:
+        description: "Publication, submission, and dissemination records"
+        range: PublicationRecord
+    reporting_deviations:
+        description: "Protocol deviations disclosed in reporting"
+        range: ReportingDeviation
+    reporting_approvals:
+        description: "Author, stakeholder, or governance approvals for reports"
+        range: ReportingApproval
+    reporting_quality_control:
+        description: "Quality control measures for reporting"
+        range: ReportingQualityControl
+    reporting_statistics:
+        description: "Summary statistics for the reporting process"
+        range: ReportingStatistics
+    target_audiences:
+        description: "Intended audiences for the report"
+        range: string
+    target_publication_types:
+        description: "Planned publication or dissemination types"
+        range: ReportDocumentType
+    reporting_timeline:
+        description: "Timeline or schedule for reporting"
+        range: string
+    planned_reporting_standards:
+        description: "Reporting standards planned for use"
+        range: string
+    open_access_plan:
+        description: "Open access plan for reports or manuscripts"
+        range: string
+    data_availability_plan:
+        description: "Plan for data availability statements and shared data"
+        range: string
+    preprint_plan:
+        description: "Plan for preprint posting"
+        range: string
+    reporting_standard_id:
+        description: "Identifier for a reporting standard"
+        range: string
+    reporting_standard_name:
+        description: "Name of the reporting standard"
+        range: string
+    reporting_standard_version:
+        description: "Version of the reporting standard"
+        range: string
+    reporting_standard_uri:
+        description: "URI for the reporting standard"
+        range: uri
+    reporting_standard_scope:
+        description: "Scope or applicability of the reporting standard"
+        range: string
+    reporting_standard_status:
+        description: "Completion status for the reporting standard"
+        range: ReportingItemStatus
+    reporting_checklist_id:
+        description: "Identifier for a reporting checklist"
+        range: string
+    checklist_standard:
+        description: "Name or identifier of the checklist standard"
+        range: string
+    reporting_checklist_version:
+        description: "Version of the reporting checklist"
+        range: string
+    reporting_checklist_items:
+        description: "Items in the reporting checklist"
+        range: ReportingChecklistItem
+    reporting_checklist_status:
+        description: "Overall checklist completion status"
+        range: ReportingItemStatus
+    reporting_checklist_output:
+        description: "Checklist artifact output"
+        range: StageOutput
+    reporting_item_id:
+        description: "Identifier for a reporting checklist item"
+        range: string
+    reporting_item_label:
+        description: "Short label for the reporting item"
+        range: string
+    reporting_item_text:
+        description: "Text or description of the reporting item"
+        range: string
+    reporting_item_status:
+        description: "Completion status for the reporting item"
+        range: ReportingItemStatus
+    reporting_item_location:
+        description: "Location in the report where the item is addressed"
+        range: string
+    reporting_item_artifact_refs:
+        description: "References to model artifacts supporting the reporting item"
+        range: string
+    reporting_item_notes:
+        description: "Notes about the reporting item"
+        range: string
+    report_document_id:
+        description: "Identifier for a report document"
+        range: string
+    report_document_type:
+        description: "Type of report document"
+        range: ReportDocumentType
+    report_title:
+        description: "Title of the report document"
+        range: string
+    report_status:
+        description: "Status of the report document"
+        range: ReportDocumentStatus
+    report_uri:
+        description: "URI for the report document"
+        range: uri
+    report_doi:
+        description: "DOI for the report document"
+        range: string
+    report_version:
+        description: "Version of the report document"
+        range: string
+    report_date:
+        description: "Date associated with the report document"
+        range: datetime
+    report_output:
+        description: "Report document output artifact"
+        range: StageOutput
+    prisma_flow_id:
+        description: "Identifier for a PRISMA flow diagram"
+        range: string
+    prisma_flow_standard:
+        description: "PRISMA flow standard used"
+        range: string
+    records_identified:
+        description: "Number of records identified"
+        range: integer
+        minimum_value: 0
+    records_screened:
+        description: "Number of records screened"
+        range: integer
+        minimum_value: 0
+    reports_sought:
+        description: "Number of reports sought for retrieval"
+        range: integer
+        minimum_value: 0
+    reports_assessed:
+        description: "Number of reports assessed for eligibility"
+        range: integer
+        minimum_value: 0
+    prisma_studies_included:
+        description: "Number of studies included in the review"
+        range: integer
+        minimum_value: 0
+    prisma_flow_output:
+        description: "PRISMA flow diagram artifact"
+        range: StageOutput
+    prisma_flow_notes:
+        description: "Notes about the PRISMA flow diagram"
+        range: string
+    publication_id:
+        description: "Identifier for a publication record"
+        range: string
+    report_publication_status:
+        description: "Publication status of the report"
+        range: ReportPublicationStatus
+    publication_venue:
+        description: "Journal, platform, repository, or venue"
+        range: string
+    publication_submission_date:
+        description: "Date and time of submission"
+        range: datetime
+    publication_acceptance_date:
+        description: "Date and time of acceptance"
+        range: datetime
+    publication_publication_date:
+        description: "Date and time of publication"
+        range: datetime
+    publication_doi:
+        description: "Publication DOI"
+        range: string
+    publication_url:
+        description: "Publication URL"
+        range: uri
+    publication_notes:
+        description: "Notes about the publication record"
+        range: string
+    reporting_deviation_id:
+        description: "Identifier for a reporting deviation"
+        range: string
+    deviation_from:
+        description: "Protocol, analysis plan, or workflow element from which the report deviated"
+        range: string
+    deviation_description:
+        description: "Description of the deviation"
+        range: string
+    deviation_rationale:
+        description: "Rationale for the deviation"
+        range: string
+    deviation_reported_where:
+        description: "Location where the deviation is reported"
+        range: string
+    deviation_impact:
+        description: "Impact of the deviation on interpretation or conclusions"
+        range: string
+    reporting_approval_id:
+        description: "Identifier for a reporting approval"
+        range: string
+    reporting_approver:
+        description: "Participant providing approval"
+        range: Participant
+    reporting_approval_role:
+        description: "Role of the approver"
+        range: string
+    reporting_approval_status:
+        description: "Status of the approval"
+        range: ReportingApprovalStatus
+    reporting_approval_date:
+        description: "Date and time of approval"
+        range: datetime
+    reporting_approval_notes:
+        description: "Notes about the approval"
+        range: string
+    checklist_verified:
+        description: "Whether reporting checklist completion was verified"
+        range: boolean
+    flow_counts_reconciled:
+        description: "Whether flow diagram counts were reconciled against review data"
+        range: boolean
+    artifact_links_verified:
+        description: "Whether links to supporting artifacts were verified"
+        range: boolean
+    reporting_peer_review:
+        description: "Whether reporting received internal peer review"
+        range: boolean
+    reporting_transparency_check:
+        description: "Whether transparency statements were checked"
+        range: boolean
+    reporting_standards_count:
+        description: "Number of reporting standards documented"
+        range: integer
+        minimum_value: 0
+    reporting_checklist_items_total:
+        description: "Total number of reporting checklist items"
+        range: integer
+        minimum_value: 0
+    reporting_checklist_items_complete:
+        description: "Number of completed reporting checklist items"
+        range: integer
+        minimum_value: 0
+    report_documents_count:
+        description: "Number of report documents"
+        range: integer
+        minimum_value: 0
+    publications_count:
+        description: "Number of publication records"
+        range: integer
+        minimum_value: 0
+    reporting_deviations_count:
+        description: "Number of reporting deviations"
+        range: integer
+        minimum_value: 0
+
+enums:
+    ReportingItemStatus:
+        description: "Completion status for reporting standards and checklist items"
+        permissible_values:
+            NOT_STARTED:
+                description: "Not started"
+            IN_PROGRESS:
+                description: "In progress"
+            COMPLETE:
+                description: "Complete"
+            PARTIAL:
+                description: "Partially complete"
+            NOT_APPLICABLE:
+                description: "Not applicable"
+    ReportDocumentType:
+        description: "Types of report documents"
+        permissible_values:
+            MANUSCRIPT:
+                description: "Journal manuscript"
+            PREPRINT:
+                description: "Preprint"
+            REGISTERED_REPORT:
+                description: "Registered report"
+            TECHNICAL_REPORT:
+                description: "Technical report"
+            SUPPLEMENTARY_MATERIAL:
+                description: "Supplementary material"
+            PRISMA_CHECKLIST:
+                description: "PRISMA checklist"
+            PRISMA_FLOW_DIAGRAM:
+                description: "PRISMA flow diagram"
+            OTHER:
+                description: "Other report document"
+    ReportDocumentStatus:
+        description: "Status of a report document"
+        permissible_values:
+            PLANNED:
+                description: "Planned"
+            DRAFT:
+                description: "Draft"
+            IN_REVIEW:
+                description: "In review"
+            SUBMITTED:
+                description: "Submitted"
+            ACCEPTED:
+                description: "Accepted"
+            PUBLISHED:
+                description: "Published"
+            WITHDRAWN:
+                description: "Withdrawn"
+    ReportPublicationStatus:
+        description: "Publication status of a report"
+        permissible_values:
+            NOT_SUBMITTED:
+                description: "Not submitted"
+            SUBMITTED:
+                description: "Submitted"
+            UNDER_REVIEW:
+                description: "Under review"
+            ACCEPTED:
+                description: "Accepted"
+            PUBLISHED:
+                description: "Published"
+            REJECTED:
+                description: "Rejected"
+            WITHDRAWN:
+                description: "Withdrawn"
+    ReportingApprovalStatus:
+        description: "Approval status for reporting signoff"
+        permissible_values:
+            REQUESTED:
+                description: "Approval requested"
+            APPROVED:
+                description: "Approved"
+            REVISIONS_REQUESTED:
+                description: "Revisions requested"
+            DECLINED:
+                description: "Declined"

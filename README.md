@@ -26,7 +26,7 @@ The integration of AI into systematic literature reviews promises to accelerate 
 
 RevAIse is a structured data model that captures complete systematic review workflows:
 
-- **Workflow Process Documentation** - From protocol registration through synthesis, capturing the complete review workflow with stage dependencies
+- **Workflow Process Documentation** - From optional scoping and protocol registration through synthesis and reporting, capturing the complete review workflow with stage dependencies
 - **AI-Assisted Process Steps** - Models, prompts, parameters, and automated decision points integrated within the review workflow
 - **Search Process Workflows** - Query strategies, database execution sequences, and result processing flows
 - **Review Process Workflows** - Screening criteria, extraction procedures, and human-AI collaboration patterns throughout the review

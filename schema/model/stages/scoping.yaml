@@ -1,0 +1,465 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/stages/scoping
+name: revaise_scoping
+description: "Optional scoping stage for early review planning, feasibility assessment, and review question refinement."
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+
+imports:
+    - linkml:types
+    - ../objects/stage_execution
+    - ../objects/stage_output
+    - ../objects/ai_assistance
+    - ../objects/participant
+    - ../objects/stage_protocol
+    - ../objects/stage_quality_control
+    - ../objects/stage_statistics
+
+classes:
+    ScopingStage:
+        is_a: StageExecution
+        description: "Optional stage documenting exploratory work before or alongside protocol finalization."
+        slots:
+            - scoping_protocol
+            - scoping_question_candidates
+            - exploratory_searches
+            - scoping_decisions
+            - stakeholder_inputs
+            - feasibility_assessment
+            - scoping_outputs
+            - scoping_quality_control
+            - scoping_statistics
+            - ai_assistance_config
+        slot_usage:
+            scoping_protocol:
+                range: ScopingProtocol
+                inlined: true
+                description: "Protocol or plan for the scoping activity"
+            scoping_question_candidates:
+                range: ReviewQuestionCandidate
+                multivalued: true
+                inlined_as_list: true
+                description: "Candidate review questions considered during scoping"
+            exploratory_searches:
+                range: ExploratorySearch
+                multivalued: true
+                inlined_as_list: true
+                description: "Exploratory searches used to understand the evidence landscape"
+            scoping_decisions:
+                range: ScopingDecision
+                multivalued: true
+                inlined_as_list: true
+                description: "Decisions made while refining the review scope"
+            stakeholder_inputs:
+                range: StakeholderInput
+                multivalued: true
+                inlined_as_list: true
+                description: "Input from stakeholders, domain experts, librarians, or methodologists"
+            feasibility_assessment:
+                range: FeasibilityAssessment
+                inlined: true
+                description: "Assessment of whether the planned review scope is feasible"
+            scoping_outputs:
+                range: StageOutput
+                multivalued: true
+                inlined_as_list: true
+                description: "Outputs produced during scoping"
+            scoping_quality_control:
+                range: ScopingQualityControl
+                inlined: true
+                description: "Quality control measures for the scoping process"
+            scoping_statistics:
+                range: ScopingStatistics
+                inlined: true
+                description: "Summary statistics for the scoping process"
+            ai_assistance_config:
+                range: AIAssistance
+                inlined: true
+                description: "AI assistance configuration for scoping"
+
+    ScopingProtocol:
+        is_a: StageProtocol
+        description: "Protocol describing how scoping work will be conducted."
+        slots:
+            - scoping_objective
+            - initial_review_question
+            - population_scope
+            - concept_scope
+            - context_scope
+            - planned_scoping_methods
+            - scoping_start_criteria
+            - scoping_stop_criteria
+        slot_usage:
+            planned_scoping_methods:
+                multivalued: true
+
+    ReviewQuestionCandidate:
+        description: "Candidate review question considered during scoping."
+        slots:
+            - question_candidate_id
+            - question_text
+            - question_framework
+            - candidate_population
+            - candidate_intervention_or_exposure
+            - candidate_comparator
+            - candidate_outcomes
+            - candidate_context
+            - candidate_status
+            - candidate_rationale
+            - related_decision_id
+        slot_usage:
+            candidate_outcomes:
+                multivalued: true
+
+    ExploratorySearch:
+        description: "Exploratory search used to test or refine the review scope."
+        slots:
+            - exploratory_search_id
+            - exploratory_source
+            - exploratory_query
+            - exploratory_search_date
+            - exploratory_results_count
+            - exploratory_relevant_count
+            - exploratory_notes
+            - exploratory_outputs
+        slot_usage:
+            exploratory_outputs:
+                range: StageOutput
+                multivalued: true
+                inlined_as_list: true
+
+    ScopingDecision:
+        description: "Decision made during scoping."
+        slots:
+            - scoping_decision_id
+            - scoping_decision_type
+            - scoping_decision_text
+            - scoping_decision_rationale
+            - decision_made_by
+            - decision_date
+            - affected_protocol_sections
+            - resulting_changes
+        slot_usage:
+            decision_made_by:
+                range: Participant
+                multivalued: true
+                inlined_as_list: true
+            affected_protocol_sections:
+                multivalued: true
+            resulting_changes:
+                multivalued: true
+
+    StakeholderInput:
+        description: "Input that informed scoping decisions."
+        slots:
+            - stakeholder_input_id
+            - stakeholder_role
+            - stakeholder_input_type
+            - stakeholder_input_summary
+            - stakeholder_input_date
+            - stakeholder_input_source
+            - stakeholder_input_used
+
+    FeasibilityAssessment:
+        description: "Feasibility assessment for the proposed review scope."
+        slots:
+            - feasibility_population
+            - feasibility_literature_volume
+            - feasibility_data_availability
+            - feasibility_review_scope
+            - feasibility_resource_constraints
+            - feasibility_conclusion
+            - feasibility_notes
+
+    ScopingQualityControl:
+        is_a: StageQualityControl
+        description: "Quality control measures for scoping."
+        slots:
+            - scoping_peer_review
+            - librarian_consulted
+            - stakeholder_validation
+            - scoping_consistency_checks
+        slot_usage:
+            scoping_consistency_checks:
+                multivalued: true
+
+    ScopingStatistics:
+        is_a: StageStatistics
+        description: "Summary statistics for scoping."
+        slots:
+            - candidate_questions_count
+            - exploratory_searches_count
+            - exploratory_records_found
+            - scoping_decisions_count
+            - stakeholder_inputs_count
+
+slots:
+    scoping_protocol:
+        description: "Protocol or plan for the scoping activity"
+        range: ScopingProtocol
+    scoping_question_candidates:
+        description: "Candidate review questions considered during scoping"
+        range: ReviewQuestionCandidate
+    exploratory_searches:
+        description: "Exploratory searches used to understand the evidence landscape"
+        range: ExploratorySearch
+    scoping_decisions:
+        description: "Decisions made while refining the review scope"
+        range: ScopingDecision
+    stakeholder_inputs:
+        description: "Input from stakeholders, domain experts, librarians, or methodologists"
+        range: StakeholderInput
+    feasibility_assessment:
+        description: "Assessment of whether the planned review scope is feasible"
+        range: FeasibilityAssessment
+    scoping_outputs:
+        description: "Outputs produced during scoping"
+        range: StageOutput
+    scoping_quality_control:
+        description: "Quality control measures for the scoping process"
+        range: ScopingQualityControl
+    scoping_statistics:
+        description: "Summary statistics for the scoping process"
+        range: ScopingStatistics
+    scoping_objective:
+        description: "Purpose of the scoping work"
+        range: string
+    initial_review_question:
+        description: "Initial review question before refinement"
+        range: string
+    population_scope:
+        description: "Initial or refined population scope"
+        range: string
+    concept_scope:
+        description: "Initial or refined concept, intervention, exposure, or topic scope"
+        range: string
+    context_scope:
+        description: "Initial or refined context or setting scope"
+        range: string
+    planned_scoping_methods:
+        description: "Methods planned for scoping"
+        range: string
+    scoping_start_criteria:
+        description: "Criteria for starting scoping work"
+        range: string
+    scoping_stop_criteria:
+        description: "Criteria for ending scoping work"
+        range: string
+    question_candidate_id:
+        description: "Identifier for a candidate question"
+        range: string
+    question_text:
+        description: "Candidate question text"
+        range: string
+    question_framework:
+        description: "Framework used to express the question, such as PICO, PECO, or SPIDER"
+        range: string
+    candidate_population:
+        description: "Population component of the candidate question"
+        range: string
+    candidate_intervention_or_exposure:
+        description: "Intervention, exposure, or concept component of the candidate question"
+        range: string
+    candidate_comparator:
+        description: "Comparator component of the candidate question"
+        range: string
+    candidate_outcomes:
+        description: "Outcome components of the candidate question"
+        range: string
+    candidate_context:
+        description: "Context or setting component of the candidate question"
+        range: string
+    candidate_status:
+        description: "Status of the candidate question"
+        range: QuestionCandidateStatus
+    candidate_rationale:
+        description: "Rationale for accepting, rejecting, or refining a candidate question"
+        range: string
+    related_decision_id:
+        description: "Identifier of a related scoping decision"
+        range: string
+    exploratory_search_id:
+        description: "Identifier for an exploratory search"
+        range: string
+    exploratory_source:
+        description: "Source used for the exploratory search"
+        range: string
+    exploratory_query:
+        description: "Exploratory query or search expression"
+        range: string
+    exploratory_search_date:
+        description: "Date and time of the exploratory search"
+        range: datetime
+    exploratory_results_count:
+        description: "Number of records found by the exploratory search"
+        range: integer
+        minimum_value: 0
+    exploratory_relevant_count:
+        description: "Number of records considered relevant during exploratory review"
+        range: integer
+        minimum_value: 0
+    exploratory_notes:
+        description: "Notes about the exploratory search"
+        range: string
+    exploratory_outputs:
+        description: "Outputs produced by the exploratory search"
+        range: StageOutput
+    scoping_decision_id:
+        description: "Identifier for a scoping decision"
+        range: string
+    scoping_decision_type:
+        description: "Type of scoping decision"
+        range: ScopingDecisionType
+    scoping_decision_text:
+        description: "Decision text"
+        range: string
+    scoping_decision_rationale:
+        description: "Rationale for the scoping decision"
+        range: string
+    decision_made_by:
+        description: "Participants who made the decision"
+        range: Participant
+    decision_date:
+        description: "Date and time when the decision was made"
+        range: datetime
+    affected_protocol_sections:
+        description: "Protocol sections affected by the decision"
+        range: string
+    resulting_changes:
+        description: "Changes resulting from the decision"
+        range: string
+    stakeholder_input_id:
+        description: "Identifier for stakeholder input"
+        range: string
+    stakeholder_role:
+        description: "Role of the stakeholder providing input"
+        range: string
+    stakeholder_input_type:
+        description: "Type of stakeholder input"
+        range: StakeholderInputType
+    stakeholder_input_summary:
+        description: "Summary of the input received"
+        range: string
+    stakeholder_input_date:
+        description: "Date and time when input was received"
+        range: datetime
+    stakeholder_input_source:
+        description: "Source or record of the input"
+        range: string
+    stakeholder_input_used:
+        description: "Whether the input influenced the review scope"
+        range: boolean
+    feasibility_population:
+        description: "Feasibility assessment of the population scope"
+        range: string
+    feasibility_literature_volume:
+        description: "Feasibility assessment of expected literature volume"
+        range: string
+    feasibility_data_availability:
+        description: "Feasibility assessment of expected data availability"
+        range: string
+    feasibility_review_scope:
+        description: "Feasibility assessment of review scope"
+        range: string
+    feasibility_resource_constraints:
+        description: "Known resource constraints affecting feasibility"
+        range: string
+    feasibility_conclusion:
+        description: "Overall feasibility conclusion"
+        range: FeasibilityConclusion
+    feasibility_notes:
+        description: "Notes about feasibility"
+        range: string
+    scoping_peer_review:
+        description: "Whether scoping work received peer review"
+        range: boolean
+    librarian_consulted:
+        description: "Whether a librarian or information specialist was consulted"
+        range: boolean
+    stakeholder_validation:
+        description: "Whether stakeholders validated the proposed scope"
+        range: boolean
+    scoping_consistency_checks:
+        description: "Consistency checks performed during scoping"
+        range: string
+    candidate_questions_count:
+        description: "Number of candidate questions considered"
+        range: integer
+        minimum_value: 0
+    exploratory_searches_count:
+        description: "Number of exploratory searches conducted"
+        range: integer
+        minimum_value: 0
+    exploratory_records_found:
+        description: "Number of records found during exploratory searches"
+        range: integer
+        minimum_value: 0
+    scoping_decisions_count:
+        description: "Number of scoping decisions documented"
+        range: integer
+        minimum_value: 0
+    stakeholder_inputs_count:
+        description: "Number of stakeholder input records documented"
+        range: integer
+        minimum_value: 0
+
+enums:
+    QuestionCandidateStatus:
+        description: "Status values for candidate review questions"
+        permissible_values:
+            PROPOSED:
+                description: "Question has been proposed"
+            REFINED:
+                description: "Question was refined during scoping"
+            SELECTED:
+                description: "Question was selected for the review"
+            REJECTED:
+                description: "Question was rejected"
+            MERGED:
+                description: "Question was merged with another candidate"
+    ScopingDecisionType:
+        description: "Types of decisions made during scoping"
+        permissible_values:
+            QUESTION_REFINEMENT:
+                description: "Decision refining the review question"
+            CRITERIA_REFINEMENT:
+                description: "Decision refining eligibility criteria"
+            SCOPE_NARROWING:
+                description: "Decision narrowing the review scope"
+            SCOPE_BROADENING:
+                description: "Decision broadening the review scope"
+            FEASIBILITY_DECISION:
+                description: "Decision based on feasibility"
+            METHODS_DECISION:
+                description: "Decision about review methods"
+            OTHER:
+                description: "Other scoping decision"
+    StakeholderInputType:
+        description: "Types of stakeholder input"
+        permissible_values:
+            PATIENT_PUBLIC:
+                description: "Patient, public, or community input"
+            CLINICAL:
+                description: "Clinical or practitioner input"
+            POLICY:
+                description: "Policy or decision-maker input"
+            METHODS:
+                description: "Methodological input"
+            LIBRARY:
+                description: "Information specialist or librarian input"
+            DOMAIN_EXPERT:
+                description: "Domain expert input"
+            OTHER:
+                description: "Other stakeholder input"
+    FeasibilityConclusion:
+        description: "Overall feasibility conclusion"
+        permissible_values:
+            FEASIBLE:
+                description: "Review scope appears feasible"
+            FEASIBLE_WITH_CHANGES:
+                description: "Review scope is feasible if changes are made"
+            NOT_FEASIBLE:
+                description: "Review scope does not appear feasible"
+            UNCERTAIN:
+                description: "Feasibility is uncertain"

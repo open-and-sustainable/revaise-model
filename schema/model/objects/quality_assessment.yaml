@@ -15,9 +15,19 @@ classes:
         slots:
             - assessment_id
             - item_id
+            - assessment_purpose
+            - assessment_unit
             - assessment_tool
+            - target_outcome
+            - target_effect
             - overall_quality
+            - overall_risk_of_bias
             - domain_assessments
+            - risk_of_bias_domains
+            - rob_assessment_version
+            - rob_consensus_status
+            - rob_justification
+            - rob_direction
             - assessment_notes
             - assessor
             - assessment_date
@@ -32,17 +42,48 @@ classes:
                 range: string
                 required: true
                 description: "ID of the item being assessed"
+            assessment_purpose:
+                range: AssessmentPurpose
+                description: "Purpose of this assessment"
+            assessment_unit:
+                range: AssessmentUnit
+                description: "Unit at which the assessment is made"
             assessment_tool:
                 range: QualityAssessmentTool
                 required: true
                 description: "Tool used for quality assessment"
+            target_outcome:
+                range: string
+                description: "Outcome targeted by the assessment if outcome-specific"
+            target_effect:
+                range: string
+                description: "Effect estimate, contrast, or estimand targeted by the assessment if applicable"
             overall_quality:
                 range: QualityRating
                 description: "Overall quality rating"
+            overall_risk_of_bias:
+                range: RiskOfBiasJudgement
+                description: "Overall risk-of-bias judgement"
             domain_assessments:
                 range: DomainAssessment
                 multivalued: true
                 description: "Assessment of individual quality domains"
+            risk_of_bias_domains:
+                range: RiskOfBiasDomainAssessment
+                multivalued: true
+                description: "Risk-of-bias domain judgements, including signalling questions"
+            rob_assessment_version:
+                range: string
+                description: "Version or variant of the risk-of-bias assessment tool"
+            rob_consensus_status:
+                range: AssessmentConsensusStatus
+                description: "Consensus status for the assessment"
+            rob_justification:
+                range: string
+                description: "Overall justification for the risk-of-bias judgement"
+            rob_direction:
+                range: BiasDirection
+                description: "Assessed direction of bias if evaluated"
             assessment_notes:
                 range: string
                 description: "Notes about the assessment"
@@ -89,6 +130,37 @@ classes:
                 range: string
                 multivalued: true
                 description: "Page references for the assessment"
+
+    RiskOfBiasDomainAssessment:
+        description: "Assessment of a specific risk-of-bias domain."
+        slots:
+            - rob_domain_id
+            - rob_domain_name
+            - rob_domain_description
+            - signalling_questions
+            - rob_domain_judgement
+            - rob_domain_direction
+            - rob_domain_rationale
+            - supporting_quotes
+            - page_references
+        slot_usage:
+            signalling_questions:
+                range: SignallingQuestionAssessment
+                multivalued: true
+                description: "Signalling-question assessments for this domain"
+            supporting_quotes:
+                multivalued: true
+            page_references:
+                multivalued: true
+
+    SignallingQuestionAssessment:
+        description: "Assessment of a risk-of-bias signalling question."
+        slots:
+            - signalling_question_id
+            - signalling_question_text
+            - signalling_question_response
+            - signalling_question_rationale
+            - signalling_question_support
 
     QualityChecklist:
         description: "Checklist for quality assessment"
@@ -217,15 +289,45 @@ slots:
     item_id:
         description: "ID of the item being assessed"
         range: string
+    assessment_purpose:
+        description: "Purpose of this assessment"
+        range: AssessmentPurpose
+    assessment_unit:
+        description: "Unit at which the assessment is made"
+        range: AssessmentUnit
     assessment_tool:
         description: "Tool used for quality assessment"
         range: QualityAssessmentTool
+    target_outcome:
+        description: "Outcome targeted by the assessment if outcome-specific"
+        range: string
+    target_effect:
+        description: "Effect estimate, contrast, or estimand targeted by the assessment if applicable"
+        range: string
     overall_quality:
         description: "Overall quality rating"
         range: QualityRating
+    overall_risk_of_bias:
+        description: "Overall risk-of-bias judgement"
+        range: RiskOfBiasJudgement
     domain_assessments:
         description: "Assessment of individual quality domains"
         range: DomainAssessment
+    risk_of_bias_domains:
+        description: "Risk-of-bias domain judgements, including signalling questions"
+        range: RiskOfBiasDomainAssessment
+    rob_assessment_version:
+        description: "Version or variant of the risk-of-bias assessment tool"
+        range: string
+    rob_consensus_status:
+        description: "Consensus status for the assessment"
+        range: AssessmentConsensusStatus
+    rob_justification:
+        description: "Overall justification for the risk-of-bias judgement"
+        range: string
+    rob_direction:
+        description: "Assessed direction of bias if evaluated"
+        range: BiasDirection
     assessment_notes:
         description: "Notes about the assessment"
         range: string
@@ -257,6 +359,46 @@ slots:
         range: string
     page_references:
         description: "Page references for the assessment"
+        range: string
+
+    # RiskOfBiasDomainAssessment slots
+    rob_domain_id:
+        description: "Identifier for the risk-of-bias domain"
+        range: string
+    rob_domain_name:
+        description: "Name of the risk-of-bias domain"
+        range: string
+    rob_domain_description:
+        description: "Description of the risk-of-bias domain"
+        range: string
+    signalling_questions:
+        description: "Signalling-question assessments for this domain"
+        range: SignallingQuestionAssessment
+    rob_domain_judgement:
+        description: "Risk-of-bias judgement for this domain"
+        range: RiskOfBiasJudgement
+    rob_domain_direction:
+        description: "Assessed direction of bias for this domain if evaluated"
+        range: BiasDirection
+    rob_domain_rationale:
+        description: "Rationale for the domain judgement"
+        range: string
+
+    # SignallingQuestionAssessment slots
+    signalling_question_id:
+        description: "Identifier for the signalling question"
+        range: string
+    signalling_question_text:
+        description: "Text of the signalling question"
+        range: string
+    signalling_question_response:
+        description: "Response to the signalling question"
+        range: SignallingQuestionResponse
+    signalling_question_rationale:
+        description: "Rationale for the signalling-question response"
+        range: string
+    signalling_question_support:
+        description: "Supporting evidence for the signalling-question response"
         range: string
 
     # QualityChecklist slots
@@ -342,6 +484,8 @@ enums:
                 description: "Cochrane Risk of Bias 2 tool"
             COCHRANE_ROBINS_I:
                 description: "Risk Of Bias In Non-randomized Studies of Interventions"
+            ROBINS_E:
+                description: "Risk Of Bias In Non-randomized Studies of Exposures"
             NEWCASTLE_OTTAWA:
                 description: "Newcastle-Ottawa Scale"
             JADAD:
@@ -356,6 +500,20 @@ enums:
                 description: "A MeaSurement Tool to Assess systematic Reviews"
             QUADAS:
                 description: "Quality Assessment of Diagnostic Accuracy Studies"
+            QUADAS_2:
+                description: "Quality Assessment of Diagnostic Accuracy Studies 2"
+            QUADAS_C:
+                description: "QUADAS-C for comparative diagnostic accuracy studies"
+            ROBIS:
+                description: "Risk of Bias in Systematic Reviews"
+            OHAT_RISK_OF_BIAS:
+                description: "OHAT risk-of-bias rating tool"
+            SYRCLE:
+                description: "SYRCLE risk-of-bias tool for animal studies"
+            AXIS:
+                description: "AXIS appraisal tool for cross-sectional studies"
+            MMAT:
+                description: "Mixed Methods Appraisal Tool"
             MINORS:
                 description: "Methodological Index for Non-Randomized Studies"
             STROBE:
@@ -364,6 +522,100 @@ enums:
                 description: "Consolidated Standards of Reporting Trials"
             CUSTOM:
                 description: "Custom assessment tool"
+
+    AssessmentPurpose:
+        description: "Purpose of a quality or risk-of-bias assessment"
+        permissible_values:
+            QUALITY_ASSESSMENT:
+                description: "General study quality assessment"
+            RISK_OF_BIAS:
+                description: "Risk-of-bias assessment"
+            CERTAINTY_ASSESSMENT:
+                description: "Certainty or confidence assessment"
+            REPORTING_QUALITY:
+                description: "Assessment of reporting quality"
+            METHODS_APPRAISAL:
+                description: "Appraisal of study methods"
+
+    AssessmentUnit:
+        description: "Unit at which a quality or risk-of-bias assessment is made"
+        permissible_values:
+            STUDY:
+                description: "Assessment applies to the study as a whole"
+            OUTCOME:
+                description: "Assessment applies to a specific outcome"
+            RESULT:
+                description: "Assessment applies to a specific result or estimate"
+            DOMAIN:
+                description: "Assessment applies to a specific assessment domain"
+            REVIEW:
+                description: "Assessment applies to a review"
+
+    RiskOfBiasJudgement:
+        description: "Risk-of-bias judgement values"
+        permissible_values:
+            LOW_RISK:
+                description: "Low risk of bias"
+            SOME_CONCERNS:
+                description: "Some concerns"
+            MODERATE_RISK:
+                description: "Moderate risk of bias"
+            SERIOUS_RISK:
+                description: "Serious risk of bias"
+            HIGH_RISK:
+                description: "High risk of bias"
+            CRITICAL_RISK:
+                description: "Critical risk of bias"
+            NO_INFORMATION:
+                description: "No information available"
+            NOT_APPLICABLE:
+                description: "Not applicable"
+
+    BiasDirection:
+        description: "Assessed direction of bias"
+        permissible_values:
+            FAVORS_INTERVENTION:
+                description: "Bias is expected to favor the intervention or exposure"
+            FAVORS_COMPARATOR:
+                description: "Bias is expected to favor the comparator"
+            TOWARD_NULL:
+                description: "Bias is expected to move the estimate toward the null"
+            AWAY_FROM_NULL:
+                description: "Bias is expected to move the estimate away from the null"
+            UNPREDICTABLE:
+                description: "Direction of bias is unpredictable"
+            NOT_ASSESSED:
+                description: "Direction of bias was not assessed"
+
+    SignallingQuestionResponse:
+        description: "Responses to risk-of-bias signalling questions"
+        permissible_values:
+            "YES":
+                description: "Yes"
+            PROBABLY_YES:
+                description: "Probably yes"
+            PROBABLY_NO:
+                description: "Probably no"
+            "NO":
+                description: "No"
+            NO_INFORMATION:
+                description: "No information"
+            NOT_APPLICABLE:
+                description: "Not applicable"
+
+    AssessmentConsensusStatus:
+        description: "Consensus status for an assessment"
+        permissible_values:
+            SINGLE_ASSESSOR:
+                description: "Single assessor completed the assessment"
+            INDEPENDENT_ASSESSMENTS:
+                description: "Independent assessments have been completed"
+            CONFLICT_UNRESOLVED:
+                description: "Assessment conflict is unresolved"
+            CONSENSUS_REACHED:
+                description: "Consensus has been reached"
+            ADJUDICATED:
+                description: "Assessment was adjudicated"
 
     QualityRating:
         description: "Quality rating levels"

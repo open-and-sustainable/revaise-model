@@ -75,11 +75,13 @@ nav:
                 - Quality Metrics: schema/objects/quality_metrics/
                 - Work Session: schema/objects/work_session/
           - Stages:
+                - Scoping: schema/stages/scoping/
                 - Registration: schema/stages/registration/
                 - Search: schema/stages/search/
                 - Screening: schema/stages/screening/
                 - Extraction: schema/stages/extraction/
                 - Synthesis: schema/stages/synthesis/
+                - Reporting: schema/stages/reporting/
     - API:
           - JSON Schema: api/revaise.schema.json
           - JSON-LD Context: api/context.jsonld
