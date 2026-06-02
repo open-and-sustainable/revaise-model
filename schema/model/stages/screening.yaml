@@ -795,11 +795,11 @@ slots:
     exclude_systematic_reviews:
         description: "Whether to exclude systematic reviews"
         range: boolean
-        ifabsent: false
+        ifabsent: "false"
     primary_sources_only:
         description: "Whether to include only primary sources"
         range: boolean
-        ifabsent: false
+        ifabsent: "false"
     criteria_notes:
         description: "Additional notes about the screening criteria"
         range: string
@@ -819,11 +819,11 @@ slots:
     require_consensus:
         description: "Whether consensus is required between reviewers"
         range: boolean
-        ifabsent: false
+        ifabsent: "false"
     blind_screening:
         description: "Whether reviewers are blind to each other's decisions"
         range: boolean
-        ifabsent: false
+        ifabsent: "false"
     pilot_screening_size:
         description: "Number of records for pilot/calibration screening"
         range: integer

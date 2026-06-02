@@ -257,7 +257,7 @@ slots:
     is_repeatable:
         description: "Whether this field can have multiple values"
         range: boolean
-        ifabsent: false
+        ifabsent: "false"
     conditional_on:
         description: "Field ID that this field's visibility depends on"
         range: string

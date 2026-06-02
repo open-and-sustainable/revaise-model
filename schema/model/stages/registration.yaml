@@ -566,7 +566,7 @@ slots:
     is_major_revision:
         description: "Whether this is a major revision"
         range: boolean
-        ifabsent: false
+        ifabsent: "false"
     amendments:
         description: "List of amendments made in this version"
         range: Amendment
@@ -616,11 +616,11 @@ slots:
     require_doi:
         description: "Whether DOI is required for registration"
         range: boolean
-        ifabsent: false
+        ifabsent: "false"
     require_content_hash:
         description: "Whether content hash is required for integrity"
         range: boolean
-        ifabsent: false
+        ifabsent: "false"
     allowed_change_types:
         description: "Types of amendments allowed for this registration"
         range: AmendmentType
@@ -628,14 +628,14 @@ slots:
     require_amendment_approval:
         description: "Whether amendments require formal approval"
         range: boolean
-        ifabsent: false
+        ifabsent: "false"
     max_days_between_versions:
         description: "Maximum days allowed between version updates"
         range: integer
     require_template:
         description: "Whether registration must use a template"
         range: boolean
-        ifabsent: false
+        ifabsent: "false"
     allowed_templates:
         description: "List of allowed registration templates"
         range: uri
