@@ -15,6 +15,7 @@ imports:
     - ../objects/work_session
     - ../objects/participant
     - ../objects/quality_metrics
+    - ../objects/quality_assessment
     - ../objects/conflict_resolution
     - ../objects/author
     - ../objects/enums
@@ -43,46 +44,58 @@ classes:
             synthesis_protocol:
                 range: SynthesisProtocol
                 required: true
+                inlined: true
                 description: "Protocol defining how synthesis will be conducted"
             synthesis_methods:
                 range: SynthesisMethod
                 multivalued: true
                 required: true
+                inlined_as_list: true
                 description: "Methods used for evidence synthesis"
             narrative_synthesis:
                 range: NarrativeSynthesis
+                inlined: true
                 description: "Narrative synthesis results if performed"
             meta_analyses:
                 range: MetaAnalysis
                 multivalued: true
+                inlined_as_list: true
                 description: "Meta-analyses performed on the data"
             subgroup_analyses:
                 range: SubgroupAnalysis
                 multivalued: true
+                inlined_as_list: true
                 description: "Subgroup analyses conducted"
             sensitivity_analyses:
                 range: SensitivityAnalysis
                 multivalued: true
+                inlined_as_list: true
                 description: "Sensitivity analyses performed"
             publication_bias_assessment:
                 range: PublicationBiasAssessment
+                inlined: true
                 description: "Assessment of publication bias"
             evidence_grading:
                 range: EvidenceGrading
                 multivalued: true
+                inlined_as_list: true
                 description: "Grading of evidence quality/certainty"
             synthesis_quality_control:
                 range: SynthesisQualityControl
+                inlined: true
                 description: "Quality control measures for synthesis"
             synthesis_statistics:
                 range: SynthesisStatistics
+                inlined: true
                 description: "Statistics about the synthesis process"
             synthesis_visualizations:
                 range: StageOutput
                 multivalued: true
+                inlined_as_list: true
                 description: "Visualizations produced (forest plots, funnel plots, etc.)"
             ai_assistance_config:
                 range: AIAssistance
+                inlined: true
                 description: "AI assistance configuration for synthesis"
 
     SynthesisProtocol:

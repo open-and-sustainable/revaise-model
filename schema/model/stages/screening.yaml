@@ -35,21 +35,26 @@ classes:
         slot_usage:
             deduplication_process:
                 range: DeduplicationProcess
+                inlined: true
                 description: "Process for identifying and removing duplicate records"
             screening_rounds:
                 range: ScreeningRound
                 multivalued: true
                 minimum_cardinality: 1
+                inlined_as_list: true
                 description: "Different rounds of screening (e.g., title/abstract, full-text)"
             screening_criteria:
                 range: ScreeningCriteria
                 required: true
+                inlined: true
                 description: "Inclusion and exclusion criteria for screening"
             screening_protocol:
                 range: ScreeningProtocol
+                inlined: true
                 description: "Protocol defining the screening process"
             overall_statistics:
                 range: ScreeningStatistics
+                inlined: true
                 description: "Overall statistics for the entire screening stage"
 
     DeduplicationProcess:

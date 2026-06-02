@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.2] - 2026-06-02
+### Added
+- Versioned release artifacts for JSON Schema, JSON-LD context, SHACL, OWL, RDF, LinkML YAML, manifests, and checksums.
+- Explicit `Review` tree root declaration for generated validation artifacts.
+- CI checks for generated schema artifacts and example validation.
+
+### Changed
+- Generate JSON Schema with `Review` as the top-level class.
+- Treat generated artifacts as release outputs under immutable versioned paths plus `latest`.
+
 ## [0.4.1] - 2025-10-03
 ### Changed
 - Enhanced documentation and narrative on review workflow representation

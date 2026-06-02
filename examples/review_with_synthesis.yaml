@@ -1,0 +1,27 @@
+review_id: SR_2026_005
+review_title: "Digital health intervention outcomes: synthesis example"
+review_type: SYSTEMATIC_REVIEW
+review_status: IN_PROGRESS
+review_authors:
+  - name: "Michael Johnson"
+    email: "michael.johnson@example.org"
+protocol:
+  research_question: "How should included digital health intervention studies be synthesized?"
+  eligibility_criteria: "Included studies from the completed extraction stage."
+stages:
+  - stage_type: synthesis_narrative
+    stage_label: "Narrative synthesis"
+    stage_description: "Narrative synthesis of extracted outcomes."
+    started_at: "2026-05-01T09:00:00Z"
+    synthesis_protocol:
+      base_protocol_id: synthesis_protocol_001
+      synthesis_approach:
+        - NARRATIVE
+      planned_comparisons:
+        - "Digital intervention versus usual care"
+      missing_data_strategy: COMPLETE_CASE
+    synthesis_methods:
+      - method_id: method_001
+        method_type: NARRATIVE_SUMMARY
+        method_name: "Structured narrative summary"
+        method_description: "Summarize findings by outcome domain and intervention type."

@@ -9,9 +9,15 @@ imports:
     - linkml:types
     - ./enums
     - ./author
+    - ./protocol
+    - ./literature_record
+    - ./stage_execution
+    - ./stage_output
+    - ./software_env
 
 classes:
     Review:
+        tree_root: true
         description: "Root container for a systematic review. This is the primary object that contains all review data, stages, literature records, and artifacts. Every RevAIse document should have a Review as its top-level object."
         slots:
             # Core identification

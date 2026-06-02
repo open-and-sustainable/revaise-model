@@ -20,20 +20,59 @@ jobs:
             - name: Install LinkML toolchain
               run: |
                   python -m pip install --upgrade pip
-                  pip install linkml linkml-runtime linkml-renderer jsonschema
+                  pip install linkml linkml-runtime linkml-renderer jsonschema pyyaml
 
             - name: Validate LinkML schema
               run: |
                   echo "Checking schema syntax..."
-                  linkml-lint schema/revaise.yaml || true
+                  linkml-lint schema/revaise.yaml
 
                   echo "Testing JSON Schema generation..."
-                  gen-json-schema schema/revaise.yaml > /tmp/revaise.schema.json
+                  gen-json-schema --top-class Review --include-range-class-descendants schema/revaise.yaml > /tmp/revaise.schema.json
 
                   echo "Testing JSON-LD context generation..."
                   gen-jsonld-context schema/revaise.yaml > /tmp/context.jsonld
 
+                  echo "Testing SHACL generation..."
+                  gen-shacl schema/revaise.yaml > /tmp/revaise.shacl.ttl
+
+                  echo "Testing OWL generation..."
+                  gen-owl --no-add-ols-annotations -f ttl schema/revaise.yaml > /tmp/revaise.owl.ttl
+
+                  echo "Testing RDF generation..."
+                  gen-owl --no-add-ols-annotations -f ttl schema/revaise.yaml > /tmp/revaise.rdf.ttl
+
                   echo "✅ All schema validations passed!"
+
+            - name: Validate examples
+              run: |
+                  python - <<'PY'
+                  import json
+                  from pathlib import Path
+
+                  import jsonschema
+                  import yaml
+
+                  schema = json.loads(Path("/tmp/revaise.schema.json").read_text())
+                  validator = jsonschema.Draft201909Validator(schema)
+                  failures = []
+
+                  for path in sorted(Path("examples").glob("*.yaml")):
+                      data = yaml.safe_load(path.read_text())
+                      errors = sorted(validator.iter_errors(data), key=lambda e: list(e.path))
+                      if errors:
+                          failures.append((path, errors))
+
+                  if failures:
+                      for path, errors in failures:
+                          print(f"{path}:")
+                          for error in errors[:10]:
+                              loc = "/".join(str(part) for part in error.path) or "/"
+                              print(f"  - {loc}: {error.message}")
+                      raise SystemExit(1)
+
+                  print("All examples validated")
+                  PY
 
             - name: Check documentation generation
               run: |

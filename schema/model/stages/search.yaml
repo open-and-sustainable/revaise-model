@@ -26,24 +26,30 @@ classes:
         slot_usage:
             search_protocol:
                 range: SearchProtocol
+                inlined: true
                 description: "Protocol defining the search strategy and approach"
             databases:
                 range: Database
                 multivalued: true
+                inlined_as_list: true
                 description: "Databases used for literature search"
             search_queries:
                 range: SearchQuery
                 multivalued: true
+                inlined_as_list: true
                 description: "Search queries executed"
             result_collections:
                 range: LiteratureRecordCollection
                 multivalued: true
+                inlined_as_list: true
                 description: "Collections of literature records resulting from searches"
             search_quality_control:
                 range: SearchQualityControl
+                inlined: true
                 description: "Quality control measures for the search process"
             search_statistics:
                 range: SearchStatistics
+                inlined: true
                 description: "Statistics about the search process"
 
     SearchProtocol:

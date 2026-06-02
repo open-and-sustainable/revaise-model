@@ -27,23 +27,28 @@ classes:
         slot_usage:
             registration_protocol:
                 range: RegistrationProtocol
+                inlined: true
                 description: "Protocol defining the registration approach and requirements"
             registrations:
                 range: Registration
                 multivalued: true
                 minimum_cardinality: 1
+                inlined_as_list: true
                 description: "All registrations associated with this review"
             current_registration_version:
                 range: string
                 description: "Version ID of the current active registration"
             registration_policy:
                 range: RegistrationPolicy
+                inlined: true
                 description: "Policy governing registration requirements"
             registration_quality_control:
                 range: RegistrationQualityControl
+                inlined: true
                 description: "Quality control measures for the registration process"
             registration_statistics:
                 range: RegistrationStatistics
+                inlined: true
                 description: "Statistics about the registration process"
 
     Registration:
@@ -85,6 +90,7 @@ classes:
                 range: RegistrationVersion
                 multivalued: true
                 minimum_cardinality: 1
+                inlined_as_list: true
                 description: "All versions of this registration"
             initial_version_id:
                 range: string
@@ -208,6 +214,7 @@ classes:
             amendments:
                 range: Amendment
                 multivalued: true
+                inlined_as_list: true
                 description: "Amendments made in this version"
 
     Amendment:

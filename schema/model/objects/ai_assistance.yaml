@@ -239,6 +239,10 @@ classes:
                 description: "Calibration of AI confidence scores"
 
 slots:
+    ai_assistance_config:
+        description: "AI assistance configuration for a review stage"
+        range: AIAssistance
+
     # AIAssistance slots
     ai_id:
         description: "Unique identifier for AI assistance configuration"

@@ -37,23 +37,29 @@ classes:
             extraction_forms:
                 range: ExtractionForm
                 multivalued: true
+                inlined_as_list: true
                 description: "Data extraction forms/templates used"
             extraction_protocol:
                 range: ExtractionProtocol
                 required: true
+                inlined: true
                 description: "Protocol for data extraction process"
             extracted_studies:
                 range: ExtractedStudy
                 multivalued: true
+                inlined_as_list: true
                 description: "Studies with extracted data"
             extraction_quality_control:
                 range: ExtractionQualityControl
+                inlined: true
                 description: "Quality control measures for extraction"
             extraction_statistics:
                 range: ExtractionStatistics
+                inlined: true
                 description: "Overall statistics for the extraction stage"
             ai_assistance_config:
                 range: AIAssistance
+                inlined: true
                 description: "AI assistance configuration for extraction"
 
     ExtractionForm:
@@ -297,9 +303,6 @@ classes:
 
 slots:
     # Stage-level slots
-    ai_assistance_config:
-        description: "AI assistance configuration for extraction"
-        range: AIAssistance
     extraction_forms:
         description: "Data extraction forms used"
         range: ExtractionForm

@@ -4,9 +4,12 @@ set -euo pipefail
 SCHEMA_DIR="schema"
 OUT="site"
 
-# Determine version from Git, VERSION file, or argument
-# Priority: Git tag > Git branch > VERSION file > argument > 'dev'
-if git describe --exact-match --tags HEAD 2>/dev/null; then
+# Determine version from argument, Git, VERSION file, or fallback.
+# Priority: argument > Git tag > Git branch > VERSION file > 'dev'
+if [ -n "${1:-}" ]; then
+    # Use provided argument
+    VER="$1"
+elif git describe --exact-match --tags HEAD 2>/dev/null; then
     # We're on a tag, use it (remove 'v' prefix if present)
     VER=$(git describe --exact-match --tags HEAD | sed 's/^v//')
 elif [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] || [ "$(git rev-parse --abbrev-ref HEAD)" = "master" ]; then
@@ -20,9 +23,6 @@ elif [ "$(git rev-parse --abbrev-ref HEAD)" = "main" ] || [ "$(git rev-parse --a
 elif [ -f "VERSION" ]; then
     # Not on tag or main, use VERSION file
     VER=$(cat VERSION | tr -d '[:space:]')
-elif [ -n "$1" ]; then
-    # Use provided argument
-    VER="$1"
 else
     # Default to dev
     VER="dev"
@@ -63,10 +63,62 @@ cp -r "$SCHEMA_DIR"/* "$TEMP_DIR/"
 # Always inject version into the schema
 sed -i "s/^name: revaise$/name: revaise\nversion: ${VER}/" "$TEMP_DIR/revaise.yaml"
 
-gen-json-schema "$TEMP_DIR/revaise.yaml" > "$OUT/schema/$VER/revaise.schema.json"
+gen-json-schema --top-class Review --include-range-class-descendants "$TEMP_DIR/revaise.yaml" > "$OUT/schema/$VER/revaise.schema.json"
 gen-jsonld-context "$TEMP_DIR/revaise.yaml" > "$OUT/schema/$VER/context.jsonld"
+gen-shacl "$TEMP_DIR/revaise.yaml" > "$OUT/schema/$VER/revaise.shacl.ttl"
+gen-owl --no-add-ols-annotations -f ttl "$TEMP_DIR/revaise.yaml" > "$OUT/schema/$VER/revaise.owl.ttl"
+gen-owl --no-add-ols-annotations -f ttl "$TEMP_DIR/revaise.yaml" > "$OUT/schema/$VER/revaise.rdf.ttl"
 gen-doc "$TEMP_DIR/revaise.yaml" --directory "$OUT/docs/$VER/main"
 cp "$TEMP_DIR/revaise.yaml" "$OUT/schema/$VER/revaise.yaml"
+cp "$TEMP_DIR/revaise.yaml" "$OUT/schema/$VER/revaise.linkml.yaml"
+
+SOURCE_COMMIT=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
+LINKML_VERSION=$(gen-json-schema --version 2>/dev/null | awk '{print $NF}' || echo "unknown")
+
+(
+  cd "$OUT/schema/$VER"
+  sha256sum \
+    revaise.linkml.yaml \
+    revaise.yaml \
+    revaise.schema.json \
+    context.jsonld \
+    revaise.shacl.ttl \
+    revaise.owl.ttl \
+    revaise.rdf.ttl > SHA256SUMS
+)
+
+checksum_for() {
+  sha256sum "$OUT/schema/$VER/$1" | awk '{print $1}'
+}
+
+cat > "$OUT/schema/$VER/manifest.json" <<EOF
+{
+  "name": "revaise",
+  "version": "${VER}",
+  "source_commit": "${SOURCE_COMMIT}",
+  "linkml_version": "${LINKML_VERSION}",
+  "root_class": "Review",
+  "artifacts": {
+    "linkml": "revaise.linkml.yaml",
+    "yaml": "revaise.yaml",
+    "json_schema": "revaise.schema.json",
+    "jsonld_context": "context.jsonld",
+    "shacl": "revaise.shacl.ttl",
+    "owl": "revaise.owl.ttl",
+    "rdf": "revaise.rdf.ttl",
+    "checksums": "SHA256SUMS"
+  },
+  "checksums_sha256": {
+    "revaise.linkml.yaml": "$(checksum_for revaise.linkml.yaml)",
+    "revaise.yaml": "$(checksum_for revaise.yaml)",
+    "revaise.schema.json": "$(checksum_for revaise.schema.json)",
+    "context.jsonld": "$(checksum_for context.jsonld)",
+    "revaise.shacl.ttl": "$(checksum_for revaise.shacl.ttl)",
+    "revaise.owl.ttl": "$(checksum_for revaise.owl.ttl)",
+    "revaise.rdf.ttl": "$(checksum_for revaise.rdf.ttl)"
+  }
+}
+EOF
 
 # Clean up temporary directory
 rm -rf "$TEMP_DIR"
@@ -96,7 +148,13 @@ done
 # Copy to latest
 cp "$OUT/schema/$VER/revaise.schema.json" "$OUT/schema/latest/"
 cp "$OUT/schema/$VER/context.jsonld" "$OUT/schema/latest/"
+cp "$OUT/schema/$VER/revaise.shacl.ttl" "$OUT/schema/latest/"
+cp "$OUT/schema/$VER/revaise.owl.ttl" "$OUT/schema/latest/"
+cp "$OUT/schema/$VER/revaise.rdf.ttl" "$OUT/schema/latest/"
 cp "$OUT/schema/$VER/revaise.yaml" "$OUT/schema/latest/"
+cp "$OUT/schema/$VER/revaise.linkml.yaml" "$OUT/schema/latest/"
+cp "$OUT/schema/$VER/manifest.json" "$OUT/schema/latest/"
+cp "$OUT/schema/$VER/SHA256SUMS" "$OUT/schema/latest/"
 
 # Copy docs to latest
 cp -r "$OUT/docs/$VER" "$OUT/docs/latest"
@@ -106,8 +164,14 @@ cat > "$OUT/schema/latest/index.json" <<EOF
 {
   "revaise": {
     "yaml": "${BASE_URL}/schema/${VER}/revaise.yaml",
+    "linkml": "${BASE_URL}/schema/${VER}/revaise.linkml.yaml",
     "jsonschema": "${BASE_URL}/schema/${VER}/revaise.schema.json",
     "context": "${BASE_URL}/schema/${VER}/context.jsonld",
+    "shacl": "${BASE_URL}/schema/${VER}/revaise.shacl.ttl",
+    "owl": "${BASE_URL}/schema/${VER}/revaise.owl.ttl",
+    "rdf": "${BASE_URL}/schema/${VER}/revaise.rdf.ttl",
+    "manifest": "${BASE_URL}/schema/${VER}/manifest.json",
+    "checksums": "${BASE_URL}/schema/${VER}/SHA256SUMS",
     "docs": "${BASE_URL}/docs/${VER}/"
   }
 }
@@ -187,9 +251,13 @@ cat > "$OUT/index.html" <<EOF
 
     <h2>Schema Resources</h2>
     <ul>
-        <li>📄 <a href="${BASE_URL}/schema/latest/revaise.yaml">YAML Schema</a> - LinkML source schema</li>
-        <li>🔧 <a href="${BASE_URL}/schema/latest/revaise.schema.json">JSON Schema</a> - For validation</li>
-        <li>🔗 <a href="${BASE_URL}/schema/latest/context.jsonld">JSON-LD Context</a> - For linked data</li>
+        <li>📄 <a href="${BASE_URL}/schema/latest/revaise.linkml.yaml">LinkML YAML</a> - Source schema release artifact</li>
+        <li>🔧 <a href="${BASE_URL}/schema/latest/revaise.schema.json">JSON Schema</a> - Primary validation artifact</li>
+        <li>🔗 <a href="${BASE_URL}/schema/latest/context.jsonld">JSON-LD Context</a> - Linked data context</li>
+        <li>🔗 <a href="${BASE_URL}/schema/latest/revaise.shacl.ttl">SHACL</a> - RDF validation shapes</li>
+        <li>🔗 <a href="${BASE_URL}/schema/latest/revaise.owl.ttl">OWL</a> - Ontology artifact</li>
+        <li>🔗 <a href="${BASE_URL}/schema/latest/revaise.rdf.ttl">RDF</a> - RDF schema representation</li>
+        <li>📦 <a href="${BASE_URL}/schema/latest/manifest.json">Manifest</a> - Release metadata and checksums</li>
         <li>📚 <a href="${BASE_URL}/docs/${VER}/main/index.md">Complete Documentation</a> - Full reference</li>
         <li>🔍 <a href="${BASE_URL}/schema/latest/index.json">Programmatic Index</a> - For tool integration</li>
     </ul>
@@ -229,6 +297,8 @@ cat > "$OUT/index.html" <<EOF
             <li>🔄 <a href="${BASE_URL}/docs/${VER}/stages/registration/index.md">Registration Stage</a> - Protocol registration and pre-registration</li>
             <li>🔄 <a href="${BASE_URL}/docs/${VER}/stages/search/index.md">Search Stage</a> - Literature search documentation</li>
             <li>🔄 <a href="${BASE_URL}/docs/${VER}/stages/screening/index.md">Screening Stage</a> - Title/abstract and full-text screening</li>
+            <li>🔄 <a href="${BASE_URL}/docs/${VER}/stages/extraction/index.md">Extraction Stage</a> - Data extraction workflows</li>
+            <li>🔄 <a href="${BASE_URL}/docs/${VER}/stages/synthesis/index.md">Synthesis Stage</a> - Evidence synthesis workflows</li>
         </ul>
     </div>
 
