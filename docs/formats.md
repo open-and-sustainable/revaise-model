@@ -17,6 +17,70 @@ The source schema lives in `schema/revaise.yaml` and `schema/model/**/*.yaml`. R
 | `manifest.json` | Release metadata, root class, artifact list, and checksums |
 | `SHA256SUMS` | Checksums for generated release artifacts |
 
+## Accessing Artifacts
+
+Release artifacts are published under:
+
+```text
+https://open-and-sustainable.github.io/revaise-model/schema/<version>/
+```
+
+For example, version `0.4.2` artifacts are available at:
+
+```text
+https://open-and-sustainable.github.io/revaise-model/schema/0.4.2/revaise.linkml.yaml
+https://open-and-sustainable.github.io/revaise-model/schema/0.4.2/revaise.schema.json
+https://open-and-sustainable.github.io/revaise-model/schema/0.4.2/context.jsonld
+https://open-and-sustainable.github.io/revaise-model/schema/0.4.2/revaise.shacl.ttl
+https://open-and-sustainable.github.io/revaise-model/schema/0.4.2/revaise.owl.ttl
+https://open-and-sustainable.github.io/revaise-model/schema/0.4.2/revaise.rdf.ttl
+https://open-and-sustainable.github.io/revaise-model/schema/0.4.2/manifest.json
+https://open-and-sustainable.github.io/revaise-model/schema/0.4.2/SHA256SUMS
+```
+
+The latest published release is available through:
+
+```text
+https://open-and-sustainable.github.io/revaise-model/schema/latest/index.json
+```
+
+Use versioned URLs for reproducible software. Use `latest` only when you intentionally want the newest published release.
+
+Example Python access:
+
+```python
+import json
+import urllib.request
+
+version = "0.4.2"
+base_url = f"https://open-and-sustainable.github.io/revaise-model/schema/{version}"
+
+with urllib.request.urlopen(f"{base_url}/manifest.json") as response:
+    manifest = json.load(response)
+
+schema_name = manifest["artifacts"]["json_schema"]
+
+with urllib.request.urlopen(f"{base_url}/{schema_name}") as response:
+    json_schema = json.load(response)
+```
+
+Example discovery through `latest`:
+
+```python
+import json
+import urllib.request
+
+index_url = "https://open-and-sustainable.github.io/revaise-model/schema/latest/index.json"
+
+with urllib.request.urlopen(index_url) as response:
+    index = json.load(response)
+
+schema_url = "https://open-and-sustainable.github.io" + index["revaise"]["jsonschema"]
+
+with urllib.request.urlopen(schema_url) as response:
+    json_schema = json.load(response)
+```
+
 ## Versioning
 
 Each released version is immutable. `latest` points to the newest released version.
