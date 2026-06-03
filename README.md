@@ -32,6 +32,8 @@ RevAIse is a structured data model that captures complete systematic review work
 - **Review Process Workflows** - Screening criteria, extraction procedures, and human-AI collaboration patterns throughout the review
 - **Workflow Reproducibility** - Complete process environments, data lineage, and step-by-step execution documentation
 
+Current stage coverage includes optional scoping, registration, search, screening with deduplication, extraction with risk-of-bias assessment, synthesis, and optional reporting.
+
 ## Who Benefits?
 
 ### Researchers
@@ -68,13 +70,35 @@ RevAIse is a structured data model that captures complete systematic review work
 - **Extensible** - Adapt workflow definitions to your specific domain and institutional needs
 - **Version Controlled** - Track changes in your review methodology and workflow evolution
 
+## Published Artifacts
+
+Released schemas are published under immutable versioned paths:
+
+```text
+https://open-and-sustainable.github.io/revaise-model/schema/<version>/
+```
+
+For version `0.5.0`:
+
+- **LinkML YAML**: https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/revaise.linkml.yaml
+- **JSON Schema**: https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/revaise.schema.json
+- **JSON-LD Context**: https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/context.jsonld
+- **Manifest**: https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/manifest.json
+- **Checksums**: https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/SHA256SUMS
+
+Use versioned URLs for reproducible work. The latest published release can be discovered at:
+
+```text
+https://open-and-sustainable.github.io/revaise-model/schema/latest/index.json
+```
+
 ## Quick Start
 
 ### For Researchers
 Start documenting your AI-assisted review workflows using the RevAIse schema:
 
 1. **Browse the Schema**: [Documentation](https://revaise-model.readthedocs.io/)
-2. **Download Templates**: [JSON Schema - Stable](https://revaise-model.readthedocs.io/en/stable/api/revaise.schema.json)
+2. **Download the JSON Schema**: [Version 0.5.0](https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/revaise.schema.json)
 3. **Map Your Review Workflow**: Document your systematic review process using RevAIse workflow stages
 4. **Validate Your Data**: Use standard JSON Schema validators
 
@@ -83,8 +107,11 @@ Integrate RevAIse into your systematic review tools:
 
 ```json
 {
-  "schema": "https://github.com/open-and-sustainable/revaise-model/blob/main/schema/revaise.yaml",
-  "context": "https://github.com/open-and-sustainable/revaise-model/blob/main/schema/",
+  "linkml": "https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/revaise.linkml.yaml",
+  "json_schema": "https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/revaise.schema.json",
+  "jsonld_context": "https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/context.jsonld",
+  "manifest": "https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/manifest.json",
+  "latest_index": "https://open-and-sustainable.github.io/revaise-model/schema/latest/index.json",
   "docs": "https://revaise-model.readthedocs.io/"
 }
 ```
