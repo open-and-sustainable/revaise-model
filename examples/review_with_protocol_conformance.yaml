@@ -1,0 +1,55 @@
+review_id: SR_2026_008
+review_title: "Protocol conformance example: declaring and recording PRISMA 2020 conformance"
+review_type: SYSTEMATIC_REVIEW
+review_status: IN_PROGRESS
+review_authors:
+  - name: "Mira Donati"
+    email: "mira.donati@example.org"
+protocol:
+  research_question: "Do AI-assisted screening workflows affect recall in systematic reviews?"
+  eligibility_criteria: "Comparative studies of AI-assisted versus manual screening."
+conforms_to:
+  - protocol_id: prisma_2020
+    protocol_name: "PRISMA 2020"
+    protocol_version: "2020"
+    protocol_uri: "https://www.prisma-statement.org/prisma-2020"
+    protocol_kind: REPORTING
+    applicable_review_types:
+      - SYSTEMATIC_REVIEW
+      - META_ANALYSIS
+    protocol_citation: "Page MJ, et al. The PRISMA 2020 statement. BMJ 2021;372:n71."
+  - protocol_id: robis
+    protocol_name: "ROBIS"
+    protocol_version: "2016"
+    protocol_uri: "https://www.bristol.ac.uk/population-health-sciences/projects/robis/"
+    protocol_kind: RISK_OF_BIAS
+    applicable_review_types:
+      - SYSTEMATIC_REVIEW
+conformance_assertions:
+  - assertion_id: conf_prisma_2020_001
+    asserted_protocol: "https://www.prisma-statement.org/prisma-2020"
+    shapes_version: "0.6.0"
+    conformance_tool_name: "revaise-conformance-mcp"
+    conformance_tool_version: "0.1.0"
+    asserted_at: "2026-06-26T10:30:00Z"
+    asserted_by: "automated-shacl-check"
+    conformance_result: PARTIAL
+    item_results:
+      - item_result_id: prisma_item_16a
+        item_label: "Study selection flow"
+        item_status: SATISFIED
+        item_location: "reporting stage / prisma_flow_diagram"
+      - item_result_id: prisma_item_24a
+        item_label: "Registration"
+        item_status: VIOLATED
+        item_message: "No registration record found for the review."
+stages:
+  - stage_type: search
+    stage_label: "Literature search"
+    stage_status: COMPLETE
+    started_at: "2026-05-01T09:00:00Z"
+    ended_at: "2026-05-03T17:00:00Z"
+  - stage_type: screening_title_abstract
+    stage_label: "Title and abstract screening"
+    stage_status: IN_PROGRESS
+    started_at: "2026-05-04T09:00:00Z"

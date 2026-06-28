@@ -68,6 +68,42 @@ enums:
             reproducibility_pack:
                 description: "Compiling reproducibility package."
 
+    ReviewType:
+        description: "Types of reviews"
+        permissible_values:
+            SYSTEMATIC_REVIEW:
+                description: "Systematic review"
+            META_ANALYSIS:
+                description: "Meta-analysis"
+            SCOPING_REVIEW:
+                description: "Scoping review"
+            RAPID_REVIEW:
+                description: "Rapid review"
+            UMBRELLA_REVIEW:
+                description: "Umbrella review"
+            NARRATIVE_REVIEW:
+                description: "Narrative review"
+            LIVING_REVIEW:
+                description: "Living systematic review"
+            MIXED_METHODS:
+                description: "Mixed methods review"
+            REALIST_REVIEW:
+                description: "Realist review"
+
+    StageStatus:
+        description: "Completion status of a stage execution"
+        permissible_values:
+            NOT_STARTED:
+                description: "The stage has not been started."
+            IN_PROGRESS:
+                description: "The stage is currently underway."
+            COMPLETE:
+                description: "The stage has been completed."
+            SKIPPED:
+                description: "The stage was intentionally skipped."
+            NOT_APPLICABLE:
+                description: "The stage does not apply to this review."
+
     StageOutputKind:
         description: "Types of outputs that can be produced by review stages"
         permissible_values:

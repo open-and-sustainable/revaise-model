@@ -55,6 +55,7 @@ nav:
                 - Review: schema/objects/review/
                 - Author: schema/objects/author/
                 - Protocol: schema/objects/protocol/
+                - Protocol Conformance: schema/objects/protocol_conformance/
                 - Literature Record: schema/objects/literature_record/
           - Shared Infrastructure:
                 - Registration Template: schema/objects/registration_template/

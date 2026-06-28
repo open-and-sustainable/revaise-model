@@ -15,6 +15,9 @@ imports:
     - ./objects/protocol
     - ./objects/literature_record
 
+    # Protocol conformance references and stored conformance results
+    - ./objects/protocol_conformance
+
     # Registration templates for protocol registration
     - ./objects/registration_template
 

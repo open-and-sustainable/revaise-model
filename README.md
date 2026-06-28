@@ -78,13 +78,16 @@ Released schemas are published under immutable versioned paths:
 https://open-and-sustainable.github.io/revaise-model/schema/<version>/
 ```
 
-For version `0.5.0`:
+For version `0.6.0`:
 
-- **LinkML YAML**: https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/revaise.linkml.yaml
-- **JSON Schema**: https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/revaise.schema.json
-- **JSON-LD Context**: https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/context.jsonld
-- **Manifest**: https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/manifest.json
-- **Checksums**: https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/SHA256SUMS
+- **LinkML YAML**: https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/revaise.linkml.yaml
+- **JSON Schema**: https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/revaise.schema.json
+- **JSON-LD Context**: https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/context.jsonld
+- **SHACL**: https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/revaise.shacl.ttl
+- **OWL**: https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/revaise.owl.ttl
+- **RDF**: https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/revaise.rdf.ttl
+- **Manifest**: https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/manifest.json
+- **Checksums**: https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/SHA256SUMS
 
 Use versioned URLs for reproducible work. The latest published release can be discovered at:
 
@@ -98,7 +101,7 @@ https://open-and-sustainable.github.io/revaise-model/schema/latest/index.json
 Start documenting your AI-assisted review workflows using the RevAIse schema:
 
 1. **Browse the Schema**: [Documentation](https://revaise-model.readthedocs.io/)
-2. **Download the JSON Schema**: [Version 0.5.0](https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/revaise.schema.json)
+2. **Download the JSON Schema**: [Version 0.6.0](https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/revaise.schema.json)
 3. **Map Your Review Workflow**: Document your systematic review process using RevAIse workflow stages
 4. **Validate Your Data**: Use standard JSON Schema validators
 
@@ -107,10 +110,13 @@ Integrate RevAIse into your systematic review tools:
 
 ```json
 {
-  "linkml": "https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/revaise.linkml.yaml",
-  "json_schema": "https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/revaise.schema.json",
-  "jsonld_context": "https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/context.jsonld",
-  "manifest": "https://open-and-sustainable.github.io/revaise-model/schema/0.5.0/manifest.json",
+  "linkml": "https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/revaise.linkml.yaml",
+  "json_schema": "https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/revaise.schema.json",
+  "jsonld_context": "https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/context.jsonld",
+  "shacl": "https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/revaise.shacl.ttl",
+  "owl": "https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/revaise.owl.ttl",
+  "rdf": "https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/revaise.rdf.ttl",
+  "manifest": "https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/manifest.json",
   "latest_index": "https://open-and-sustainable.github.io/revaise-model/schema/latest/index.json",
   "docs": "https://revaise-model.readthedocs.io/"
 }

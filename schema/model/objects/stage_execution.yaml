@@ -17,6 +17,7 @@ classes:
             - stage_type
             - stage_label
             - stage_description
+            - stage_status
             - started_at
             - ended_at
             - inputs
@@ -27,6 +28,9 @@ classes:
                 range: StageType
                 required: true
                 description: "Type of stage being executed"
+            stage_status:
+                range: StageStatus
+                description: "Completion status of this stage execution"
             stage_label:
                 range: string
                 description: "Human-readable label for this stage execution"
@@ -62,6 +66,9 @@ slots:
     stage_description:
         range: string
         description: "Detailed description"
+    stage_status:
+        range: StageStatus
+        description: "Completion status of a stage execution"
     started_at:
         range: datetime
         description: "Start time"

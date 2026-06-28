@@ -15,6 +15,7 @@ These are the fundamental objects that characterize a systematic review workflow
 - **[Review](objects/review/)** - The main review container and workflow metadata
 - **[Author](objects/author/)** - Information about review authors and workflow contributors
 - **[Protocol](objects/protocol/)** - Review protocol and workflow methodology specifications
+- **[Protocol Conformance](objects/protocol_conformance/)** - References to external protocols (e.g., PRISMA 2020) and stored results of conformance checks
 - **[Literature Record](objects/literature_record/)** - Individual literature items flowing through the review workflow
 
 ### Shared Infrastructure Objects

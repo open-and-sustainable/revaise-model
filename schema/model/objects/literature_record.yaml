@@ -8,6 +8,7 @@ default_prefix: revaise
 imports:
     - linkml:types
     - ./author
+    - ./protocol_conformance
 
 classes:
     LiteratureRecord:
@@ -30,6 +31,8 @@ classes:
             - full_text_url
             - record_created_at
             - record_updated_at
+            - conforms_to
+            - conformance_assertions
         slot_usage:
             record_id:
                 identifier: true

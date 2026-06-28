@@ -14,6 +14,7 @@ imports:
     - ./stage_execution
     - ./stage_output
     - ./software_env
+    - ./protocol_conformance
 
 classes:
     Review:
@@ -29,6 +30,8 @@ classes:
 
             # Protocol and registration
             - protocol
+            - conforms_to
+            - conformance_assertions
 
             # Authors
             - review_authors
@@ -262,28 +265,6 @@ slots:
         range: string
 
 enums:
-    ReviewType:
-        description: "Types of reviews"
-        permissible_values:
-            SYSTEMATIC_REVIEW:
-                description: "Systematic review"
-            META_ANALYSIS:
-                description: "Meta-analysis"
-            SCOPING_REVIEW:
-                description: "Scoping review"
-            RAPID_REVIEW:
-                description: "Rapid review"
-            UMBRELLA_REVIEW:
-                description: "Umbrella review"
-            NARRATIVE_REVIEW:
-                description: "Narrative review"
-            LIVING_REVIEW:
-                description: "Living systematic review"
-            MIXED_METHODS:
-                description: "Mixed methods review"
-            REALIST_REVIEW:
-                description: "Realist review"
-
     ReviewStatus:
         description: "Status of the review"
         permissible_values:

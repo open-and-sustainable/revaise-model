@@ -1,0 +1,199 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/objects/protocol_conformance
+name: revaise_protocol_conformance
+description: "Declarative references to review protocols (e.g., PRISMA 2020) and stored results of conformance checks against them."
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - linkml:types
+    - ./enums
+
+classes:
+    ProtocolReference:
+        description: "Reference to a versioned review protocol or guideline that a review or record declares conformance to (e.g., PRISMA 2020, ROBIS, RoB 2)."
+        slots:
+            - protocol_id
+            - protocol_name
+            - protocol_version
+            - protocol_uri
+            - protocol_kind
+            - applicable_review_types
+            - protocol_citation
+        slot_usage:
+            protocol_id:
+                identifier: true
+                required: true
+                description: "Unique identifier for this protocol reference within the document"
+            protocol_name:
+                required: true
+                description: "Human-readable name of the protocol or guideline"
+            protocol_uri:
+                required: true
+                description: "Versioned URI identifying the external protocol specification"
+            protocol_kind:
+                required: true
+                description: "Category of the protocol"
+            applicable_review_types:
+                multivalued: true
+                description: "Review types the protocol applies to"
+
+    ConformanceAssertion:
+        description: "Stored result of checking a review or record against a declared protocol, including overall outcome and per-item results."
+        slots:
+            - assertion_id
+            - asserted_protocol
+            - shapes_version
+            - conformance_tool_name
+            - conformance_tool_version
+            - asserted_at
+            - asserted_by
+            - conformance_result
+            - item_results
+        slot_usage:
+            assertion_id:
+                identifier: true
+                required: true
+                description: "Unique identifier for this conformance assertion"
+            asserted_protocol:
+                required: true
+                description: "URI of the protocol this assertion was checked against"
+            conformance_result:
+                required: true
+                description: "Overall outcome of the conformance check"
+            item_results:
+                range: ConformanceItemResult
+                multivalued: true
+                inlined_as_list: true
+                description: "Per-item or per-constraint results from the conformance check"
+
+    ConformanceItemResult:
+        description: "Result for a single protocol item or constraint within a conformance assertion."
+        slots:
+            - item_result_id
+            - item_label
+            - item_status
+            - item_location
+            - item_message
+        slot_usage:
+            item_result_id:
+                identifier: true
+                required: true
+                description: "Identifier of the protocol item or constraint"
+            item_status:
+                required: true
+                description: "Outcome for this item"
+
+slots:
+    protocol_id:
+        description: "Unique identifier for a protocol reference"
+        range: string
+    protocol_name:
+        description: "Name of the protocol or guideline"
+        range: string
+    protocol_version:
+        description: "Version of the protocol or guideline"
+        range: string
+    protocol_uri:
+        description: "Versioned URI identifying the external protocol specification"
+        range: uri
+    protocol_kind:
+        description: "Category of the protocol"
+        range: ProtocolKind
+    applicable_review_types:
+        description: "Review types the protocol applies to"
+        range: ReviewType
+    protocol_citation:
+        description: "Bibliographic citation for the protocol"
+        range: string
+    conforms_to:
+        description: "Protocols or guidelines this review or record declares conformance to"
+        range: ProtocolReference
+        multivalued: true
+        inlined_as_list: true
+    conformance_assertions:
+        description: "Stored results of conformance checks against declared protocols"
+        range: ConformanceAssertion
+        multivalued: true
+        inlined_as_list: true
+    assertion_id:
+        description: "Unique identifier for a conformance assertion"
+        range: string
+    asserted_protocol:
+        description: "URI of the protocol the assertion was checked against"
+        range: uri
+    shapes_version:
+        description: "Version of the SHACL shapes used for the check"
+        range: string
+    conformance_tool_name:
+        description: "Name of the tool that performed the conformance check"
+        range: string
+    conformance_tool_version:
+        description: "Version of the tool that performed the conformance check"
+        range: string
+    asserted_at:
+        description: "When the conformance check was performed"
+        range: datetime
+    asserted_by:
+        description: "Agent or person that performed the conformance check"
+        range: string
+    conformance_result:
+        description: "Overall outcome of the conformance check"
+        range: ConformanceResult
+    item_results:
+        description: "Per-item results from a conformance check"
+        range: ConformanceItemResult
+    item_result_id:
+        description: "Identifier of a protocol item or constraint"
+        range: string
+    item_label:
+        description: "Short label for the protocol item"
+        range: string
+    item_status:
+        description: "Outcome for a single protocol item"
+        range: ConformanceItemStatus
+    item_location:
+        description: "Location in the review or record where the item is addressed"
+        range: string
+    item_message:
+        description: "Message describing the item result, such as a violation reason"
+        range: string
+
+enums:
+    ProtocolKind:
+        description: "Category of a review protocol or guideline"
+        permissible_values:
+            REPORTING:
+                description: "Reporting guideline (e.g., PRISMA 2020, MOOSE)"
+            CONDUCT:
+                description: "Conduct or methodological standard (e.g., Cochrane MECIR)"
+            RISK_OF_BIAS:
+                description: "Risk-of-bias assessment tool (e.g., RoB 2, ROBINS-I, ROBIS)"
+            APPRAISAL:
+                description: "Critical appraisal tool (e.g., AMSTAR-2)"
+            CERTAINTY:
+                description: "Certainty-of-evidence framework (e.g., GRADE)"
+
+    ConformanceResult:
+        description: "Overall outcome of a conformance check"
+        permissible_values:
+            CONFORMS:
+                description: "All checked constraints were satisfied"
+            DOES_NOT_CONFORM:
+                description: "One or more constraints were violated"
+            PARTIAL:
+                description: "Some constraints satisfied, others not applicable or unmet"
+            NOT_EVALUATED:
+                description: "Conformance was not evaluated"
+
+    ConformanceItemStatus:
+        description: "Outcome for a single protocol item or constraint"
+        permissible_values:
+            SATISFIED:
+                description: "The item or constraint was satisfied"
+            VIOLATED:
+                description: "The item or constraint was violated"
+            NOT_APPLICABLE:
+                description: "The item does not apply to this review or record"
+            NOT_EVALUATED:
+                description: "The item was not evaluated"

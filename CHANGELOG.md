@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.0] - 2026-06-28
+### Added
+- Protocol conformance layer (`protocol_conformance.yaml`): `ProtocolReference` for declaring conformance to versioned external protocols (e.g., PRISMA 2020, ROBIS), and `ConformanceAssertion`/`ConformanceItemResult` for storing the result of conformance checks in the document.
+- `conforms_to` and `conformance_assertions` slots on both `Review` and `LiteratureRecord`, supporting review-level and per-record protocol conformance.
+- `ProtocolKind`, `ConformanceResult`, and `ConformanceItemStatus` enumerations.
+- `stage_status` slot on `StageExecution` with a `StageStatus` enumeration (not started, in progress, complete, skipped, not applicable).
+- Example `review_with_protocol_conformance.yaml` demonstrating declared protocols, stored conformance assertions, and stage status.
+
+### Changed
+- Moved the `ReviewType` enumeration to the shared `enums.yaml` so it can type protocol applicability.
+
 ## [0.5.0] - 2026-06-02
 ### Added
 - Optional `ScopingStage` for exploratory planning, review question refinement, feasibility assessment, stakeholder input, and scoping decisions.
