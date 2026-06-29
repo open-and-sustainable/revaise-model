@@ -1,0 +1,3 @@
+# Pinned environment for reproducible protocol conformance testing.
+# Used by .github/workflows/validate-protocols.yml and scripts/validate_conformance.sh.
+pyshacl==0.31.0

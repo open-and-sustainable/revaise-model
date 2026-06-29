@@ -1,0 +1,80 @@
+# PRISMA 2020 — declarative protocol shapes for RevAIse
+#
+# Hand-authored SHACL validation shapes (NOT generated from LinkML). They define what a
+# review claiming conformance to PRISMA 2020 must contain, targeting the RDF vocabulary
+# emitted by the RevAIse data model (the `revaise:` namespace).
+#
+# Status: SCAFFOLD. The flow-diagram step is implemented; remaining steps are stubbed by
+# stage below and tracked in mapping.md.
+#
+# Activation (TODO): apply only to reviews that declare `revaise:conforms_to` a
+# ProtocolReference with protocol_uri = <https://www.prisma-statement.org/prisma-2020>.
+# The scaffold targets the relevant class directly.
+
+@prefix sh:      <http://www.w3.org/ns/shacl#> .
+@prefix rdfs:    <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+@prefix revaise: <https://open-and-sustainable.github.io/revaise-model/schema/> .
+@prefix prisma:  <https://open-and-sustainable.github.io/revaise-model/protocols/prisma-2020/shapes#> .
+
+#################################################################
+# Step: Reporting — Flow diagram (PRISMA item 16a)   [DONE]
+# Counts must be present and must not increase along the selection sequence:
+#   identified >= screened >= sought >= assessed >= included
+#################################################################
+
+prisma:PrismaFlowCountsShape
+    a sh:NodeShape ;
+    sh:targetClass revaise:PrismaFlowDiagram ;
+    rdfs:label "PRISMA 2020 item 16a — flow diagram counts" ;
+
+    sh:property [
+        sh:path revaise:records_identified ;
+        sh:minCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:severity sh:Violation ;
+        sh:message "PRISMA 2020 (16a): number of records identified must be reported." ;
+    ] ;
+    sh:property [
+        sh:path revaise:records_screened ;
+        sh:minCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:lessThanOrEquals revaise:records_identified ;
+        sh:severity sh:Violation ;
+        sh:message "PRISMA 2020 (16a): records screened must be reported and not exceed records identified." ;
+    ] ;
+    sh:property [
+        sh:path revaise:reports_sought ;
+        sh:minCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:lessThanOrEquals revaise:records_screened ;
+        sh:severity sh:Violation ;
+        sh:message "PRISMA 2020 (16a): reports sought for retrieval must be reported and not exceed records screened." ;
+    ] ;
+    sh:property [
+        sh:path revaise:reports_assessed ;
+        sh:minCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:lessThanOrEquals revaise:reports_sought ;
+        sh:severity sh:Violation ;
+        sh:message "PRISMA 2020 (16a): reports assessed for eligibility must be reported and not exceed reports sought." ;
+    ] ;
+    sh:property [
+        sh:path revaise:prisma_studies_included ;
+        sh:minCount 1 ;
+        sh:datatype xsd:integer ;
+        sh:minInclusive 0 ;
+        sh:lessThanOrEquals revaise:reports_assessed ;
+        sh:severity sh:Violation ;
+        sh:message "PRISMA 2020 (16a): number of studies included must be reported and not exceed reports assessed." ;
+    ] .
+
+#################################################################
+# Step: Registration & protocol (PRISMA items 24a-24c)   [TODO]
+# Step: Search (PRISMA items 6-7)                         [TODO]
+# Step: Screening / selection (PRISMA items 8-9)          [TODO]
+#################################################################

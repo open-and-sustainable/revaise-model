@@ -1,0 +1,13 @@
+# RDF test fixture: a flow diagram that SATISFIES the PRISMA 2020 flow-diagram shape.
+# Counts decrease along the selection sequence: 1200 >= 1000 >= 80 >= 75 >= 40.
+@prefix revaise: <https://open-and-sustainable.github.io/revaise-model/schema/> .
+
+<urn:revaise:test:flow-ok>
+    a revaise:PrismaFlowDiagram ;
+    revaise:prisma_flow_id "flow_ok" ;
+    revaise:prisma_flow_standard "PRISMA 2020" ;
+    revaise:records_identified 1200 ;
+    revaise:records_screened 1000 ;
+    revaise:reports_sought 80 ;
+    revaise:reports_assessed 75 ;
+    revaise:prisma_studies_included 40 .

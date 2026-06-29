@@ -1,0 +1,43 @@
+name: Validate Protocols
+
+# Reproducible conformance test for every protocol: each protocol's SHACL shapes must
+# accept its conforming.ttl fixture and reject its non-conforming.ttl fixture.
+on:
+    push:
+        branches: [main]
+        paths:
+            - "protocols/**"
+            - "scripts/validate_conformance.sh"
+            - "scripts/requirements-protocols.txt"
+            - ".github/workflows/validate-protocols.yml"
+    pull_request:
+        branches: [main]
+        paths:
+            - "protocols/**"
+            - "scripts/validate_conformance.sh"
+
+jobs:
+    conformance:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+
+            - uses: actions/setup-python@v5
+              with:
+                  python-version: "3.11"
+
+            - name: Install pinned test environment
+              run: pip install -r scripts/requirements-protocols.txt
+
+            - name: Run conformance tests for all protocols
+              run: |
+                  set -euo pipefail
+                  shopt -s nullglob
+                  status=0
+                  for shapes in protocols/*/*.shacl.ttl; do
+                      dir="$(dirname "$shapes")"
+                      echo "::group::$dir"
+                      ./scripts/validate_conformance.sh "$dir" || status=1
+                      echo "::endgroup::"
+                  done
+                  exit $status

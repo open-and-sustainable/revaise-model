@@ -1,0 +1,46 @@
+name: Publish Protocol
+
+# Protocol releases, versioned independently of the data model (which is on Read the Docs).
+# Source tag format: <protocol-name>-<MAJOR>.<MINOR>.<PATCH>   e.g. prisma-2020-1.0.0
+# (No 'v' prefix — matches this repo's tagging convention. Data-model tags like 0.7.0 have
+#  no '-' and never match this pattern.)
+on:
+    push:
+        tags:
+            - "*-*.*.*"
+
+permissions:
+    contents: write
+
+concurrency:
+    group: gh-pages
+    cancel-in-progress: false
+
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v4
+              with:
+                  fetch-depth: 0
+
+            - name: Parse protocol tag
+              id: tag
+              run: |
+                  TAG="${GITHUB_REF_NAME}"          # e.g. prisma-2020-1.0.0
+                  echo "name=${TAG%-*}" >> "$GITHUB_OUTPUT"       # prisma-2020
+                  echo "version=${TAG##*-}" >> "$GITHUB_OUTPUT"   # 1.0.0
+
+            - name: Build protocol artifacts
+              run: ./scripts/build_protocols.sh "${{ steps.tag.outputs.name }}" "${{ steps.tag.outputs.version }}" site_protocols
+
+            # Deploy to gh-pages (keep_files preserves previously released versions) and
+            # tag the deployed commit so each deployed snapshot is reachable by tag.
+            - name: Deploy + tag gh-pages
+              uses: peaceiris/actions-gh-pages@v4
+              with:
+                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                  publish_dir: ./site_protocols
+                  keep_files: true
+                  tag_name: gh-pages/${{ github.ref_name }}
+                  tag_message: "Deployed ${{ github.ref_name }}"
