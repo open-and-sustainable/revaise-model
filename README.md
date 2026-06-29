@@ -7,7 +7,7 @@
 **An Open Science standard for transparent, reproducible AI-assisted systematic literature review workflows**
 
 [![Validate Schema](https://github.com/open-and-sustainable/revaise-model/actions/workflows/validate.yml/badge.svg)](https://github.com/open-and-sustainable/revaise-model/actions/workflows/validate.yml)
-[![Documentation](https://readthedocs.org/projects/revaise-model/badge/?version=latest)](https://revaise-model.readthedocs.io/en/latest/?badge=latest)
+[![Documentation](https://readthedocs.org/projects/revaise-model/badge/?version=latest)](https://revaise-model.readthedocs.io/latest/?badge=latest)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17054435.svg)](https://doi.org/10.5281/zenodo.17054435)
 
 ## Why RevAIse?
@@ -74,14 +74,14 @@ Current stage coverage includes optional scoping, registration, search, screenin
 
 The schema and its generated artifacts are published alongside the documentation on Read the Docs:
 
-- **LinkML YAML**: https://revaise-model.readthedocs.io/en/stable/api/revaise.linkml.yaml
-- **JSON Schema**: https://revaise-model.readthedocs.io/en/stable/api/revaise.schema.json
-- **JSON-LD Context**: https://revaise-model.readthedocs.io/en/stable/api/context.jsonld
-- **SHACL**: https://revaise-model.readthedocs.io/en/stable/api/revaise.shacl.ttl
-- **OWL**: https://revaise-model.readthedocs.io/en/stable/api/revaise.owl.ttl
-- **RDF**: https://revaise-model.readthedocs.io/en/stable/api/revaise.rdf.ttl
+- **LinkML YAML**: https://revaise-model.readthedocs.io/stable/api/revaise.linkml.yaml
+- **JSON Schema**: https://revaise-model.readthedocs.io/stable/api/revaise.schema.json
+- **JSON-LD Context**: https://revaise-model.readthedocs.io/stable/api/context.jsonld
+- **SHACL**: https://revaise-model.readthedocs.io/stable/api/revaise.shacl.ttl
+- **OWL**: https://revaise-model.readthedocs.io/stable/api/revaise.owl.ttl
+- **RDF**: https://revaise-model.readthedocs.io/stable/api/revaise.rdf.ttl
 
-`stable` tracks the latest release; pin a specific version (e.g. `/en/0.6.1/api/...`) for reproducible work, or use `latest` for the development build.
+`stable` tracks the latest release; pin a specific version (e.g. `/0.6.1/api/...`) for reproducible work, or use `latest` for the development build.
 
 ## Quick Start
 
@@ -89,7 +89,7 @@ The schema and its generated artifacts are published alongside the documentation
 Start documenting your AI-assisted review workflows using the RevAIse schema:
 
 1. **Browse the Schema**: [Documentation](https://revaise-model.readthedocs.io/)
-2. **Download the JSON Schema**: [JSON Schema (stable)](https://revaise-model.readthedocs.io/en/stable/api/revaise.schema.json)
+2. **Download the JSON Schema**: [JSON Schema (stable)](https://revaise-model.readthedocs.io/stable/api/revaise.schema.json)
 3. **Map Your Review Workflow**: Document your systematic review process using RevAIse workflow stages
 4. **Validate Your Data**: Use standard JSON Schema validators
 
@@ -98,12 +98,12 @@ Integrate RevAIse into your systematic review tools:
 
 ```json
 {
-  "linkml": "https://revaise-model.readthedocs.io/en/stable/api/revaise.linkml.yaml",
-  "json_schema": "https://revaise-model.readthedocs.io/en/stable/api/revaise.schema.json",
-  "jsonld_context": "https://revaise-model.readthedocs.io/en/stable/api/context.jsonld",
-  "shacl": "https://revaise-model.readthedocs.io/en/stable/api/revaise.shacl.ttl",
-  "owl": "https://revaise-model.readthedocs.io/en/stable/api/revaise.owl.ttl",
-  "rdf": "https://revaise-model.readthedocs.io/en/stable/api/revaise.rdf.ttl",
+  "linkml": "https://revaise-model.readthedocs.io/stable/api/revaise.linkml.yaml",
+  "json_schema": "https://revaise-model.readthedocs.io/stable/api/revaise.schema.json",
+  "jsonld_context": "https://revaise-model.readthedocs.io/stable/api/context.jsonld",
+  "shacl": "https://revaise-model.readthedocs.io/stable/api/revaise.shacl.ttl",
+  "owl": "https://revaise-model.readthedocs.io/stable/api/revaise.owl.ttl",
+  "rdf": "https://revaise-model.readthedocs.io/stable/api/revaise.rdf.ttl",
   "docs": "https://revaise-model.readthedocs.io/"
 }
 ```

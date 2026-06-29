@@ -23,11 +23,17 @@ RevAIse provides a comprehensive, standardized way to document complete AI-assis
 
 ### Access the Schema
 
-The RevAIse schema is available in multiple formats:
+The RevAIse schema is available in multiple formats, all generated for the version you are
+viewing and served under [`api/`](api/revaise.schema.json):
 
 - **LinkML YAML** - The source schema definition
 - **JSON Schema** - For validation in applications
 - **JSON-LD Context** - For linked data applications
+- **SHACL** - Shapes for RDF validation
+- **OWL** - Ontology representation
+- **RDF** - RDF representation of the schema
+
+See [Formats](formats.md) for direct links and versioned (per-release) access.
 
 ### Current Version
 
@@ -49,6 +55,7 @@ These are the fundamental objects that characterize a systematic review workflow
 - **[Review](schema/objects/review/)** - The root container for systematic reviews and their workflow documentation
 - **[Author](schema/objects/author/)** - Review authors and workflow contributors
 - **[Protocol](schema/objects/protocol/)** - Review protocol and workflow methodology specifications
+- **[Protocol Conformance](schema/objects/protocol_conformance/)** - Declared conformance to external protocols (e.g. PRISMA 2020) and stored conformance results
 - **[Literature Record](schema/objects/literature_record/)** - Individual literature items flowing through the review workflow
 
 ### Shared Infrastructure Objects
@@ -106,21 +113,25 @@ Built-in support for systematic review quality processes:
 
 ## Schema Formats
 
-| Format | Description | Use Case |
-|--------|-------------|----------|
-| [LinkML YAML](schema/main/) | Source schema definition | Schema development and workflow template creation |
-| [JSON Schema](api/revaise.schema.json) | JSON validation schema | Application validation and data checking |
-| [JSON-LD Context](api/context.jsonld) | Linked data context | Semantic web applications and metadata |
+| Format | File | Use Case |
+|--------|------|----------|
+| LinkML YAML | [api/revaise.linkml.yaml](api/revaise.linkml.yaml) | Source schema definition |
+| JSON Schema | [api/revaise.schema.json](api/revaise.schema.json) | Application validation and data checking |
+| JSON-LD Context | [api/context.jsonld](api/context.jsonld) | Semantic web applications and metadata |
+| SHACL | [api/revaise.shacl.ttl](api/revaise.shacl.ttl) | RDF validation |
+| OWL | [api/revaise.owl.ttl](api/revaise.owl.ttl) | Ontology / reasoning |
+| RDF | [api/revaise.rdf.ttl](api/revaise.rdf.ttl) | Linked data |
 
-## Version Support
+## Versions
 
-This documentation system maintains all versions:
+Documentation and artifacts are published per release. Use the version selector (the
+flyout at the bottom of the page) to switch between all tagged versions — Read the Docs
+lists them automatically from the git tags.
 
-- **Latest** - The most recent stable release
-- **Dev** - Current development version from main branch
-- **Tagged Releases** - All historical versions (e.g., v0.1.0, v0.2.0)
-
-Use the version selector to access documentation for any version.
+- **stable** - the most recent release
+- **latest** - the development build from `main`
+- each released version is reachable at `https://revaise-model.readthedocs.io/<version>/`
+  (e.g. `0.6.1`), with its artifacts under `…/<version>/api/`.
 
 ## Getting Started
 
