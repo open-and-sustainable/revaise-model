@@ -81,8 +81,12 @@ build:
                 # Create temporary schema directory with version injected
                 cp -r schema schema_temp
                 sed -i "s/^name: revaise$/name: revaise\nversion: ${VERSION}/" schema_temp/revaise.yaml
-                gen-json-schema schema_temp/revaise.yaml > docs/api/revaise.schema.json || echo "JSON Schema generated"
+                gen-json-schema --top-class Review --include-range-class-descendants schema_temp/revaise.yaml > docs/api/revaise.schema.json || echo "JSON Schema generated"
                 gen-jsonld-context schema_temp/revaise.yaml > docs/api/context.jsonld || echo "JSON-LD context generated"
+                gen-shacl schema_temp/revaise.yaml > docs/api/revaise.shacl.ttl || echo "SHACL generated"
+                gen-owl --no-add-ols-annotations -f ttl schema_temp/revaise.yaml > docs/api/revaise.owl.ttl || echo "OWL generated"
+                gen-owl --no-add-ols-annotations -f ttl schema_temp/revaise.yaml > docs/api/revaise.rdf.ttl || echo "RDF generated"
+                cp schema_temp/revaise.yaml docs/api/revaise.linkml.yaml
                 rm -rf schema_temp
 
             # Copy README if it doesn't exist in docs

@@ -84,8 +84,12 @@ nav:
                 - Synthesis: schema/stages/synthesis/
                 - Reporting: schema/stages/reporting/
     - API:
+          - LinkML YAML: api/revaise.linkml.yaml
           - JSON Schema: api/revaise.schema.json
           - JSON-LD Context: api/context.jsonld
+          - SHACL: api/revaise.shacl.ttl
+          - OWL: api/revaise.owl.ttl
+          - RDF: api/revaise.rdf.ttl
     - License: https://github.com/open-and-sustainable/revaise-model/blob/main/LICENSE
     - Changelog: https://github.com/open-and-sustainable/revaise-model/blob/main/CHANGELOG.md
     - Citation: https://github.com/open-and-sustainable/revaise-model/blob/main/CITATION.cff

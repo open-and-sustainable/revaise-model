@@ -288,7 +288,7 @@ Contributors are recognized through:
 
 ## Getting Help
 
-- Read the [Documentation](https://open-and-sustainable.github.io/revaise-model/)
+- Read the [Documentation](https://revaise-model.readthedocs.io/)
 - Check [GitHub Discussions](https://github.com/open-and-sustainable/revaise-model/discussions)
 - Review existing [Issues](https://github.com/open-and-sustainable/revaise-model/issues)
 - Ask questions with the `question` label

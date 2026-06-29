@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.1] - 2026-06-29
+### Changed
+- Publish the schema and all generated artifacts (LinkML YAML, JSON Schema, JSON-LD context, SHACL, OWL, RDF) with the documentation on Read the Docs, under versioned `…/en/<version>/api/` paths so every released version is citable.
+- Read the Docs build now generates the full artifact set (previously only JSON Schema and JSON-LD context).
+- Repointed artifact URLs in `README.md`, `docs/formats.md`, and `CONTRIBUTING.md` to Read the Docs.
+
+### Removed
+- GitHub Pages publishing (`.github/workflows/publish.yml`, `scripts/build.sh`) and the Pages-only `manifest.json`/`SHA256SUMS` release artifacts. Documentation and artifacts are served from Read the Docs.
+
 ## [0.6.0] - 2026-06-28
 ### Added
 - Protocol conformance layer (`protocol_conformance.yaml`): `ProtocolReference` for declaring conformance to versioned external protocols (e.g., PRISMA 2020, ROBIS), and `ConformanceAssertion`/`ConformanceItemResult` for storing the result of conformance checks in the document.

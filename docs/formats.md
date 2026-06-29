@@ -2,7 +2,7 @@
 
 RevAIse is authored in LinkML and distributed as versioned, generated artifacts.
 
-The source schema lives in `schema/revaise.yaml` and `schema/model/**/*.yaml`. Release artifacts are generated from that source and published under immutable versioned paths plus a `latest` copy.
+The source schema lives in `schema/revaise.yaml` and `schema/model/**/*.yaml`. Artifacts are generated from that source and published alongside the documentation on Read the Docs, with every released version available at its own versioned path.
 
 ## Artifact Roles
 
@@ -14,71 +14,38 @@ The source schema lives in `schema/revaise.yaml` and `schema/model/**/*.yaml`. R
 | `revaise.shacl.ttl` | SHACL shapes for RDF validation |
 | `revaise.owl.ttl` | OWL ontology artifact |
 | `revaise.rdf.ttl` | RDF representation of the schema |
-| `manifest.json` | Release metadata, root class, artifact list, and checksums |
-| `SHA256SUMS` | Checksums for generated release artifacts |
 
 ## Accessing Artifacts
 
-Release artifacts are published under:
+Artifacts are published with the documentation on Read the Docs. **Every released version is available — and citable — at its own versioned path.** Switch versions with the documentation version selector, or edit the version segment of the URL:
 
 ```text
-https://open-and-sustainable.github.io/revaise-model/schema/<version>/
+https://revaise-model.readthedocs.io/en/<version>/api/<artifact>
 ```
 
-For example, version `0.6.0` artifacts are available at:
+For example:
 
 ```text
-https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/revaise.linkml.yaml
-https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/revaise.schema.json
-https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/context.jsonld
-https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/revaise.shacl.ttl
-https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/revaise.owl.ttl
-https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/revaise.rdf.ttl
-https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/manifest.json
-https://open-and-sustainable.github.io/revaise-model/schema/0.6.0/SHA256SUMS
+https://revaise-model.readthedocs.io/en/stable/api/revaise.linkml.yaml
+https://revaise-model.readthedocs.io/en/stable/api/revaise.schema.json
+https://revaise-model.readthedocs.io/en/stable/api/context.jsonld
+https://revaise-model.readthedocs.io/en/stable/api/revaise.shacl.ttl
+https://revaise-model.readthedocs.io/en/stable/api/revaise.owl.ttl
+https://revaise-model.readthedocs.io/en/stable/api/revaise.rdf.ttl
 ```
 
-The latest published release is available through:
-
-```text
-https://open-and-sustainable.github.io/revaise-model/schema/latest/index.json
-```
-
-Use versioned URLs for reproducible software. Use `latest` only when you intentionally want the newest published release.
+`stable` resolves to the latest release; `latest` is the development build. **For reproducible work, cite a specific version**, e.g. `https://revaise-model.readthedocs.io/en/0.6.1/api/revaise.schema.json`.
 
 Example Python access:
 
 ```python
-import json
 import urllib.request
 
-version = "0.6.0"
-base_url = f"https://open-and-sustainable.github.io/revaise-model/schema/{version}"
+version = "0.6.1"  # any released version, or "stable"
+base_url = f"https://revaise-model.readthedocs.io/en/{version}/api"
 
-with urllib.request.urlopen(f"{base_url}/manifest.json") as response:
-    manifest = json.load(response)
-
-schema_name = manifest["artifacts"]["json_schema"]
-
-with urllib.request.urlopen(f"{base_url}/{schema_name}") as response:
-    json_schema = json.load(response)
-```
-
-Example discovery through `latest`:
-
-```python
-import json
-import urllib.request
-
-index_url = "https://open-and-sustainable.github.io/revaise-model/schema/latest/index.json"
-
-with urllib.request.urlopen(index_url) as response:
-    index = json.load(response)
-
-schema_url = "https://open-and-sustainable.github.io" + index["revaise"]["jsonschema"]
-
-with urllib.request.urlopen(schema_url) as response:
-    json_schema = json.load(response)
+with urllib.request.urlopen(f"{base_url}/revaise.schema.json") as response:
+    json_schema = response.read()
 ```
 
 ## Versioning
@@ -87,7 +54,7 @@ Each released version is immutable. `latest` points to the newest released versi
 
 Patch releases contain documentation changes, generation fixes, or non-breaking schema corrections. Minor releases may add optional classes, slots, enum values, or examples. Major releases are reserved for incompatible changes such as renamed or removed slots, changed required fields, changed enum meanings, or changed root document shape.
 
-Release tags build and publish the generated artifacts under `site/schema/<version>/` and refresh `site/schema/latest/`.
+Each released version is built on Read the Docs and its artifacts are served under `…/en/<version>/api/`; `stable` tracks the latest release and `latest` the development build.
 
 ## Validation
 
