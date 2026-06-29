@@ -88,6 +88,7 @@ classes:
             review_authors:
                 range: Author
                 multivalued: true
+                inlined_as_list: true
                 required: true
                 minimum_cardinality: 1
                 description: "Review authors"
@@ -125,6 +126,7 @@ classes:
             funding_sources:
                 range: FundingSource
                 multivalued: true
+                inlined_as_list: true
                 description: "Sources of funding for the review"
             conflicts_of_interest:
                 range: string
@@ -135,6 +137,7 @@ classes:
             stages:
                 range: StageExecution
                 multivalued: true
+                inlined_as_list: true
                 description: "Stages executed in this review"
             literature_records:
                 range: LiteratureRecord

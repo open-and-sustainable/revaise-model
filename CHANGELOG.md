@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.0] - 2026-06-29
+### Added
+- `stage_category` type designator on `StageExecution`: each stage records its concrete class (e.g., `ReportingStage`), so polymorphic stages deserialize to typed RDF and a whole review can be materialized and validated with SHACL.
+
+### Changed
+- Marked `Review.stages`, `Review.review_authors`, and `Review.funding_sources` as `inlined_as_list` so inlined object collections round-trip to RDF.
+
 ## [0.6.1] - 2026-06-29
 ### Changed
 - Publish the schema and all generated artifacts (LinkML YAML, JSON Schema, JSON-LD context, SHACL, OWL, RDF) with the documentation on Read the Docs, under versioned `…/en/<version>/api/` paths so every released version is citable.
