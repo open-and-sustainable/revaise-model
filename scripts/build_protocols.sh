@@ -41,19 +41,6 @@ cat > "$DEST/manifest.json" <<EOF
 }
 EOF
 
-cat > "$DEST/index.html" <<EOF
-<!doctype html><meta charset="utf-8"><title>${NAME} ${VER}</title>
-<h1>${NAME} ${VER}</h1>
-<ul>
-<li><a href="$(basename "$SHAPES_FILE")">SHACL shapes</a></li>
-<li><a href="protocol.yaml">protocol.yaml</a></li>
-<li><a href="mapping.md">mapping.md</a></li>
-<li><a href="manifest.json">manifest.json</a></li>
-</ul>
-EOF
-
-( cd "$DEST" && sha256sum ./*.ttl ./*.yaml ./*.md manifest.json 2>/dev/null > SHA256SUMS || true )
-
 cp -r "$DEST" "$LATEST"
 
 mkdir -p "${OUT}/protocols"
