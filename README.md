@@ -90,10 +90,11 @@ The schema and its generated artifacts are published alongside the documentation
 
 Protocol-specific SHACL shapes and conformance resources are published on GitHub Pages, versioned independently of the data model:
 
-- **PRISMA 2020 shapes (latest)**: https://open-and-sustainable.github.io/revaise-model/protocols/prisma-2020/latest/prisma-2020.shacl.ttl
-- **PRISMA 2020 manifest**: https://open-and-sustainable.github.io/revaise-model/protocols/prisma-2020/latest/manifest.json
+- **Protocol index**: https://open-and-sustainable.github.io/revaise-model/
+- **PRISMA 2020 documentation**: https://open-and-sustainable.github.io/revaise-model/prisma-2020/docs/
+- **PRISMA 2020 shapes**: https://open-and-sustainable.github.io/revaise-model/prisma-2020/prisma-2020.shacl.ttl
 
-Pin a specific release (e.g. `.../prisma-2020/1.0.0/...`) for reproducible validation.
+Each protocol release is tagged on the `gh-pages` branch (e.g. `gh-pages/prisma-2020-1.0.0`), providing an immutable versioned snapshot at the same URLs.
 
 ## Quick Start
 

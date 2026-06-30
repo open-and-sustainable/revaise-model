@@ -1,0 +1,106 @@
+site_name: RevAIse Protocol Documentation
+site_url: https://open-and-sustainable.github.io/revaise-model/
+site_description: Machine-checkable protocol conformance shapes for the RevAIse data model
+site_author: RevAIse Contributors
+
+repo_url: https://github.com/open-and-sustainable/revaise-model
+repo_name: open-and-sustainable/revaise-model
+
+docs_dir: protocols
+site_dir: site_protocols
+
+theme:
+    name: material
+    palette:
+        - media: "(prefers-color-scheme: light)"
+          scheme: default
+          primary: blue
+          accent: indigo
+          toggle:
+              icon: material/brightness-7
+              name: Switch to dark mode
+        - media: "(prefers-color-scheme: dark)"
+          scheme: slate
+          primary: blue
+          accent: indigo
+          toggle:
+              icon: material/brightness-4
+              name: Switch to light mode
+    features:
+        - content.code.copy
+        - content.code.annotate
+        - navigation.instant
+        - navigation.tracking
+        - navigation.tabs
+        - navigation.tabs.sticky
+        - navigation.sections
+        - navigation.expand
+        - navigation.top
+        - search.suggest
+        - search.highlight
+        - search.share
+        - toc.follow
+    icon:
+        repo: fontawesome/brands/github
+    logo: assets/favicon.ico
+    favicon: assets/favicon.ico
+
+nav:
+    - Home: index.md
+    - PRISMA 2020:
+          - Overview: prisma-2020/docs/index.md
+          - Item Mapping: prisma-2020/mapping.md
+
+plugins:
+    - search:
+          lang: en
+
+exclude_docs: |
+    README.md
+
+markdown_extensions:
+    - abbr
+    - admonition
+    - attr_list
+    - def_list
+    - footnotes
+    - md_in_html
+    - toc:
+          permalink: true
+          toc_depth: 3
+    - pymdownx.betterem:
+          smart_enable: all
+    - pymdownx.caret
+    - pymdownx.details
+    - pymdownx.highlight:
+          anchor_linenums: true
+          line_spans: __span
+          pygments_lang_class: true
+    - pymdownx.inlinehilite
+    - pymdownx.keys
+    - pymdownx.mark
+    - pymdownx.smartsymbols
+    - pymdownx.superfences:
+          custom_fences:
+              - name: mermaid
+                class: mermaid
+                format: pymdownx.superfences.fence_code_format
+    - pymdownx.tabbed:
+          alternate_style: true
+    - pymdownx.tasklist:
+          custom_checkbox: true
+    - pymdownx.tilde
+    - tables
+
+extra:
+    social:
+        - icon: fontawesome/brands/github
+          link: https://github.com/open-and-sustainable/revaise-model
+          name: GitHub Repository
+    generator: false
+
+extra_css:
+    - stylesheets/extra.css
+    - stylesheets/logo.css
+
+copyright: Copyright &copy; 2025 RevAIse Contributors - CC0 1.0 Universal

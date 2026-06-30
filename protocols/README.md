@@ -37,13 +37,12 @@ Pages, versioned independently.
   commit** as `gh-pages/<name>-<version>` so each deployed snapshot is reachable by tag.
 - Published URLs:
   ```
-  https://open-and-sustainable.github.io/revaise-model/protocols/<name>/<version>/
-  https://open-and-sustainable.github.io/revaise-model/protocols/<name>/latest/
-  https://open-and-sustainable.github.io/revaise-model/protocols/index.json
+  https://open-and-sustainable.github.io/revaise-model/                          # site index
+  https://open-and-sustainable.github.io/revaise-model/<name>/docs/              # protocol docs
+  https://open-and-sustainable.github.io/revaise-model/<name>/<name>.shacl.ttl   # shapes file
   ```
-
-The shapes version is derived from the release tag (not hand-written) and recorded, with
-the shapes blob hash, in each version's `manifest.json`.
+- The deployed `gh-pages` commit is tagged `gh-pages/<name>-<version>` so each release
+  snapshot is reachable and immutable via that tag.
 
 ## Status
 

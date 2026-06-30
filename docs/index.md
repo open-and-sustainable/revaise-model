@@ -78,8 +78,15 @@ These represent the sequential phases of a systematic review workflow:
 - **[Search](schema/stages/search/)** - Literature search strategy execution and documentation
 - **[Screening](schema/stages/screening/)** - Title/abstract and full-text screening workflows
 - **[Extraction](schema/stages/extraction/)** - Data extraction processes from included studies
+- **[Risk of Bias Assessment](schema/stages/risk_of_bias_assessment/)** - Study risk-of-bias assessment and quality appraisal workflows
 - **[Synthesis](schema/stages/synthesis/)** - Data synthesis workflows and analysis procedures
 - **[Reporting](schema/stages/reporting/)** - Optional reporting, checklist, PRISMA flow, and publication documentation
+
+### Protocol Conformance Layer
+
+Machine-checkable SHACL mappings of external reporting guidelines against the RevAIse data model. Protocol artifacts are versioned independently of the data model and published on GitHub Pages.
+
+- **[PRISMA 2020](https://open-and-sustainable.github.io/revaise-model/prisma-2020/docs/)** - All 27 PRISMA 2020 checklist items mapped to RevAIse model slots; includes SHACL shapes for automated validation
 
 ## Features
 

@@ -17,10 +17,12 @@ See `mapping.md` for the full item-by-item mapping.
 
 ## Artifacts
 
-- `prisma-2020.shacl.ttl` — the validation shapes (generated from `checklists/prisma-2020.yaml`).
-- `mapping.md` — item-by-item mapping to model slots.
-- `examples/conforming.ttl` — RDF fixture that satisfies all shapes.
-- `examples/non-conforming.ttl` — RDF fixture that violates two shapes (used in CI).
+All artifacts are served from this site and versioned via `gh-pages` branch tags (e.g. `gh-pages/prisma-2020-1.0.0`):
+
+- **Shapes**: `https://open-and-sustainable.github.io/revaise-model/prisma-2020/prisma-2020.shacl.ttl`
+- **Item mapping**: `https://open-and-sustainable.github.io/revaise-model/prisma-2020/mapping/`
+- **Conforming fixture**: `https://open-and-sustainable.github.io/revaise-model/prisma-2020/examples/conforming.ttl`
+- **Non-conforming fixture**: `https://open-and-sustainable.github.io/revaise-model/prisma-2020/examples/non-conforming.ttl`
 
 ## Regenerating the shapes
 
