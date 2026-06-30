@@ -1,0 +1,16 @@
+# RDF test fixture: a review that VIOLATES PRISMA 2020 shapes.
+#   - SearchStage missing search_queries             -> sh:minCount violation (item 7)
+#   - ReviewNarrative missing rationale              -> sh:minCount violation (item 3)
+@prefix revaise: <https://open-and-sustainable.github.io/revaise-model/schema/> .
+
+<urn:revaise:test:search-bad>
+    a revaise:SearchStage ;
+    revaise:databases <urn:revaise:test:db-bad> .
+
+<urn:revaise:test:db-bad>
+    a revaise:Database ;
+    revaise:database_name "MEDLINE" .
+
+<urn:revaise:test:narrative-bad>
+    a revaise:ReviewNarrative ;
+    revaise:discussion_interpretation "Results discussed." .

@@ -1,0 +1,19 @@
+{
+  "protocols": {
+    "prisma-2020": {
+      "name": "PRISMA 2020",
+      "version": "2020",
+      "requires_model": ">=0.7.0",
+      "kind": "REPORTING",
+      "uri": "https://www.prisma-statement.org/prisma-2020",
+      "applicable_review_types": [
+        "SYSTEMATIC_REVIEW",
+        "META_ANALYSIS"
+      ],
+      "metadata": "prisma-2020/protocol.yaml",
+      "shacl": "prisma-2020/prisma-2020.shacl.ttl",
+      "mapping": "prisma-2020/mapping.md",
+      "status": "stable"
+    }
+  }
+}

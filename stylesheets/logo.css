@@ -1,0 +1,37 @@
+/* Custom logo sizing for RevAIse documentation */
+
+/* Make the favicon in the header small and icon-sized */
+.md-header__button.md-logo img,
+.md-header__button.md-logo svg {
+    height: 1.2rem !important; /* Small icon size */
+    width: 1.2rem !important; /* Square aspect for favicon */
+    object-fit: contain !important;
+}
+
+/* Favicon in navigation drawer (mobile) */
+.md-nav__title .md-nav__button.md-logo img,
+.md-nav__title .md-nav__button.md-logo svg {
+    height: 1.5rem !important;
+    width: 1.5rem !important;
+    object-fit: contain !important;
+}
+
+/* Ensure favicon stays small on high DPI screens */
+@media screen and (min-resolution: 2dppx) {
+    .md-header__button.md-logo img,
+    .md-header__button.md-logo svg {
+        height: 1.2rem !important;
+        width: 1.2rem !important;
+    }
+}
+
+/* Add some padding around the logo for better spacing */
+.md-header__button.md-logo {
+    padding: 0.2rem;
+}
+
+/* Optional: Add a subtle hover effect */
+.md-header__button.md-logo:hover img {
+    opacity: 0.8;
+    transition: opacity 0.25s;
+}
