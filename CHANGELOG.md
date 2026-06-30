@@ -2,13 +2,6 @@
 
 All notable changes to this project will be documented in this file.
 
-## [prisma-2020-1.0.0] - 2026-06-30
-### Added
-- `checklists/prisma-2020.yaml`: full PRISMA 2020 checklist (Page MJ et al. BMJ 2021;372:n71) as structured data with a dual-layer architecture — plain text fields (`item`, `section`, `topic`, `text`) for human use and an optional `shacl:` block per item mapping each reporting requirement to a model slot and target class for machine validation.
-- `scripts/gen_protocol_shacl.py`: generator that reads a checklist YAML and produces SHACL NodeShapes (one per target class), deduplicating property paths within each shape. Run with `python scripts/gen_protocol_shacl.py <checklist.yaml> <output.shacl.ttl>`.
-- `protocols/prisma-2020/prisma-2020.shacl.ttl`: generated SHACL shapes covering all 27 PRISMA 2020 items mapped to 10 target classes: `Review`, `ReviewNarrative`, `Protocol`, `SearchStage`, `ScreeningStage`, `ExtractionStage`, `RiskOfBiasAssessmentStage`, `SynthesisStage`, `FlowDiagram`, `LiteratureRecord`.
-- Conformance test fixtures (`conforming.ttl`, `non-conforming.ttl`) updated to use real model slots and correctly typed nested objects throughout.
-
 ## [prisma-2020-1.0.1] - 2026-06-30
 ### Changed
 - Item 19 (results of individual studies) now maps to `LiteratureRecord.study_results` instead of the removed `results_summary` slot; `prisma-2020.shacl.ttl` regenerated accordingly.
@@ -28,6 +21,13 @@ All notable changes to this project will be documented in this file.
 - `LiteratureRecord.results_summary` free-text slot (replaced by `study_results`).
 - `RobAssessment.assessed_record_id` record-to-record identifier cross-link.
 - `Amendment.diff_uri` (local-file pointer) and `Amendment.affected_version_ids` (identifier cross-links).
+
+## [prisma-2020-1.0.0] - 2026-06-30
+### Added
+- `checklists/prisma-2020.yaml`: full PRISMA 2020 checklist (Page MJ et al. BMJ 2021;372:n71) as structured data with a dual-layer architecture — plain text fields (`item`, `section`, `topic`, `text`) for human use and an optional `shacl:` block per item mapping each reporting requirement to a model slot and target class for machine validation.
+- `scripts/gen_protocol_shacl.py`: generator that reads a checklist YAML and produces SHACL NodeShapes (one per target class), deduplicating property paths within each shape. Run with `python scripts/gen_protocol_shacl.py <checklist.yaml> <output.shacl.ttl>`.
+- `protocols/prisma-2020/prisma-2020.shacl.ttl`: generated SHACL shapes covering all 27 PRISMA 2020 items mapped to 10 target classes: `Review`, `ReviewNarrative`, `Protocol`, `SearchStage`, `ScreeningStage`, `ExtractionStage`, `RiskOfBiasAssessmentStage`, `SynthesisStage`, `FlowDiagram`, `LiteratureRecord`.
+- Conformance test fixtures (`conforming.ttl`, `non-conforming.ttl`) updated to use real model slots and correctly typed nested objects throughout.
 
 ## [0.7.0] - 2026-06-30
 ### Added
