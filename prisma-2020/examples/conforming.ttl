@@ -49,8 +49,15 @@
 
 <urn:revaise:test:record-ok>
     a revaise:LiteratureRecord ;
-    revaise:risk_of_bias "Low risk of bias." ;
-    revaise:results_summary "RR 0.85 (95% CI 0.72–1.00)." .
+    revaise:risk_of_bias [
+        a revaise:QualityAssessment
+    ] ;
+    revaise:study_results [
+        a revaise:StudyResult ;
+        revaise:result_outcome "Mortality at 12 months" ;
+        revaise:result_measure "Risk ratio" ;
+        revaise:result_effect_estimate 8.5e-01
+    ] .
 
 <urn:revaise:test:search-ok>
     a revaise:SearchStage ;

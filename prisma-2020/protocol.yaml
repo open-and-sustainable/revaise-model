@@ -5,7 +5,7 @@ protocol_name: "PRISMA 2020"
 # Version of the external standard (fixed by PRISMA).
 protocol_version: "2020"
 # Minimum RevAIse data-model version these shapes target (dependency, not a shared version).
-requires_model: ">=0.7.0"
+requires_model: ">=0.7.1"
 protocol_kind: REPORTING
 protocol_uri: "https://www.prisma-statement.org/prisma-2020"
 applicable_review_types:
