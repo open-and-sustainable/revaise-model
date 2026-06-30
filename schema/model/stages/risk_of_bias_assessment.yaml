@@ -57,7 +57,7 @@ classes:
         description: "Risk-of-bias assessment for a single included study."
         slots:
             - rob_assessment_id
-            - source_record_id
+            - assessed_record_id
             - rob_domain_judgements
             - overall_judgement
             - rob_notes
@@ -114,7 +114,7 @@ slots:
     rob_assessment_id:
         description: "Identifier for a risk-of-bias assessment record"
         range: string
-    source_record_id:
+    assessed_record_id:
         description: "Identifier of the literature record being assessed"
         range: string
     rob_domain_judgements:
