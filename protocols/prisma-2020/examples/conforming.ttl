@@ -1,13 +1,136 @@
-# RDF test fixture: a flow diagram that SATISFIES the PRISMA 2020 flow-diagram shape.
-# Counts decrease along the selection sequence: 1200 >= 1000 >= 80 >= 75 >= 40.
+# RDF test fixture: a minimal review that SATISFIES all PRISMA 2020 shapes.
 @prefix revaise: <https://open-and-sustainable.github.io/revaise-model/schema/> .
+@prefix xsd:     <http://www.w3.org/2001/XMLSchema#> .
+
+<urn:revaise:test:review-ok>
+    a revaise:Review ;
+    revaise:review_title "Test systematic review" ;
+    revaise:review_abstract "Abstract of the test review." ;
+    revaise:data_availability "Data available at https://example.org/data" ;
+    revaise:funding_sources <urn:revaise:test:funder-ok> ;
+    revaise:conflicts_of_interest "None declared." ;
+    revaise:sections <urn:revaise:test:narrative-ok> ;
+    revaise:protocol <urn:revaise:test:protocol-ok> ;
+    revaise:flow_diagram <urn:revaise:test:flow-ok> ;
+    revaise:literature_records <urn:revaise:test:record-ok> ;
+    revaise:stages
+        <urn:revaise:test:search-ok> ,
+        <urn:revaise:test:screening-ok> ,
+        <urn:revaise:test:extraction-ok> ,
+        <urn:revaise:test:rob-ok> ,
+        <urn:revaise:test:synthesis-ok> .
+
+<urn:revaise:test:narrative-ok>
+    a revaise:ReviewNarrative ;
+    revaise:rationale "Rationale for conducting this review." ;
+    revaise:discussion_interpretation "Results are consistent with prior evidence." ;
+    revaise:discussion_evidence_limitations "High heterogeneity in included studies." ;
+    revaise:discussion_process_limitations "Grey literature may have been missed." ;
+    revaise:discussion_implications "Findings support current clinical guidelines." .
+
+<urn:revaise:test:protocol-ok>
+    a revaise:Protocol ;
+    revaise:research_question "What is the effect of X on Y?" ;
+    revaise:eligibility_criteria "RCTs of X in adults with Y." ;
+    revaise:registration_id "CRD42021000001" ;
+    revaise:registration_url <https://www.crd.york.ac.uk/prospero/display_record.php?ID=CRD42021000001> ;
+    revaise:amendments <urn:revaise:test:amendment-ok> .
+
+<urn:revaise:test:amendment-ok>
+    a revaise:Amendment .
 
 <urn:revaise:test:flow-ok>
-    a revaise:PrismaFlowDiagram ;
-    revaise:prisma_flow_id "flow_ok" ;
-    revaise:prisma_flow_standard "PRISMA 2020" ;
+    a revaise:FlowDiagram ;
     revaise:records_identified 1200 ;
     revaise:records_screened 1000 ;
     revaise:reports_sought 80 ;
     revaise:reports_assessed 75 ;
-    revaise:prisma_studies_included 40 .
+    revaise:total_included 40 .
+
+<urn:revaise:test:record-ok>
+    a revaise:LiteratureRecord ;
+    revaise:risk_of_bias "Low risk of bias." ;
+    revaise:results_summary "RR 0.85 (95% CI 0.72–1.00)." .
+
+<urn:revaise:test:search-ok>
+    a revaise:SearchStage ;
+    revaise:databases <urn:revaise:test:db-ok> ;
+    revaise:search_queries <urn:revaise:test:query-ok> .
+
+<urn:revaise:test:db-ok>
+    a revaise:Database ;
+    revaise:database_name "MEDLINE" .
+
+<urn:revaise:test:query-ok>
+    a revaise:SearchQuery ;
+    revaise:query_string "((X OR X-therapy) AND (Y OR Y-disease))" .
+
+<urn:revaise:test:screening-ok>
+    a revaise:ScreeningStage ;
+    revaise:screening_protocol <urn:revaise:test:screen-protocol-ok> ;
+    revaise:screening_rounds <urn:revaise:test:screen-round-ok> .
+
+<urn:revaise:test:screen-protocol-ok>
+    a revaise:ScreeningProtocol .
+
+<urn:revaise:test:screen-round-ok>
+    a revaise:ScreeningRound .
+
+<urn:revaise:test:extraction-ok>
+    a revaise:ExtractionStage ;
+    revaise:extraction_protocol <urn:revaise:test:extraction-protocol-ok> ;
+    revaise:extraction_forms <urn:revaise:test:extraction-form-ok> .
+
+<urn:revaise:test:extraction-protocol-ok>
+    a revaise:ExtractionProtocol .
+
+<urn:revaise:test:extraction-form-ok>
+    a revaise:ExtractionForm .
+
+<urn:revaise:test:rob-ok>
+    a revaise:RiskOfBiasAssessmentStage ;
+    revaise:rob_protocol <urn:revaise:test:rob-protocol-ok> .
+
+<urn:revaise:test:rob-protocol-ok>
+    a revaise:RobProtocol ;
+    revaise:rob_tool "RoB 2" .
+
+<urn:revaise:test:synthesis-ok>
+    a revaise:SynthesisStage ;
+    revaise:effect_measures <urn:revaise:test:effect-measure-ok> ;
+    revaise:synthesis_protocol <urn:revaise:test:synthesis-protocol-ok> ;
+    revaise:synthesis_methods <urn:revaise:test:synthesis-method-ok> ;
+    revaise:synthesis_visualizations <urn:revaise:test:viz-ok> ;
+    revaise:heterogeneity_assessment "Subgroup analysis by risk of bias." ;
+    revaise:sensitivity_analyses <urn:revaise:test:sensitivity-ok> ;
+    revaise:publication_bias_assessment <urn:revaise:test:pub-bias-ok> ;
+    revaise:evidence_grading <urn:revaise:test:grading-ok> ;
+    revaise:meta_analyses <urn:revaise:test:meta-ok> .
+
+<urn:revaise:test:effect-measure-ok>
+    a revaise:EffectMeasure .
+
+<urn:revaise:test:synthesis-protocol-ok>
+    a revaise:SynthesisProtocol .
+
+<urn:revaise:test:synthesis-method-ok>
+    a revaise:SynthesisMethod .
+
+<urn:revaise:test:viz-ok>
+    a revaise:StageOutput .
+
+<urn:revaise:test:sensitivity-ok>
+    a revaise:SensitivityAnalysis .
+
+<urn:revaise:test:pub-bias-ok>
+    a revaise:PublicationBiasAssessment .
+
+<urn:revaise:test:grading-ok>
+    a revaise:EvidenceGrading .
+
+<urn:revaise:test:meta-ok>
+    a revaise:MetaAnalysis .
+
+<urn:revaise:test:funder-ok>
+    a revaise:FundingSource ;
+    revaise:funder_name "Test Research Council" .

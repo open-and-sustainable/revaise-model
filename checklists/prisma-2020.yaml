@@ -1,0 +1,567 @@
+# PRISMA 2020 checklist — structured data with SHACL mapping layer.
+# Source: Page MJ, McKenzie JE, Bossuyt PM, et al. The PRISMA 2020 statement:
+#         an updated guideline for reporting systematic reviews. BMJ 2021;372:n71.
+#         doi: 10.1136/bmj.n71
+# Plain text fields (item, section, topic, text) are the human/interpretive layer.
+# The optional shacl block maps each item to a model slot for machine validation.
+
+protocol: prisma-2020
+source: "Page MJ et al. BMJ 2021;372:n71. doi:10.1136/bmj.n71"
+namespace: https://open-and-sustainable.github.io/revaise-model/schema/
+shapes_namespace: https://open-and-sustainable.github.io/revaise-model/protocols/prisma-2020/shapes#
+
+items:
+
+  - item: "1"
+    section: Title
+    topic: Title
+    text: >-
+      Identify the report as a systematic review.
+    shacl:
+      target_class: Review
+      path: review_title
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (1): review title must be present."
+
+  - item: "2"
+    section: Abstract
+    topic: Abstract
+    text: >-
+      See the PRISMA 2020 for Abstracts checklist.
+    shacl:
+      target_class: Review
+      path: review_abstract
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (2): review abstract must be present."
+
+  - item: "3"
+    section: Introduction
+    topic: Rationale
+    text: >-
+      Describe the rationale for the review in the context of existing knowledge.
+    shacl:
+      target_class: ReviewNarrative
+      path: rationale
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (3): rationale for the review must be present."
+
+  - item: "4"
+    section: Introduction
+    topic: Objectives
+    text: >-
+      Provide an explicit statement of the objective(s) or question(s) the review addresses.
+    shacl:
+      target_class: Protocol
+      path: research_question
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (4): review objectives or research question must be present."
+
+  - item: "5"
+    section: Methods
+    topic: Eligibility criteria
+    text: >-
+      Specify the inclusion and exclusion criteria for the review and how studies were grouped
+      for the syntheses.
+    shacl:
+      target_class: Protocol
+      path: eligibility_criteria
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (5): eligibility criteria must be present."
+
+  - item: "6"
+    section: Methods
+    topic: Information sources
+    text: >-
+      Specify all databases, registers, websites, organisations, reference lists and other
+      sources searched or consulted to identify studies. Specify the date when each source
+      was last searched or consulted.
+    shacl:
+      target_class: SearchStage
+      path: databases
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (6): information sources searched must be specified."
+
+  - item: "7"
+    section: Methods
+    topic: Search strategy
+    text: >-
+      Present the full search strategies for all databases, registers and websites, including
+      any filters and limits used.
+    shacl:
+      target_class: SearchStage
+      path: search_queries
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (7): full search strategy must be present."
+
+  - item: "8"
+    section: Methods
+    topic: Selection process
+    text: >-
+      Specify the methods used to decide whether a study met the inclusion criteria of the
+      review, including how many reviewers screened each record and each report retrieved,
+      whether they worked independently, and if applicable, details of automation tools used
+      in the process.
+    shacl:
+      target_class: ScreeningStage
+      path: screening_protocol
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (8): selection process methods must be described."
+
+  - item: "9"
+    section: Methods
+    topic: Data collection process
+    text: >-
+      Specify the methods used to collect data from reports, including how many reviewers
+      collected data from each report, whether they worked independently, any processes for
+      obtaining or confirming data from study investigators, and if applicable, details of
+      automation tools used in the process.
+    shacl:
+      target_class: ExtractionStage
+      path: extraction_protocol
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (9): data collection process must be described."
+
+  - item: "10a"
+    section: Methods
+    topic: Data items
+    text: >-
+      List and define all outcomes for which data were sought. Specify whether all results
+      that were compatible with each outcome domain in each study were sought (e.g. for all
+      measures, time points, analyses), and if not, the methods used to decide which results
+      to collect.
+    shacl:
+      target_class: ExtractionStage
+      path: extraction_forms
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (10a): outcome data items must be defined."
+
+  - item: "10b"
+    section: Methods
+    topic: Data items
+    text: >-
+      List and define all other variables for which data were sought (e.g. participant and
+      intervention characteristics, funding sources). Describe any assumptions made about
+      any missing or unclear information.
+    shacl:
+      target_class: ExtractionStage
+      path: extraction_forms
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (10b): other extracted variables must be defined."
+
+  - item: "11"
+    section: Methods
+    topic: Study risk of bias assessment
+    text: >-
+      Specify the methods used to assess risk of bias in the included studies, including
+      details of the tool(s) used, how many reviewers assessed each study and whether they
+      worked independently, and if applicable, details of automation tools used in the process.
+    shacl:
+      target_class: RiskOfBiasAssessmentStage
+      path: rob_protocol
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (11): risk of bias assessment methods must be described."
+
+  - item: "12"
+    section: Methods
+    topic: Effect measures
+    text: >-
+      Specify for each outcome the effect measure(s) (e.g. risk ratio, mean difference) used
+      in the synthesis or presentation of results.
+    shacl:
+      target_class: SynthesisStage
+      path: effect_measures
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (12): effect measures must be specified."
+
+  - item: "13a"
+    section: Methods
+    topic: Synthesis methods
+    text: >-
+      Describe the processes used to decide which studies were eligible for each synthesis
+      (e.g. tabulating the study intervention characteristics and comparing against the
+      planned groups for each synthesis (item #5)).
+    shacl:
+      target_class: SynthesisStage
+      path: synthesis_protocol
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (13a): synthesis eligibility process must be described."
+
+  - item: "13b"
+    section: Methods
+    topic: Synthesis methods
+    text: >-
+      Describe any methods required to prepare the data for presentation or synthesis, such
+      as handling of missing summary statistics, or data conversions.
+    shacl:
+      target_class: SynthesisStage
+      path: synthesis_methods
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (13b): data preparation methods must be described."
+
+  - item: "13c"
+    section: Methods
+    topic: Synthesis methods
+    text: >-
+      Describe any methods used to tabulate or visually display results of individual studies
+      and syntheses.
+    shacl:
+      target_class: SynthesisStage
+      path: synthesis_visualizations
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (13c): methods for displaying results must be described."
+
+  - item: "13d"
+    section: Methods
+    topic: Synthesis methods
+    text: >-
+      Describe any methods used to synthesise results and provide a rationale for the
+      choice(s). If meta-analysis was performed, describe the model(s), method(s) to identify
+      the presence and extent of statistical heterogeneity, and software package(s) used.
+    shacl:
+      target_class: SynthesisStage
+      path: synthesis_methods
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (13d): synthesis methods must be described."
+
+  - item: "13e"
+    section: Methods
+    topic: Synthesis methods
+    text: >-
+      Describe any methods used to explore possible causes of heterogeneity among study
+      results (e.g. subgroup analysis, meta-regression).
+    shacl:
+      target_class: SynthesisStage
+      path: heterogeneity_assessment
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (13e): heterogeneity exploration methods must be described."
+
+  - item: "13f"
+    section: Methods
+    topic: Synthesis methods
+    text: >-
+      Describe any sensitivity analyses conducted to assess robustness of the synthesised
+      results.
+    shacl:
+      target_class: SynthesisStage
+      path: sensitivity_analyses
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (13f): sensitivity analysis methods must be described."
+
+  - item: "14"
+    section: Methods
+    topic: Reporting bias assessment
+    text: >-
+      Describe any methods used to assess risk of bias due to missing results in a synthesis
+      (arising from reporting biases).
+    shacl:
+      target_class: SynthesisStage
+      path: publication_bias_assessment
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (14): reporting bias assessment methods must be described."
+
+  - item: "15"
+    section: Methods
+    topic: Certainty assessment
+    text: >-
+      Describe any methods used to assess certainty (or confidence) in the body of evidence
+      for an outcome.
+    shacl:
+      target_class: SynthesisStage
+      path: evidence_grading
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (15): certainty assessment methods must be described."
+
+  - item: "16a"
+    section: Results
+    topic: Study selection
+    text: >-
+      Describe the results of the search and selection process, including results of searches
+      of databases, registers and other sources; number of records identified, screened,
+      assessed for eligibility, and included in the review, with reasons for exclusions at
+      each stage, ideally using a flow diagram.
+    shacl:
+      target_class: FlowDiagram
+      path: records_identified
+      constraints:
+        min_count: 1
+        datatype: integer
+        min_inclusive: 0
+      message: "PRISMA 2020 (16a): flow diagram with number of records identified must be present."
+
+  - item: "16b"
+    section: Results
+    topic: Study selection
+    text: >-
+      Cite studies that might appear to meet the inclusion criteria but which were excluded,
+      and explain why they were excluded.
+    shacl:
+      target_class: ScreeningStage
+      path: screening_rounds
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (16b): excluded studies with reasons must be recorded."
+
+  - item: "17"
+    section: Results
+    topic: Study characteristics
+    text: >-
+      Cite each included study and present its characteristics.
+    shacl:
+      target_class: Review
+      path: literature_records
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (17): at least one included study must be recorded."
+
+  - item: "18"
+    section: Results
+    topic: Risk of bias in studies
+    text: >-
+      Present assessments of risk of bias for each included study.
+    shacl:
+      target_class: LiteratureRecord
+      path: risk_of_bias
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (18): risk of bias assessment must be present for each included study."
+
+  - item: "19"
+    section: Results
+    topic: Results of individual studies
+    text: >-
+      For all outcomes, present, for each study: (a) summary statistics for each group
+      (where appropriate) and (b) an effect estimate and its precision (e.g.
+      confidence/credible interval), ideally using structured tables or plots.
+    shacl:
+      target_class: LiteratureRecord
+      path: results_summary
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (19): results summary must be present for each included study."
+
+  - item: "20a"
+    section: Results
+    topic: Results of syntheses
+    text: >-
+      For each synthesis, briefly summarise the characteristics and risk of bias among
+      contributing studies.
+    shacl:
+      target_class: SynthesisStage
+      path: meta_analyses
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (20a): summary of contributing studies characteristics must be present."
+
+  - item: "20b"
+    section: Results
+    topic: Results of syntheses
+    text: >-
+      Present results of all statistical syntheses conducted. If meta-analysis was done,
+      present for each the summary estimate and its precision (e.g. confidence/credible
+      interval) and measures of statistical heterogeneity. If comparing groups, describe
+      the direction of the effect.
+    shacl:
+      target_class: SynthesisStage
+      path: meta_analyses
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (20b): synthesis results must be present."
+
+  - item: "20c"
+    section: Results
+    topic: Results of syntheses
+    text: >-
+      Present results of all investigations of possible causes of heterogeneity among
+      study results.
+    shacl:
+      target_class: SynthesisStage
+      path: meta_analyses
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (20c): heterogeneity investigation results must be present."
+
+  - item: "20d"
+    section: Results
+    topic: Results of syntheses
+    text: >-
+      Present results of all sensitivity analyses conducted to assess the robustness of
+      the synthesised results.
+    shacl:
+      target_class: SynthesisStage
+      path: sensitivity_analyses
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (20d): sensitivity analysis results must be present."
+
+  - item: "21"
+    section: Results
+    topic: Reporting biases
+    text: >-
+      Present assessments of risk of bias due to missing results (arising from reporting
+      biases) for each synthesis assessed.
+    shacl:
+      target_class: SynthesisStage
+      path: publication_bias_assessment
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (21): reporting bias assessments must be present."
+
+  - item: "22"
+    section: Results
+    topic: Certainty of evidence
+    text: >-
+      Present assessments of certainty (or confidence) in the body of evidence for each
+      outcome assessed.
+    shacl:
+      target_class: SynthesisStage
+      path: evidence_grading
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (22): certainty of evidence assessments must be present."
+
+  - item: "23a"
+    section: Discussion
+    topic: Discussion
+    text: >-
+      Provide a general interpretation of the results in the context of other evidence.
+    shacl:
+      target_class: ReviewNarrative
+      path: discussion_interpretation
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (23a): discussion interpretation must be present."
+
+  - item: "23b"
+    section: Discussion
+    topic: Discussion
+    text: >-
+      Discuss any limitations of the evidence included in the review.
+    shacl:
+      target_class: ReviewNarrative
+      path: discussion_evidence_limitations
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (23b): discussion of evidence limitations must be present."
+
+  - item: "23c"
+    section: Discussion
+    topic: Discussion
+    text: >-
+      Discuss any limitations of the review processes used.
+    shacl:
+      target_class: ReviewNarrative
+      path: discussion_process_limitations
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (23c): discussion of process limitations must be present."
+
+  - item: "23d"
+    section: Discussion
+    topic: Discussion
+    text: >-
+      Discuss implications of the results for practice, policy, and future research.
+    shacl:
+      target_class: ReviewNarrative
+      path: discussion_implications
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (23d): discussion of implications must be present."
+
+  - item: "24a"
+    section: Other information
+    topic: Registration and protocol
+    text: >-
+      Provide registration information for the review, including register name and
+      registration number, or state that the review was not registered.
+    shacl:
+      target_class: Protocol
+      path: registration_id
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (24a): registration number must be present."
+
+  - item: "24b"
+    section: Other information
+    topic: Registration and protocol
+    text: >-
+      Indicate where the review protocol can be accessed, or state that a protocol was
+      not prepared.
+    shacl:
+      target_class: Protocol
+      path: registration_url
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (24b): protocol access URL must be present."
+
+  - item: "24c"
+    section: Other information
+    topic: Registration and protocol
+    text: >-
+      Describe and explain any amendments to information provided at registration or in
+      the protocol.
+    shacl:
+      target_class: Protocol
+      path: amendments
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (24c): protocol amendments must be documented."
+
+  - item: "25"
+    section: Other information
+    topic: Support
+    text: >-
+      Describe sources of financial or other support for the review, and the role of the
+      funders or sponsors in the review.
+    shacl:
+      target_class: Review
+      path: funding_sources
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (25): funding sources must be declared."
+
+  - item: "26"
+    section: Other information
+    topic: Competing interests
+    text: >-
+      Declare any competing interests of review authors.
+    shacl:
+      target_class: Review
+      path: conflicts_of_interest
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (26): competing interests declaration must be present."
+
+  - item: "27"
+    section: Other information
+    topic: Availability of data, code and other materials
+    text: >-
+      Report which of the following are publicly available and where they can be found:
+      template data collection forms; data extracted from included studies; data used for
+      all analyses; analytic code; any other materials used in the review.
+    shacl:
+      target_class: Review
+      path: data_availability
+      constraints:
+        min_count: 1
+      message: "PRISMA 2020 (27): data availability statement must be present."

@@ -54,6 +54,11 @@ classes:
             - funding_sources
             - conflicts_of_interest
             - ethical_approval
+            - data_availability
+            - flow_diagram
+
+            # Narrative sections
+            - sections
 
             # Review components
             - stages
@@ -134,6 +139,12 @@ classes:
             ethical_approval:
                 range: string
                 description: "Ethical approval information if applicable"
+            data_availability:
+                range: string
+                description: "Statement on publicly available data, code, and other materials"
+            flow_diagram:
+                range: FlowDiagram
+                description: "Study selection flow diagram counts"
             stages:
                 range: StageExecution
                 multivalued: true
@@ -150,6 +161,34 @@ classes:
             software_env:
                 range: SoftwareEnv
                 description: "Software environment for reproducibility"
+            sections:
+                range: ReviewNarrative
+                description: "Narrative prose sections of the review report"
+
+    ReviewNarrative:
+        description: "Narrative prose sections of the review report."
+        slots:
+            - rationale
+            - discussion_interpretation
+            - discussion_evidence_limitations
+            - discussion_process_limitations
+            - discussion_implications
+        slot_usage:
+            rationale:
+                range: string
+                description: "Rationale for the review in the context of existing knowledge"
+            discussion_interpretation:
+                range: string
+                description: "General interpretation of the results in the context of other evidence"
+            discussion_evidence_limitations:
+                range: string
+                description: "Limitations of the evidence included in the review"
+            discussion_process_limitations:
+                range: string
+                description: "Limitations of the review processes used"
+            discussion_implications:
+                range: string
+                description: "Implications of the results for practice, policy, and future research"
 
     FundingSource:
         description: "Source of funding for the review"
@@ -257,6 +296,27 @@ slots:
     software_env:
         description: "Software environment used for the review"
         range: SoftwareEnv
+    sections:
+        description: "Narrative prose sections of the review report"
+        range: ReviewNarrative
+    rationale:
+        description: "Rationale for the review in the context of existing knowledge"
+        range: string
+    discussion_interpretation:
+        description: "General interpretation of results in context of other evidence"
+        range: string
+    discussion_evidence_limitations:
+        description: "Limitations of the evidence included in the review"
+        range: string
+    discussion_process_limitations:
+        description: "Limitations of the review processes used"
+        range: string
+    discussion_implications:
+        description: "Implications of results for practice, policy, and future research"
+        range: string
+    data_availability:
+        description: "Statement on publicly available data, code, and other materials"
+        range: string
     funder_name:
         description: "Name of the funding organization"
         range: string

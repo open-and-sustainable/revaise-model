@@ -31,6 +31,8 @@ classes:
             - full_text_url
             - record_created_at
             - record_updated_at
+            - risk_of_bias
+            - results_summary
             - conforms_to
             - conformance_assertions
         slot_usage:
@@ -88,6 +90,12 @@ classes:
             record_updated_at:
                 range: datetime
                 description: "Last update timestamp"
+            risk_of_bias:
+                range: string
+                description: "Risk of bias assessment result for this study"
+            results_summary:
+                range: string
+                description: "Summary statistics and effect estimate for this study"
 
     LiteratureRecordCollection:
         description: "A collection of literature records"
@@ -173,6 +181,12 @@ slots:
     record_updated_at:
         description: "Timestamp when the record was last updated"
         range: datetime
+    risk_of_bias:
+        description: "Risk of bias assessment result for this study"
+        range: string
+    results_summary:
+        description: "Summary statistics and effect estimate for this study"
+        range: string
     collection_id:
         description: "Unique identifier for the collection containing this record"
         range: string

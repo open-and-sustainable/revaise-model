@@ -1,13 +1,16 @@
-# RDF test fixture: a flow diagram that VIOLATES the PRISMA 2020 flow-diagram shape.
-#   - records_screened (1500) exceeds records_identified (1200)  -> sh:lessThanOrEquals
-#   - prisma_studies_included is missing                         -> sh:minCount
+# RDF test fixture: a review that VIOLATES PRISMA 2020 shapes.
+#   - SearchStage missing search_queries             -> sh:minCount violation (item 7)
+#   - ReviewNarrative missing rationale              -> sh:minCount violation (item 3)
 @prefix revaise: <https://open-and-sustainable.github.io/revaise-model/schema/> .
 
-<urn:revaise:test:flow-bad>
-    a revaise:PrismaFlowDiagram ;
-    revaise:prisma_flow_id "flow_bad" ;
-    revaise:prisma_flow_standard "PRISMA 2020" ;
-    revaise:records_identified 1200 ;
-    revaise:records_screened 1500 ;
-    revaise:reports_sought 80 ;
-    revaise:reports_assessed 75 .
+<urn:revaise:test:search-bad>
+    a revaise:SearchStage ;
+    revaise:databases <urn:revaise:test:db-bad> .
+
+<urn:revaise:test:db-bad>
+    a revaise:Database ;
+    revaise:database_name "MEDLINE" .
+
+<urn:revaise:test:narrative-bad>
+    a revaise:ReviewNarrative ;
+    revaise:discussion_interpretation "Results discussed." .

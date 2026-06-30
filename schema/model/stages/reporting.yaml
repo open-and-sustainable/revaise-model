@@ -25,7 +25,7 @@ classes:
             - reporting_standards
             - reporting_checklists
             - report_documents
-            - prisma_flow_diagram
+            - flow_diagram
             - publication_records
             - reporting_deviations
             - reporting_approvals
@@ -52,10 +52,10 @@ classes:
                 multivalued: true
                 inlined_as_list: true
                 description: "Manuscripts, preprints, reports, and supplementary reporting documents"
-            prisma_flow_diagram:
-                range: PrismaFlowDiagram
+            flow_diagram:
+                range: FlowDiagram
                 inlined: true
-                description: "PRISMA flow diagram information if applicable"
+                description: "Study selection flow diagram information if applicable"
             publication_records:
                 range: PublicationRecord
                 multivalued: true
@@ -162,20 +162,20 @@ classes:
                 range: StageOutput
                 inlined: true
 
-    PrismaFlowDiagram:
-        description: "PRISMA flow diagram counts and artifact references."
+    FlowDiagram:
+        description: "Study selection flow diagram counts and artifact references."
         slots:
-            - prisma_flow_id
-            - prisma_flow_standard
+            - flow_diagram_id
+            - flow_standard
             - records_identified
             - records_screened
             - reports_sought
             - reports_assessed
-            - prisma_studies_included
-            - prisma_flow_output
-            - prisma_flow_notes
+            - total_included
+            - flow_diagram_output
+            - flow_diagram_notes
         slot_usage:
-            prisma_flow_output:
+            flow_diagram_output:
                 range: StageOutput
                 inlined: true
 
@@ -250,9 +250,9 @@ slots:
     report_documents:
         description: "Manuscripts, preprints, reports, and supplementary reporting documents"
         range: ReportDocument
-    prisma_flow_diagram:
-        description: "PRISMA flow diagram information if applicable"
-        range: PrismaFlowDiagram
+    flow_diagram:
+        description: "Study selection flow diagram information if applicable"
+        range: FlowDiagram
     publication_records:
         description: "Publication, submission, and dissemination records"
         range: PublicationRecord
@@ -373,11 +373,11 @@ slots:
     report_output:
         description: "Report document output artifact"
         range: StageOutput
-    prisma_flow_id:
-        description: "Identifier for a PRISMA flow diagram"
+    flow_diagram_id:
+        description: "Identifier for a flow diagram"
         range: string
-    prisma_flow_standard:
-        description: "PRISMA flow standard used"
+    flow_standard:
+        description: "Reporting standard the flow diagram conforms to"
         range: string
     records_identified:
         description: "Number of records identified"
@@ -395,15 +395,15 @@ slots:
         description: "Number of reports assessed for eligibility"
         range: integer
         minimum_value: 0
-    prisma_studies_included:
+    total_included:
         description: "Number of studies included in the review"
         range: integer
         minimum_value: 0
-    prisma_flow_output:
-        description: "PRISMA flow diagram artifact"
+    flow_diagram_output:
+        description: "Flow diagram artifact"
         range: StageOutput
-    prisma_flow_notes:
-        description: "Notes about the PRISMA flow diagram"
+    flow_diagram_notes:
+        description: "Notes about the flow diagram"
         range: string
     publication_id:
         description: "Identifier for a publication record"

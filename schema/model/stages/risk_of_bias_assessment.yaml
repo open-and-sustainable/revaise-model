@@ -1,0 +1,153 @@
+id: https://open-and-sustainable.github.io/revaise-model/schema/stages/risk_of_bias_assessment
+name: risk_of_bias_assessment_stage
+description: "Stage for assessing risk of bias in individual included studies."
+prefixes:
+    linkml: https://w3id.org/linkml/
+    revaise: https://open-and-sustainable.github.io/revaise-model/schema/
+default_prefix: revaise
+imports:
+    - linkml:types
+    - ../review_core
+    - ../objects/stage_protocol
+    - ../objects/stage_quality_control
+    - ../objects/stage_statistics
+
+classes:
+    RiskOfBiasAssessmentStage:
+        is_a: StageExecution
+        description: "Stage for assessing methodological risk of bias in included studies."
+        slots:
+            - rob_protocol
+            - rob_assessments
+            - rob_quality_control
+            - rob_statistics
+        slot_usage:
+            rob_protocol:
+                range: RobProtocol
+                inlined: true
+                description: "Protocol defining the risk-of-bias assessment approach"
+            rob_assessments:
+                range: RobAssessment
+                multivalued: true
+                inlined_as_list: true
+                description: "Per-study risk-of-bias assessments"
+            rob_quality_control:
+                range: RobQualityControl
+                inlined: true
+                description: "Quality control measures for the assessment process"
+            rob_statistics:
+                range: RobStatistics
+                inlined: true
+                description: "Summary statistics for the assessment stage"
+
+    RobProtocol:
+        is_a: StageProtocol
+        description: "Protocol for risk-of-bias assessment, including tool and rater configuration."
+        slots:
+            - rob_tool
+            - rob_tool_version
+            - rob_domains
+            - minimum_raters
+            - disagreement_resolution
+        slot_usage:
+            rob_domains:
+                multivalued: true
+
+    RobAssessment:
+        description: "Risk-of-bias assessment for a single included study."
+        slots:
+            - rob_assessment_id
+            - source_record_id
+            - rob_domain_judgements
+            - overall_judgement
+            - rob_notes
+        slot_usage:
+            rob_domain_judgements:
+                multivalued: true
+
+    RobQualityControl:
+        is_a: StageQualityControl
+        description: "Quality control measures for risk-of-bias assessment."
+        slots:
+            - rob_calibration_performed
+            - rob_inter_rater_reliability_checked
+            - rob_discrepancies_resolved
+
+    RobStatistics:
+        is_a: StageStatistics
+        description: "Summary statistics for the risk-of-bias assessment stage."
+        slots:
+            - studies_assessed_count
+            - high_risk_count
+            - some_concerns_count
+            - low_risk_count
+
+slots:
+    rob_protocol:
+        description: "Protocol for the risk-of-bias assessment stage"
+        range: RobProtocol
+    rob_assessments:
+        description: "Per-study risk-of-bias assessments"
+        range: RobAssessment
+    rob_quality_control:
+        description: "Quality control for risk-of-bias assessment"
+        range: RobQualityControl
+    rob_statistics:
+        description: "Summary statistics for risk-of-bias assessment"
+        range: RobStatistics
+    rob_tool:
+        description: "Risk-of-bias assessment tool used (e.g., RoB 2, ROBINS-I, NOS)"
+        range: string
+    rob_tool_version:
+        description: "Version of the risk-of-bias tool"
+        range: string
+    rob_domains:
+        description: "Domains assessed by the tool"
+        range: string
+    minimum_raters:
+        description: "Minimum number of independent raters per study"
+        range: integer
+        minimum_value: 1
+    disagreement_resolution:
+        description: "Method for resolving disagreements between raters"
+        range: string
+    rob_assessment_id:
+        description: "Identifier for a risk-of-bias assessment record"
+        range: string
+    source_record_id:
+        description: "Identifier of the literature record being assessed"
+        range: string
+    rob_domain_judgements:
+        description: "Judgements per domain (e.g., 'D1: low risk')"
+        range: string
+    overall_judgement:
+        description: "Overall risk-of-bias judgement for the study"
+        range: string
+    rob_notes:
+        description: "Notes on the risk-of-bias assessment"
+        range: string
+    rob_calibration_performed:
+        description: "Whether rater calibration was performed before assessment"
+        range: boolean
+    rob_inter_rater_reliability_checked:
+        description: "Whether inter-rater reliability was checked"
+        range: boolean
+    rob_discrepancies_resolved:
+        description: "Whether all rater discrepancies were resolved"
+        range: boolean
+    studies_assessed_count:
+        description: "Total number of studies assessed for risk of bias"
+        range: integer
+        minimum_value: 0
+    high_risk_count:
+        description: "Number of studies judged at high risk of bias"
+        range: integer
+        minimum_value: 0
+    some_concerns_count:
+        description: "Number of studies judged as raising some concerns"
+        range: integer
+        minimum_value: 0
+    low_risk_count:
+        description: "Number of studies judged at low risk of bias"
+        range: integer
+        minimum_value: 0
