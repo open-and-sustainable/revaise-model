@@ -9,24 +9,19 @@ All notable changes to this project will be documented in this file.
 - `protocols/prisma-2020/prisma-2020.shacl.ttl`: generated SHACL shapes covering all 27 PRISMA 2020 items mapped to 10 target classes: `Review`, `ReviewNarrative`, `Protocol`, `SearchStage`, `ScreeningStage`, `ExtractionStage`, `RiskOfBiasAssessmentStage`, `SynthesisStage`, `FlowDiagram`, `LiteratureRecord`.
 - Conformance test fixtures (`conforming.ttl`, `non-conforming.ttl`) updated to use real model slots and correctly typed nested objects throughout.
 
-## [0.8.0] - 2026-06-30
+## [0.7.0] - 2026-06-30
 ### Added
+- `stage_category` type designator on `StageExecution`: each stage records its concrete class (e.g., `ReportingStage`), so polymorphic stages deserialize to typed RDF and a whole review can be materialized and validated with SHACL.
 - `RiskOfBiasAssessmentStage` (new file `schema/model/stages/risk_of_bias_assessment.yaml`): stage for assessing methodological risk of bias in included studies, with `RobProtocol` (tool, rater configuration, disagreement resolution), `RobAssessment` (per-study judgements), `RobQualityControl`, and `RobStatistics` classes and all supporting slots.
 - `ReviewNarrative` class on `Review` for grouping narrative prose sections of the review report: `rationale`, `discussion_interpretation`, `discussion_evidence_limitations`, `discussion_process_limitations`, `discussion_implications`.
 - `sections` slot on `Review` (range: `ReviewNarrative`) and `data_availability` slot on `Review`.
 - `risk_of_bias` and `results_summary` slots on `LiteratureRecord`.
 
 ### Changed
+- Marked `Review.stages`, `Review.review_authors`, and `Review.funding_sources` as `inlined_as_list` so inlined object collections round-trip to RDF.
 - Renamed all protocol-specific slot and class names in `stages/reporting.yaml` to generic equivalents: `PrismaFlowDiagram` → `FlowDiagram`, `prisma_flow_diagram` → `flow_diagram`, `prisma_studies_included` → `total_included`, `prisma_flow_id` → `flow_diagram_id`, `prisma_flow_standard` → `flow_standard`, `prisma_flow_output` → `flow_diagram_output`, `prisma_flow_notes` → `flow_diagram_notes`.
 - Moved `Amendment` class, `AmendmentType` and `ApprovalStatus` enumerations, and all amendment slots from `stages/registration.yaml` to `objects/protocol.yaml`. Protocol amendments are not registration-stage-specific; they can arise at any point in the review. `stages/registration.yaml` now explicitly imports `objects/protocol`.
 - Moved `FlowDiagram` class and its slot definitions from `stages/reporting.yaml` to `objects/review.yaml`, resolving an implicit cross-file dependency. `FlowDiagram` is a direct child of `Review`, not internal to the reporting stage. `stages/reporting.yaml` now explicitly imports `objects/review`.
-
-## [0.7.0] - 2026-06-29
-### Added
-- `stage_category` type designator on `StageExecution`: each stage records its concrete class (e.g., `ReportingStage`), so polymorphic stages deserialize to typed RDF and a whole review can be materialized and validated with SHACL.
-
-### Changed
-- Marked `Review.stages`, `Review.review_authors`, and `Review.funding_sources` as `inlined_as_list` so inlined object collections round-trip to RDF.
 
 ## [0.6.1] - 2026-06-29
 ### Changed
