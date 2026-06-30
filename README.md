@@ -2,7 +2,7 @@
   <img src="images/logo_full.png" alt="RevAIse Logo" width="400">
 </div>
 
-> # RevAIse Data Model
+> # Review AI Standard for Exchange
 
 **An Open Science standard for transparent, reproducible AI-assisted systematic literature review workflows**
 
