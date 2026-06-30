@@ -11,6 +11,7 @@ imports:
     - ../objects/stage_protocol
     - ../objects/stage_quality_control
     - ../objects/stage_statistics
+    - ../objects/quality_assessment
 
 classes:
     RiskOfBiasAssessmentStage:
@@ -57,13 +58,18 @@ classes:
         description: "Risk-of-bias assessment for a single included study."
         slots:
             - rob_assessment_id
-            - assessed_record_id
             - rob_domain_judgements
             - overall_judgement
             - rob_notes
         slot_usage:
             rob_domain_judgements:
+                range: RiskOfBiasDomainAssessment
                 multivalued: true
+                inlined_as_list: true
+                description: "Per-domain risk-of-bias judgements, including signalling questions"
+            overall_judgement:
+                range: RiskOfBiasJudgement
+                description: "Overall risk-of-bias judgement for the study"
 
     RobQualityControl:
         is_a: StageQualityControl
@@ -114,15 +120,13 @@ slots:
     rob_assessment_id:
         description: "Identifier for a risk-of-bias assessment record"
         range: string
-    assessed_record_id:
-        description: "Identifier of the literature record being assessed"
-        range: string
     rob_domain_judgements:
-        description: "Judgements per domain (e.g., 'D1: low risk')"
-        range: string
+        description: "Per-domain risk-of-bias judgements, including signalling questions"
+        range: RiskOfBiasDomainAssessment
+        inlined_as_list: true
     overall_judgement:
         description: "Overall risk-of-bias judgement for the study"
-        range: string
+        range: RiskOfBiasJudgement
     rob_notes:
         description: "Notes on the risk-of-bias assessment"
         range: string

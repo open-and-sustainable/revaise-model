@@ -252,8 +252,8 @@ proto:LiteratureRecordShape
         sh:message "PRISMA 2020 (18): risk of bias assessment must be present for each included study." ;
     ] ;
     sh:property [
-        sh:path revaise:results_summary ;
+        sh:path revaise:study_results ;
         sh:minCount 1 ;
         sh:severity sh:Violation ;
-        sh:message "PRISMA 2020 (19): results summary must be present for each included study." ;
+        sh:message "PRISMA 2020 (19): results must be present for each included study." ;
     ] .

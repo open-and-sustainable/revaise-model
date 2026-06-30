@@ -9,6 +9,7 @@ imports:
     - linkml:types
     - ./author
     - ./protocol_conformance
+    - ./quality_assessment
 
 classes:
     LiteratureRecord:
@@ -32,7 +33,7 @@ classes:
             - record_created_at
             - record_updated_at
             - risk_of_bias
-            - results_summary
+            - study_results
             - conforms_to
             - conformance_assertions
         slot_usage:
@@ -91,11 +92,14 @@ classes:
                 range: datetime
                 description: "Last update timestamp"
             risk_of_bias:
-                range: string
-                description: "Risk of bias assessment result for this study"
-            results_summary:
-                range: string
-                description: "Summary statistics and effect estimate for this study"
+                range: QualityAssessment
+                inlined: true
+                description: "Full risk-of-bias / quality assessment for this study, with per-domain judgements"
+            study_results:
+                range: StudyResult
+                multivalued: true
+                inlined_as_list: true
+                description: "Per-outcome results reported by this study, with effect estimates and confidence intervals"
 
     LiteratureRecordCollection:
         description: "A collection of literature records"
@@ -128,6 +132,57 @@ classes:
             collection_created_at:
                 range: datetime
                 description: "When this collection was created"
+
+    StudyResult:
+        description: "A single result reported by a study for a specific outcome, with full numeric detail."
+        slots:
+            - result_outcome
+            - result_measure
+            - result_effect_estimate
+            - result_ci_lower
+            - result_ci_upper
+            - result_p_value
+            - result_intervention_n
+            - result_comparator_n
+            - result_total_n
+            - result_notes
+        slot_usage:
+            result_outcome:
+                range: string
+                required: true
+                description: "Name of the outcome this result refers to"
+            result_measure:
+                range: string
+                description: "Effect measure or statistic reported (e.g., odds ratio, risk ratio, mean difference)"
+            result_effect_estimate:
+                range: float
+                description: "Point estimate of the effect"
+            result_ci_lower:
+                range: float
+                description: "Lower bound of the confidence interval"
+            result_ci_upper:
+                range: float
+                description: "Upper bound of the confidence interval"
+            result_p_value:
+                range: float
+                minimum_value: 0.0
+                maximum_value: 1.0
+                description: "Reported p-value for this result"
+            result_intervention_n:
+                range: integer
+                minimum_value: 0
+                description: "Sample size in the intervention or exposed group"
+            result_comparator_n:
+                range: integer
+                minimum_value: 0
+                description: "Sample size in the comparator or unexposed group"
+            result_total_n:
+                range: integer
+                minimum_value: 0
+                description: "Total sample size contributing to this result"
+            result_notes:
+                range: string
+                description: "Additional notes on this result"
 
 slots:
     record_id:
@@ -182,10 +237,42 @@ slots:
         description: "Timestamp when the record was last updated"
         range: datetime
     risk_of_bias:
-        description: "Risk of bias assessment result for this study"
+        description: "Full risk-of-bias / quality assessment for this study"
+        range: QualityAssessment
+        inlined: true
+    study_results:
+        description: "Per-outcome results reported by this study"
+        range: StudyResult
+        inlined_as_list: true
+    result_outcome:
+        description: "Name of the outcome this result refers to"
         range: string
-    results_summary:
-        description: "Summary statistics and effect estimate for this study"
+    result_measure:
+        description: "Effect measure or statistic reported"
+        range: string
+    result_effect_estimate:
+        description: "Point estimate of the effect"
+        range: float
+    result_ci_lower:
+        description: "Lower bound of the confidence interval"
+        range: float
+    result_ci_upper:
+        description: "Upper bound of the confidence interval"
+        range: float
+    result_p_value:
+        description: "Reported p-value for this result"
+        range: float
+    result_intervention_n:
+        description: "Sample size in the intervention or exposed group"
+        range: integer
+    result_comparator_n:
+        description: "Sample size in the comparator or unexposed group"
+        range: integer
+    result_total_n:
+        description: "Total sample size contributing to this result"
+        range: integer
+    result_notes:
+        description: "Additional notes on this result"
         range: string
     collection_id:
         description: "Unique identifier for the collection containing this record"
@@ -197,6 +284,7 @@ slots:
         description: "Description of the collection's purpose or contents"
         range: string
     records:
+        inlined_as_list: true
         description: "List of literature records in the collection"
         range: LiteratureRecord
     record_count:

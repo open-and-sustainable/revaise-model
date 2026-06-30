@@ -603,12 +603,14 @@ slots:
         description: "Method used for deduplication (automatic, manual, etc.)"
         range: DeduplicationMethod
     dedup_tools:
+        inlined_as_list: true
         description: "External tools used for deduplication"
         range: ExternalTool
     dedup_criteria:
         description: "Criteria used to identify duplicate records"
         range: string
     duplicate_groups:
+        inlined_as_list: true
         description: "Groups of records identified as duplicates"
         range: DuplicateGroup
     dedup_started_at:
@@ -658,12 +660,15 @@ slots:
         description: "Human-readable label for the screening round"
         range: string
     input_records:
+        inlined: true
         description: "Collection of records to be screened in this round"
         range: LiteratureRecordCollection
     screening_decisions:
+        inlined_as_list: true
         description: "Individual screening decisions made by reviewers"
         range: ScreeningDecision
     conflict_resolutions:
+        inlined_as_list: true
         description: "Resolutions of conflicts between reviewers"
         range: ScreeningConflictResolution
     excluded_record_ids:
@@ -682,9 +687,11 @@ slots:
         description: "Reviewers involved in this screening round"
         range: Participant
     screening_tools:
+        inlined_as_list: true
         description: "External tools used in this screening round"
         range: ExternalTool
     ai_assistance:
+        inlined: true
         description: "AI assistance configuration for this round"
         range: AIAssistance
     round_statistics:

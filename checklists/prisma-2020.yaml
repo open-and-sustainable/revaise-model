@@ -355,10 +355,10 @@ items:
       confidence/credible interval), ideally using structured tables or plots.
     shacl:
       target_class: LiteratureRecord
-      path: results_summary
+      path: study_results
       constraints:
         min_count: 1
-      message: "PRISMA 2020 (19): results summary must be present for each included study."
+      message: "PRISMA 2020 (19): results must be present for each included study."
 
   - item: "20a"
     section: Results

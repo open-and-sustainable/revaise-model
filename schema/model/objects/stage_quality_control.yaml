@@ -70,6 +70,7 @@ slots:
         description: "Base agreement metrics"
         range: AgreementMetrics
     base_discrepancy_resolutions:
+        inlined_as_list: true
         description: "Base discrepancy resolutions"
         range: ConflictResolution
     base_spot_check_rate:

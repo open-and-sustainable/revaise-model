@@ -260,6 +260,7 @@ slots:
         description: "Purposes for which AI is used"
         range: AIPurpose
     ai_prompts:
+        inlined_as_list: true
         description: "Prompts used to interact with the AI"
         range: AIPrompt
     ai_parameters:
@@ -341,6 +342,7 @@ slots:
         description: "Errors encountered during the session"
         range: string
     human_modifications:
+        inlined_as_list: true
         description: "Modifications made by humans to AI outputs"
         range: HumanModification
 

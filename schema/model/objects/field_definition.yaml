@@ -330,6 +330,7 @@ slots:
         description: "Whether this section can be repeated"
         range: boolean
     section_fields:
+        inlined_as_list: true
         description: "Fields in this section"
         range: FieldDefinition
     section_conditions:

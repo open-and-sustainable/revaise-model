@@ -51,7 +51,7 @@ Status: ✅ done.
 | 16b | Study selection — excluded studies | `ScreeningStage` | `screening_rounds` | presence | yes | ✅ |
 | 17 | Study characteristics | `Review` | `literature_records` | presence | yes | ✅ |
 | 18 | Risk of bias in studies | `LiteratureRecord` | `risk_of_bias` | presence | yes | ✅ |
-| 19 | Results of individual studies | `LiteratureRecord` | `results_summary` | presence | yes | ✅ |
+| 19 | Results of individual studies | `LiteratureRecord` | `study_results` | presence | yes | ✅ |
 | 20a | Results of syntheses — contributing studies | `SynthesisStage` | `meta_analyses` | presence | yes | ✅ |
 | 20b | Results of syntheses — statistical results | `SynthesisStage` | `meta_analyses` | presence | yes | ✅ |
 | 20c | Results of syntheses — heterogeneity | `SynthesisStage` | `meta_analyses` | presence | yes | ✅ |

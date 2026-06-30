@@ -850,6 +850,7 @@ slots:
         description: "Synthesis framework"
         range: string
     synthesis_themes:
+        inlined_as_list: true
         description: "Synthesis themes"
         range: SynthesisTheme
     synthesis_patterns:
@@ -862,6 +863,7 @@ slots:
         description: "Supporting tables"
         range: StageOutput
     synthesis_sessions:
+        inlined_as_list: true
         description: "Work sessions"
         range: WorkSession
     synthesist_ids:
@@ -871,6 +873,7 @@ slots:
         description: "Confidence in synthesis"
         range: ConfidenceLevel
     ai_synthesis_session:
+        inlined: true
         description: "AI session for synthesis"
         range: AISession
 
@@ -932,6 +935,7 @@ slots:
         description: "Forest plot output"
         range: StageOutput
     analysis_sessions:
+        inlined_as_list: true
         description: "Analysis sessions"
         range: WorkSession
     analyst_ids:
@@ -941,6 +945,7 @@ slots:
         description: "Analysis notes"
         range: string
     ai_analysis_session:
+        inlined: true
         description: "AI analysis session"
         range: AISession
 

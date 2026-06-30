@@ -3,7 +3,7 @@
     "prisma-2020": {
       "name": "PRISMA 2020",
       "version": "2020",
-      "requires_model": ">=0.7.0",
+      "requires_model": ">=0.7.1",
       "kind": "REPORTING",
       "uri": "https://www.prisma-statement.org/prisma-2020",
       "applicable_review_types": [

@@ -334,6 +334,7 @@ slots:
         description: "Form description"
         range: string
     form_sections:
+        inlined_as_list: true
         description: "Sections in form"
         range: FormSection
     form_uri:
@@ -389,9 +390,11 @@ slots:
         description: "Reference to extraction form"
         range: string
     extracted_data:
+        inlined_as_list: true
         description: "Extracted data points"
         range: ExtractedDataPoint
     extraction_sessions:
+        inlined_as_list: true
         description: "Extraction work sessions"
         range: WorkSession
     extraction_status:
@@ -407,9 +410,11 @@ slots:
         description: "Quality/risk of bias assessment"
         range: QualityAssessment
     final_extracted_values:
+        inlined_as_list: true
         description: "Final extracted values"
         range: ExtractedDataPoint
     ai_extraction_session:
+        inlined: true
         description: "AI extraction session"
         range: AISession
 

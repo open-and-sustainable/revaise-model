@@ -8,7 +8,7 @@ Each protocol maps an external reporting standard to RevAIse model slots, expres
 
 | Protocol | Kind | Targets model | Status |
 |---|---|---|---|
-| [PRISMA 2020](prisma-2020/docs/index.md) | Reporting guideline | ≥0.7.0 | Stable — all 27 items |
+| [PRISMA 2020](prisma-2020/docs/index.md) | Reporting guideline | ≥0.7.1 | Stable — all 27 items |
 
 ## How It Works
 

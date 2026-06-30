@@ -99,9 +99,11 @@ slots:
         description: "Base protocol description"
         range: string
     base_protocol_tools:
+        inlined_as_list: true
         description: "Base protocol tools"
         range: ExternalTool
     base_protocol_software:
+        inlined_as_list: true
         description: "Base protocol software"
         range: ExternalTool
     base_protocol_deviations:

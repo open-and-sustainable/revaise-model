@@ -412,6 +412,7 @@ slots:
         description: "Version of the checklist"
         range: string
     checklist_items:
+        inlined_as_list: true
         description: "Items in the checklist"
         range: ChecklistItem
     scoring_method:

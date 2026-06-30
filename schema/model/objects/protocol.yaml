@@ -33,8 +33,6 @@ classes:
             - amendment_reason
             - amendment_description
             - affected_sections
-            - affected_version_ids
-            - diff_uri
             - amendment_author
             - approval_status
             - approval_date
@@ -64,13 +62,6 @@ classes:
                 range: string
                 multivalued: true
                 description: "Sections of the protocol affected by this amendment"
-            affected_version_ids:
-                range: string
-                multivalued: true
-                description: "IDs of versions affected by this amendment"
-            diff_uri:
-                range: uri
-                description: "URI to an external diff showing the changes"
             amendment_author:
                 range: Author
                 description: "Author who made the amendment"
@@ -129,13 +120,6 @@ slots:
         range: string
         multivalued: true
         description: "Protocol sections affected by this amendment"
-    affected_version_ids:
-        range: string
-        multivalued: true
-        description: "Version IDs affected by this amendment"
-    diff_uri:
-        range: uri
-        description: "URI to view differences introduced by amendment"
     amendment_author:
         range: Author
         description: "Author who made the amendment"

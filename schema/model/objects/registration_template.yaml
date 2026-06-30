@@ -193,10 +193,12 @@ slots:
         range: string
         ifabsent: "en"
     required_fields:
+        inlined_as_list: true
         description: "Fields that must be completed in this template"
         range: TemplateField
         multivalued: true
     optional_fields:
+        inlined_as_list: true
         description: "Fields that may be completed in this template"
         range: TemplateField
         multivalued: true

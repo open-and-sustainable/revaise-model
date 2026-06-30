@@ -4,7 +4,7 @@ Machine-checkable SHACL representation of the PRISMA 2020 reporting guideline, a
 
 - **External standard:** PRISMA 2020 — Page MJ, McKenzie JE, Bossuyt PM, et al. BMJ 2021;372:n71. doi:10.1136/bmj.n71
 - **Kind:** reporting guideline
-- **Targets data model:** `>=0.7.0`
+- **Targets data model:** `>=0.7.1`
 - **Status:** stable — all 27 items implemented
 
 ## What is checked

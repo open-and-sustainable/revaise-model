@@ -181,6 +181,7 @@ slots:
         description: "URI to configuration file"
         range: uri
     tool_configuration_parameters:
+        inlined_as_list: true
         description: "Configuration parameters"
         range: ToolParameter
     tool_settings:

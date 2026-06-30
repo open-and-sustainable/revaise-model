@@ -9,6 +9,26 @@ All notable changes to this project will be documented in this file.
 - `protocols/prisma-2020/prisma-2020.shacl.ttl`: generated SHACL shapes covering all 27 PRISMA 2020 items mapped to 10 target classes: `Review`, `ReviewNarrative`, `Protocol`, `SearchStage`, `ScreeningStage`, `ExtractionStage`, `RiskOfBiasAssessmentStage`, `SynthesisStage`, `FlowDiagram`, `LiteratureRecord`.
 - Conformance test fixtures (`conforming.ttl`, `non-conforming.ttl`) updated to use real model slots and correctly typed nested objects throughout.
 
+## [prisma-2020-1.0.1] - 2026-06-30
+### Changed
+- Item 19 (results of individual studies) now maps to `LiteratureRecord.study_results` instead of the removed `results_summary` slot; `prisma-2020.shacl.ttl` regenerated accordingly.
+- Conformance fixture `conforming.ttl` updated so the literature record carries a typed `QualityAssessment` (risk of bias) and a typed `StudyResult` (results) instead of free-text strings.
+- `requires_model` raised to `>=0.7.1`, the data-model version that introduces `study_results` and the rich `risk_of_bias` range.
+
+## [0.7.1] - 2026-06-30
+### Changed
+- Every object-valued slot in the model is now inlined (`inlined`/`inlined_as_list`), so a `Review` serializes as a single self-contained document with all sub-objects (literature records, stage protocols, quality control, tools, sessions, assessments, results, etc.) embedded in full rather than as bare identifier references.
+- `LiteratureRecord.risk_of_bias` is now a rich `QualityAssessment` (per-domain judgements with signalling questions) instead of a free-text string.
+- `RobAssessment` (risk-of-bias stage) now uses the rich `RiskOfBiasDomainAssessment` for `rob_domain_judgements` and the `RiskOfBiasJudgement` enum for `overall_judgement`, instead of free-text strings.
+
+### Added
+- `StudyResult` class and `LiteratureRecord.study_results` slot: per-outcome results with effect measure, effect estimate, confidence-interval bounds, p-value, and group/total sample sizes.
+
+### Removed
+- `LiteratureRecord.results_summary` free-text slot (replaced by `study_results`).
+- `RobAssessment.assessed_record_id` record-to-record identifier cross-link.
+- `Amendment.diff_uri` (local-file pointer) and `Amendment.affected_version_ids` (identifier cross-links).
+
 ## [0.7.0] - 2026-06-30
 ### Added
 - `stage_category` type designator on `StageExecution`: each stage records its concrete class (e.g., `ReportingStage`), so polymorphic stages deserialize to typed RDF and a whole review can be materialized and validated with SHACL.

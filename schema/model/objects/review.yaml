@@ -303,6 +303,7 @@ slots:
         range: string
         multivalued: true
     literature_records:
+        inlined_as_list: true
         description: "Literature records associated with this review"
         range: LiteratureRecord
         multivalued: true

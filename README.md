@@ -76,7 +76,7 @@ Current stage coverage includes optional scoping, registration, search, screenin
 
 ### Data model
 
-Schema documentation and all generated artifacts (LinkML YAML, JSON Schema, JSON-LD context, SHACL, OWL, RDF) are published on [Read the Docs](https://revaise-model.readthedocs.io/). `stable` tracks the latest release; pin a specific version (e.g. `/0.7.0/api/...`) for reproducible work.
+Schema documentation and all generated artifacts (LinkML YAML, JSON Schema, JSON-LD context, SHACL, OWL, RDF) are published on [Read the Docs](https://revaise-model.readthedocs.io/). `stable` tracks the latest release; pin a specific version (e.g. `/0.7.1/api/...`) for reproducible work.
 
 ### Protocol artifacts
 
