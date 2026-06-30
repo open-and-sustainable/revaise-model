@@ -6,6 +6,8 @@
 
 **An Open Science standard for transparent, reproducible AI-assisted systematic literature review workflows**
 
+RevAIse offers two complementary layers: a **LinkML data model** for structured documentation of AI-assisted systematic review workflows, and **declarative protocol conformance shapes** (SHACL) that map external reporting guidelines (e.g. PRISMA 2020) directly against the model for automated validation. Both are openly licensed, independently versioned, and published as citable artifacts.
+
 [![Validate Schema](https://github.com/open-and-sustainable/revaise-model/actions/workflows/validate.yml/badge.svg)](https://github.com/open-and-sustainable/revaise-model/actions/workflows/validate.yml)
 [![Documentation](https://readthedocs.org/projects/revaise-model/badge/?version=latest)](https://revaise-model.readthedocs.io/latest/?badge=latest)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17054435.svg)](https://doi.org/10.5281/zenodo.17054435)
@@ -75,82 +77,11 @@ Current stage coverage includes optional scoping, registration, search, screenin
 
 ### Data model
 
-The schema and its generated artifacts are published alongside the documentation on Read the Docs:
-
-- **LinkML YAML**: https://revaise-model.readthedocs.io/stable/api/revaise.linkml.yaml
-- **JSON Schema**: https://revaise-model.readthedocs.io/stable/api/revaise.schema.json
-- **JSON-LD Context**: https://revaise-model.readthedocs.io/stable/api/context.jsonld
-- **SHACL**: https://revaise-model.readthedocs.io/stable/api/revaise.shacl.ttl
-- **OWL**: https://revaise-model.readthedocs.io/stable/api/revaise.owl.ttl
-- **RDF**: https://revaise-model.readthedocs.io/stable/api/revaise.rdf.ttl
-
-`stable` tracks the latest release; pin a specific version (e.g. `/0.7.0/api/...`) for reproducible work, or use `latest` for the development build.
+Schema documentation and all generated artifacts (LinkML YAML, JSON Schema, JSON-LD context, SHACL, OWL, RDF) are published on [Read the Docs](https://revaise-model.readthedocs.io/). `stable` tracks the latest release; pin a specific version (e.g. `/0.7.0/api/...`) for reproducible work.
 
 ### Protocol artifacts
 
-Protocol-specific SHACL shapes and conformance resources are published on GitHub Pages, versioned independently of the data model:
-
-- **Protocol index**: https://open-and-sustainable.github.io/revaise-model/
-- **PRISMA 2020 documentation**: https://open-and-sustainable.github.io/revaise-model/prisma-2020/docs/
-- **PRISMA 2020 shapes**: https://open-and-sustainable.github.io/revaise-model/prisma-2020/prisma-2020.shacl.ttl
-
-Each protocol release is tagged on the `gh-pages` branch (e.g. `gh-pages/prisma-2020-1.0.0`), providing an immutable versioned snapshot at the same URLs.
-
-## Quick Start
-
-### For Researchers
-Start documenting your AI-assisted review workflows using the RevAIse schema:
-
-1. **Browse the Schema**: [Documentation](https://revaise-model.readthedocs.io/)
-2. **Download the JSON Schema**: [JSON Schema (stable)](https://revaise-model.readthedocs.io/stable/api/revaise.schema.json)
-3. **Map Your Review Workflow**: Document your systematic review process using RevAIse workflow stages
-4. **Validate Your Data**: Use standard JSON Schema validators
-
-### For Developers
-Integrate RevAIse into your systematic review tools:
-
-```json
-{
-  "linkml": "https://revaise-model.readthedocs.io/stable/api/revaise.linkml.yaml",
-  "json_schema": "https://revaise-model.readthedocs.io/stable/api/revaise.schema.json",
-  "jsonld_context": "https://revaise-model.readthedocs.io/stable/api/context.jsonld",
-  "shacl": "https://revaise-model.readthedocs.io/stable/api/revaise.shacl.ttl",
-  "owl": "https://revaise-model.readthedocs.io/stable/api/revaise.owl.ttl",
-  "rdf": "https://revaise-model.readthedocs.io/stable/api/revaise.rdf.ttl",
-  "docs": "https://revaise-model.readthedocs.io/"
-}
-```
-
-### For Methodologists
-Use RevAIse to standardize systematic review workflows:
-
-1. **Define Standard Processes** - Document institutional systematic review workflows
-2. **Capture Process Dependencies** - Map relationships between review stages and decision points
-3. **Enable Process Replication** - Create templates for reproducible review workflows
-4. **Share Process Knowledge** - Publish standardized workflow definitions for community use
-
-## Get Involved
-
-RevAIse is a community effort. We welcome contributions from researchers, developers, librarians, methodologists, and anyone interested in improving the transparency and reproducibility of AI-assisted research workflows.
-
-- **Read the Documentation**: [revaise-model.readthedocs.io](https://revaise-model.readthedocs.io/)
-- **Join the Discussion**: [GitHub Discussions](https://github.com/open-and-sustainable/revaise-model/discussions)
-- **Report Issues**: [GitHub Issues](https://github.com/open-and-sustainable/revaise-model/issues)
-- **Contribute**: See our [Contributing Guide](CONTRIBUTING.md)
-
-## Vision
-
-We envision a future where:
-
-- **Systematic review workflows** are fully documented, transparent, and reproducible
-- **Process standardization** enables researchers to build on proven review methodologies
-- **Workflow documentation** seamlessly coordinates human expertise with AI capabilities in systematic reviews
-- **Process libraries** accelerate evidence synthesis across research domains
-- AI is effectively integrated into systematic review workflows while maintaining methodological rigor
-- Every AI-assisted systematic review workflow is fully transparent and reproducible
-- Researchers can seamlessly build upon each other's systematic review processes
-- AI tools enhance rather than obscure the systematic review process through clear workflow documentation
-- The scientific community has complete confidence in AI-assisted evidence synthesis workflows
+Protocol documentation and SHACL conformance shapes are published on [GitHub Pages](https://open-and-sustainable.github.io/revaise-model/). Each protocol release is tagged on the `gh-pages` branch (e.g. `gh-pages/prisma-2020-1.0.0`), providing an immutable versioned snapshot.
 
 ## License
 
