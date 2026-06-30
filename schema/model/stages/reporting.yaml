@@ -8,6 +8,7 @@ default_prefix: revaise
 
 imports:
     - linkml:types
+    - ../objects/review
     - ../objects/stage_execution
     - ../objects/stage_output
     - ../objects/ai_assistance
@@ -162,23 +163,6 @@ classes:
                 range: StageOutput
                 inlined: true
 
-    FlowDiagram:
-        description: "Study selection flow diagram counts and artifact references."
-        slots:
-            - flow_diagram_id
-            - flow_standard
-            - records_identified
-            - records_screened
-            - reports_sought
-            - reports_assessed
-            - total_included
-            - flow_diagram_output
-            - flow_diagram_notes
-        slot_usage:
-            flow_diagram_output:
-                range: StageOutput
-                inlined: true
-
     PublicationRecord:
         description: "Submission, publication, or dissemination record."
         slots:
@@ -250,9 +234,6 @@ slots:
     report_documents:
         description: "Manuscripts, preprints, reports, and supplementary reporting documents"
         range: ReportDocument
-    flow_diagram:
-        description: "Study selection flow diagram information if applicable"
-        range: FlowDiagram
     publication_records:
         description: "Publication, submission, and dissemination records"
         range: PublicationRecord
@@ -373,38 +354,6 @@ slots:
     report_output:
         description: "Report document output artifact"
         range: StageOutput
-    flow_diagram_id:
-        description: "Identifier for a flow diagram"
-        range: string
-    flow_standard:
-        description: "Reporting standard the flow diagram conforms to"
-        range: string
-    records_identified:
-        description: "Number of records identified"
-        range: integer
-        minimum_value: 0
-    records_screened:
-        description: "Number of records screened"
-        range: integer
-        minimum_value: 0
-    reports_sought:
-        description: "Number of reports sought for retrieval"
-        range: integer
-        minimum_value: 0
-    reports_assessed:
-        description: "Number of reports assessed for eligibility"
-        range: integer
-        minimum_value: 0
-    total_included:
-        description: "Number of studies included in the review"
-        range: integer
-        minimum_value: 0
-    flow_diagram_output:
-        description: "Flow diagram artifact"
-        range: StageOutput
-    flow_diagram_notes:
-        description: "Notes about the flow diagram"
-        range: string
     publication_id:
         description: "Identifier for a publication record"
         range: string

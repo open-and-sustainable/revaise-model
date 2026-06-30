@@ -208,6 +208,23 @@ classes:
                 range: string
                 description: "Funder identifier (e.g., Crossref Funder ID)"
 
+    FlowDiagram:
+        description: "Study selection flow diagram counts and artifact references."
+        slots:
+            - flow_diagram_id
+            - flow_standard
+            - records_identified
+            - records_screened
+            - reports_sought
+            - reports_assessed
+            - total_included
+            - flow_diagram_output
+            - flow_diagram_notes
+        slot_usage:
+            flow_diagram_output:
+                range: StageOutput
+                inlined: true
+
 slots:
     review_id:
         description: "Unique identifier for the systematic review"
@@ -325,6 +342,41 @@ slots:
         range: string
     funder_id:
         description: "Unique identifier for the funding organization"
+        range: string
+    flow_diagram:
+        description: "Study selection flow diagram counts and artifact references"
+        range: FlowDiagram
+    flow_diagram_id:
+        description: "Identifier for a flow diagram"
+        range: string
+    flow_standard:
+        description: "Reporting standard the flow diagram conforms to"
+        range: string
+    records_identified:
+        description: "Number of records identified"
+        range: integer
+        minimum_value: 0
+    records_screened:
+        description: "Number of records screened"
+        range: integer
+        minimum_value: 0
+    reports_sought:
+        description: "Number of reports sought for retrieval"
+        range: integer
+        minimum_value: 0
+    reports_assessed:
+        description: "Number of reports assessed for eligibility"
+        range: integer
+        minimum_value: 0
+    total_included:
+        description: "Number of studies included in the review"
+        range: integer
+        minimum_value: 0
+    flow_diagram_output:
+        description: "Flow diagram artifact"
+        range: StageOutput
+    flow_diagram_notes:
+        description: "Notes about the flow diagram"
         range: string
 
 enums:
