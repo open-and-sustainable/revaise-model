@@ -44,14 +44,14 @@ stages:
             reporting_item_artifact_refs:
               - search_query
               - search_log
-    prisma_flow_diagram:
-      prisma_flow_id: prisma_flow_001
-      prisma_flow_standard: "PRISMA 2020"
+    flow_diagram:
+      flow_diagram_id: prisma_flow_001
+      flow_standard: "PRISMA 2020"
       records_identified: 1250
       records_screened: 980
       reports_sought: 120
       reports_assessed: 110
-      prisma_studies_included: 24
+      total_included: 24
     report_documents:
       - report_document_id: manuscript_001
         report_document_type: MANUSCRIPT
