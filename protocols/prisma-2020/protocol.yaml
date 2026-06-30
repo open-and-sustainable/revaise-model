@@ -5,7 +5,7 @@ protocol_name: "PRISMA 2020"
 # Version of the external standard (fixed by PRISMA).
 protocol_version: "2020"
 # Minimum RevAIse data-model version these shapes target (dependency, not a shared version).
-requires_model: ">=0.6.0"
+requires_model: ">=0.7.0"
 protocol_kind: REPORTING
 protocol_uri: "https://www.prisma-statement.org/prisma-2020"
 applicable_review_types:
@@ -14,4 +14,4 @@ applicable_review_types:
 protocol_citation: "Page MJ, McKenzie JE, Bossuyt PM, et al. The PRISMA 2020 statement: an updated guideline for reporting systematic reviews. BMJ 2021;372:n71."
 shapes: "prisma-2020.shacl.ttl"
 # The shapes version is derived from the release tag (e.g. prisma-2020-1.0.0), not stored here.
-status: scaffold
+status: stable

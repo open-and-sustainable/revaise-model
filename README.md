@@ -2,7 +2,7 @@
   <img src="images/logo_full.png" alt="RevAIse Logo" width="400">
 </div>
 
-> # RevAIse Data Model
+> # RevAIse
 
 **An Open Science standard for transparent, reproducible AI-assisted systematic literature review workflows**
 
@@ -24,15 +24,16 @@ The integration of AI into systematic literature reviews promises to accelerate 
 
 ## What is RevAIse?
 
-RevAIse is a structured data model that captures complete systematic review workflows:
+RevAIse is a structured data model and protocol conformance framework for transparent, reproducible AI-assisted systematic literature review workflows:
 
 - **Workflow Process Documentation** - From optional scoping and protocol registration through synthesis and reporting, capturing the complete review workflow with stage dependencies
 - **AI-Assisted Process Steps** - Models, prompts, parameters, and automated decision points integrated within the review workflow
 - **Search Process Workflows** - Query strategies, database execution sequences, and result processing flows
 - **Review Process Workflows** - Screening criteria, extraction procedures, and human-AI collaboration patterns throughout the review
 - **Workflow Reproducibility** - Complete process environments, data lineage, and step-by-step execution documentation
+- **Protocol Conformance** - Machine-checkable SHACL mappings of reporting guidelines (e.g. PRISMA 2020) directly against the data model, enabling automated validation of review documents
 
-Current stage coverage includes optional scoping, registration, search, screening with deduplication, extraction with risk-of-bias assessment, synthesis, and optional reporting.
+Current stage coverage includes optional scoping, registration, search, screening with deduplication, extraction, risk-of-bias assessment, synthesis, and optional reporting.
 
 ## Who Benefits?
 
@@ -72,6 +73,8 @@ Current stage coverage includes optional scoping, registration, search, screenin
 
 ## Published Artifacts
 
+### Data model
+
 The schema and its generated artifacts are published alongside the documentation on Read the Docs:
 
 - **LinkML YAML**: https://revaise-model.readthedocs.io/stable/api/revaise.linkml.yaml
@@ -81,7 +84,16 @@ The schema and its generated artifacts are published alongside the documentation
 - **OWL**: https://revaise-model.readthedocs.io/stable/api/revaise.owl.ttl
 - **RDF**: https://revaise-model.readthedocs.io/stable/api/revaise.rdf.ttl
 
-`stable` tracks the latest release; pin a specific version (e.g. `/0.6.1/api/...`) for reproducible work, or use `latest` for the development build.
+`stable` tracks the latest release; pin a specific version (e.g. `/0.7.0/api/...`) for reproducible work, or use `latest` for the development build.
+
+### Protocol artifacts
+
+Protocol-specific SHACL shapes and conformance resources are published on GitHub Pages, versioned independently of the data model:
+
+- **PRISMA 2020 shapes (latest)**: https://open-and-sustainable.github.io/revaise-model/protocols/prisma-2020/latest/prisma-2020.shacl.ttl
+- **PRISMA 2020 manifest**: https://open-and-sustainable.github.io/revaise-model/protocols/prisma-2020/latest/manifest.json
+
+Pin a specific release (e.g. `.../prisma-2020/1.0.0/...`) for reproducible validation.
 
 ## Quick Start
 

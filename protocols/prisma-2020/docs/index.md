@@ -1,24 +1,29 @@
 # PRISMA 2020 (RevAIse protocol)
 
-Declarative SHACL representation of the PRISMA 2020 reporting guideline, aligned with the
-RevAIse data model. A review document declares conformance via `conforms_to`, and is
-validated against the shapes in `prisma-2020.shacl.ttl`.
+Machine-checkable SHACL representation of the PRISMA 2020 reporting guideline, aligned with the RevAIse data model. A review document is validated against the shapes in `prisma-2020.shacl.ttl`, which covers all 27 checklist items.
 
-- **External standard:** PRISMA 2020 — Page MJ, et al. BMJ 2021;372:n71.
-- **Kind:** reporting guideline.
-- **Targets data model:** `>=0.6.0`.
-- **Status:** scaffold — flow-diagram step (item 16a) implemented and tested; remaining
-  items tracked in `mapping.md`.
+- **External standard:** PRISMA 2020 — Page MJ, McKenzie JE, Bossuyt PM, et al. BMJ 2021;372:n71. doi:10.1136/bmj.n71
+- **Kind:** reporting guideline
+- **Targets data model:** `>=0.7.0`
+- **Status:** stable — all 27 items implemented
 
 ## What is checked
 
-The flow-diagram counts must be present and must not increase along the selection
-sequence: records identified ≥ screened ≥ sought ≥ assessed ≥ studies included.
+Each PRISMA 2020 item that requires a specific element to be present is encoded as a SHACL `sh:minCount 1` property constraint on the corresponding RevAIse model slot. Items requiring prose narrative adequacy (interpretation, discussion quality) are left to human or AI assessment and are not encoded as SHACL.
 
-Only machine-statable items are encoded; prose-judgment items are left to human/AI review.
+Ten target classes are covered: `Review`, `ReviewNarrative`, `Protocol`, `SearchStage`, `ScreeningStage`, `ExtractionStage`, `RiskOfBiasAssessmentStage`, `SynthesisStage`, `FlowDiagram`, `LiteratureRecord`.
+
+See `mapping.md` for the full item-by-item mapping.
 
 ## Artifacts
 
-- `prisma-2020.shacl.ttl` — the validation shapes.
+- `prisma-2020.shacl.ttl` — the validation shapes (generated from `checklists/prisma-2020.yaml`).
 - `mapping.md` — item-by-item mapping to model slots.
-- `examples/` — conforming and non-conforming RDF records used by the conformance test.
+- `examples/conforming.ttl` — RDF fixture that satisfies all shapes.
+- `examples/non-conforming.ttl` — RDF fixture that violates two shapes (used in CI).
+
+## Regenerating the shapes
+
+```bash
+python scripts/gen_protocol_shacl.py checklists/prisma-2020.yaml protocols/prisma-2020/prisma-2020.shacl.ttl
+```
