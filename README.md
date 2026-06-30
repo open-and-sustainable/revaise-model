@@ -9,7 +9,6 @@
 RevAIse offers two complementary layers: a **LinkML data model** for structured documentation of AI-assisted systematic review workflows, and **declarative protocol conformance shapes** (SHACL) that map external reporting guidelines (e.g. PRISMA 2020) directly against the model for automated validation. Both are openly licensed, independently versioned, and published as citable artifacts.
 
 [![Validate Schema](https://github.com/open-and-sustainable/revaise-model/actions/workflows/validate.yml/badge.svg)](https://github.com/open-and-sustainable/revaise-model/actions/workflows/validate.yml)
-[![Documentation](https://readthedocs.org/projects/revaise-model/badge/?version=latest)](https://revaise-model.readthedocs.io/latest/?badge=latest)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.17054435.svg)](https://doi.org/10.5281/zenodo.17054435)
 
 ## Why RevAIse?
