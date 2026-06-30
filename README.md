@@ -93,7 +93,7 @@ If you use RevAIse in your research, please cite:
 
 ```bibtex
 @software{revaise2025,
-  title = {RevAIse: A Data Model for AI-Assisted Systematic Literature Review Workflows},
+  title = {RevAIse: A Data Model and Protocol Conformance Framework for AI-Assisted Systematic Literature Review Workflows},
   author = {Boero, Riccardo},
   year = {2025},
   url = {https://github.com/open-and-sustainable/revaise-model},
