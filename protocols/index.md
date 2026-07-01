@@ -1,3 +1,7 @@
+<div align="left">
+  <img src="assets/logo_full.png" alt="RevAIse Logo" style="width: 300px; max-width: 80%; height: auto;">
+</div>
+
 # RevAIse Protocol Documentation
 
 Machine-checkable SHACL representations of reporting guidelines, aligned with the RevAIse data model.
