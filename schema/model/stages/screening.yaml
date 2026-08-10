@@ -238,10 +238,17 @@ classes:
         slots:
             - decision_id
             - record_id
+            - pdf_id
+            - doi
+            - article_type
+            - detected_language
             - decision_reviewer_id
             - decision
+            - exclusion_reason
             - exclusion_reasons
             - inclusion_confidence
+            - topic_relevance_score
+            - topic_relevance_confidence
             - decision_timestamp
             - time_spent_seconds
             - decision_notes
@@ -256,6 +263,18 @@ classes:
                 range: string
                 required: true
                 description: "ID of the record being screened"
+            pdf_id:
+                range: string
+                description: "Identifier of the associated PDF or full-text file"
+            doi:
+                range: string
+                description: "Digital Object Identifier of the screened article"
+            article_type:
+                range: string
+                description: "Article or publication type assigned during screening"
+            detected_language:
+                range: string
+                description: "Language detected for the screened record"
             decision_reviewer_id:
                 range: string
                 required: true
@@ -264,6 +283,9 @@ classes:
                 range: ScreeningDecisionType
                 required: true
                 description: "The screening decision"
+            exclusion_reason:
+                range: string
+                description: "Single exclusion reason for workflows that capture one reason; use exclusion_reasons for multiple reasons"
             exclusion_reasons:
                 range: string
                 multivalued: true
@@ -271,6 +293,12 @@ classes:
             inclusion_confidence:
                 range: float
                 description: "Confidence in inclusion decision (0-1)"
+            topic_relevance_score:
+                range: float
+                description: "Numeric score for the record's relevance to the review topic"
+            topic_relevance_confidence:
+                range: float
+                description: "Confidence in the topic relevance score (0-1)"
             decision_timestamp:
                 range: datetime
                 required: true
@@ -714,6 +742,24 @@ slots:
     decision:
         description: "The screening decision (include/exclude/uncertain)"
         range: ScreeningDecisionType
+    pdf_id:
+        description: "Identifier of the associated PDF or full-text file"
+        range: string
+    article_type:
+        description: "Article or publication type assigned during screening"
+        range: string
+    detected_language:
+        description: "Language detected for the screened record"
+        range: string
+    topic_relevance_score:
+        description: "Numeric score for the record's relevance to the review topic"
+        range: float
+    topic_relevance_confidence:
+        description: "Confidence in the topic relevance score (0-1)"
+        range: float
+    exclusion_reason:
+        description: "Single exclusion reason for workflows that capture one reason; use exclusion_reasons for multiple reasons"
+        range: string
     exclusion_reasons:
         description: "Reasons for exclusion if record was excluded"
         range: string

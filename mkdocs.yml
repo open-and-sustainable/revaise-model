@@ -81,6 +81,7 @@ nav:
                 - Search: schema/stages/search/
                 - Screening: schema/stages/screening/
                 - Extraction: schema/stages/extraction/
+                - Risk of Bias Assessment: schema/stages/risk_of_bias_assessment/
                 - Synthesis: schema/stages/synthesis/
                 - Reporting: schema/stages/reporting/
     - API:

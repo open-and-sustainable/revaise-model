@@ -34,14 +34,14 @@ https://revaise-model.readthedocs.io/stable/api/revaise.owl.ttl
 https://revaise-model.readthedocs.io/stable/api/revaise.rdf.ttl
 ```
 
-`stable` resolves to the latest release; `latest` is the development build. **For reproducible work, cite a specific version**, e.g. `https://revaise-model.readthedocs.io/0.6.1/api/revaise.schema.json`.
+`stable` resolves to the latest release; `latest` is the development build. **For reproducible work, cite a specific version**, e.g. `https://revaise-model.readthedocs.io/0.7.2/api/revaise.schema.json`.
 
 Example Python access:
 
 ```python
 import urllib.request
 
-version = "0.6.1"  # any released version, or "stable"
+version = "0.7.2"  # any released version, or "stable"
 base_url = f"https://revaise-model.readthedocs.io/{version}/api"
 
 with urllib.request.urlopen(f"{base_url}/revaise.schema.json") as response:

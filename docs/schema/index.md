@@ -50,6 +50,7 @@ These represent the sequential phases of a systematic review workflow with prope
 - **[Search](stages/search/)** - Literature search strategy execution and documentation
 - **[Screening](stages/screening/)** - Title/abstract and full-text screening workflows
 - **[Extraction](stages/extraction/)** - Data extraction processes from included studies
+- **[Risk of Bias Assessment](stages/risk_of_bias_assessment/)** - Study risk-of-bias assessment and quality appraisal workflows
 - **[Synthesis](stages/synthesis/)** - Data synthesis workflows and analysis procedures
 - **[Reporting](stages/reporting/)** - Optional reporting standards, checklists, PRISMA flow, report documents, and publication records
 
@@ -156,6 +157,7 @@ Systematic review tools can rely on minor version compatibility for consistent d
 | [Search Stage](stages/search/) | Search strategy and execution workflows | Search methodology documentation and replication |
 | [Screening Stage](stages/screening/) | Study selection workflows | Screening process documentation with AI assistance |
 | [Extraction Stage](stages/extraction/) | Data extraction processes | Extraction methodology and AI-assisted workflows |
+| [Risk of Bias Assessment Stage](stages/risk_of_bias_assessment/) | Study risk-of-bias assessment workflows | Risk-of-bias protocol, judgements, quality control, and summary statistics |
 | [Synthesis Stage](stages/synthesis/) | Data synthesis workflows | Analysis procedures and evidence synthesis documentation |
 | [Reporting Stage](stages/reporting/) | Optional reporting and publication workflows | Reporting checklist, PRISMA flow, and publication documentation |
 

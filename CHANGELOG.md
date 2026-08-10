@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.2] - 2026-08-10
+### Added
+- Added optional `ScreeningDecision` fields for enriched screening outputs: `pdf_id`, `doi`, `article_type`, `detected_language`, `topic_relevance_score`, `topic_relevance_confidence`, and singular `exclusion_reason`.
+
 ## [prisma-2020-1.0.1] - 2026-06-30
 ### Changed
 - Item 19 (results of individual studies) now maps to `LiteratureRecord.study_results` instead of the removed `results_summary` slot; `prisma-2020.shacl.ttl` regenerated accordingly.

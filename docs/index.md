@@ -138,7 +138,7 @@ lists them automatically from the git tags.
 - **stable** - the most recent release
 - **latest** - the development build from `main`
 - each released version is reachable at `https://revaise-model.readthedocs.io/<version>/`
-  (e.g. `0.6.1`), with its artifacts under `…/<version>/api/`.
+  (e.g. `0.7.2`), with its artifacts under `…/<version>/api/`.
 
 ## Getting Started
 
